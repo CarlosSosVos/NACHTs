@@ -1,5 +1,5 @@
 
-package Flex;
+package calichescript;
 
 %%
 %unicode 
@@ -10,7 +10,6 @@ package Flex;
 
 %state COMMENT
 %state L_COMMENT
-%state STRING
 
 %{
     public String accum = "";
@@ -27,12 +26,13 @@ digit = [0-9]
 id = {letter}({letter}|{digit})*
 numbers = {digit}+
 anything = [\s]|[\S]
-simple_quote = "'"
+simple_quote = "\'"
 double_quote= "\""
+hash = [#] 
 def_char= {simple_quote}{anything}{simple_quote}
 //comentarios
-s_comment = "#*"
-e_comment ="*#"
+s_comment = {hash}("*")
+e_comment =("*"){hash}
 l_comment= "##"
 //saltos de linea y espacios
 newline = [\n]
@@ -42,6 +42,7 @@ spaces = [ \n\t\r]
 integer = "int"
 character= "chr"
 bool = "bool"
+string = "\""[^["\""]]+"\"" 
 if = "if"
 else ="else"
 while= "wh"
@@ -53,6 +54,12 @@ true = "true"
 false ="false"
 null="null"
 break ="brk"
+function = "fnc"
+upTo = "upTo"
+downTo= "dwnTo"
+step = "step"
+var = "var"
+
 //Escritura y lectura
 
 input = "input"
@@ -94,6 +101,11 @@ colon=":"
 %%
 
 <YYINITIAL> {
+    {hash} {
+        String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
+        accum+= output +"\n";
+        System.out.println("Definicion del caracter:" + output);
+    }
     {s_comment} { 
         System.out.print(yytext());
     
@@ -113,6 +125,33 @@ colon=":"
         accum+= output +"\n";
         System.out.println("Definicion del caracter:" + output);
     }
+    {upTo} {
+        String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
+        accum+= output +"\n";
+        System.out.println("Definicion del caracter:" + output);
+    }
+    {downTo} {
+        String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
+        accum+= output +"\n";
+        System.out.println("Definicion del caracter:" + output);
+    }
+    {step} {
+        String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
+        accum+= output +"\n";
+        System.out.println("Definicion del caracter:" + output);
+    }
+    {var} {
+        String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
+        accum+= output +"\n";
+        System.out.println("Definicion del caracter:" + output);
+    }
+
+    {string} {
+        String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
+        accum+= output +"\n";
+        System.out.println("Definicion del caracter:" + output);
+    }
+
     {simple_quote} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
@@ -373,8 +412,4 @@ colon=":"
 
     }
 }
-<STRING> {
-    {double_quote} {
 
-    } 
-}
