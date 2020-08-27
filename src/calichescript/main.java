@@ -4,15 +4,16 @@
  * and open the template in the editor.
  */
 package calichescript;
+
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -168,44 +169,48 @@ public class main extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    
-    private String getText(File file) throws FileNotFoundException, IOException{
-        clear();
-        BufferedReader br = new BufferedReader(new FileReader(file));
-        String st;
+
+    private String getText(File file) throws FileNotFoundException, IOException {
         String out = "";
-        while ((st = br.readLine()) != null) {
-            //System.out.println(st);
-            out += st + "\n";
+
+        if (file != null) {
+            clear();
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String st;
+            while ((st = br.readLine()) != null) {
+                out += st + "\n";
+            }
+            br.close();
+        } else {
+            JOptionPane.showMessageDialog(this, "No se cargo ningun archivo");
         }
-        br.close();
         return out;
     }
-    
-    void clear(){
+
+    void clear() {
         this.txt_code.setText("");
         this.txt_result.setText("");
     }
-    
+
     public void generateLexer() {
         String paramsLexer[] = new String[3];
         paramsLexer[0] = "-d";
         paramsLexer[1] = "src/calichescript/";
         paramsLexer[2] = "src/tools/CalicheScript.jflex";
-        
+
         try {
             jflex.Main.generate(paramsLexer);
         } catch (Exception e) {
             System.out.println(e);
         }
     }
-   
-    
+
+
     private void menu_openFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_openFileActionPerformed
         JFileChooser jfc = new JFileChooser("./test_files/");
         FileNameExtensionFilter filter = new FileNameExtensionFilter("CalicheScript files.", "cal");
         jfc.setFileFilter(filter);
-
+        
         int op = jfc.showOpenDialog(this);
         if (op == 0) {
             this.input_file = jfc.getSelectedFile();
@@ -235,7 +240,7 @@ public class main extends javax.swing.JFrame {
         try {
             br = new BufferedReader(new FileReader(this.input_file));
             Lexer lex = new Lexer(br);
-            lex.yylex();            
+            lex.yylex();
             this.txt_result.setText(lex.getAccum());
         } catch (FileNotFoundException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
