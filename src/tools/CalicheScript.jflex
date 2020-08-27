@@ -8,8 +8,8 @@ package calichescript;
 %int
 %class Lexer
 
-%state COMMENT
-%state L_COMMENT
+//%state COMMENT
+//%state L_COMMENT 
 
 %{
     public String accum = "";
@@ -28,12 +28,15 @@ numbers = {digit}+
 anything = [\s]|[\S]
 simple_quote = "\'"
 double_quote= "\""
-hash = [#] 
-def_char= {simple_quote}{anything}{simple_quote}
+hash = [#]
+asterisk = [*] 
+//def_char= {simple_quote}{anything}{simple_quote}
 //comentarios
-s_comment = {hash}("*")
-e_comment =("*"){hash}
-l_comment= "##"
+comment = "#*" [^*] ~"*#" | "#*" "*"+ "#"
+s_comment = {hash}{asterisk}
+e_comment ={asterisk}{hash}
+//l_comment= {hash}{hash}
+l_comment = "##"[^["\n"]]+"\n"
 //saltos de linea y espacios
 newline = [\n]
 spaces = [ \n\t\r]
@@ -104,52 +107,76 @@ colon=":"
     {hash} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println("Definicion del caracter:" + output);
+        System.out.println(output);
     }
-    {s_comment} { 
-        System.out.print(yytext());
-    
-        yybegin(COMMENT);    
+    {comment} {
+        String output = "Se encuentra comentario en ("+ yyline +","+ yycolumn+")\n" +yytext();
+        accum+= output +"\n";
+        System.out.println(output); 
+        
+        //yybegin(COMMENT);    
     }   
-
+    /*
+    {s_comment} {
+        System.out.print("comienzo de comentario"); 
+        System.out.print(yytext());    
+        yybegin(COMMENT);    
+    }*/   
+    
     {l_comment} {
-        System.out.print(yytext()); 
-        yybegin(L_COMMENT);
+    
+        String output = "Se encuentra comentario de linea en ("+ yyline +","+ yycolumn+")\n" +yytext();
+        accum+= output +"\n";
+        System.out.println(output);    
+    }
+    {newline} {
+                //System.out.println("encuentra salto de linea"); 
+
     }
     {spaces} {
+                //System.out.println("encuentra espacio"); 
 
     }
-
+    
+    {numbers} {
+        String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
+        accum+= output +"\n";
+        System.out.println(output);
+        
+    }
+    
+    /*
     {def_char} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
         System.out.println("Definicion del caracter:" + output);
     }
+    */
     {upTo} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println("Definicion del caracter:" + output);
+        System.out.println(output);
     }
     {downTo} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println("Definicion del caracter:" + output);
+        System.out.println(output);
     }
     {step} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println("Definicion del caracter:" + output);
+        System.out.println(output);
     }
     {var} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println("Definicion del caracter:" + output);
+        System.out.println(output);
     }
 
     {string} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println("Definicion del caracter:" + output);
+        System.out.println("Definicion del string: " + output);
     }
 
     {simple_quote} {
@@ -387,7 +414,7 @@ colon=":"
     }
 
 }
-<COMMENT> {
+/*<COMMENT> {
     {e_comment} {
         System.out.println(yytext());
         accum+= yytext() + "\n" ;
@@ -411,5 +438,5 @@ colon=":"
         accum+= yytext();
 
     }
-}
+}*/
 

@@ -1,9 +1,9 @@
-#
 main() {
-#* este es 
-un comentario de multiple
-linea *#
+    
+#* este es un comentario de multiple linea *#
+
 ## este es un comentario
+
 
     int a1,b;
     int b1:=1;

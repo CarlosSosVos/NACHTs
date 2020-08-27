@@ -236,7 +236,7 @@ public class main extends javax.swing.JFrame {
             br = new BufferedReader(new FileReader(this.input_file));
             Lexer lex = new Lexer(br);
             lex.yylex();            
-            System.out.println("entrar aqui");
+            this.txt_result.setText(lex.getAccum());
         } catch (FileNotFoundException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
