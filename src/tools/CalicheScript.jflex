@@ -45,7 +45,7 @@ spaces = [ \n\t\r]
 integer = "int"
 character= "chr"
 bool = "bool"
-string = "\""[^["\""]]+"\"" 
+string = "string"
 if = "if"
 else ="else"
 while= "wh"
@@ -63,6 +63,7 @@ downTo= "dwnTo"
 step = "step"
 var = "var"
 
+cont_string = ("\""[^["\""]]+"\"")|("\"\"") 
 //Escritura y lectura
 
 input = "input"
@@ -176,6 +177,12 @@ colon=":"
     {string} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
+        System.out.println(output);
+    }
+
+    {cont_string} {
+        String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
+        accum+= output +"\n";
         System.out.println("Definicion del string: " + output);
     }
 
@@ -185,11 +192,11 @@ colon=":"
         System.out.println(output);
     }
 
-    {double_quote} {
+    /*{double_quote} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
         System.out.println(output);
-    }
+    } */
 
     {integer} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
