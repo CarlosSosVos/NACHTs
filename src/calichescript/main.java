@@ -8,6 +8,7 @@ package calichescript;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -407,10 +408,14 @@ public class main extends javax.swing.JFrame {
     private void Save_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Save_BTActionPerformed
         try {
             String temp=this.txt_code.getText();
-            System.out.println("-----"+this.txt_code.getText().equals(this.getText(input_file)));
+            //System.out.println("-----"+this.txt_code.getText().equals(this.getText(input_file)));
+            FileOutputStream archivo=new FileOutputStream(this.input_file);
+            byte[] bytesTxt=this.txt_code.getText().getBytes();
+            archivo.write(bytesTxt);
             this.txt_code.setText(temp);
-        } catch (Exception ex) {
-            
+            System.out.println("se Modifico");
+        }catch (Exception ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }//GEN-LAST:event_Save_BTActionPerformed
