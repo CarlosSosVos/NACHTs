@@ -338,7 +338,7 @@ public class main extends javax.swing.JFrame {
         paramsLexer[2] = "src/tools/CalicheScript.jflex";
         
         String parametros[] = { "-destdir", "src/calichescript/", "-parser", "parser",
-                "src/tools/parser.cup" };
+                "src/tools/parser.cup"};
 
         try {
             java_cup.Main.main(parametros);
@@ -382,7 +382,7 @@ public class main extends javax.swing.JFrame {
         try {
             br = new BufferedReader(new FileReader(this.input_file));
             Lexer lex = new Lexer(br);
-            lex.yylex();
+            //lex.yylex();
             this.txt_result.setText(lex.getAccum());
         } catch (FileNotFoundException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);

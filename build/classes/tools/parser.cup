@@ -19,6 +19,8 @@ terminal String FUNCTION,NUM,UPTO,DOWNTO,STEP,VARIABLE,STRING,
 
 non terminal S;
 
+precedence left OPSUM,OPMULT;
+
 start with S;
 
-S ::= NUM ;
+S ::= NUM:N{: RESULT = new Integer(Integer.parseInt(N));  :} ;
