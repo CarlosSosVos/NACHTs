@@ -67,6 +67,7 @@ public class main extends javax.swing.JFrame {
         menu_openFile = new javax.swing.JMenuItem();
         menu_genFlex = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         New_file_JF.setBackground(new java.awt.Color(0, 0, 0));
@@ -158,6 +159,7 @@ public class main extends javax.swing.JFrame {
         txt_code.setRows(5);
         jScrollPane1.setViewportView(txt_code);
 
+        txt_result.setEditable(false);
         txt_result.setColumns(20);
         txt_result.setRows(5);
         jScrollPane2.setViewportView(txt_result);
@@ -240,7 +242,7 @@ public class main extends javax.swing.JFrame {
             }
         });
 
-        menu_openFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        menu_openFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         menu_openFile.setText("Abrir archivo");
         menu_openFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -249,7 +251,7 @@ public class main extends javax.swing.JFrame {
         });
         jMenu1.add(menu_openFile);
 
-        menu_genFlex.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.CTRL_MASK));
+        menu_genFlex.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         menu_genFlex.setText("GenerarFlex");
         menu_genFlex.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -258,7 +260,7 @@ public class main extends javax.swing.JFrame {
         });
         jMenu1.add(menu_genFlex);
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem1.setText("Nuevo Archivo");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -266,6 +268,15 @@ public class main extends javax.swing.JFrame {
             }
         });
         jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuItem2.setText("Generar Cup");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
 
@@ -312,13 +323,25 @@ public class main extends javax.swing.JFrame {
     }
 
     public void generateLexer() {
+      
+        String parametros[] = {"-d","src/calichescript/","src/tools/CalicheScript.jflex"};
+        try {
+            jflex.Main.generate(parametros);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    public void generateCup() {
         String paramsLexer[] = new String[3];
-        paramsLexer[0] = "-d";
+        paramsLexer[0] = "-destdir";
         paramsLexer[1] = "src/calichescript/";
         paramsLexer[2] = "src/tools/CalicheScript.jflex";
+        
+        String parametros[] = { "-destdir", "src/calichescript/", "-parser", "parser",
+                "src/tools/parser.cup" };
 
         try {
-            jflex.Main.generate(paramsLexer);
+            java_cup.Main.main(parametros);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -430,6 +453,11 @@ public class main extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_name_tfActionPerformed
 
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        this.generateCup();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -480,6 +508,7 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

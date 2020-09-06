@@ -1,0 +1,24 @@
+package calichescript;
+import java_cup.runtime.*;
+import java.util.ArrayList;
+
+parser code {:
+
+
+
+:}
+
+terminal String FUNCTION,NUM,UPTO,DOWNTO,STEP,VARIABLE,STRING,
+                CONSTSTRING,INTEGER,CHARACTER,BOOLEAN,IF,ELSE,
+                WHILE,FOR,RETURN,VOID,TRUE,FALSE,BREAK,NULL,
+                INPUT,OUTPUT,SWITCH,CASE,OPTION,DEFAULT,ID,
+                OPCOMP,OPDIF,OPGREATER,OPGREATEREQ,OPLESS,OPLESSEQ,
+                OPCOND,OPOR,OPAND,OPMOD,OPMULT,OPSUM,OPINC,OPASIGN,
+                OPASIGNADD,OPASIGNMULT,L_KEY,R_KEY,L_BRACKET,R_BRACKET,
+                L_PAR,R_PAR,COMMA,SEMICOLON,COLON;
+
+non terminal S;
+
+start with S;
+
+S ::= NUM ;
