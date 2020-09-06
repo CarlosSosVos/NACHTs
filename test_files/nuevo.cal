@@ -24,18 +24,30 @@ fnc main () :main {
 	
     ##iteración por incremento
     ##x<=5
-    for (x,1 upTo 5, step(1)) {
+    for (x:int,1 upTo 5, step(1)) {
 	x++;
     }
  
     ##Iteración por decremento
     ##y>=1
-    for (y,5 downTo 1,step(1)) {
+    for (y:int ,5 downTo 1,step(1)) {
 	output("hola");  
     }
 
     wh(true){
 	output("solo una vez, no harás más");
 	brk;
-    }   
+    }
+    
+    var x:int := 0;
+    wh(x < 10){
+        x++;
+        x++;
+        x-=1;	
+    
+    }     
+
+	
+
+   
 }

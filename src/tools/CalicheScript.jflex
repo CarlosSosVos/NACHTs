@@ -68,10 +68,10 @@ cont_string = ("\""[^["\""]]+"\"")|("\"\"")
 
 input = "input"
 output = "output"
-
 //switch propio
-switch = "switch"
+switch = "sw"
 case = "case"
+option = "option"
 default= "dft"
 
 //operadores relacionales
@@ -85,11 +85,16 @@ OPCOND ="?"
 OPAND ="&&"
 OPOR="||"
 OPMOD= "%"
+
 //operadores aritmeticos
 OPMULT = "*"|"/"
 OPSUM = "+"|"-"
 OPINC = "++"|"--"
+//operadores de asignacion
 OPASIGN=":="
+OPASIGNADD= "+=" | "-="
+OPASIGNMULT= "*=" | "/="
+
 
 //separadores y delimitadores
 l_key = "{"
@@ -105,7 +110,12 @@ colon=":"
 %%
 
 <YYINITIAL> {
-    {hash} {
+    /*{hash} {
+        String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
+        accum+= output +"\n";
+        System.out.println(output);
+    }*/
+    {function} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
         System.out.println(output);
@@ -142,8 +152,7 @@ colon=":"
     {numbers} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
-        
+        System.out.println(output);    
     }
     
     /*
@@ -288,6 +297,11 @@ colon=":"
         accum+= output +"\n";
         System.out.println(output); 
     }
+    {option} {
+        String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
+        accum+= output +"\n";
+        System.out.println(output); 
+    }
     {default} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
@@ -365,6 +379,16 @@ colon=":"
         System.out.println(output); 
     }
     {OPASIGN} {
+        String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
+        accum+= output +"\n";
+        System.out.println(output); 
+    }
+    {OPASIGNADD} {
+        String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
+        accum+= output +"\n";
+        System.out.println(output); 
+    }
+    {OPASIGNMULT} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
         System.out.println(output); 
