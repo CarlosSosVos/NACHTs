@@ -17,10 +17,17 @@ terminal String FUNCTION,NUM,UPTO,DOWNTO,STEP,VARIABLE,STRING,
                 OPASIGNADD,OPASIGNMULT,L_KEY,R_KEY,L_BRACKET,R_BRACKET,
                 L_PAR,R_PAR,COMMA,SEMICOLON,COLON;
 
-non terminal S;
+non terminal inicio,dec_gen_fun,dec_funcion,parametros,lista_parametro,
+             def_parametro,nuevo_parametro,func_lenguaje,func_input,
+             func_output,dec_general,dec_variable,dec_var,dec_inst,
+             arr_cont,dec_var_inst,valor,math_op,sum_op,m_op,mult_op,
+             val,dec_while,dec_for,dec_switch,list_op,new_op,dec_if,
+             dec_else,dec_llamada_funcion,llamada_parametros,
+             lista_valores,fin_llamada,condicion,valor_cond,dec_return
+             tipo;
 
 precedence left OPSUM,OPMULT;
 
-start with S;
+start with inicio;
 
-S ::= NUM:N{: RESULT = new Integer(Integer.parseInt(N));  :} ;
+inicio ::= NUM:N{: RESULT = new Integer(Integer.parseInt(N));  :} ;
