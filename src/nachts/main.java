@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package calichescript;
+package nachts;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -242,7 +242,7 @@ public class main extends javax.swing.JFrame {
             }
         });
 
-        menu_openFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menu_openFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         menu_openFile.setText("Abrir archivo");
         menu_openFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -251,7 +251,7 @@ public class main extends javax.swing.JFrame {
         });
         jMenu1.add(menu_openFile);
 
-        menu_genFlex.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menu_genFlex.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.CTRL_MASK));
         menu_genFlex.setText("GenerarFlex");
         menu_genFlex.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -260,7 +260,7 @@ public class main extends javax.swing.JFrame {
         });
         jMenu1.add(menu_genFlex);
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem1.setText("Nuevo Archivo");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -269,7 +269,7 @@ public class main extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem2.setText("Generar Cup");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -324,7 +324,7 @@ public class main extends javax.swing.JFrame {
 
     public void generateLexer() {
       
-        String parametros[] = {"-d","src/calichescript/","src/tools/CalicheScript.jflex"};
+        String parametros[] = {"-d","src/nachts/","src/tools/nachts.jflex"};
         try {
             jflex.Main.generate(parametros);
         } catch (Exception e) {
@@ -332,12 +332,8 @@ public class main extends javax.swing.JFrame {
         }
     }
     public void generateCup() {
-        String paramsLexer[] = new String[3];
-        paramsLexer[0] = "-destdir";
-        paramsLexer[1] = "src/calichescript/";
-        paramsLexer[2] = "src/tools/CalicheScript.jflex";
         
-        String parametros[] = { "-destdir", "src/calichescript/", "-parser", "parser",
+        String parametros[] = { "-destdir", "src/nachts/", "-parser", "parser",
                 "src/tools/parser.cup"};
 
         try {
@@ -350,7 +346,7 @@ public class main extends javax.swing.JFrame {
 
     private void menu_openFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_openFileActionPerformed
         JFileChooser jfc = new JFileChooser("./test_files/");
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("CalicheScript files.", "cal");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("NACHTs", "ncht");
         jfc.setFileFilter(filter);
         
         int op = jfc.showOpenDialog(this);
