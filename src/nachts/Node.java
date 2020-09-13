@@ -12,4 +12,8 @@ package nachts;
 public class Node {
     public String node;
     
+    /*
+    To DO 
+    
+    */
 }

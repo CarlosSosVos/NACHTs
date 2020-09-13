@@ -5,6 +5,7 @@
  */
 package nachts;
 
+import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -66,8 +67,9 @@ public class main extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         menu_openFile = new javax.swing.JMenuItem();
         menu_genFlex = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        menu_new = new javax.swing.JMenuItem();
+        menu_genCup = new javax.swing.JMenuItem();
+        menu_lenguaje = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         New_file_JF.setBackground(new java.awt.Color(0, 0, 0));
@@ -172,6 +174,11 @@ public class main extends javax.swing.JFrame {
         });
 
         jButton2.setText("jButton2");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Texto de Entrada");
@@ -260,23 +267,31 @@ public class main extends javax.swing.JFrame {
         });
         jMenu1.add(menu_genFlex);
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem1.setText("Nuevo Archivo");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        menu_new.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        menu_new.setText("Nuevo Archivo");
+        menu_new.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                menu_newActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        jMenu1.add(menu_new);
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
-        jMenuItem2.setText("Generar Cup");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        menu_genCup.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
+        menu_genCup.setText("Generar Cup");
+        menu_genCup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                menu_genCupActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        jMenu1.add(menu_genCup);
+
+        menu_lenguaje.setText("Manual NACHTs");
+        menu_lenguaje.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_lenguajeActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menu_lenguaje);
 
         jMenuBar1.add(jMenu1);
 
@@ -333,7 +348,7 @@ public class main extends javax.swing.JFrame {
     }
     public void generateCup() {
         
-        String parametros[] = { "-destdir", "src/nachts/", "-parser", "parser",
+        String parametros[] = { "-destdir", "src/nachts/", "-parser", "parser","-symbols","Sym",
                 "src/tools/parser.cup"};
 
         try {
@@ -387,11 +402,11 @@ public class main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btn_runActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void menu_newActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_newActionPerformed
         //this.setVisible(false);
         this.New_file_JF.pack();
         this.New_file_JF.setVisible(true);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_menu_newActionPerformed
 
     private void Ok_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Ok_BTActionPerformed
         if (!name_tf.getText().equals("")) {
@@ -449,10 +464,30 @@ public class main extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_name_tfActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void menu_genCupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_genCupActionPerformed
         this.generateCup();
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }//GEN-LAST:event_menu_genCupActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try {
+            parser p = new parser();
+            
+            
+        } catch (Exception ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+             
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void menu_lenguajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_lenguajeActionPerformed
+        try {
+            File htmlFile = new File("principal.html");
+            Desktop.getDesktop().browse(htmlFile.toURI());
+        } catch (IOException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_menu_lenguajeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -503,14 +538,15 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JMenuItem menu_genCup;
     private javax.swing.JMenuItem menu_genFlex;
+    private javax.swing.JMenuItem menu_lenguaje;
+    private javax.swing.JMenuItem menu_new;
     private javax.swing.JMenuItem menu_openFile;
     private javax.swing.JTextField name_tf;
     private javax.swing.JTextArea txt_Ncode;
