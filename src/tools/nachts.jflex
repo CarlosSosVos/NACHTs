@@ -70,7 +70,10 @@ step = "step"
 var = "var"
 at= "at"
 
-cont_string = ("\""[^["\""]]+"\"")|("\"\"") 
+cont_string = ("\""[^["\""]]+"\"")|("\"\"")
+
+cont_char = ("\'"[^["\'"]]"\'")|("\'\'") 
+
 //Escritura y lectura
 
 input = "input"
@@ -117,6 +120,7 @@ r_par=")"
 comma =","
 semicolon=";"
 colon=":"
+dot="."
 
 %%
 
@@ -209,6 +213,13 @@ colon=":"
         accum+= output +"\n";
         System.out.println("Definicion del string: " + output);
         return new Symbol(Sym.CONSTSTRING, yycolumn, yyline, yytext());
+    }
+
+    {cont_string} {
+        String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
+        accum+= output +"\n";
+        System.out.println("Definicion del caracter: " + output);
+        return new Symbol(Sym.CONSTCHAR, yycolumn, yyline, yytext());
     }
 
     {simple_quote} {
@@ -518,6 +529,14 @@ colon=":"
         System.out.println(output);
         return new Symbol(Sym.COLON, yycolumn, yyline, yytext());
     }
+
+    {dot} {
+        String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
+        accum+= output +"\n";
+        System.out.println(output);
+        return new Symbol(Sym.DOT, yycolumn, yyline, yytext());
+    }
+
     .   {
         String error = "ERROR EN" + "("+ yyline +","+ yycolumn+")" + ", token no reconocido";
         accum+= error +"\n";

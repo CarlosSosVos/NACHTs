@@ -9,12 +9,12 @@ parser code {:
 :}
 
 terminal String FUNCTION,NUM,UPTO,DOWNTO,STEP,VARIABLE,STRING,
-                CONSTSTRING,INTEGER,CHARACTER,BOOLEAN,IF,ELSE,
+                CONSTSTRING,CONSTCHAR,INTEGER,CHARACTER,BOOLEAN,IF,ELSE,
                 WHILE,FOR,RETURN,VOID,TRUE,FALSE,BREAK,NULL,
                 INPUT,OUTPUT,SWITCH,CASE,OPTION,DEFAULT,ID,
                 OPREL,OPCOND,OPLOG,OPMOD,OPMULT,OPSUM,OPINC,OPASIGN,
                 OPASIGNADD,OPASIGNMULT,L_KEY,R_KEY,L_BRACKET,R_BRACKET,
-                L_PAR,R_PAR,COMMA,SEMICOLON,COLON,AT, EMPTY;
+                L_PAR,R_PAR,COMMA,SEMICOLON,COLON,AT,DOT;
 
 non terminal inicio,dec_gen_fun,dec_funcion,parametros,lista_parametro,
              def_parametro,nuevo_parametro,func_lenguaje,func_input,
@@ -55,13 +55,13 @@ dec_variable ::= VARIABLE ID COLON tipo dec_var | VARIABLE ID L_BRACKET NUM R_BR
 
 dec_var ::= dec_inst SEMICOLON | COMMA ID COLON tipo dec_inst dec_var | COMMA ID L_BRACKET NUM R_BRACKET COLON tipo dec_inst dec_var ;
 
-dec_inst ::= OPASIGN ID | OPASIGN ID /* punto*/ AT L_PAR NUM R_PAR | OPASIGN NUM | OPASIGN CONSTSTRING | OPASIGN /* char*/  | OPASIGN TRUE | OPASIGN FALSE | OPASIGN dec_llamada_funcion | OPASIGN L_KEY valor  arr_cont R_KEY | ;
+dec_inst ::= OPASIGN ID | OPASIGN ID DOT AT L_PAR NUM R_PAR | OPASIGN NUM | OPASIGN CONSTSTRING | OPASIGN CONSTCHAR  | OPASIGN TRUE | OPASIGN FALSE | OPASIGN dec_llamada_funcion | OPASIGN L_KEY valor  arr_cont R_KEY | ;
 
 arr_cont ::= COMMA valor arr_cont | ;
 
-dec_var_inst ::= ID OPASIGN valor SEMICOLON| ID /*punto*/ AT L_PAR NUM R_PAR OPASIGN valor SEMICOLON;
+dec_var_inst ::= ID OPASIGN valor SEMICOLON| ID DOT AT L_PAR NUM R_PAR OPASIGN valor SEMICOLON;
 
-valor ::= NUM | CONSTSTRING | /* char */ | TRUE | FALSE | math_op ;
+valor ::= NUM | CONSTSTRING | CONSTCHAR | TRUE | FALSE | math_op ;
 
 math_op ::= m_op sum_op ;
 
