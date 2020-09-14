@@ -12,6 +12,7 @@ public class Sym {
   public static final int L_KEY = 41;
   public static final int OPSUM = 36;
   public static final int OPCOND = 32;
+  public static final int EMPTY = 52;
   public static final int OUTPUT = 25;
   public static final int INPUT = 24;
   public static final int CASE = 27;
@@ -112,7 +113,8 @@ public class Sym {
   "SEMICOLON",
   "COLON",
   "AT",
-  "DOT"
+  "DOT",
+  "EMPTY"
   };
 }
 

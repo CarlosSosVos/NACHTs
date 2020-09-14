@@ -1,5 +1,6 @@
-fnc suma (a:int, b:int) :int {
-    rtn a + b
+fnc suma (var x:int):int {
+    rtn;
+    rtn a + b;
 }
 
 #* 

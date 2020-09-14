@@ -26,7 +26,7 @@ parser code {:
                 return value;
         }
     }   
-
+    
     @Override
     public void syntax_error(Symbol s){
         String lex = s.value != null ? s.value.toString() : getToken(s.sym);
@@ -56,7 +56,7 @@ parser code {:
         System.err.println(err);
         errores.add(err);
     }
-
+    
 
 :}
 
@@ -66,7 +66,7 @@ terminal String FUNCTION,NUM,UPTO,DOWNTO,STEP,VARIABLE,STRING,
                 INPUT,OUTPUT,SWITCH,CASE,OPTION,DEFAULT,ID,
                 OPREL,OPCOND,OPLOG,OPMOD,OPMULT,OPSUM,OPINC,OPASIGN,
                 OPASIGNADD,OPASIGNMULT,L_KEY,R_KEY,L_BRACKET,R_BRACKET,
-                L_PAR,R_PAR,COMMA,SEMICOLON,COLON,AT,DOT;
+                L_PAR,R_PAR,COMMA,SEMICOLON,COLON,AT,DOT,EMPTY;
 
 non terminal Node inicio,dec_gen_fun,dec_funcion,parametros,/*lista_parametro,
              def_parametro,*/nuevo_parametro,func_lenguaje,func_input,
@@ -75,15 +75,19 @@ non terminal Node inicio,dec_gen_fun,dec_funcion,parametros,/*lista_parametro,
              val,dec_while,dec_for,dec_switch,list_op,new_op,dec_if,
              dec_else,dec_llamada_funcion,llamada_parametros,
              lista_valores,fin_llamada,condicion,valor_cond,dec_return,
-             tipo;
+             tipo,empty;
 
 precedence left OPSUM,OPMULT;
 precedence left OPASIGN;
+precedence nonassoc ELSE;
+precedence left R_PAR;
 
 start with inicio;
 
-inicio ::= dec_general:dg dec_gen_fun:dgf
+inicio ::= dec_funcion:dg dec_gen_fun:dgf
     {:
+    System.out.println("Entra a inicio");
+
     Node node = new Node();
     node.setEtiqueta("INICIO");
     node.setID(parser.cont);
@@ -95,19 +99,29 @@ inicio ::= dec_general:dg dec_gen_fun:dgf
     
     :} ;
     
+empty ::= EMPTY {:
+                Node node = new Node();
+                RESULT = node;
+            :};
+
 dec_gen_fun ::= dec_funcion:df dec_gen_fun:dgf
             {:
+                System.err.println("Entra a dec_gen_fun");
+
                 Node node = new Node();
                 RESULT = node;
             :}
- | {:
+            | empty
+            {:
                 Node node = new Node();
                 RESULT = node;
             :}
 ;
 
-dec_funcion ::= FUNCTION ID L_PAR parametros R_PAR COLON tipo L_KEY dec_general dec_return R_KEY
+dec_funcion ::= FUNCTION ID L_PAR parametros COLON tipo L_KEY dec_general R_KEY
             {:
+               System.err.println("Entra a dec_funcion");
+
                 Node node = new Node();
                 RESULT = node;
             :}
@@ -119,12 +133,17 @@ lista_parametro ::= def_parametro | ;
 
 def_parametro ::= VARIABLE ID COLON tipo nuevo_parametro ;*/
 
-parametros ::= VARIABLE ID COLON tipo nuevo_parametro
+parametros ::= VARIABLE ID COLON tipo nuevo_parametro R_PAR
                 {:
                 Node node = new Node();
                 RESULT = node;
                 :}
-               |
+               |VARIABLE ID COLON tipo R_PAR 
+               {:
+                Node node = new Node();
+                RESULT = node;
+               :} 
+               |R_PAR
                {:
                 Node node = new Node();
                 RESULT = node;
@@ -135,7 +154,7 @@ nuevo_parametro ::=COMMA VARIABLE ID COLON tipo nuevo_parametro
                 Node node = new Node();
                 RESULT = node;
                 :}
-                |
+                | COMMA VARIABLE ID COLON tipo
                 {:
                 Node node = new Node();
                 RESULT = node;
@@ -222,7 +241,7 @@ dec_general ::= dec_variable dec_general:dg
                 Node node = new Node();
                 RESULT = node;
                 :}
-               | 
+               | dec_return
                 {:
                 Node node = new Node();
                 RESULT = node;
@@ -303,7 +322,7 @@ dec_inst ::= OPASIGN ID
                 Node node = new Node();
                 RESULT = node;
              :}
-             |
+             |empty
              {:
                 Node node = new Node();
                 RESULT = node;
@@ -315,7 +334,7 @@ arr_cont ::= COMMA valor arr_cont
                 Node node = new Node();
                 RESULT = node;
             :}
-            |
+            |empty
             {:
                 Node node = new Node();
                 RESULT = node;
@@ -373,7 +392,7 @@ sum_op ::= OPSUM m_op sum_op
                 Node node = new Node();
                 RESULT = node;
             :}
-            |
+            |empty
             {:
                 Node node = new Node();
                 RESULT = node;
@@ -385,13 +404,13 @@ m_op ::= val mult_op
                 Node node = new Node();
                 RESULT = node;
             :};
-
+            // 
 mult_op ::= OPMULT val mult_op 
             {:
                 Node node = new Node();
                 RESULT = node;
             :}
-            |
+            |empty
             {:
                 Node node = new Node();
                 RESULT = node;
@@ -493,7 +512,7 @@ dec_else ::= ELSE dec_if
                 Node node = new Node();
                 RESULT = node;
             :}
-            | 
+            | empty
             {:
                 Node node = new Node();
                 RESULT = node;
@@ -512,7 +531,7 @@ llamada_parametros ::= valor lista_valores
                 Node node = new Node();
                 RESULT = node;
             :}
-            | 
+            | empty
             {:
                 Node node = new Node();
                 RESULT = node;
@@ -524,7 +543,7 @@ lista_valores ::= COMMA valor
                 Node node = new Node();
                 RESULT = node;
             :}
-            |
+            |empty
             {:
                 Node node = new Node();
                 RESULT = node;

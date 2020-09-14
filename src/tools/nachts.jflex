@@ -46,6 +46,7 @@ l_comment = "##"[^["\n"]]+"\n"
 //saltos de linea y espacios
 newline = [\n]
 spaces = [ \n\t\r]
+empty = ""
 
 //reservadas
 integer = "int"
@@ -69,6 +70,7 @@ downTo= "dwnTo"
 step = "step"
 var = "var"
 at= "at"
+return = "rtn"
 
 cont_string = ("\""[^["\""]]+"\"")|("\"\"")
 
@@ -173,7 +175,14 @@ dot="."
         accum+= output +"\n";
         System.out.println(output);
         return new Symbol(Sym.UPTO, yycolumn, yyline, yytext());
+    }   
+    {empty} {
+        String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
+        accum+= output +"\n";
+        System.out.println(output);
+        return new Symbol(Sym.EMPTY, yycolumn, yyline, yytext());
     }
+    
     {downTo} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
@@ -215,7 +224,7 @@ dot="."
         return new Symbol(Sym.CONSTSTRING, yycolumn, yyline, yytext());
     }
 
-    {cont_string} {
+    {cont_char} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
         System.out.println("Definicion del caracter: " + output);
