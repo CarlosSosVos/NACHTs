@@ -338,18 +338,19 @@ public class main extends javax.swing.JFrame {
     }
 
     public void generateLexer() {
-      
-        String parametros[] = {"-d","src/nachts/","src/tools/nachts.jflex"};
+
+        String parametros[] = {"-d", "src/nachts/", "src/tools/nachts.jflex"};
         try {
             jflex.Main.generate(parametros);
         } catch (Exception e) {
             System.out.println(e);
         }
     }
+
     public void generateCup() {
-        
-        String parametros[] = { "-destdir", "src/nachts/", "-parser", "parser","-symbols","Sym",
-                "src/tools/parser.cup"};
+
+        String parametros[] = {"-destdir", "src/nachts/", "-parser", "parser", "-symbols", "Sym",
+            "src/tools/parser.cup"};
 
         try {
             java_cup.Main.main(parametros);
@@ -363,7 +364,7 @@ public class main extends javax.swing.JFrame {
         JFileChooser jfc = new JFileChooser("./test_files/");
         FileNameExtensionFilter filter = new FileNameExtensionFilter("NACHTs", "ncht");
         jfc.setFileFilter(filter);
-        
+
         int op = jfc.showOpenDialog(this);
         if (op == 0) {
             this.input_file = jfc.getSelectedFile();
@@ -393,11 +394,16 @@ public class main extends javax.swing.JFrame {
         try {
             br = new BufferedReader(new FileReader(this.input_file));
             Lexer lex = new Lexer(br);
+            Lexer lex2 = new Lexer(new FileReader(this.input_file));
+            parser p = new parser(lex2);
+            p.parse();
+
             //lex.yylex();
-            this.txt_result.setText(lex.getAccum());
         } catch (FileNotFoundException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btn_runActionPerformed
@@ -410,16 +416,16 @@ public class main extends javax.swing.JFrame {
 
     private void Ok_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Ok_BTActionPerformed
         if (!name_tf.getText().equals("")) {
-            Path path = Paths.get("./test_files/"+this.name_tf.getText()+".cal");
+            Path path = Paths.get("./test_files/" + this.name_tf.getText() + ".cal");
             try {
                 Files.createDirectories(path.getParent());
                 Files.createFile(path);
-                PrintWriter writer = new PrintWriter(new FileWriter(path.toString(),true));
+                PrintWriter writer = new PrintWriter(new FileWriter(path.toString(), true));
                 writer.append(this.txt_Ncode.getText());
                 writer.close();
                 System.out.println("se creo");
                 this.New_file_JF.setVisible(false);
-                this.input_file=new File("./test_files/"+this.name_tf.getText()+".cal");
+                this.input_file = new File("./test_files/" + this.name_tf.getText() + ".cal");
                 this.txt_Ncode.setText("");
                 this.name_tf.setText("");
                 this.txt_code.setText(this.getText(input_file));
@@ -429,8 +435,8 @@ public class main extends javax.swing.JFrame {
             } catch (IOException ex) {
                 Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
-        }else{
+
+        } else {
             System.out.println("Elija un nombre valido para el archivo");
         }
     }//GEN-LAST:event_Ok_BTActionPerformed
@@ -441,17 +447,17 @@ public class main extends javax.swing.JFrame {
 
     private void Save_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Save_BTActionPerformed
         try {
-            String temp=this.txt_code.getText();
+            String temp = this.txt_code.getText();
             //System.out.println("-----"+this.txt_code.getText().equals(this.getText(input_file)));
-            FileOutputStream archivo=new FileOutputStream(this.input_file);
-            byte[] bytesTxt=this.txt_code.getText().getBytes();
+            FileOutputStream archivo = new FileOutputStream(this.input_file);
+            byte[] bytesTxt = this.txt_code.getText().getBytes();
             archivo.write(bytesTxt);
             this.txt_code.setText(temp);
             System.out.println("se Modifico");
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_Save_BTActionPerformed
 
     private void Cancel_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cancel_BTActionPerformed
@@ -472,12 +478,11 @@ public class main extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
             parser p = new parser();
-            
-            
+
         } catch (Exception ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
-             
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void menu_lenguajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_lenguajeActionPerformed
@@ -525,6 +530,17 @@ public class main extends javax.swing.JFrame {
         });
     }
 
+    public boolean OneMain() {
+        int cont = 0;
+        for (int i = 0; i < 10; i++) {
+            if (i == 11) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cancel_BT;
     private javax.swing.JFrame New_file_JF;
@@ -554,5 +570,5 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JTextArea txt_result;
     // End of variables declaration//GEN-END:variables
     private File input_file;
-    
+
 }

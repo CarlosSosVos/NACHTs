@@ -3,7 +3,57 @@ import java_cup.runtime.*;
 import java.util.ArrayList;
 
 parser code {:
+   ArrayList<String> errores = new ArrayList();
    
+     public String getToken(int id){
+        String value = Sym.terminalNames[id];
+        switch(id){
+            case Sym.L_KEY:
+                return "{";
+            case Sym.R_KEY:
+                return "}";
+            case Sym.L_PAR:
+                return "(";
+            case Sym.R_PAR:
+                return ")";
+            case Sym.L_BRACKET:
+                return "[";
+            case Sym.R_BRACKET:
+                return "]";
+            default:
+                return value;
+        }
+    }   
+
+    @Override
+    public void syntax_error(Symbol s){
+        String lex = s.value != null ? s.value.toString() : getToken(s.sym);
+        int fila = s.right;
+        int columna = s.left;
+        String err = "";
+        if(lex.equals("EOF")){
+            err = "Error sintáctico: Se esperaba el token }";
+        } else {
+            err = "Error sintáctico: " +  " fila: " + fila + " columna: " + columna + ", No se esperaba el token: " + lex;
+        }
+
+        System.err.println(err);
+        errores.add(err);
+    }
+
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception {
+        String lex = s.value != null ? s.value.toString() : getToken(s.sym);
+        int fila = s.right;
+        int columna = s.left;
+        String err = "";
+        if(lex.equals("EOF")){
+            err = "";
+        }else{
+            err = "Error sintáctico, pánico: " + " fila: " + fila + " columna: " + columna + ", No se esperaba el token: " + lex;
+        }
+        System.err.println(err);
+        errores.add(err);
+    }
 
 
 :}
@@ -30,7 +80,7 @@ precedence left OPASIGN;
 
 start with inicio;
 
-inicio ::= dec_general:dg {: RESULT= (Symbol)dg; :} dec_gen_fun:dgf {: RESULT = (Symbol)dgf; :};
+inicio ::= dec_general dec_gen_fun;
 
 dec_gen_fun ::= dec_funcion dec_gen_fun | ;
 
@@ -41,6 +91,7 @@ dec_funcion ::= FUNCTION ID L_PAR parametros R_PAR COLON tipo L_KEY dec_general 
 lista_parametro ::= def_parametro | ;
 
 def_parametro ::= VARIABLE ID COLON tipo nuevo_parametro ;*/
+
 parametros ::= VARIABLE ID COLON tipo nuevo_parametro | ;
 
 nuevo_parametro ::=COMMA VARIABLE ID COLON tipo nuevo_parametro | ;
@@ -63,7 +114,7 @@ arr_cont ::= COMMA valor arr_cont | ;
 
 dec_var_inst ::= ID OPASIGN valor SEMICOLON| ID DOT AT L_PAR NUM R_PAR OPASIGN valor SEMICOLON;
 
-valor ::= NUM | CONSTSTRING | CONSTCHAR | TRUE | FALSE | math_op ;
+valor ::=  CONSTSTRING | CONSTCHAR | TRUE | FALSE | math_op ;
 
 math_op ::= m_op sum_op ;
 
@@ -95,12 +146,12 @@ llamada_parametros ::= valor lista_valores | ;
 
 lista_valores ::= COMMA valor | ;
 
-fin_llamada ::= SEMICOLON | ;
+fin_llamada ::= SEMICOLON ;
 
 condicion ::= valor_cond OPREL valor_cond | valor_cond OPREL valor_cond OPLOG condicion | valor_cond | NULL | valor_cond OPLOG condicion ;
 
 valor_cond ::= NUM | ID | TRUE | FALSE ;
 
-dec_return ::= RETURN dec_llamada_funcion | RETURN SEMICOLON | RETURN valor SEMICOLON | RETURN ID SEMICOLON | RETURN math_op SEMICOLON ;
+dec_return ::= RETURN dec_llamada_funcion | RETURN SEMICOLON | RETURN valor SEMICOLON  ;
 
 tipo ::= BOOLEAN | CHARACTER | INTEGER | VOID | STRING ;

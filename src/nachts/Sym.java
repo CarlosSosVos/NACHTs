@@ -9,55 +9,56 @@ package nachts;
 public class Sym {
   /* terminals */
   public static final int FUNCTION = 2;
-  public static final int L_KEY = 40;
-  public static final int OPSUM = 35;
-  public static final int OPCOND = 31;
-  public static final int EMPTY = 50;
-  public static final int OUTPUT = 24;
-  public static final int INPUT = 23;
-  public static final int CASE = 26;
-  public static final int INTEGER = 10;
-  public static final int R_PAR = 45;
-  public static final int FOR = 16;
-  public static final int CHARACTER = 11;
-  public static final int SEMICOLON = 47;
-  public static final int OPASIGN = 37;
-  public static final int OPTION = 27;
-  public static final int COMMA = 46;
+  public static final int L_KEY = 41;
+  public static final int OPSUM = 36;
+  public static final int OPCOND = 32;
+  public static final int OUTPUT = 25;
+  public static final int INPUT = 24;
+  public static final int CASE = 27;
+  public static final int INTEGER = 11;
+  public static final int R_PAR = 46;
+  public static final int FOR = 17;
+  public static final int CHARACTER = 12;
+  public static final int SEMICOLON = 48;
+  public static final int OPASIGN = 38;
+  public static final int OPTION = 28;
+  public static final int COMMA = 47;
   public static final int UPTO = 4;
-  public static final int OPREL = 30;
-  public static final int R_KEY = 41;
+  public static final int OPREL = 31;
+  public static final int R_KEY = 42;
   public static final int NUM = 3;
-  public static final int IF = 13;
-  public static final int ID = 29;
+  public static final int IF = 14;
+  public static final int DOT = 51;
+  public static final int ID = 30;
   public static final int CONSTSTRING = 9;
-  public static final int R_BRACKET = 43;
+  public static final int R_BRACKET = 44;
   public static final int EOF = 0;
-  public static final int BOOLEAN = 12;
-  public static final int RETURN = 17;
-  public static final int TRUE = 19;
+  public static final int BOOLEAN = 13;
+  public static final int RETURN = 18;
+  public static final int TRUE = 20;
   public static final int error = 1;
-  public static final int NULL = 22;
-  public static final int OPASIGNADD = 38;
-  public static final int OPINC = 36;
-  public static final int BREAK = 21;
-  public static final int VOID = 18;
-  public static final int SWITCH = 25;
-  public static final int COLON = 48;
-  public static final int ELSE = 14;
+  public static final int NULL = 23;
+  public static final int OPASIGNADD = 39;
+  public static final int OPINC = 37;
+  public static final int BREAK = 22;
+  public static final int VOID = 19;
+  public static final int SWITCH = 26;
+  public static final int COLON = 49;
+  public static final int ELSE = 15;
   public static final int VARIABLE = 7;
-  public static final int WHILE = 15;
-  public static final int DEFAULT = 28;
-  public static final int OPMOD = 33;
-  public static final int L_PAR = 44;
-  public static final int OPASIGNMULT = 39;
+  public static final int WHILE = 16;
+  public static final int DEFAULT = 29;
+  public static final int OPMOD = 34;
+  public static final int L_PAR = 45;
+  public static final int OPASIGNMULT = 40;
   public static final int STRING = 8;
+  public static final int CONSTCHAR = 10;
   public static final int DOWNTO = 5;
-  public static final int OPLOG = 32;
-  public static final int AT = 49;
-  public static final int FALSE = 20;
-  public static final int L_BRACKET = 42;
-  public static final int OPMULT = 34;
+  public static final int OPLOG = 33;
+  public static final int AT = 50;
+  public static final int FALSE = 21;
+  public static final int L_BRACKET = 43;
+  public static final int OPMULT = 35;
   public static final int STEP = 6;
   public static final String[] terminalNames = new String[] {
   "EOF",
@@ -70,6 +71,7 @@ public class Sym {
   "VARIABLE",
   "STRING",
   "CONSTSTRING",
+  "CONSTCHAR",
   "INTEGER",
   "CHARACTER",
   "BOOLEAN",
@@ -110,7 +112,7 @@ public class Sym {
   "SEMICOLON",
   "COLON",
   "AT",
-  "EMPTY"
+  "DOT"
   };
 }
 
