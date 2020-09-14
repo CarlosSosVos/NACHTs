@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 parser code {:
    ArrayList<String> errores = new ArrayList();
-   
+   public static Node root;
+   public int cont = 1;
+
      public String getToken(int id){
         String value = Sym.terminalNames[id];
         switch(id){
@@ -66,7 +68,7 @@ terminal String FUNCTION,NUM,UPTO,DOWNTO,STEP,VARIABLE,STRING,
                 OPASIGNADD,OPASIGNMULT,L_KEY,R_KEY,L_BRACKET,R_BRACKET,
                 L_PAR,R_PAR,COMMA,SEMICOLON,COLON,AT,DOT;
 
-non terminal inicio,dec_gen_fun,dec_funcion,parametros,/*lista_parametro,
+non terminal Node inicio,dec_gen_fun,dec_funcion,parametros,/*lista_parametro,
              def_parametro,*/nuevo_parametro,func_lenguaje,func_input,
              func_output,dec_general,dec_variable,dec_var,dec_inst,
              arr_cont,dec_var_inst,valor,math_op,sum_op,m_op,mult_op,
@@ -80,11 +82,36 @@ precedence left OPASIGN;
 
 start with inicio;
 
-inicio ::= dec_general dec_gen_fun;
+inicio ::= dec_general:dg dec_gen_fun:dgf
+    {:
+    Node node = new Node();
+    node.setEtiqueta("INICIO");
+    node.setID(parser.cont);
+    node.addHijos((Node) dg);
+    node.addHijos((Node) dgf);
+    
+    parser.root = node;
+    RESULT = node; 
+    
+    :} ;
+    
+dec_gen_fun ::= dec_funcion:df dec_gen_fun:dgf
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+ | {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+;
 
-dec_gen_fun ::= dec_funcion dec_gen_fun | ;
-
-dec_funcion ::= FUNCTION ID L_PAR parametros R_PAR COLON tipo L_KEY dec_general dec_return R_KEY;
+dec_funcion ::= FUNCTION ID L_PAR parametros R_PAR COLON tipo L_KEY dec_general dec_return R_KEY
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+;
 
 /*parametros ::= lista_parametro | ;
 
@@ -92,66 +119,514 @@ lista_parametro ::= def_parametro | ;
 
 def_parametro ::= VARIABLE ID COLON tipo nuevo_parametro ;*/
 
-parametros ::= VARIABLE ID COLON tipo nuevo_parametro | ;
+parametros ::= VARIABLE ID COLON tipo nuevo_parametro
+                {:
+                Node node = new Node();
+                RESULT = node;
+                :}
+               |
+               {:
+                Node node = new Node();
+                RESULT = node;
+               :} ;
 
-nuevo_parametro ::=COMMA VARIABLE ID COLON tipo nuevo_parametro | ;
+nuevo_parametro ::=COMMA VARIABLE ID COLON tipo nuevo_parametro
+                {:
+                Node node = new Node();
+                RESULT = node;
+                :}
+                |
+                {:
+                Node node = new Node();
+                RESULT = node;
+                :};
 
-func_lenguaje ::= func_input | func_output;
+func_lenguaje ::= func_input
+                  {:
+                    Node node = new Node();
+                    RESULT = node;
+                  :}
+                  | func_output
+                  {:
+                    Node node = new Node();
+                    RESULT = node;
+                  :}  
+                  ;
+                  
+func_input ::= INPUT L_PAR ID COMMA tipo R_PAR SEMICOLON
+               {:
+                Node node = new Node();
+                RESULT = node;
+                :}
+                ;
 
-func_input ::= INPUT L_PAR ID COMMA tipo R_PAR SEMICOLON ;
+func_output ::= OUTPUT L_PAR CONSTSTRING R_PAR SEMICOLON 
+                {:
+                Node node = new Node();
+                RESULT = node;
+                :}    
+                | OUTPUT L_PAR NUM R_PAR SEMICOLON
+                {:
+                Node node = new Node();
+                RESULT = node;
+                :}
+                | OUTPUT L_PAR ID R_PAR SEMICOLON 
+                {:
+                Node node = new Node();
+                RESULT = node;
+                :}    
+                ;
 
-func_output ::= OUTPUT L_PAR CONSTSTRING R_PAR SEMICOLON | OUTPUT L_PAR NUM R_PAR SEMICOLON | OUTPUT L_PAR ID R_PAR SEMICOLON ;
+dec_general ::= dec_variable dec_general:dg
+               {:
+                Node node = new Node();
+                RESULT = node;
+               :}
+               | dec_var dec_general
+               {:
+                Node node = new Node();
+                RESULT = node;
+               :}
+               | dec_while dec_general
+               {:
+                Node node = new Node();
+                RESULT = node;
+                :}
+               | dec_for dec_general
+               {:
+                Node node = new Node();
+                RESULT = node;
+                :}
+               | dec_switch dec_general
+                {:
+                Node node = new Node();
+                RESULT = node;
+                :} 
+               |dec_if dec_general
+               {:
+                Node node = new Node();
+                RESULT = node;
+               :}
+               |dec_llamada_funcion dec_general
+               {:
+                Node node = new Node();
+                RESULT = node;
+               :}
+               |dec_var_inst dec_general
+               {:
+                Node node = new Node();
+                RESULT = node;
+                :}
+               |func_lenguaje dec_general
+               {:
+                Node node = new Node();
+                RESULT = node;
+                :}
+               | 
+                {:
+                Node node = new Node();
+                RESULT = node;
+                :}
+                ;
 
-dec_general ::= dec_variable dec_general | dec_var dec_general | dec_while dec_general | dec_for dec_general | dec_switch dec_general | dec_if dec_general | dec_llamada_funcion dec_general |dec_var_inst dec_general|func_lenguaje dec_general| ;
+dec_variable ::= VARIABLE ID COLON tipo dec_var 
+                 {:
+                Node node = new Node();
+                RESULT = node;
+                :}   
+                | VARIABLE ID L_BRACKET NUM R_BRACKET COLON tipo dec_inst dec_var 
+                {:
+                Node node = new Node();
+                RESULT = node;
+                :}
+                ;
 
-dec_variable ::= VARIABLE ID COLON tipo dec_var | VARIABLE ID L_BRACKET NUM R_BRACKET COLON tipo dec_inst dec_var ;
+dec_var ::= dec_inst SEMICOLON
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            | COMMA ID COLON tipo dec_inst dec_var
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            | COMMA ID L_BRACKET NUM R_BRACKET COLON tipo dec_inst dec_var 
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+;
 
-dec_var ::= dec_inst SEMICOLON | COMMA ID COLON tipo dec_inst dec_var | COMMA ID L_BRACKET NUM R_BRACKET COLON tipo dec_inst dec_var ;
+dec_inst ::= OPASIGN ID
+             {:
+                Node node = new Node();
+                RESULT = node;
+             :}
+             | OPASIGN ID DOT AT L_PAR NUM R_PAR
+             {:
+                Node node = new Node();
+                RESULT = node;
+             :}
+             | OPASIGN NUM 
+             {:
+                Node node = new Node();
+                RESULT = node;
+             :}
+             | OPASIGN CONSTSTRING
+             {:
+                Node node = new Node();
+                RESULT = node;
+             :}
+             | OPASIGN CONSTCHAR  
+             {:
+                Node node = new Node();
+                RESULT = node;
+             :}
+             | OPASIGN TRUE
+             {:
+                Node node = new Node();
+                RESULT = node;
+             :}
+             | OPASIGN FALSE 
+             {:
+                Node node = new Node();
+                RESULT = node;
+             :}
+             | OPASIGN dec_llamada_funcion 
+             {:
+                Node node = new Node();
+                RESULT = node;
+             :}
+             | OPASIGN L_KEY valor arr_cont R_KEY 
+             {:
+                Node node = new Node();
+                RESULT = node;
+             :}
+             |
+             {:
+                Node node = new Node();
+                RESULT = node;
+             :}
+              ;
 
-dec_inst ::= OPASIGN ID | OPASIGN ID DOT AT L_PAR NUM R_PAR | OPASIGN NUM | OPASIGN CONSTSTRING | OPASIGN CONSTCHAR  | OPASIGN TRUE | OPASIGN FALSE | OPASIGN dec_llamada_funcion | OPASIGN L_KEY valor  arr_cont R_KEY | ;
+arr_cont ::= COMMA valor arr_cont
+             {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            |
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            ;
 
-arr_cont ::= COMMA valor arr_cont | ;
+dec_var_inst ::= ID OPASIGN valor SEMICOLON
+                {:
+                Node node = new Node();
+                RESULT = node;
+                :}
+                | ID DOT AT L_PAR NUM R_PAR OPASIGN valor SEMICOLON
+                {:
+                Node node = new Node();
+                RESULT = node;
+                :}
+                ;
 
-dec_var_inst ::= ID OPASIGN valor SEMICOLON| ID DOT AT L_PAR NUM R_PAR OPASIGN valor SEMICOLON;
+valor ::=  CONSTSTRING
+           {:
+                Node node = new Node();
+                RESULT = node;
+           :}
+           | CONSTCHAR
+           {:
+                Node node = new Node();
+                RESULT = node;
+           :}
+           | TRUE
+           {:
+                Node node = new Node();
+                RESULT = node;
+           :}
+           | FALSE
+           {:
+                Node node = new Node();
+                RESULT = node;
+           :}
+           | math_op
+           {:
+                Node node = new Node();
+                RESULT = node;
+           :} 
+            ;
 
-valor ::=  CONSTSTRING | CONSTCHAR | TRUE | FALSE | math_op ;
+math_op ::= m_op sum_op
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            ;
 
-math_op ::= m_op sum_op ;
+sum_op ::= OPSUM m_op sum_op
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            |
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :} 
+            ;
 
-sum_op ::= OPSUM m_op sum_op | ;
+m_op ::= val mult_op 
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :};
 
-m_op ::= val mult_op ;
+mult_op ::= OPMULT val mult_op 
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            |
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :} 
+            ;
 
-mult_op ::= OPMULT val mult_op | ;
+val ::= ID
+        {:
+                Node node = new Node();
+                RESULT = node;
+        :}
+        | NUM
+        {:
+                Node node = new Node();
+                RESULT = node;
+        :}
+        | dec_llamada_funcion 
+        {:
+                Node node = new Node();
+                RESULT = node;
+        :}
+        | L_PAR math_op R_PAR 
+        {:
+                Node node = new Node();
+                RESULT = node;
+        :}
+        ;
 
-val ::= ID | NUM | dec_llamada_funcion | L_PAR math_op R_PAR ;
+dec_while ::= WHILE L_PAR condicion R_PAR L_BRACKET dec_general R_BRACKET
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+;
 
-dec_while ::= WHILE L_PAR condicion R_PAR L_BRACKET dec_general R_BRACKET ;
+dec_for ::= FOR L_PAR ID COMMA NUM UPTO COMMA STEP L_PAR NUM R_PAR R_PAR L_KEY dec_general R_KEY
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            | FOR L_PAR ID COMMA NUM DOWNTO NUM COMMA STEP L_PAR NUM R_PAR R_PAR L_BRACKET dec_general R_BRACKET
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            | FOR L_PAR VARIABLE ID COLON INTEGER COMMA NUM UPTO NUM COMMA STEP L_PAR NUM R_PAR R_PAR L_BRACKET dec_general R_BRACKET
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            | FOR L_PAR VARIABLE ID COLON INTEGER COMMA NUM DOWNTO NUM COMMA STEP L_PAR NUM R_PAR R_PAR L_BRACKET dec_general R_BRACKET
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            ;
 
-dec_for ::= FOR L_PAR ID COMMA NUM UPTO COMMA STEP L_PAR NUM R_PAR R_PAR L_KEY dec_general R_KEY | FOR L_PAR ID COMMA NUM DOWNTO NUM COMMA STEP L_PAR NUM R_PAR R_PAR L_BRACKET dec_general R_BRACKET | FOR L_PAR VARIABLE ID COLON INTEGER COMMA NUM UPTO NUM COMMA STEP L_PAR NUM R_PAR R_PAR L_BRACKET dec_general R_BRACKET | FOR L_PAR VARIABLE ID COLON INTEGER COMMA NUM DOWNTO NUM COMMA STEP L_PAR NUM R_PAR R_PAR L_BRACKET dec_general R_BRACKET ;
+dec_switch ::= SWITCH L_PAR ID R_PAR L_BRACKET list_op R_BRACKET 
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            ;
 
-dec_switch ::= SWITCH L_PAR ID R_PAR L_BRACKET list_op R_BRACKET ;
+list_op ::= OPTION valor COLON dec_general new_op 
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            ;
 
-list_op ::= OPTION valor COLON dec_general new_op ;
+new_op ::= BREAK SEMICOLON list_op 
+            | BREAK SEMICOLON DEFAULT COLON dec_general
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            | BREAK SEMICOLON 
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            ;
 
-new_op ::= BREAK SEMICOLON list_op | BREAK SEMICOLON DEFAULT COLON dec_general | BREAK SEMICOLON ;
+dec_if ::= IF L_PAR condicion R_PAR L_KEY dec_general R_KEY dec_else 
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            ;
 
-dec_if ::= IF L_PAR condicion R_PAR L_KEY dec_general R_KEY dec_else ;
+dec_else ::= ELSE dec_if 
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            | ELSE L_KEY dec_general R_KEY 
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            | 
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            ;
 
-dec_else ::= ELSE dec_if | ELSE L_KEY dec_general R_KEY | ;
+dec_llamada_funcion ::= ID L_PAR llamada_parametros R_PAR fin_llamada
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            ;
 
-dec_llamada_funcion ::= ID L_PAR llamada_parametros R_PAR fin_llamada ;
+llamada_parametros ::= valor lista_valores
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            | 
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            ;
 
-llamada_parametros ::= valor lista_valores | ;
+lista_valores ::= COMMA valor 
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            |
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            ;
 
-lista_valores ::= COMMA valor | ;
+fin_llamada ::= SEMICOLON
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :} 
+            ;
 
-fin_llamada ::= SEMICOLON ;
+condicion ::= valor_cond OPREL valor_cond 
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            | valor_cond OPREL valor_cond OPLOG condicion 
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            | valor_cond 
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            | NULL 
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            | valor_cond OPLOG condicion 
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            ;
 
-condicion ::= valor_cond OPREL valor_cond | valor_cond OPREL valor_cond OPLOG condicion | valor_cond | NULL | valor_cond OPLOG condicion ;
+valor_cond ::= NUM
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            | ID
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            | TRUE
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            | FALSE 
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            ;
 
-valor_cond ::= NUM | ID | TRUE | FALSE ;
+dec_return ::= RETURN dec_llamada_funcion
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            | RETURN SEMICOLON
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            | RETURN valor SEMICOLON  
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            ;
 
-dec_return ::= RETURN dec_llamada_funcion | RETURN SEMICOLON | RETURN valor SEMICOLON  ;
-
-tipo ::= BOOLEAN | CHARACTER | INTEGER | VOID | STRING ;
+tipo ::= BOOLEAN
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            | CHARACTER 
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            | INTEGER
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            | VOID
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            | STRING 
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            ;

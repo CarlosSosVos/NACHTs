@@ -534,7 +534,9 @@ public class parser extends java_cup.runtime.lr_parser {
 
 
    ArrayList<String> errores = new ArrayList();
-   
+   public static Node root;
+   public int cont = 1;
+
      public String getToken(int id){
         String value = Sym.terminalNames[id];
         switch(id){
@@ -618,7 +620,7 @@ class CUP$parser$actions {
               Object RESULT =null;
 		int start_valleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int start_valright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		Object start_val = (Object)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		Node start_val = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		RESULT = start_val;
               CUP$parser$result = parser.getSymbolFactory().newSymbol("$START",0, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -629,8 +631,24 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 1: // inicio ::= dec_general dec_gen_fun 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		int dgleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
+		int dgright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
+		Node dg = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		int dgfleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int dgfright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		Node dgf = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		
+    Node node = new Node();
+    node.setEtiqueta("INICIO");
+    node.setID(parser.cont);
+    node.addHijos((Node) dg);
+    node.addHijos((Node) dgf);
+    
+    parser.root = node;
+    RESULT = node; 
+    
+    
               CUP$parser$result = parser.getSymbolFactory().newSymbol("inicio",0, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -638,8 +656,17 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 2: // dec_gen_fun ::= dec_funcion dec_gen_fun 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		int dfleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
+		int dfright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
+		Node df = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		int dgfleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int dgfright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		Node dgf = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_gen_fun",1, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -647,17 +674,23 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 3: // dec_gen_fun ::= 
             {
-              Object RESULT =null;
-
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_gen_fun",1, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), (Symbol) RESULT);
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_gen_fun",1, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 4: // dec_funcion ::= FUNCTION ID L_PAR parametros R_PAR COLON tipo L_KEY dec_general dec_return R_KEY 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_funcion",2, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-10)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -665,8 +698,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 5: // parametros ::= VARIABLE ID COLON tipo nuevo_parametro 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+                
               CUP$parser$result = parser.getSymbolFactory().newSymbol("parametros",3, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -674,17 +710,23 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 6: // parametros ::= 
             {
-              Object RESULT =null;
-
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("parametros",3, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), (Symbol) RESULT);
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+               
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("parametros",3, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 7: // nuevo_parametro ::= COMMA VARIABLE ID COLON tipo nuevo_parametro 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+                
               CUP$parser$result = parser.getSymbolFactory().newSymbol("nuevo_parametro",4, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-5)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -692,17 +734,23 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 8: // nuevo_parametro ::= 
             {
-              Object RESULT =null;
-
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("nuevo_parametro",4, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), (Symbol) RESULT);
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+                
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("nuevo_parametro",4, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 9: // func_lenguaje ::= func_input 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                    Node node = new Node();
+                    RESULT = node;
+                  
               CUP$parser$result = parser.getSymbolFactory().newSymbol("func_lenguaje",5, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -710,8 +758,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 10: // func_lenguaje ::= func_output 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                    Node node = new Node();
+                    RESULT = node;
+                  
               CUP$parser$result = parser.getSymbolFactory().newSymbol("func_lenguaje",5, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -719,8 +770,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 11: // func_input ::= INPUT L_PAR ID COMMA tipo R_PAR SEMICOLON 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+                
               CUP$parser$result = parser.getSymbolFactory().newSymbol("func_input",6, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -728,8 +782,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 12: // func_output ::= OUTPUT L_PAR CONSTSTRING R_PAR SEMICOLON 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+                
               CUP$parser$result = parser.getSymbolFactory().newSymbol("func_output",7, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -737,8 +794,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 13: // func_output ::= OUTPUT L_PAR NUM R_PAR SEMICOLON 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+                
               CUP$parser$result = parser.getSymbolFactory().newSymbol("func_output",7, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -746,8 +806,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 14: // func_output ::= OUTPUT L_PAR ID R_PAR SEMICOLON 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+                
               CUP$parser$result = parser.getSymbolFactory().newSymbol("func_output",7, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -755,8 +818,14 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 15: // dec_general ::= dec_variable dec_general 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		int dgleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int dgright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		Node dg = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		
+                Node node = new Node();
+                RESULT = node;
+               
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_general",8, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -764,8 +833,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 16: // dec_general ::= dec_var dec_general 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+               
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_general",8, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -773,8 +845,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 17: // dec_general ::= dec_while dec_general 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+                
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_general",8, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -782,8 +857,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 18: // dec_general ::= dec_for dec_general 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+                
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_general",8, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -791,8 +869,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 19: // dec_general ::= dec_switch dec_general 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+                
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_general",8, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -800,8 +881,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 20: // dec_general ::= dec_if dec_general 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+               
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_general",8, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -809,8 +893,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 21: // dec_general ::= dec_llamada_funcion dec_general 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+               
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_general",8, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -818,8 +905,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 22: // dec_general ::= dec_var_inst dec_general 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+                
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_general",8, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -827,8 +917,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 23: // dec_general ::= func_lenguaje dec_general 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+                
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_general",8, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -836,17 +929,23 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 24: // dec_general ::= 
             {
-              Object RESULT =null;
-
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_general",8, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), (Symbol) RESULT);
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+                
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_general",8, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 25: // dec_variable ::= VARIABLE ID COLON tipo dec_var 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+                
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_variable",9, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -854,8 +953,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 26: // dec_variable ::= VARIABLE ID L_BRACKET NUM R_BRACKET COLON tipo dec_inst dec_var 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+                
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_variable",9, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-8)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -863,8 +965,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 27: // dec_var ::= dec_inst SEMICOLON 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_var",10, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -872,8 +977,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 28: // dec_var ::= COMMA ID COLON tipo dec_inst dec_var 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_var",10, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-5)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -881,8 +989,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 29: // dec_var ::= COMMA ID L_BRACKET NUM R_BRACKET COLON tipo dec_inst dec_var 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_var",10, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-8)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -890,8 +1001,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 30: // dec_inst ::= OPASIGN ID 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_inst",11, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -899,8 +1013,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 31: // dec_inst ::= OPASIGN ID DOT AT L_PAR NUM R_PAR 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_inst",11, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -908,8 +1025,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 32: // dec_inst ::= OPASIGN NUM 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_inst",11, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -917,8 +1037,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 33: // dec_inst ::= OPASIGN CONSTSTRING 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_inst",11, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -926,8 +1049,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 34: // dec_inst ::= OPASIGN CONSTCHAR 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_inst",11, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -935,8 +1061,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 35: // dec_inst ::= OPASIGN TRUE 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_inst",11, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -944,8 +1073,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 36: // dec_inst ::= OPASIGN FALSE 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_inst",11, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -953,8 +1085,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 37: // dec_inst ::= OPASIGN dec_llamada_funcion 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_inst",11, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -962,8 +1097,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 38: // dec_inst ::= OPASIGN L_KEY valor arr_cont R_KEY 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_inst",11, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -971,17 +1109,23 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 39: // dec_inst ::= 
             {
-              Object RESULT =null;
-
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_inst",11, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), (Symbol) RESULT);
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+             
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_inst",11, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 40: // arr_cont ::= COMMA valor arr_cont 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("arr_cont",12, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -989,17 +1133,23 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 41: // arr_cont ::= 
             {
-              Object RESULT =null;
-
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("arr_cont",12, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), (Symbol) RESULT);
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("arr_cont",12, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 42: // dec_var_inst ::= ID OPASIGN valor SEMICOLON 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+                
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_var_inst",13, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1007,8 +1157,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 43: // dec_var_inst ::= ID DOT AT L_PAR NUM R_PAR OPASIGN valor SEMICOLON 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+                
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_var_inst",13, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-8)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1016,8 +1169,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 44: // valor ::= CONSTSTRING 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+           
               CUP$parser$result = parser.getSymbolFactory().newSymbol("valor",14, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1025,8 +1181,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 45: // valor ::= CONSTCHAR 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+           
               CUP$parser$result = parser.getSymbolFactory().newSymbol("valor",14, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1034,8 +1193,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 46: // valor ::= TRUE 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+           
               CUP$parser$result = parser.getSymbolFactory().newSymbol("valor",14, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1043,8 +1205,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 47: // valor ::= FALSE 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+           
               CUP$parser$result = parser.getSymbolFactory().newSymbol("valor",14, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1052,8 +1217,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 48: // valor ::= math_op 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+           
               CUP$parser$result = parser.getSymbolFactory().newSymbol("valor",14, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1061,8 +1229,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 49: // math_op ::= m_op sum_op 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("math_op",15, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1070,8 +1241,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 50: // sum_op ::= OPSUM m_op sum_op 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("sum_op",16, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1079,17 +1253,23 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 51: // sum_op ::= 
             {
-              Object RESULT =null;
-
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("sum_op",16, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), (Symbol) RESULT);
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("sum_op",16, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 52: // m_op ::= val mult_op 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("m_op",17, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1097,8 +1277,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 53: // mult_op ::= OPMULT val mult_op 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("mult_op",18, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1106,17 +1289,23 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 54: // mult_op ::= 
             {
-              Object RESULT =null;
-
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("mult_op",18, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), (Symbol) RESULT);
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("mult_op",18, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 55: // val ::= ID 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+        
               CUP$parser$result = parser.getSymbolFactory().newSymbol("val",19, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1124,8 +1313,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 56: // val ::= NUM 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+        
               CUP$parser$result = parser.getSymbolFactory().newSymbol("val",19, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1133,8 +1325,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 57: // val ::= dec_llamada_funcion 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+        
               CUP$parser$result = parser.getSymbolFactory().newSymbol("val",19, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1142,8 +1337,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 58: // val ::= L_PAR math_op R_PAR 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+        
               CUP$parser$result = parser.getSymbolFactory().newSymbol("val",19, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1151,8 +1349,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 59: // dec_while ::= WHILE L_PAR condicion R_PAR L_BRACKET dec_general R_BRACKET 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_while",20, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1160,8 +1361,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 60: // dec_for ::= FOR L_PAR ID COMMA NUM UPTO COMMA STEP L_PAR NUM R_PAR R_PAR L_KEY dec_general R_KEY 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_for",21, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-14)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1169,8 +1373,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 61: // dec_for ::= FOR L_PAR ID COMMA NUM DOWNTO NUM COMMA STEP L_PAR NUM R_PAR R_PAR L_BRACKET dec_general R_BRACKET 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_for",21, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-15)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1178,8 +1385,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 62: // dec_for ::= FOR L_PAR VARIABLE ID COLON INTEGER COMMA NUM UPTO NUM COMMA STEP L_PAR NUM R_PAR R_PAR L_BRACKET dec_general R_BRACKET 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_for",21, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-18)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1187,8 +1397,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 63: // dec_for ::= FOR L_PAR VARIABLE ID COLON INTEGER COMMA NUM DOWNTO NUM COMMA STEP L_PAR NUM R_PAR R_PAR L_BRACKET dec_general R_BRACKET 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_for",21, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-18)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1196,8 +1409,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 64: // dec_switch ::= SWITCH L_PAR ID R_PAR L_BRACKET list_op R_BRACKET 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_switch",22, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1205,8 +1421,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 65: // list_op ::= OPTION valor COLON dec_general new_op 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("list_op",23, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1214,7 +1433,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 66: // new_op ::= BREAK SEMICOLON list_op 
             {
-              Object RESULT =null;
+              Node RESULT =null;
 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("new_op",24, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -1223,8 +1442,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 67: // new_op ::= BREAK SEMICOLON DEFAULT COLON dec_general 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("new_op",24, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1232,8 +1454,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 68: // new_op ::= BREAK SEMICOLON 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("new_op",24, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1241,8 +1466,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 69: // dec_if ::= IF L_PAR condicion R_PAR L_KEY dec_general R_KEY dec_else 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_if",25, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-7)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1250,8 +1478,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 70: // dec_else ::= ELSE dec_if 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_else",26, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1259,8 +1490,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 71: // dec_else ::= ELSE L_KEY dec_general R_KEY 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_else",26, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1268,17 +1502,23 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 72: // dec_else ::= 
             {
-              Object RESULT =null;
-
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_else",26, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), (Symbol) RESULT);
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_else",26, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 73: // dec_llamada_funcion ::= ID L_PAR llamada_parametros R_PAR fin_llamada 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_llamada_funcion",27, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1286,8 +1526,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 74: // llamada_parametros ::= valor lista_valores 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("llamada_parametros",28, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1295,17 +1538,23 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 75: // llamada_parametros ::= 
             {
-              Object RESULT =null;
-
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("llamada_parametros",28, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), (Symbol) RESULT);
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("llamada_parametros",28, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 76: // lista_valores ::= COMMA valor 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("lista_valores",29, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1313,17 +1562,23 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 77: // lista_valores ::= 
             {
-              Object RESULT =null;
-
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("lista_valores",29, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), (Symbol) RESULT);
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("lista_valores",29, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 78: // fin_llamada ::= SEMICOLON 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("fin_llamada",30, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1331,8 +1586,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 79: // condicion ::= valor_cond OPREL valor_cond 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("condicion",31, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1340,8 +1598,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 80: // condicion ::= valor_cond OPREL valor_cond OPLOG condicion 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("condicion",31, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1349,8 +1610,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 81: // condicion ::= valor_cond 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("condicion",31, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1358,8 +1622,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 82: // condicion ::= NULL 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("condicion",31, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1367,8 +1634,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 83: // condicion ::= valor_cond OPLOG condicion 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("condicion",31, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1376,8 +1646,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 84: // valor_cond ::= NUM 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("valor_cond",32, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1385,8 +1658,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 85: // valor_cond ::= ID 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("valor_cond",32, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1394,8 +1670,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 86: // valor_cond ::= TRUE 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("valor_cond",32, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1403,8 +1682,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 87: // valor_cond ::= FALSE 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("valor_cond",32, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1412,8 +1694,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 88: // dec_return ::= RETURN dec_llamada_funcion 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_return",33, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1421,8 +1706,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 89: // dec_return ::= RETURN SEMICOLON 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_return",33, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1430,8 +1718,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 90: // dec_return ::= RETURN valor SEMICOLON 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_return",33, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1439,8 +1730,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 91: // tipo ::= BOOLEAN 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("tipo",34, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1448,8 +1742,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 92: // tipo ::= CHARACTER 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("tipo",34, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1457,8 +1754,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 93: // tipo ::= INTEGER 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("tipo",34, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1466,8 +1766,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 94: // tipo ::= VOID 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("tipo",34, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -1475,8 +1778,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 95: // tipo ::= STRING 
             {
-              Object RESULT =null;
-
+              Node RESULT =null;
+		
+                Node node = new Node();
+                RESULT = node;
+            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("tipo",34, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
