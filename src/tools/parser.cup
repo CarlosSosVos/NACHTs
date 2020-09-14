@@ -26,6 +26,7 @@ non terminal inicio,dec_gen_fun,dec_funcion,parametros,lista_parametro,
              tipo;
 
 precedence left OPSUM,OPMULT;
+precedence left OPASIGN;
 
 start with inicio;
 
@@ -33,7 +34,7 @@ inicio ::= dec_general:dg {: RESULT= (Symbol)dg; :} dec_gen_fun:dgf {: RESULT = 
 
 dec_gen_fun ::= dec_funcion dec_gen_fun | ;
 
-dec_funcion ::= FUNCTION ID L_PAR parametros R_PAR COLON tipo L_KEY dec_general R_KEY;
+dec_funcion ::= FUNCTION ID L_PAR parametros R_PAR COLON tipo L_KEY dec_general dec_return R_KEY;
 
 parametros ::= lista_parametro | ;
 
@@ -49,7 +50,7 @@ func_input ::= INPUT L_PAR ID COMMA tipo R_PAR SEMICOLON ;
 
 func_output ::= OUTPUT L_PAR CONSTSTRING R_PAR SEMICOLON | OUTPUT L_PAR NUM R_PAR SEMICOLON | OUTPUT L_PAR ID R_PAR SEMICOLON ;
 
-dec_general ::= dec_variable dec_general | dec_var dec_general | dec_while dec_general | dec_for dec_general | dec_switch dec_general | dec_if dec_general | dec_llamada_funcion dec_general | ;
+dec_general ::= dec_variable dec_general | dec_var dec_general | dec_while dec_general | dec_for dec_general | dec_switch dec_general | dec_if dec_general | dec_llamada_funcion dec_general |dec_var_inst dec_general|func_lenguaje dec_general| ;
 
 dec_variable ::= VARIABLE ID COLON tipo dec_var | VARIABLE ID L_BRACKET NUM R_BRACKET COLON tipo dec_inst dec_var ;
 
