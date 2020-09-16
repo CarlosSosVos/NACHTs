@@ -416,7 +416,7 @@ public class main extends javax.swing.JFrame {
 
     private void Ok_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Ok_BTActionPerformed
         if (!name_tf.getText().equals("")) {
-            Path path = Paths.get("./test_files/" + this.name_tf.getText() + ".cal");
+            Path path = Paths.get("./test_files/" + this.name_tf.getText() + ".ncht");
             try {
                 Files.createDirectories(path.getParent());
                 Files.createFile(path);
@@ -425,7 +425,7 @@ public class main extends javax.swing.JFrame {
                 writer.close();
                 System.out.println("se creo");
                 this.New_file_JF.setVisible(false);
-                this.input_file = new File("./test_files/" + this.name_tf.getText() + ".cal");
+                this.input_file = new File("./test_files/" + this.name_tf.getText() + ".ncht");
                 this.txt_Ncode.setText("");
                 this.name_tf.setText("");
                 this.txt_code.setText(this.getText(input_file));

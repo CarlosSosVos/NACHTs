@@ -79,8 +79,6 @@ non terminal Node inicio,dec_gen_fun,dec_funcion,parametros,/*lista_parametro,
 
 precedence left OPSUM,OPMULT;
 precedence left OPASIGN;
-precedence nonassoc ELSE;
-precedence left R_PAR;
 
 start with inicio;
 
@@ -166,24 +164,24 @@ func_lenguaje ::= func_input
                   :}  
                   ;
                   
-func_input ::= INPUT L_PAR ID COMMA tipo R_PAR SEMICOLON
+func_input ::= INPUT L_PAR ID COMMA tipo R_PAR 
                {:
                 Node node = new Node();
                 RESULT = node;
                 :}
                 ;
 
-func_output ::= OUTPUT L_PAR CONSTSTRING R_PAR SEMICOLON 
+func_output ::= OUTPUT L_PAR CONSTSTRING R_PAR  
                 {:
                 Node node = new Node();
                 RESULT = node;
                 :}    
-                | OUTPUT L_PAR NUM R_PAR SEMICOLON
+                | OUTPUT L_PAR NUM R_PAR 
                 {:
                 Node node = new Node();
                 RESULT = node;
                 :}
-                | OUTPUT L_PAR ID R_PAR SEMICOLON 
+                | OUTPUT L_PAR ID R_PAR  
                 {:
                 Node node = new Node();
                 RESULT = node;
@@ -230,7 +228,7 @@ dec_general ::= dec_variable dec_general:dg
                 Node node = new Node();
                 RESULT = node;
                 :}
-               |func_lenguaje dec_general
+               |func_lenguaje SEMICOLON dec_general
                {:
                 Node node = new Node();
                 RESULT = node;
@@ -240,6 +238,17 @@ dec_general ::= dec_variable dec_general:dg
                 Node node = new Node();
                 RESULT = node;
                 :}
+                | BREAK SEMICOLON dec_general
+                {:
+                Node node = new Node();
+                RESULT = node;
+                :}
+                | error empty
+                {:
+                Node node = new Node();
+                RESULT = node;
+                :}
+                |error R_KEY
                 ;
 
 dec_variable ::= VARIABLE ID COLON tipo dec_var 
@@ -461,7 +470,7 @@ val ::= ID
         :}
         ;
 
-dec_while ::= WHILE L_PAR condicion R_PAR L_BRACKET dec_general R_BRACKET
+dec_while ::= WHILE L_PAR condicion R_PAR L_KEY dec_general R_KEY
             {:
                 Node node = new Node();
                 RESULT = node;
@@ -473,12 +482,12 @@ dec_for ::= FOR L_PAR ID COMMA NUM UPTO COMMA STEP L_PAR NUM R_PAR R_PAR L_KEY d
                 Node node = new Node();
                 RESULT = node;
             :}
-            | FOR L_PAR ID COMMA NUM DOWNTO NUM COMMA STEP L_PAR NUM R_PAR R_PAR L_BRACKET dec_general R_BRACKET
+            | FOR L_PAR ID COMMA NUM DOWNTO NUM COMMA STEP L_PAR NUM R_PAR R_PAR L_KEY dec_general R_KEY
             {:
                 Node node = new Node();
                 RESULT = node;
             :}
-            | FOR L_PAR VARIABLE ID COLON INTEGER COMMA NUM UPTO NUM COMMA STEP L_PAR NUM R_PAR R_PAR L_BRACKET dec_general R_BRACKET
+            | FOR L_PAR VARIABLE ID COLON INTEGER COMMA NUM UPTO NUM COMMA STEP L_PAR NUM R_PAR R_PAR L_KEY dec_general R_KEY
             {:
                 Node node = new Node();
                 RESULT = node;
@@ -517,24 +526,23 @@ new_op ::= BREAK SEMICOLON list_op
             :}
             ;
 
-dec_if ::= IF L_PAR condicion R_PAR L_KEY dec_general R_KEY dec_else 
+dec_if ::= IF L_PAR condicion R_PAR L_KEY dec_general dec_else 
             {:
                 Node node = new Node();
                 RESULT = node;
             :}
             ;
-
-dec_else ::= ELSE dec_if 
+dec_else ::= R_KEY ELSE  dec_if 
             {:
                 Node node = new Node();
                 RESULT = node;
             :}
-            | ELSE L_KEY dec_general R_KEY 
+            | R_KEY ELSE L_KEY dec_general R_KEY 
             {:
                 Node node = new Node();
                 RESULT = node;
             :}
-            | empty
+            |  R_KEY 
             {:
                 Node node = new Node();
                 RESULT = node;
