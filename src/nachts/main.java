@@ -339,7 +339,7 @@ public class main extends javax.swing.JFrame {
 
     public void generateLexer() {
 
-        String parametros[] = {"-d", "src/nachts/", "src/tools/nachts.jflex"};
+        String parametros[] = {"-d","./src/nachts/","./src/tools/nachts.jflex" };
         try {
             jflex.Main.generate(parametros);
         } catch (Exception e) {

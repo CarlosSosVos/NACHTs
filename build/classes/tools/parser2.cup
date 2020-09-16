@@ -1,0 +1,285 @@
+package nachts;
+import java_cup.runtime.*;
+import java.util.ArrayList;
+
+parser code {:
+   ArrayList<String> errores = new ArrayList();
+   public static Node root;
+   public int cont = 1;
+
+     public String getToken(int id){
+        String value = Sym.terminalNames[id];
+        switch(id){
+            case Sym.L_KEY:
+                return "{";
+            case Sym.R_KEY:
+                return "}";
+            case Sym.L_PAR:
+                return "(";
+            case Sym.R_PAR:
+                return ")";
+            case Sym.L_BRACKET:
+                return "[";
+            case Sym.R_BRACKET:
+                return "]";
+            default:
+                return value;
+        }
+    }   
+    
+    @Override
+    public void syntax_error(Symbol s){
+        String lex = s.value != null ? s.value.toString() : getToken(s.sym);
+        int fila = s.right;
+        int columna = s.left;
+        String err = "";
+        if(lex.equals("EOF")){
+            err = "Error sintáctico: Se esperaba el token }";
+        } else {
+            err = "Error sintáctico: " +  " fila: " + fila + " columna: " + columna + ", No se esperaba el token: " + lex;
+        }
+
+        System.err.println(err);
+        errores.add(err);
+    }
+
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception {
+        String lex = s.value != null ? s.value.toString() : getToken(s.sym);
+        int fila = s.right;
+        int columna = s.left;
+        String err = "";
+        if(lex.equals("EOF")){
+            err = "";
+        }else{
+            err = "Error sintáctico, pánico: " + " fila: " + fila + " columna: " + columna + ", No se esperaba el token: " + lex;
+        }
+        System.err.println(err);
+        errores.add(err);
+    }
+    
+
+:}
+
+
+terminal String FUNCTION,NUM,UPTO,DOWNTO,STEP,VARIABLE,STRING,
+                CONSTSTRING,CONSTCHAR,INTEGER,CHARACTER,BOOLEAN,IF,ELSE,
+                WHILE,FOR,RETURN,VOID,TRUE,FALSE,BREAK,NULL,
+                INPUT,OUTPUT,SWITCH,CASE,OPTION,DEFAULT,ID,
+                OPREL,OPCOND,OPLOG,OPMOD,OPMULT,OPSUM,OPINC,OPASIGN,
+                OPASIGNADD,OPASIGNMULT,L_KEY,R_KEY,L_BRACKET,R_BRACKET,
+                L_PAR,R_PAR,COMMA,SEMICOLON,COLON,AT,DOT,EMPTY,ELIF;
+
+
+
+non terminal Node inicio, funciones,funcion, cuerpo_funcion_parametros, parametros,
+				  cuerpo_funcion_dec,declaracion,if,decision_extra,while,for,switch,
+				  cuerpo_switch,opcion_extra,variable_declaracion,var_end,var_arr_end,
+				  contenido,llamada_variable, llamada_funcion, cuerpo_llamada_funcion_parametros,
+				  llamada_funcion_parametros,aritmetica,operacion_sum,operacion_mult,expresion,
+				  expresion_extra, expresion_inicio,tipo, val,valor;
+
+
+
+precedence left OPSUM,OPMULT;
+precedence left OPASIGN;
+
+
+start with inicio;
+
+inicio::= funciones ;
+
+funciones::= 
+	|funcion
+	|funciones funcion
+	;
+funcion::=
+	| FUNCTION ID cuerpo_funcion_parametros COLON tipo cuerpo_funcion_dec
+	;
+cuerpo_funcion_parametros::=
+	|L_PAR R_PAR
+	| L_PAR parametros R_PAR	
+	;
+parametros::=
+	|VARIABLE ID COLON tipo
+	|VARIABLE ID COLON tipo COMMA parametros
+	;	
+cuerpo_funcion_dec::=
+	| L_KEY declaracion R_KEY
+	;
+declaracion ::=
+	|if declaracion
+	|while declaracion
+	|for declaracion
+	| variable_declaracion
+	| llamada_variable
+	| RETURN expresion
+	|llamada_funcion SEMICOLON declaracion
+	|switch declaracion
+	|error declaracion
+	| 
+	;
+if ::=
+	| IF L_PAR expresion_inicio R_PAR L_KEY declaracion decision_extra
+	;
+decision_extra::=
+	| R_KEY ELSE L_KEY declaracion R_KEY 
+	| R_KEY ELIF L_PAR expresion_inicio R_PAR L_KEY declaracion decision_extra
+	| R_KEY
+	;
+while::=
+	| WHILE L_PAR  expresion_inicio R_PAR L_KEY declaracion R_KEY
+	;
+for ::=
+	|FOR L_PAR ID COMMA NUM UPTO COMMA STEP L_PAR NUM R_PAR R_PAR L_KEY declaracion R_KEY
+	|FOR L_PAR ID COMMA NUM DOWNTO NUM COMMA STEP L_PAR NUM R_PAR R_PAR L_BRACKET declaracion R_BRACKET
+	|FOR L_PAR VARIABLE ID COLON INTEGER COMMA NUM UPTO NUM COMMA STEP L_PAR NUM R_PAR R_PAR L_BRACKET declaracion R_BRACKET
+	|FOR L_PAR VARIABLE ID COLON INTEGER COMMA NUM DOWNTO NUM COMMA STEP L_PAR NUM R_PAR R_PAR L_BRACKET declaracion R_BRACKET
+	;
+switch::= 
+	| SWITCH L_PAR  ID  R_PAR L_KEY cuerpo_switch R_KEY
+	;
+cuerpo_switch::=
+	| OPTION valor COLON declaracion opcion_extra
+	;
+opcion_extra::=
+	|BREAK 	SEMICOLON
+	|BREAK SEMICOLON cuerpo_switch
+	|BREAK SEMICOLON DEFAULT COLON declaracion SEMICOLON
+	;
+variable_declaracion::=
+	|VARIABLE ID COLON tipo var_end
+	|VARIABLE ID L_BRACKET NUM R_BRACKET COLON tipo var_arr_end
+	;
+var_end::=
+	|COMMA ID COLON tipo var_end
+	|OPASIGN valor SEMICOLON
+	|SEMICOLON
+	;
+var_arr_end::=
+	|SEMICOLON
+	|OPASIGN L_KEY valor contenido SEMICOLON
+	;
+contenido::=
+	|R_KEY 
+	|COMMA valor contenido
+	;
+llamada_variable::=
+	|ID OPASIGN valor SEMICOLON
+	|ID DOT AT L_PAR NUM R_PAR OPASIGN valor SEMICOLON
+	;
+llamada_funcion::=
+	| ID cuerpo_llamada_funcion_parametros
+	| OUTPUT cuerpo_llamada_funcion_parametros
+	| INPUT L_PAR ID COMMA tipo R_PAR
+	;
+cuerpo_llamada_funcion_parametros::=
+	|L_PAR R_PAR
+	| L_PAR llamada_funcion_parametros R_PAR
+	;
+llamada_funcion_parametros::=	 
+	|valor
+	|llamada_funcion_parametros COMMA valor	 
+	;
+aritmetica::=
+	|operacion_sum OPSUM operacion_mult
+	|operacion_sum OPMULT operacion_mult
+	;
+operacion_sum::=
+	|val OPSUM operacion_sum
+	|val
+	;
+operacion_mult::=
+	|val OPMULT operacion_mult
+	|val
+	;
+expresion::=
+	| val
+	| val OPREL expresion_extra
+	| aritmetica expresion_extra
+	| L_PAR val OPREL expresion_extra R_PAR
+	;
+expresion_extra::=
+	|	expresion_extra OPREL val		
+	| 	expresion_extra OPREL aritmetica
+	;
+expresion_inicio::=
+	|expresion OPLOG expresion_inicio
+	|expresion
+	;
+
+tipo ::= BOOLEAN
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            | CHARACTER 
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            | INTEGER
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            | VOID
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            | STRING 
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            ;
+
+val ::= ID
+        {:
+                Node node = new Node();
+                RESULT = node;
+        :}
+        | NUM
+        {:
+                Node node = new Node();
+                RESULT = node;
+        :}
+        | llamada_funcion 
+        {:
+                Node node = new Node();
+                RESULT = node;
+        :}
+        | L_PAR aritmetica R_PAR 
+        {:
+                Node node = new Node();
+                RESULT = node;
+        :}
+        ;
+
+
+valor ::=  CONSTSTRING
+           {:
+                Node node = new Node();
+                RESULT = node;
+           :}
+           | CONSTCHAR
+           {:
+                Node node = new Node();
+                RESULT = node;
+           :}
+           | TRUE
+           {:
+                Node node = new Node();
+                RESULT = node;
+           :}
+           | FALSE
+           {:
+                Node node = new Node();
+                RESULT = node;
+           :}
+           | aritmetica
+           {:
+                Node node = new Node();
+                RESULT = node;
+           :} 
+            ;

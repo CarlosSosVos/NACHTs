@@ -1,13 +1,16 @@
-fnc suma (var x:int):int {
-    rtn;
-    rtn a + b;
+fnc suma ():int {
+    rtn b + c * d;
 }
 
 #* 
 Función main y de prueba 
 *#
 
-fnc main () :main {
+fnc suma ():int {
+    rtn b + c * d;
+}
+
+fnc holas ():int {
    ##Declaración de variables
    var a:int :=0;
    var b:string := "";
