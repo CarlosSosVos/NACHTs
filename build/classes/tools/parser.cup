@@ -371,7 +371,18 @@ valor ::=  CONSTSTRING
            {:
                 Node node = new Node();
                 RESULT = node;
-           :} 
+           :}
+           | dec_llamada_funcion 
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            | ID 
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+           
             ;
 
 math_op ::= s_op 
