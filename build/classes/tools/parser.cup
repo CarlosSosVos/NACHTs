@@ -127,12 +127,6 @@ dec_funcion ::= FUNCTION ID L_PAR parametros COLON tipo L_KEY dec_general R_KEY
             :}
 ;
 
-/*parametros ::= lista_parametro | ;
-
-lista_parametro ::= def_parametro | ;
-
-def_parametro ::= VARIABLE ID COLON tipo nuevo_parametro ;*/
-
 parametros ::= VARIABLE ID COLON tipo nuevo_parametro R_PAR
                 {:
                 Node node = new Node();
@@ -536,43 +530,42 @@ dec_else ::= ELSE dec_if
             :}
             ;
 
-dec_llamada_funcion ::= ID L_PAR llamada_parametros R_PAR fin_llamada
+dec_llamada_funcion ::= ID L_PAR llamada_parametros 
             {:
                 Node node = new Node();
                 RESULT = node;
             :}
             ;
 
-llamada_parametros ::= valor lista_valores
+llamada_parametros ::= valor lista_valores R_PAR
             {:
                 Node node = new Node();
                 RESULT = node;
             :}
-            | empty
+            | valor R_PAR
             {:
                 Node node = new Node();
                 RESULT = node;
             :}
-            ;
-
-lista_valores ::= COMMA valor 
-            {:
-                Node node = new Node();
-                RESULT = node;
-            :}
-            |empty
+            |R_PAR
             {:
                 Node node = new Node();
                 RESULT = node;
             :}
             ;
 
-fin_llamada ::= SEMICOLON
+lista_valores ::= COMMA valor lista_valores
             {:
                 Node node = new Node();
                 RESULT = node;
-            :} 
+            :}
+            |COMMA valor
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
             ;
+
 
 condicion ::= valor_cond OPREL valor_cond 
             {:

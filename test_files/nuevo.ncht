@@ -1,5 +1,5 @@
 fnc suma ():int {
-    rtn b + c * d;
+    rtn hola() + c * d;
 }
 
 #* 
