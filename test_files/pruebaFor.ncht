@@ -10,6 +10,5 @@ fnc hola(): int {
     for (x:int,1 upTo 5, step(1)) {
 	hola();
     }
- }
 }
-    
+  

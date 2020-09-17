@@ -397,6 +397,16 @@ public class main extends javax.swing.JFrame {
             Lexer lex2 = new Lexer(new FileReader(this.input_file));
             parser p = new parser(lex2);
             p.parse();
+            
+            //this.txt_result.setEditable(true);
+            this.txt_result.setText("");
+            String errors = "";
+            System.out.println(p.errores.size());
+            for (String error : p.errores) {
+                System.out.println(errors);
+                errors+= error +"\n";
+            }
+            this.txt_result.setText(errors);
 
             //lex.yylex();
         } catch (FileNotFoundException ex) {
@@ -478,7 +488,16 @@ public class main extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
             parser p = new parser();
-
+            this.txt_result.setEditable(true);
+            this.txt_result.setText("");
+            String errors = "";
+            System.out.println(p.errores.size());
+            for (String error : p.errores) {
+                System.out.println(errors);
+                errors+= error +"\n ";
+            }
+            this.txt_result.setText(p.errores.size()+"");
+            
         } catch (Exception ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -699,7 +699,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 1: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.EMPTY, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -715,7 +715,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 3: 
             { String output= "ID "+ yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.ID, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -723,7 +723,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 4: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output); 
+        //System.out.println(output); 
         return new Symbol(Sym.NUM, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -731,14 +731,14 @@ class Lexer implements java_cup.runtime.Scanner {
           case 5: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
             } 
             // fall through
           case 61: break;
           case 6: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.OPMULT, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -756,7 +756,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 9: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output); 
+        //System.out.println(output); 
         return new Symbol(Sym.OPREL, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -764,7 +764,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 10: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output); 
+        //System.out.println(output); 
         return new Symbol(Sym.OPCOND, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -772,7 +772,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 11: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output); 
+        //System.out.println(output); 
         return new Symbol(Sym.OPSUM, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -780,7 +780,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 12: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.OPMOD, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -788,7 +788,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 13: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.COLON, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -796,7 +796,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 14: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.L_KEY, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -804,7 +804,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 15: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.R_KEY, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -812,7 +812,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 16: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.L_BRACKET, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -820,7 +820,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 17: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.R_BRACKET, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -828,7 +828,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 18: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.L_PAR, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -836,7 +836,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 19: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.R_PAR, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -844,7 +844,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 20: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.COMMA, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -852,7 +852,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 21: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.SEMICOLON, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -860,7 +860,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 22: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.DOT, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -884,7 +884,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 25: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.OPASIGNMULT, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -892,7 +892,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 26: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output); 
+        //System.out.println(output); 
         return new Symbol(Sym.IF, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -900,7 +900,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 27: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.SWITCH, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -908,7 +908,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 28: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.WHILE, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -916,7 +916,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 29: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.OPLOG, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -924,7 +924,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 30: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.OPASIGNADD, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -932,7 +932,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 31: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.OPINC, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -940,7 +940,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 32: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.OPASIGN, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -948,7 +948,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 33: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.INTEGER, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -956,7 +956,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 34: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.CHARACTER, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -964,7 +964,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 35: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output); 
+        //System.out.println(output); 
         return new Symbol(Sym.RETURN, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -972,7 +972,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 36: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.BREAK, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -980,7 +980,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 37: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.FUNCTION, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -988,7 +988,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 38: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.FOR, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -996,7 +996,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 39: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.VARIABLE, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -1004,7 +1004,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 40: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.DEFAULT, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -1012,21 +1012,21 @@ class Lexer implements java_cup.runtime.Scanner {
           case 41: 
             { String output = "Se encuentra comentario de linea en ("+ yyline +","+ yycolumn+")\n" +yytext();
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
             } 
             // fall through
           case 97: break;
           case 42: 
             { String output = "Se encuentra comentario en ("+ yyline +","+ yycolumn+")\n" +yytext();
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
             } 
             // fall through
           case 98: break;
           case 43: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.NULL, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -1034,7 +1034,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 44: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.TRUE, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -1042,7 +1042,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 45: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.CASE, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -1050,7 +1050,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 46: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.BOOLEAN, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -1058,7 +1058,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 47: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.STEP, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -1066,7 +1066,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 48: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.ELSE, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -1074,7 +1074,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 49: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.UPTO, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -1082,7 +1082,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 50: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.VOID, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -1090,7 +1090,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 51: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.INPUT, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -1098,7 +1098,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 52: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output); 
+        //System.out.println(output); 
         return new Symbol(Sym.FALSE, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -1106,7 +1106,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 53: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.DOWNTO, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -1114,7 +1114,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 54: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output); 
+        //System.out.println(output); 
         return new Symbol(Sym.OUTPUT, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -1122,7 +1122,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 55: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.OPTION, yycolumn, yyline, yytext());
             } 
             // fall through
@@ -1130,7 +1130,7 @@ class Lexer implements java_cup.runtime.Scanner {
           case 56: 
             { String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.STRING, yycolumn, yyline, yytext());
             } 
             // fall through

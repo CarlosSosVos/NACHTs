@@ -3,13 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/k_k_r/Desktop/Nachts/NACHTs/src/nachts/Sym.java</file>
-            <file>file:/C:/Users/k_k_r/Desktop/Nachts/NACHTs/src/nachts/main.java</file>
-            <file>file:/C:/Users/k_k_r/Desktop/Nachts/NACHTs/src/tools/parser.cup</file>
-            <file>file:/C:/Users/k_k_r/Desktop/Nachts/NACHTs/src/nachts/parser.java</file>
-            <file>file:/C:/Users/k_k_r/Desktop/Nachts/NACHTs/src/tools/parser2.cup</file>
-            <file>file:/C:/Users/k_k_r/Desktop/Nachts/NACHTs/src/nachts/Lexer.java</file>
-            <file>file:/C:/Users/k_k_r/Desktop/Nachts/NACHTs/src/tools/nachts.jflex</file>
+            <file>file:/home/carlos/NetBeansProjects/NACHTs/src/nachts/parser.java</file>
         </group>
     </open-files>
 </project-private>

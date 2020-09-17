@@ -131,20 +131,20 @@ dot="."
     {function} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.FUNCTION, yycolumn, yyline, yytext());
     }
     {comment} {
         String output = "Se encuentra comentario en ("+ yyline +","+ yycolumn+")\n" +yytext();
         accum+= output +"\n";
-        System.out.println(output);           
+        //System.out.println(output);           
     }   
         
     {l_comment} {
     
         String output = "Se encuentra comentario de linea en ("+ yyline +","+ yycolumn+")\n" +yytext();
         accum+= output +"\n";
-        System.out.println(output);    
+        //System.out.println(output);    
     }
     {newline} {
                 //System.out.println("encuentra salto de linea"); 
@@ -158,7 +158,7 @@ dot="."
     {numbers} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output); 
+        //System.out.println(output); 
         return new Symbol(Sym.NUM, yycolumn, yyline, yytext());
     }
     
@@ -173,47 +173,47 @@ dot="."
     {upTo} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.UPTO, yycolumn, yyline, yytext());
     }   
     {empty} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.EMPTY, yycolumn, yyline, yytext());
     }
     
     {downTo} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.DOWNTO, yycolumn, yyline, yytext());
     }
 
     {downTo} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.DOWNTO, yycolumn, yyline, yytext());
     }
 
     {step} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.STEP, yycolumn, yyline, yytext());
     }
     {var} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.VARIABLE, yycolumn, yyline, yytext());
     }
 
     {string} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.STRING, yycolumn, yyline, yytext());
     }
 
@@ -234,175 +234,175 @@ dot="."
     {simple_quote} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
     }
 
     /*{double_quote} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
     } */
 
     {integer} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.INTEGER, yycolumn, yyline, yytext());
     }
     {character} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.CHARACTER, yycolumn, yyline, yytext());
     }
     {bool} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.BOOLEAN, yycolumn, yyline, yytext());
     }
     {if} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output); 
+        //System.out.println(output); 
         return new Symbol(Sym.IF, yycolumn, yyline, yytext());
     }
     {else} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.ELSE, yycolumn, yyline, yytext());
     }
     {while} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.WHILE, yycolumn, yyline, yytext());
     }
     {for} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.FOR, yycolumn, yyline, yytext());
     }
     {main} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output); 
+        //System.out.println(output); 
     }
     {return} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output); 
+        //System.out.println(output); 
         return new Symbol(Sym.RETURN, yycolumn, yyline, yytext());
     }
     {void} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.VOID, yycolumn, yyline, yytext());
     }
     {true} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.TRUE, yycolumn, yyline, yytext());
     }
     {false} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output); 
+        //System.out.println(output); 
         return new Symbol(Sym.FALSE, yycolumn, yyline, yytext());
     }
     {break} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.BREAK, yycolumn, yyline, yytext());
     }
     {null} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.NULL, yycolumn, yyline, yytext());
     }
     {input} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.INPUT, yycolumn, yyline, yytext());
     }
     {output} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output); 
+        //System.out.println(output); 
         return new Symbol(Sym.OUTPUT, yycolumn, yyline, yytext());
     }
     {switch} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.SWITCH, yycolumn, yyline, yytext());
     }
     {case} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.CASE, yycolumn, yyline, yytext());
     }
     {option} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.OPTION, yycolumn, yyline, yytext());
     }
     {default} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.DEFAULT, yycolumn, yyline, yytext());
     }
     {id} {
         String output= "ID "+ yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.ID, yycolumn, yyline, yytext());
     }
     /*
     {OPCOMP} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.OPCOMP, yycolumn, yyline, yytext());
     }
     {OPDIF} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.OPDIF, yycolumn, yyline, yytext());
     }
     {OPGREATER} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.OPGREATER, yycolumn, yyline, yytext());
     }
     {OPGREATEREQ} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.OPGREATEREQ, yycolumn, yyline, yytext());
     }
     {OPLESS} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.OPLESS, yycolumn, yyline, yytext());
     }
     {OPLESSEQ} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.OPLESSEQ, yycolumn, yyline, yytext());
     }
     */
@@ -410,139 +410,139 @@ dot="."
     {OPREL} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output); 
+        //System.out.println(output); 
         return new Symbol(Sym.OPREL, yycolumn, yyline, yytext());
     }
     
     {OPCOND} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output); 
+        //System.out.println(output); 
         return new Symbol(Sym.OPCOND, yycolumn, yyline, yytext());
     }
     /*
     {OPAND} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.OPAND, yycolumn, yyline, yytext());
     }
     {OPOR} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.OPOR, yycolumn, yyline, yytext());
     }
     */
     {OPLOG} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.OPLOG, yycolumn, yyline, yytext());
     }
 
     {OPMOD} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.OPMOD, yycolumn, yyline, yytext());
     }
     {OPMULT} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.OPMULT, yycolumn, yyline, yytext());
     }
     {OPSUM} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output); 
+        //System.out.println(output); 
         return new Symbol(Sym.OPSUM, yycolumn, yyline, yytext());
     }
     
     {OPINC} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.OPINC, yycolumn, yyline, yytext());
     }
     {OPASIGN} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.OPASIGN, yycolumn, yyline, yytext());
     }
     {OPASIGNADD} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.OPASIGNADD, yycolumn, yyline, yytext());
     }
     {OPASIGNMULT} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.OPASIGNMULT, yycolumn, yyline, yytext());
     }
     {l_key} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.L_KEY, yycolumn, yyline, yytext());
     }
     {r_key} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.R_KEY, yycolumn, yyline, yytext());
     }
     {l_bracket} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.L_BRACKET, yycolumn, yyline, yytext());
     }
     {r_bracket} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.R_BRACKET, yycolumn, yyline, yytext());
     }
     {l_par} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.L_PAR, yycolumn, yyline, yytext());
     }
     {r_par} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.R_PAR, yycolumn, yyline, yytext());
     }
     {comma} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.COMMA, yycolumn, yyline, yytext());
     }
     {semicolon} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.SEMICOLON, yycolumn, yyline, yytext());
     }
     {colon} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.COLON, yycolumn, yyline, yytext());
     }
 
     {dot} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        System.out.println(output);
+        //System.out.println(output);
         return new Symbol(Sym.DOT, yycolumn, yyline, yytext());
     }
 

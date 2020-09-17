@@ -1,14 +1,15 @@
 fnc holas ():int {
    wh(true){
-	output("solo una vez, no harás más");
-	brk;
-    }
+      output("solo una vez, no harás más");
+   }
     
     var x:int := 0;
+
     wh(x < 10){
         x++;
         x++;
         x-=1;	
     
-    }    
+    }
+  rtn hola;     
 }

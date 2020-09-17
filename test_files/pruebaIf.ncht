@@ -1,10 +1,9 @@
 fnc holas ():int {
-   ##Definición de un if 
-   if (a = b) {
-	output("exito");
-   }else if (b >a){
-   	##haga algo
-   }else{
-	##haga algo
-   }
+if(true){
+
+}else if(false){
+
 }
+rtn ;
+}
+	
