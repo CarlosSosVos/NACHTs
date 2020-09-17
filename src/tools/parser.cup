@@ -302,18 +302,18 @@ dec_general ::= dec_variable dec_general:dg
                 Node node = new Node();
                 RESULT = node;
                 :}
-               | empty
-                {:
-                System.err.println("Entra a dec_general EMPTY");
-                Node node = new Node();
-                RESULT = node;
-                :}
-                |error
+                |error 
                 {:
                 System.err.println("Entra a dec_general nos vamos para el error ");
                 Node node = new Node();
                 RESULT = node;
                 :}
+                /*| empty
+                {:
+                System.err.println("Entra a dec_general EMPTY");
+                Node node = new Node();
+                RESULT = node;
+                :}*/
                 ;
 
 dec_variable ::= VARIABLE ID COLON tipo dec_var 

@@ -1,9 +1,10 @@
 fnc holas ():int {
-if(true){
-
-}else if(false){
-
+if(true){ 
+	##fuck
+## porque no funciona
+}else if(false){ 
+  no:= hola(hola());
 }
-rtn ;
+ rtn ;
 }
 	
