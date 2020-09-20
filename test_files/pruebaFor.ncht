@@ -1,14 +1,14 @@
 fnc hola(): int {    
     ##Iteración por decremento
-    ##y>=1
-    for (y ,5 dwnTo 1,step(1)) {
+   
+    for (var y:int, 5 dwnTo 1,step(1)) {
 	output("hola");  
     }
 
     ##iteración por incremento
     ##x<=5
-    for (x:int,1 upTo 5, step(1)) {
-	hola();
+    for (var x:int,1 upTo 5, step(1)) {
+         hola("");
     }
 }
   

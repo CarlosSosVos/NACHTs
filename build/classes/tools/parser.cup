@@ -44,56 +44,6 @@ parser code {:
                 System.err.println("Se esperaba cualquiera de estas: "+list);
                 errores.add("Se esperaba cualquiera de estas: "+list);
 	}
-	
-    /*    public String getToken(int id){
-        String value = Sym.terminalNames[id];
-        switch(id){
-            case Sym.L_KEY:
-                return "{";
-            case Sym.R_KEY:
-                return "}";
-            case Sym.L_PAR:
-                return "(";
-            case Sym.R_PAR:
-                return ")";
-            case Sym.L_BRACKET:
-                return "[";
-            case Sym.R_BRACKET:
-                return "]";
-            default:
-                return value;
-        }
-    }   
-    
-    @Override
-    public void syntax_error(Symbol s){
-        String lex = s.value != null ? s.value.toString() : getToken(s.sym);
-        int fila = s.right;
-        int columna = s.left;
-        String err = "";
-        if(lex.equals("EOF")){
-            err = "Error sintáctico: Se esperaba el token } al final" ;
-        } else {
-            err = "Error sintáctico: " +  " fila: " + fila + " columna: " + columna + ", No se esperaba el token: " + lex;
-        }
-
-        System.err.println(err);
-        errores.add(err);
-    }
-    @Override
-    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception {
-        String lex = s.value != null ? s.value.toString() : getToken(s.sym);
-        int fila = s.right;
-        int columna = s.left;
-        String err = "";
-        if(lex.equals("EOF")){
-            err = "";
-        }else{
-            err = "Error sintáctico, pánico: " + " fila: " + fila + " columna: " + columna + ", No se esperaba el token: " + lex;
-        }
-        System.err.println(err);
-        errores.add(err);
-    } */
     
 
 :}
@@ -149,7 +99,7 @@ dec_gen_fun ::= dec_funcion:df dec_gen_fun:dgf
                 Node node = new Node();
                 RESULT = node;
             :}
-            | empty
+            | 
             {:
                 Node node = new Node();
                 RESULT = node;
@@ -302,18 +252,18 @@ dec_general ::= dec_variable dec_general:dg
                 Node node = new Node();
                 RESULT = node;
                 :}
-                |error 
+                |error R_KEY
                 {:
                 System.err.println("Entra a dec_general nos vamos para el error ");
                 Node node = new Node();
                 RESULT = node;
                 :}
-                /*| empty
+                | 
                 {:
-                System.err.println("Entra a dec_general EMPTY");
+                System.err.println("Entra a dec_general a vacio");
                 Node node = new Node();
                 RESULT = node;
-                :}*/
+                :}
                 ;
 
 dec_variable ::= VARIABLE ID COLON tipo dec_var 
@@ -390,7 +340,7 @@ dec_inst ::= OPASIGN ID
                 Node node = new Node();
                 RESULT = node;
              :}
-             |empty
+             |
              {:
                 Node node = new Node();
                 RESULT = node;
@@ -402,7 +352,7 @@ arr_cont ::= COMMA valor arr_cont
                 Node node = new Node();
                 RESULT = node;
             :}
-            |empty
+            |
             {:
                 Node node = new Node();
                 RESULT = node;
@@ -561,12 +511,13 @@ dec_for ::= FOR L_PAR ID COMMA NUM UPTO COMMA STEP L_PAR NUM R_PAR R_PAR L_KEY d
                 Node node = new Node();
                 RESULT = node;
             :}
-            | FOR L_PAR VARIABLE ID COLON INTEGER COMMA NUM DOWNTO NUM COMMA STEP L_PAR NUM R_PAR R_PAR L_BRACKET dec_general R_BRACKET
+            | FOR L_PAR VARIABLE ID COLON INTEGER COMMA NUM DOWNTO NUM COMMA STEP L_PAR NUM R_PAR R_PAR L_KEY dec_general R_KEY
             {:
                 System.err.println("Entra a dec_for 4");
                 Node node = new Node();
                 RESULT = node;
             :}
+    
             ;
 
 dec_switch ::= SWITCH L_PAR ID R_PAR L_BRACKET list_op R_BRACKET 
