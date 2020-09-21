@@ -1,10 +1,11 @@
 fnc holas ():int {
-if(true){ 
-	##fuck
+ a++;
+ a--;
+ a+=3;
+ a-=5;
+ a*=7;
+ a/=8;
 }
-else if(false){ 
-  no:= hola(hola());
-}
- rtn ;
-}
+
+
 	

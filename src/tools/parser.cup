@@ -369,6 +369,21 @@ dec_var_inst ::= ID OPASIGN valor SEMICOLON
                 Node node = new Node();
                 RESULT = node;
                 :}
+                | ID OPASIGNADD NUM SEMICOLON
+                {:
+                Node node = new Node();
+                RESULT = node;
+                :}
+                | ID OPASIGNMULT NUM SEMICOLON
+                {:
+                Node node = new Node();
+                RESULT = node;
+                :}
+                | ID OPINC SEMICOLON
+                {:
+                Node node = new Node();
+                RESULT = node;
+                :}
                 ;
 
 valor ::=  CONSTSTRING
