@@ -59,8 +59,8 @@ public class parser extends java_cup.runtime.lr_parser {
     "\000\002\026\005\000\002\027\011\000\002\030\021\000" +
     "\002\030\022\000\002\030\025\000\002\030\025\000\002" +
     "\031\011\000\002\032\007\000\002\033\005\000\002\033" +
-    "\007\000\002\033\004\000\002\034\011\000\002\035\005" +
-    "\000\002\035\007\000\002\035\003\000\002\036\005\000" +
+    "\007\000\002\033\004\000\002\034\012\000\002\035\004" +
+    "\000\002\035\006\000\002\035\002\000\002\036\005\000" +
     "\002\037\005\000\002\037\004\000\002\037\003\000\002" +
     "\040\005\000\002\040\004\000\002\042\005\000\002\042" +
     "\007\000\002\042\003\000\002\042\003\000\002\042\005" +
@@ -288,13 +288,13 @@ public class parser extends java_cup.runtime.lr_parser {
     "\053\347\001\002\000\036\003\065\011\052\020\053\022" +
     "\046\023\070\024\047\032\042\033\071\034\051\040\055" +
     "\050\072\054\uffe5\061\061\062\uffd6\001\002\000\004\054" +
-    "\352\001\002\000\042\003\uffaf\011\uffaf\020\uffaf\022\uffaf" +
-    "\023\uffaf\024\uffaf\030\uffaf\032\uffaf\033\uffaf\034\uffaf\040" +
-    "\uffaf\050\uffaf\054\uffaf\056\uffaf\061\uffaf\062\uffaf\001\002" +
-    "\000\044\003\uffac\011\uffac\020\uffac\021\353\022\uffac\023" +
-    "\uffac\024\uffac\030\uffac\032\uffac\033\uffac\034\uffac\040\uffac" +
-    "\050\uffac\054\uffac\056\uffac\061\uffac\062\uffac\001\002\000" +
-    "\006\020\053\053\355\001\002\000\042\003\uffae\011\uffae" +
+    "\351\001\002\000\044\003\uffac\011\uffac\020\uffac\021\352" +
+    "\022\uffac\023\uffac\024\uffac\030\uffac\032\uffac\033\uffac\034" +
+    "\uffac\040\uffac\050\uffac\054\uffac\056\uffac\061\uffac\062\uffac" +
+    "\001\002\000\006\020\053\053\355\001\002\000\042\003" +
+    "\uffaf\011\uffaf\020\uffaf\022\uffaf\023\uffaf\024\uffaf\030\uffaf" +
+    "\032\uffaf\033\uffaf\034\uffaf\040\uffaf\050\uffaf\054\uffaf\056" +
+    "\uffaf\061\uffaf\062\uffaf\001\002\000\042\003\uffae\011\uffae" +
     "\020\uffae\022\uffae\023\uffae\024\uffae\030\uffae\032\uffae\033" +
     "\uffae\034\uffae\040\uffae\050\uffae\054\uffae\056\uffae\061\uffae" +
     "\062\uffae\001\002\000\036\003\065\011\052\020\053\022" +
@@ -470,8 +470,8 @@ public class parser extends java_cup.runtime.lr_parser {
     "\336\001\001\000\002\001\001\000\002\001\001\000\036" +
     "\007\056\010\044\011\043\012\347\013\042\014\057\015" +
     "\065\017\066\027\047\030\055\031\063\034\053\036\040" +
-    "\044\061\001\001\000\004\035\350\001\001\000\002\001" +
-    "\001\000\002\001\001\000\004\034\353\001\001\000\002" +
+    "\044\061\001\001\000\002\001\001\000\004\035\352\001" +
+    "\001\000\004\034\353\001\001\000\002\001\001\000\002" +
     "\001\001\000\036\007\056\010\044\011\043\012\355\013" +
     "\042\014\057\015\065\017\066\027\047\030\055\031\063" +
     "\034\053\036\040\044\061\001\001\000\002\001\001\000" +
@@ -1659,7 +1659,7 @@ class CUP$parser$actions {
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 82: // dec_if ::= IF L_PAR condicion R_PAR L_KEY dec_general dec_else 
+          case 82: // dec_if ::= IF L_PAR condicion R_PAR L_KEY dec_general R_KEY dec_else 
             {
               Node RESULT =null;
 		
@@ -1668,47 +1668,47 @@ class CUP$parser$actions {
                 Node node = new Node();
                 RESULT = node;
             
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_if",26, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_if",26, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-7)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 83: // dec_else ::= R_KEY ELSE dec_if 
+          case 83: // dec_else ::= ELSE dec_if 
             {
               Node RESULT =null;
 		
-                System.err.println("Entra a dec_else 1");
+                System.err.println("Entra a dec_else elsif");
 
                 Node node = new Node();
                 RESULT = node;
             
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_else",27, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_else",27, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 84: // dec_else ::= R_KEY ELSE L_KEY dec_general R_KEY 
+          case 84: // dec_else ::= ELSE L_KEY dec_general R_KEY 
             {
               Node RESULT =null;
 		
-                System.err.println("Entra a dec_else 1");
+                System.err.println("Entra a dec_else else");
                 Node node = new Node();
                 RESULT = node;
             
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_else",27, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_else",27, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 85: // dec_else ::= R_KEY 
+          case 85: // dec_else ::= 
             {
               Node RESULT =null;
 		
-                System.err.println("Entra a dec_else 1");
+                System.err.println("Entra a dec_else vacio");
                 Node node = new Node();
                 RESULT = node;
             
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_else",27, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
+              CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_else",27, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
 
