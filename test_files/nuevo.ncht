@@ -1,5 +1,7 @@
-fnc suma ():int {
-    rtn hola(hola(hola(hola()))) + c * d;
+fnc hola  ( ):main {
+    a:= b.at(3);
+	 
+   hola();
 }
 
 #* 
@@ -19,7 +21,7 @@ fnc holas ():int {
    
     var x:int := 0;
     wh(x < 10){
-        hola()	
+        hola();	
     
     }        
 }

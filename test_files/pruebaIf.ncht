@@ -1,11 +1,7 @@
 fnc holas ():int {
- if(a<b){
- 	a++;
- }else if(1<2){
- 	a*=3;
- }else {
- 	b+=5;
- }
+if( a && b || b){
+	
+	}
 }
 
 

@@ -54,7 +54,7 @@ terminal String FUNCTION,NUM,UPTO,DOWNTO,STEP,VARIABLE,STRING,
                 INPUT,OUTPUT,SWITCH,CASE,OPTION,DEFAULT,ID,
                 OPREL,OPCOND,OPLOG,OPMOD,OPMULT,OPSUM,OPINC,OPASIGN,
                 OPASIGNADD,OPASIGNMULT,L_KEY,R_KEY,L_BRACKET,R_BRACKET,
-                L_PAR,R_PAR,COMMA,SEMICOLON,COLON,AT,DOT,EMPTY;
+                L_PAR,R_PAR,COMMA,SEMICOLON,COLON,AT,DOT,MAIN;
 
 non terminal Node inicio,dec_gen_fun,dec_funcion,parametros,/*lista_parametro,
              def_parametro,*/nuevo_parametro,func_lenguaje,func_input,
@@ -63,7 +63,7 @@ non terminal Node inicio,dec_gen_fun,dec_funcion,parametros,/*lista_parametro,
              val,dec_while,dec_for,dec_switch,list_op,new_op,dec_if,
              dec_else,dec_llamada_funcion,llamada_parametros,
              lista_valores,fin_llamada,condicion,valor_cond,dec_return,
-             tipo,empty;
+             tipo;
 
 precedence left OPSUM,OPMULT;
 precedence left OPASIGN;
@@ -84,13 +84,6 @@ inicio ::= dec_funcion:dg dec_gen_fun:dgf
     RESULT = node; 
     
     :} ;
-    
-empty ::= EMPTY {:
-                System.err.println("Entra a transicion vacia");
-
-                Node node = new Node();
-                RESULT = node;
-            :};
 
 dec_gen_fun ::= dec_funcion:df dec_gen_fun:dgf
             {:
@@ -113,6 +106,14 @@ dec_funcion ::= FUNCTION ID L_PAR parametros COLON tipo L_KEY dec_general R_KEY
                 Node node = new Node();
                 RESULT = node;
             :}
+            |FUNCTION ID L_PAR parametros COLON MAIN L_KEY dec_general R_KEY
+            {:
+               System.err.println("Entra a dec_funcion");
+
+                Node node = new Node();
+                RESULT = node;
+            :}
+            
 ;
 
 parametros ::= VARIABLE ID COLON tipo nuevo_parametro R_PAR
@@ -369,7 +370,7 @@ dec_var_inst ::= ID OPASIGN valor SEMICOLON
                 Node node = new Node();
                 RESULT = node;
                 :}
-                | ID OPASIGNADD NUM SEMICOLON
+                | ID OPASIGNADD valor SEMICOLON
                 {:
                 Node node = new Node();
                 RESULT = node;
@@ -417,6 +418,11 @@ valor ::=  CONSTSTRING
                 RESULT = node;
             :}
             | ID 
+            {:
+                Node node = new Node();
+                RESULT = node;
+            :}
+            | ID DOT AT L_PAR NUM R_PAR 
             {:
                 Node node = new Node();
                 RESULT = node;

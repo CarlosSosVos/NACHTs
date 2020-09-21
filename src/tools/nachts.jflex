@@ -31,22 +31,14 @@ letter = [a-zA-Z]|"_"
 digit = [0-9]
 id = {letter}({letter}|{digit})*
 numbers = {digit}+
-anything = [\s]|[\S]
-simple_quote = "\'"
-double_quote= "\""
-hash = [#]
-asterisk = [*] 
-//def_char= {simple_quote}{anything}{simple_quote}
+
 //comentarios
 comment = "#*" [^*] ~"*#" | "#*" "*"+ "#"
-s_comment = {hash}{asterisk}
-e_comment ={asterisk}{hash}
-//l_comment= {hash}{hash}
 l_comment = "##"[^["\n"]]+"\n"
+
 //saltos de linea y espacios
 newline = [\n]
 spaces = [ \n\t\r]
-empty = ""
 
 //reservadas
 integer = "int"
@@ -74,7 +66,8 @@ return = "rtn"
 
 cont_string = ("\""[^["\""]]+"\"")|("\"\"")
 
-cont_char = ("\'"[^["\'"]]"\'")|("\'\'") 
+//cont_char = ("\'"[^["\'"]]"\'")|("\'\'")
+cont_char = ("\'")([^"\'"])("\'")|("\'\'")
 
 //Escritura y lectura
 
@@ -154,6 +147,12 @@ dot="."
                 //System.out.println("encuentra espacio"); 
 
     }
+    {at} {
+        String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
+        accum+= output +"\n";
+        //System.out.println(output);
+        return new Symbol(Sym.AT, yycolumn, yyline, yytext());
+    }
     
     {numbers} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
@@ -162,27 +161,14 @@ dot="."
         return new Symbol(Sym.NUM, yycolumn, yyline, yytext());
     }
     
-    /*
-    {def_char} {
-        String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
-        accum+= output +"\n";
-        System.out.println("Definicion del caracter:" + output);
-        return new Symbol(Sym.CONSTCHAR, yycolumn, yyline, yytext());
-    }
-    */
+  
     {upTo} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
         //System.out.println(output);
         return new Symbol(Sym.UPTO, yycolumn, yyline, yytext());
     }   
-    {empty} {
-        String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
-        accum+= output +"\n";
-        //System.out.println(output);
-        return new Symbol(Sym.EMPTY, yycolumn, yyline, yytext());
-    }
-    
+   
     {downTo} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
@@ -231,18 +217,6 @@ dot="."
         return new Symbol(Sym.CONSTCHAR, yycolumn, yyline, yytext());
     }
 
-    {simple_quote} {
-        String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
-        accum+= output +"\n";
-        //System.out.println(output);
-    }
-
-    /*{double_quote} {
-        String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
-        accum+= output +"\n";
-        //System.out.println(output);
-    } */
-
     {integer} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
@@ -288,7 +262,9 @@ dot="."
     {main} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        //System.out.println(output); 
+        //System.out.println(output);
+        return new Symbol(Sym.MAIN, yycolumn, yyline, yytext());
+
     }
     {return} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
@@ -368,44 +344,6 @@ dot="."
         //System.out.println(output);
         return new Symbol(Sym.ID, yycolumn, yyline, yytext());
     }
-    /*
-    {OPCOMP} {
-        String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
-        accum+= output +"\n";
-        //System.out.println(output);
-        return new Symbol(Sym.OPCOMP, yycolumn, yyline, yytext());
-    }
-    {OPDIF} {
-        String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
-        accum+= output +"\n";
-        //System.out.println(output);
-        return new Symbol(Sym.OPDIF, yycolumn, yyline, yytext());
-    }
-    {OPGREATER} {
-        String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
-        accum+= output +"\n";
-        //System.out.println(output);
-        return new Symbol(Sym.OPGREATER, yycolumn, yyline, yytext());
-    }
-    {OPGREATEREQ} {
-        String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
-        accum+= output +"\n";
-        //System.out.println(output);
-        return new Symbol(Sym.OPGREATEREQ, yycolumn, yyline, yytext());
-    }
-    {OPLESS} {
-        String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
-        accum+= output +"\n";
-        //System.out.println(output);
-        return new Symbol(Sym.OPLESS, yycolumn, yyline, yytext());
-    }
-    {OPLESSEQ} {
-        String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
-        accum+= output +"\n";
-        //System.out.println(output);
-        return new Symbol(Sym.OPLESSEQ, yycolumn, yyline, yytext());
-    }
-    */
     
     {OPREL} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
@@ -420,20 +358,7 @@ dot="."
         //System.out.println(output); 
         return new Symbol(Sym.OPCOND, yycolumn, yyline, yytext());
     }
-    /*
-    {OPAND} {
-        String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
-        accum+= output +"\n";
-        //System.out.println(output);
-        return new Symbol(Sym.OPAND, yycolumn, yyline, yytext());
-    }
-    {OPOR} {
-        String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
-        accum+= output +"\n";
-        //System.out.println(output);
-        return new Symbol(Sym.OPOR, yycolumn, yyline, yytext());
-    }
-    */
+   
     {OPLOG} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
@@ -546,37 +471,19 @@ dot="."
         return new Symbol(Sym.DOT, yycolumn, yyline, yytext());
     }
 
+    
+
     .   {
-        String error = "ERROR EN" + "("+ yyline +","+ yycolumn+")" + ", token no reconocido";
+        
+        String descripcion_error =", token no reconocido";
+        
+        String error = "ERROR EN" + "("+ yyline +","+ yycolumn+")" + descripcion_error ;
         accum+= error +"\n";
         System.out.println(error);
         errors.add(error);
+        
     }
 
 }
-/*<COMMENT> {
-    {e_comment} {
-        System.out.println(yytext());
-        accum+= yytext() + "\n" ;
-        yybegin(1); 
-    }
-    {s_comment} {
-        String error = "ERROR EN" + "("+ yyline +","+ yycolumn+")";
-        accum+= error + "\n" ;
 
-        System.out.println(error);
-    }
-}
-<L_COMMENT> {
-    {newline} {
-        System.out.println(yytext());
-        accum+= yytext() + "\n" ;
-        yybegin(1);
-    }
-    .         {
-        System.out.print(yytext());
-        accum+= yytext();
-
-    }
-}*/
 
