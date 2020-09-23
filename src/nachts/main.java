@@ -558,7 +558,40 @@ public class main extends javax.swing.JFrame {
 
         return false;
     }
+    private static String recorrido(Nodo raiz) {
+  	String cuerpo = "";
+    	for (Nodo child : raiz.hijos) {
+    		// System.out.println("hola");
+            if (!(child.getEtiqueta().equals("vacio"))) {
+        	cuerpo += "\"" + raiz.getID() + ". " + raiz.getEtiqueta() + " = " + raiz.getValor() +
+        	"\"->\""+ child.getID() +". " + child.getEtiqueta()  + " = " + child.getValor() + "\""  + "\n";
+        	cuerpo += recorrido(child);
+            }
+    	}
+    	return cuerpo;
+    }
 
+    private static void Graficar(String cadena) {
+	FileWriter fw = null;
+    	PrintWriter pw = null;
+    	String archivo = "AST.dot";
+    	try {
+        	fw = new FileWriter(archivo);
+        	pw = new PrintWriter(fw);
+        	pw.println("digraph G {");
+        	pw.println(cadena);
+        	pw.println("\n}");
+        	fw.close();
+    	} catch (Exception e) {
+        	System.out.println(e);
+    	}
+    	try {
+        	String cmd = "dot -Tpng AST.dot -o fotoAST.png"; 
+        	Runtime.getRuntime().exec(cmd);
+    	} catch (IOException ioe) {
+        	System.out.println(ioe);
+    	}
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cancel_BT;
     private javax.swing.JFrame New_file_JF;
