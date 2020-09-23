@@ -33,8 +33,8 @@ public class Sym {
   public static final int ID = 30;
   public static final int CONSTSTRING = 9;
   public static final int R_BRACKET = 44;
-  public static final int BOOLEAN = 13;
   public static final int EOF = 0;
+  public static final int BOOLEAN = 13;
   public static final int RETURN = 18;
   public static final int TRUE = 20;
   public static final int error = 1;
@@ -54,8 +54,8 @@ public class Sym {
   public static final int OPASIGNMULT = 40;
   public static final int STRING = 8;
   public static final int CONSTCHAR = 10;
-  public static final int OPLOG = 33;
   public static final int DOWNTO = 5;
+  public static final int OPLOG = 33;
   public static final int AT = 50;
   public static final int FALSE = 21;
   public static final int L_BRACKET = 43;

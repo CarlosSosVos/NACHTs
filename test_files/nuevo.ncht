@@ -2,6 +2,7 @@ fnc hola  ( ):main {
     a:= b.at(3);
 	 
    hola();
+	rtn ;
 }
 
 #* 

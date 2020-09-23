@@ -99,14 +99,14 @@ dec_gen_fun ::= dec_funcion:df dec_gen_fun:dgf
             :}
 ;
 
-dec_funcion ::= FUNCTION ID L_PAR parametros COLON tipo L_KEY dec_general R_KEY
+dec_funcion ::= FUNCTION ID L_PAR parametros R_PAR COLON tipo L_KEY dec_general R_KEY
             {:
                System.err.println("Entra a dec_funcion");
 
                 Node node = new Node();
                 RESULT = node;
             :}
-            |FUNCTION ID L_PAR parametros COLON MAIN L_KEY dec_general R_KEY
+            |FUNCTION ID L_PAR parametros R_PAR COLON MAIN L_KEY dec_general R_KEY
             {:
                System.err.println("Entra a dec_funcion");
 
@@ -116,22 +116,22 @@ dec_funcion ::= FUNCTION ID L_PAR parametros COLON tipo L_KEY dec_general R_KEY
             
 ;
 
-parametros ::= VARIABLE ID COLON tipo nuevo_parametro R_PAR
+parametros ::= VARIABLE ID COLON tipo nuevo_parametro 
                 {:
                 System.err.println("Entra a parametros 1");
                 
                 Node node = new Node();
                 RESULT = node;
                 :}
-               |VARIABLE ID COLON tipo R_PAR 
+               |VARIABLE ID COLON tipo  
                {:
                 System.err.println("Entra a parametros 1");
                 Node node = new Node();
                 RESULT = node;
                :} 
-               |R_PAR
+               |
                {:
-                System.err.println("Entra a parametros 1");
+                System.err.println("Entra a vacio");
                 Node node = new Node();
                 RESULT = node;
                :} ;
@@ -608,7 +608,7 @@ dec_else ::= ELSE  dec_if
             :}
             ;
 
-dec_llamada_funcion ::= ID L_PAR llamada_parametros 
+dec_llamada_funcion ::= ID L_PAR llamada_parametros R_PAR
             {:
                 System.err.println("Entra a dec_llamada_funcion");
                 Node node = new Node();
@@ -616,21 +616,21 @@ dec_llamada_funcion ::= ID L_PAR llamada_parametros
             :}
             ;
 
-llamada_parametros ::= valor lista_valores R_PAR
+llamada_parametros ::= valor lista_valores
             {:
                 System.err.println("Entra a llamada_parametros 1");
                 Node node = new Node();
                 RESULT = node;
             :}
-            | valor R_PAR
+            | valor 
             {:
                 System.err.println("Entra a llamada_parametros 2");
                 Node node = new Node();
                 RESULT = node;
             :}
-            |R_PAR
+            |
             {:
-                System.err.println("Entra a llamada_parametros 3");
+                System.err.println("Entra a vacio");
                 Node node = new Node();
                 RESULT = node;
             :}
