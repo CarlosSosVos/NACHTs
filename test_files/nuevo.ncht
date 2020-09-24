@@ -1,6 +1,7 @@
 fnc hola  ( ):main {
     a:= b.at(3);
-	 
+
+   input(mepica,int);	 
    hola();
 	rtn ;
 }

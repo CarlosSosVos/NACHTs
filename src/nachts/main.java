@@ -407,6 +407,9 @@ public class main extends javax.swing.JFrame {
                 errors+= error +"\n";
             }
             this.txt_result.setText(errors);
+            
+            Graficar(recorrido(p.Tree));
+              
 
             //lex.yylex();
         } catch (FileNotFoundException ex) {
@@ -558,11 +561,16 @@ public class main extends javax.swing.JFrame {
 
         return false;
     }
-    private static String recorrido(Nodo raiz) {
+    private static String recorrido(Node raiz) {
   	String cuerpo = "";
-    	for (Nodo child : raiz.hijos) {
-    		// System.out.println("hola");
+    	for (Node child : raiz.hijos) {
+    		// System.out.println("hola");  
             if (!(child.getEtiqueta().equals("vacio"))) {
+                
+          
+             
+
+                
         	cuerpo += "\"" + raiz.getID() + ". " + raiz.getEtiqueta() + " = " + raiz.getValor() +
         	"\"->\""+ child.getID() +". " + child.getEtiqueta()  + " = " + child.getValor() + "\""  + "\n";
         	cuerpo += recorrido(child);

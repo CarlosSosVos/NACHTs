@@ -1,0 +1,3 @@
+fnc pedos():main {
+	output("hola");
+}

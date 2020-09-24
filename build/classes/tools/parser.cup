@@ -6,8 +6,10 @@ import java.util.List;
 
 parser code {:
    ArrayList<String> errores = new ArrayList();
-   public static Node root;
-   public int cont = 1;
+   Node Tree  = new Node();
+   int cont=0;
+
+
     public void report_error(String message,Object info){
                 StringBuffer m=new StringBuffer("Error ");
                 if(info instanceof Symbol){
@@ -47,6 +49,10 @@ parser code {:
     
 
 :}
+action code {:
+    
+    
+:}
 
 terminal String FUNCTION,NUM,UPTO,DOWNTO,STEP,VARIABLE,STRING,
                 CONSTSTRING,CONSTCHAR,INTEGER,CHARACTER,BOOLEAN,IF,ELSE,
@@ -73,14 +79,14 @@ start with inicio;
 inicio ::= dec_funcion:dg dec_gen_fun:dgf
     {:
     System.err.println("Entra a inicio");
-
+    parser.cont++;
     Node node = new Node();
     node.setEtiqueta("INICIO");
     node.setID(parser.cont);
     node.addHijos((Node) dg);
     node.addHijos((Node) dgf);
     
-    parser.root = node;
+    parser.Tree = node;
     RESULT = node; 
     
     :} ;
@@ -88,169 +94,365 @@ inicio ::= dec_funcion:dg dec_gen_fun:dgf
 dec_gen_fun ::= dec_funcion:df dec_gen_fun:dgf
             {:
                 System.err.println("Entra a dec_gen_fun");
-
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_gen_fun");
+                node.setID(parser.cont);
+                node.addHijos((Node) df);
+                node.addHijos((Node) dgf);  
+                
                 RESULT = node;
             :}
             | 
             {:
-                Node node = new Node();
-                RESULT = node;
+                parser.cont++;
+                Node nodo = new Node();
+				nodo.setEtiqueta("vacio");
+				nodo.setID(parser.cont);
+				
+                RESULT = nodo;
             :}
 ;
 
-dec_funcion ::= FUNCTION ID L_PAR parametros COLON tipo L_KEY dec_general R_KEY
+dec_funcion ::= FUNCTION ID:id L_PAR parametros:parts R_PAR COLON tipo:tip L_KEY dec_general:deG R_KEY
             {:
                System.err.println("Entra a dec_funcion");
-
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_funcion");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador =new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                node.addHijos(identificador);
+                node.addHijos((Node) parts);
+                node.addHijos((Node) tip);
+                node.addHijos((Node) deG);
+
+                
                 RESULT = node;
             :}
-            |FUNCTION ID L_PAR parametros COLON MAIN L_KEY dec_general R_KEY
+            |FUNCTION ID:id L_PAR parametros:parts R_PAR COLON MAIN L_KEY dec_general:deG R_KEY
             {:
                System.err.println("Entra a dec_funcion");
 
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_Funcion");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador =new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                parser.cont++;
+                Node main =new Node();
+                main.setEtiqueta("Main");
+                main.setID(parser.cont);
+                main.setValor("Main");
+
+                
+                node.addHijos(identificador);
+                node.addHijos((Node) parts);
+                node.addHijos(main);
+                node.addHijos((Node) deG);
                 RESULT = node;
             :}
             
 ;
 
-parametros ::= VARIABLE ID COLON tipo nuevo_parametro R_PAR
+parametros ::= VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 {:
                 System.err.println("Entra a parametros 1");
-                
+
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("parametros");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador =new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                node.addHijos(identificador);
+                node.addHijos((Node) tip);
+                node.addHijos((Node) nuP);
+                
                 RESULT = node;
                 :}
-               |VARIABLE ID COLON tipo R_PAR 
+               |VARIABLE ID:id COLON tipo:tip
                {:
                 System.err.println("Entra a parametros 1");
+
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("parametros");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador =new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                node.addHijos(identificador);
+                node.addHijos((Node) tip);
+
                 RESULT = node;
                :} 
-               |R_PAR
+               |
                {:
-                System.err.println("Entra a parametros 1");
-                Node node = new Node();
-                RESULT = node;
+                System.err.println("Entra a vacio");
+
+                parser.cont++;
+                Node nodo = new Node();
+				nodo.setEtiqueta("vacio");
+				nodo.setID(parser.cont);
+                RESULT = nodo;
                :} ;
 
-nuevo_parametro ::=COMMA VARIABLE ID COLON tipo nuevo_parametro
+nuevo_parametro ::=COMMA VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 {:
                 System.err.println("Entra a nuevo_parametro 1");
+
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("nuevo_parametro");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador =new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                node.addHijos(identificador);
+                node.addHijos((Node) tip);
+                node.addHijos((Node) nuP);
+
                 RESULT = node;
                 :}
-                | COMMA VARIABLE ID COLON tipo
+                | COMMA VARIABLE ID:id COLON tipo:tip
                 {:
                 System.err.println("Entra a nuevo_parametro 2");
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("nuevo_parametro");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador =new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                node.addHijos(identificador);
+                node.addHijos((Node) tip);
                 RESULT = node;
                 :};
 
-func_lenguaje ::= func_input
+func_lenguaje ::= func_input:fuI
                   {:
                     System.err.println("Entra a func_lenguaje 1");
+                    parser.cont++;
                     Node node = new Node();
+                    node.setEtiqueta("func_lenguaje");
+                    node.setID(parser.cont);
+                    node.addHijos((Node) fuI);
                     RESULT = node;
                   :}
-                  | func_output
+                  | func_output:fuO
                   {:
                     System.err.println("Entra a func_lenguaje 2");
+                    parser.cont++;
                     Node node = new Node();
+                    node.setEtiqueta("func_lenguaje");
+                    node.setID(parser.cont);
+                    node.addHijos((Node) fuO);
                     RESULT = node;
                   :}  
                   ;
                   
-func_input ::= INPUT L_PAR ID COMMA tipo R_PAR 
+func_input ::= INPUT L_PAR ID:id COMMA tipo:tip R_PAR 
                {:
                 System.err.println("Entra a func_input");
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("func_input");
+                node.setID(parser.cont);
+                parser.cont++;
+                Node identificador =new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                node.addHijos(identificador);
+                node.addHijos((Node) tip);
                 RESULT = node;
                 :}
                 ;
 
-func_output ::= OUTPUT L_PAR CONSTSTRING R_PAR  
+func_output ::= OUTPUT L_PAR CONSTSTRING:cs R_PAR  
                 {:
+        
                 System.err.println("Entra a func_output 1");
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("func_output");
+                node.setID(parser.cont);
+                parser.cont++;
+                Node const_string =new Node();
+                const_string.setEtiqueta("const_string");
+                const_string.setID(parser.cont);
+                String temp = cs.replaceAll("\"", "");
+                System.err.println("ESTA PUTA STRING ES : " + temp);
+
+                const_string.setValor(temp);
+                node.addHijos(const_string);
                 RESULT = node;
                 :}    
-                | OUTPUT L_PAR NUM R_PAR 
+                | OUTPUT L_PAR NUM:nm R_PAR 
                 {:
                 System.err.println("Entra a func_output 2");
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("func_output");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node num =new Node();
+                num.setEtiqueta("Num");
+                num.setID(parser.cont);
+                num.setValor(nm);
+                node.addHijos(num);
                 RESULT = node;
                 :}
-                | OUTPUT L_PAR ID R_PAR  
+                | OUTPUT L_PAR ID:id R_PAR  
                 {:
                 System.err.println("Entra a func_output 3");
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("func_output");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador =new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                node.addHijos(identificador);
                 RESULT = node;
                 :}    
                 ;
 
-dec_general ::= dec_variable dec_general:dg
+dec_general ::= dec_variable:dva dec_general:dg
                {:
                 System.err.println("Entra a dec_general de vairable");
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_general");
+                node.setID(parser.cont);
+                node.addHijos((Node) dva);
+                node.addHijos((Node) dg);
                 RESULT = node;
                :}
-               | dec_var dec_general
+               | dec_var:dv dec_general:dg
                {:
                 System.err.println("Entra a dec_general de vairable2");
-
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_general");
+                node.setID(parser.cont);
+                node.addHijos((Node) dv);
+                node.addHijos((Node) dg);
                 RESULT = node;
                :}
-               | dec_while dec_general
+               | dec_while:dw dec_general:dg
                {:
                 System.err.println("Entra a dec_general de while");
-
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_general");
+                node.setID(parser.cont);
+                node.addHijos((Node) dw);
+                node.addHijos((Node) dg);
                 RESULT = node;
                 :}
-               | dec_for dec_general
+               | dec_for:df dec_general:dg
                {:
                 System.err.println("Entra a dec_general de for");
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_general");
+                node.setID(parser.cont);
+                node.addHijos((Node) df);
+                node.addHijos((Node) dg);
                 RESULT = node;
                 :}
-               | dec_switch dec_general
+               | dec_switch:ds dec_general:dg
                 {:
                 System.err.println("Entra a dec_general de switch");
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_general");
+                node.setID(parser.cont);
+                node.addHijos((Node) ds);
+                node.addHijos((Node) dg);
                 RESULT = node;
                 :} 
-               |dec_if dec_general
+               |dec_if:di dec_general:dg
                {:
                System.err.println("Entra a dec_general de if");
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_general");
+                node.setID(parser.cont);
+                node.addHijos((Node) di);
+                node.addHijos((Node) dg);
                 RESULT = node;
                :}
-               |dec_llamada_funcion SEMICOLON dec_general
+               |dec_llamada_funcion:dlf SEMICOLON dec_general:dg
                {:
                 System.err.println("Entra a dec_general de llamada_funcion");
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_general");
+                node.setID(parser.cont);
+                node.addHijos((Node) dlf);
+                node.addHijos((Node) dg);
                 RESULT = node;
                :}
-               |dec_var_inst dec_general
+               |dec_var_inst:dvi dec_general:dg
                {:
                 System.err.println("Entra a dec_general de dec_var_inst");
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_general");
+                node.setID(parser.cont);
+                node.addHijos((Node) dvi);
+                node.addHijos((Node) dg);
                 RESULT = node;
                 :}
-               |func_lenguaje SEMICOLON dec_general
+               |func_lenguaje:fl SEMICOLON dec_general:dg
                {:
                 System.err.println("Entra a dec_general de func_lenguaje");
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_general");
+                node.setID(parser.cont);
+                node.addHijos((Node) fl);
+                node.addHijos((Node) dg);
                 RESULT = node;
                 :}
-               | dec_return SEMICOLON  
+               | dec_return:dr SEMICOLON  
                 {:
                 System.err.println("Entra a dec_general de dec_return");
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_general");
+                node.setID(parser.cont);
+                node.addHijos((Node) dr);
                 RESULT = node;
                 :}
                 |error R_KEY
@@ -262,460 +464,1112 @@ dec_general ::= dec_variable dec_general:dg
                 | 
                 {:
                 System.err.println("Entra a dec_general a vacio");
-                Node node = new Node();
-                RESULT = node;
+                parser.cont++;
+                Node nodo = new Node();
+				nodo.setEtiqueta("vacio");
+				nodo.setID(parser.cont);
+                RESULT = nodo;
                 :}
                 ;
 
-dec_variable ::= VARIABLE ID COLON tipo dec_var 
+dec_variable ::= VARIABLE ID:id COLON tipo:tip dec_var:dv
                  {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_variable");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador =new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                node.addHijos(identificador);
+                node.addHijos((Node) tip);
+                node.addHijos((Node) dv);
                 RESULT = node;
                 :}   
-                | VARIABLE ID L_BRACKET NUM R_BRACKET COLON tipo dec_inst dec_var 
+                | VARIABLE ID:id L_BRACKET NUM:nm R_BRACKET COLON tipo:tip dec_inst:di dec_var:dv 
                 {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_variable");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador =new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                parser.cont++;
+                Node num =new Node();
+                num.setEtiqueta("num");
+                num.setID(parser.cont);
+                num.setValor(nm);
+                node.addHijos(identificador);
+                node.addHijos(num);
+                node.addHijos((Node) tip);
+                node.addHijos((Node) di);
+                node.addHijos((Node) dv);
                 RESULT = node;
                 :}
                 ;
 
-dec_var ::= dec_inst SEMICOLON
+dec_var ::= dec_inst:di SEMICOLON
             {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_var");
+                node.setID(parser.cont);
+                node.addHijos((Node) di);
                 RESULT = node;
             :}
-            | COMMA ID COLON tipo dec_inst dec_var
+            | COMMA ID:id COLON tipo:tip dec_inst:di dec_var:dv
             {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_var");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador =new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                node.addHijos(identificador);
+                node.addHijos((Node) tip);
+                node.addHijos((Node) di);
+                node.addHijos((Node) dv);
                 RESULT = node;
             :}
-            | COMMA ID L_BRACKET NUM R_BRACKET COLON tipo dec_inst dec_var 
+            | COMMA ID:id L_BRACKET NUM:nm R_BRACKET COLON tipo:tip dec_inst:di dec_var:dv
             {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_var");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador =new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                parser.cont++;
+                Node num =new Node();
+                num.setEtiqueta("num");
+                num.setID(parser.cont);
+                num.setValor(nm);
+                node.addHijos(identificador);
+                node.addHijos(num);
+                node.addHijos((Node) tip);
+                node.addHijos((Node) di);
+                node.addHijos((Node) dv);
                 RESULT = node;
             :}
 ;
 
-dec_inst ::= OPASIGN ID
+dec_inst ::= OPASIGN ID:id
              {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_inst");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador =new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                node.addHijos(identificador);
                 RESULT = node;
              :}
-             | OPASIGN ID DOT AT L_PAR NUM R_PAR
+             | OPASIGN ID:id DOT AT L_PAR NUM:nm R_PAR
              {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_inst");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador =new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                parser.cont++;
+                Node num =new Node();
+                num.setEtiqueta("num");
+                num.setID(parser.cont);
+                num.setValor(nm);
+                node.addHijos(identificador);
+                node.addHijos(num);
                 RESULT = node;
              :}
-             | OPASIGN NUM 
+             | OPASIGN NUM:nm 
              {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_inst");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node num =new Node();
+                num.setEtiqueta("num");
+                num.setID(parser.cont);
+                num.setValor(nm);
+                node.addHijos(num);
                 RESULT = node;
              :}
-             | OPASIGN CONSTSTRING
+             | OPASIGN CONSTSTRING:cs
              {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_inst");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node const_string =new Node();
+                const_string.setEtiqueta("const string");
+                const_string.setID(parser.cont);
+                const_string.setValor(cs);
+                node.addHijos(const_string);
                 RESULT = node;
              :}
-             | OPASIGN CONSTCHAR  
+             | OPASIGN CONSTCHAR:cc  
              {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_inst");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node const_char =new Node();
+                const_char.setEtiqueta("const char");
+                const_char.setID(parser.cont);
+                const_char.setValor(cc);
+                node.addHijos(const_char);
                 RESULT = node;
              :}
-             | OPASIGN TRUE
+             | OPASIGN TRUE:tru
              {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_inst");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node bool_true =new Node();
+                bool_true.setEtiqueta("true");
+                bool_true.setID(parser.cont);
+                bool_true.setValor(tru);
+                node.addHijos(bool_true);
                 RESULT = node;
              :}
-             | OPASIGN FALSE 
+             | OPASIGN FALSE:fals 
              {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_inst");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node bool_false =new Node();
+                bool_false.setEtiqueta("false");
+                bool_false.setID(parser.cont);
+                bool_false.setValor(fals);
+                node.addHijos(bool_false);
                 RESULT = node;
              :}
-             | OPASIGN dec_llamada_funcion 
+             | OPASIGN dec_llamada_funcion:dlf
              {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_inst");
+                node.setID(parser.cont);
+                node.addHijos((Node) dlf);
                 RESULT = node;
              :}
-             | OPASIGN L_KEY valor arr_cont R_KEY 
+             | OPASIGN L_KEY valor:va arr_cont:arc R_KEY 
              {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_inst");
+                node.setID(parser.cont);
+                node.addHijos((Node) va);
+                node.addHijos((Node) arc);
                 RESULT = node;
              :}
              |
              {:
-                Node node = new Node();
-                RESULT = node;
+                parser.cont++;
+                Node nodo = new Node();
+				nodo.setEtiqueta("vacio");
+				nodo.setID(parser.cont);
+                RESULT = nodo;
              :}
               ;
 
-arr_cont ::= COMMA valor arr_cont
+arr_cont ::= COMMA valor:va arr_cont:arc
              {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("arr_cont");
+                node.setID(parser.cont);
+                node.addHijos((Node) va);
+                node.addHijos((Node) arc);
                 RESULT = node;
             :}
             |
             {:
-                Node node = new Node();
-                RESULT = node;
+                parser.cont++;
+                Node nodo = new Node();
+				nodo.setEtiqueta("vacio");
+				nodo.setID(parser.cont);
+                RESULT = nodo;
             :}
             ;
 
-dec_var_inst ::= ID OPASIGN valor SEMICOLON
+dec_var_inst ::= ID:id OPASIGN valor:va SEMICOLON
                 {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_var_inst");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador =new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                node.addHijos(identificador);
+                node.addHijos((Node) va);
                 RESULT = node;
                 :}
-                | ID DOT AT L_PAR NUM R_PAR OPASIGN valor SEMICOLON
+                | ID:id DOT AT L_PAR NUM:nm R_PAR OPASIGN valor:va SEMICOLON
                 {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_var_inst");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador =new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                parser.cont++;
+                Node num =new Node();
+                num.setEtiqueta("num");
+                num.setID(parser.cont);
+                num.setValor(nm);
+                node.addHijos(identificador);
+                node.addHijos(num);
+                node.addHijos((Node) va);
                 RESULT = node;
                 :}
-                | ID OPASIGNADD valor SEMICOLON
+                | ID:id OPASIGNADD valor:va SEMICOLON
                 {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_var_inst");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador =new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                node.addHijos(identificador);
+                node.addHijos((Node) va);
                 RESULT = node;
                 :}
-                | ID OPASIGNMULT NUM SEMICOLON
+                | ID:id OPASIGNMULT NUM:nm SEMICOLON
                 {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_var_inst");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador =new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                parser.cont++;
+                Node num =new Node();
+                num.setEtiqueta("num");
+                num.setID(parser.cont);
+                num.setValor(nm);
+                node.addHijos(identificador);
+                node.addHijos(num);
                 RESULT = node;
                 :}
-                | ID OPINC SEMICOLON
+                | ID:id OPINC SEMICOLON
                 {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_var_inst");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador =new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                node.addHijos(identificador);
                 RESULT = node;
                 :}
                 ;
 
-valor ::=  CONSTSTRING
+valor ::=  CONSTSTRING:cs
            {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("valor");
+                node.setID(parser.cont);
+                
+                parser.cont++;
+                Node const_string = new Node();
+                const_string.setEtiqueta("const string");
+                const_string.setID(parser.cont);
+                const_string.setValor(cs);
+
+                node.setValor(const_string.getValor());
+
                 RESULT = node;
            :}
-           | CONSTCHAR
+           | CONSTCHAR:cc
            {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("valor");
+                node.setID(parser.cont);
+                
+                parser.cont++;
+                Node const_char = new Node();
+                const_char.setEtiqueta("const char");
+                const_char.setID(parser.cont);
+                const_char.setValor(cc);
+
+                node.setValor(const_char.getValor());
                 RESULT = node;
            :}
-           | TRUE
+           | TRUE:tru
            {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("valor");
+                node.setID(parser.cont);
+                
+                parser.cont++;
+                Node bool_true = new Node();
+                bool_true.setEtiqueta("true");
+                bool_true.setID(parser.cont);
+                bool_true.setValor(tru);
+
+                node.setValor(bool_true.getValor());
                 RESULT = node;
            :}
-           | FALSE
+           | FALSE:fals
            {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("valor");
+                node.setID(parser.cont);
+                
+                parser.cont++;
+                Node bool_false = new Node();
+                bool_false.setEtiqueta("false");
+                bool_false.setID(parser.cont);
+                bool_false.setValor(fals);
+
+                node.setValor(bool_false.getValor());
                 RESULT = node;
            :}
-           | math_op
+           | math_op:mop
            {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("valor");
+                node.setID(parser.cont);
+                node.addHijos((Node) mop);
                 RESULT = node;
            :}
-           | dec_llamada_funcion 
+           | dec_llamada_funcion:dlf
             {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("valor");
+                node.setID(parser.cont);
+                node.addHijos((Node) dlf);
                 RESULT = node;
             :}
-            | ID 
+            | ID:id
             {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("valor");
+                node.setID(parser.cont);
+                
+                parser.cont++;
+                Node identificador = new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+
+                node.setValor(identificador.getValor());
                 RESULT = node;
             :}
-            | ID DOT AT L_PAR NUM R_PAR 
+            | ID:id DOT AT L_PAR NUM:nm R_PAR 
             {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("valor");
+                node.setID(parser.cont);
+                
+                parser.cont++;
+                Node identificador = new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                node.addHijos(identificador);
+                node.setValor("");
+
                 RESULT = node;
             :}
            
             ;
 
-math_op ::= s_op 
+math_op ::= s_op:so
             {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("math_op");
+                node.setID(parser.cont);
+                node.addHijos((Node) so);
                 RESULT = node;
             :}
-            | m_op
+            | m_op:mo
+            {:
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("math_op");
+                node.setID(parser.cont);
+                node.addHijos((Node) mo);
+                RESULT = node;
+            :}
             ;
 
-s_op ::= val sum_op 
+s_op ::= val:vl sum_op:sum
             {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("s_op");
+                node.setID(parser.cont);
+                node.addHijos((Node) vl);
+                node.addHijos((Node) sum);
                 RESULT = node;
             :};
 
-sum_op ::= OPSUM val sum_op
+sum_op ::= OPSUM val:vl sum_op:sum
             {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("sum_op");
+                node.setID(parser.cont);
+                node.addHijos((Node) vl);
+                node.addHijos((Node) sum);
                 RESULT = node;
             :}
-            | OPSUM val mult_op
+            | OPSUM val:vl mult_op:mult
             {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("sum_op");
+                node.setID(parser.cont);
+                node.addHijos((Node) vl);
+                node.addHijos((Node) mult);
                 RESULT = node;
             :}
-            | OPSUM val
+            | OPSUM val:vl
             {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("sum_op");
+                node.setID(parser.cont);
+                node.addHijos((Node) vl);
                 RESULT = node;
             :} 
             ;
 
-m_op ::= val mult_op 
+m_op ::= val:vl mult_op:mult 
             {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("m_op");
+                node.setID(parser.cont);
+                node.addHijos((Node) vl);
+                node.addHijos((Node) mult);
                 RESULT = node;
             :};
             
-mult_op ::= OPMULT val mult_op 
+mult_op ::= OPMULT val:vl mult_op:mult
             {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("mult_op");
+                node.setID(parser.cont);
+                node.addHijos((Node) vl);
+                node.addHijos((Node) mult);
                 RESULT = node;
             :}
-            | OPMULT val sum_op 
+            | OPMULT val:vl sum_op:sum
             {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("mult_op");
+                node.setID(parser.cont);
+                node.addHijos((Node) vl);
+                node.addHijos((Node) sum);
                 RESULT = node;
             :}
-            | OPMULT val
+            | OPMULT val:vl
             {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("mult_op");
+                node.setID(parser.cont);
+                node.addHijos((Node) vl);
                 RESULT = node;
             :} 
             ;
 
-val ::= ID
+val ::= ID:id
         {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("val");
+                node.setID(parser.cont);
+                
+                parser.cont++;
+                Node identificador = new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+
+                node.setValor(identificador.getValor());
                 RESULT = node;
         :}
-        | NUM
+        | NUM:nm
         {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("val");
+                node.setID(parser.cont);
+                
+                parser.cont++;
+                Node num = new Node();
+                num.setEtiqueta("num");
+                num.setID(parser.cont);
+                num.setValor(nm);
+
+                node.setValor(num.getValor());
                 RESULT = node;
         :}
-        | dec_llamada_funcion 
+        | dec_llamada_funcion:dlf
         {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("val");
+                node.setID(parser.cont);
+                node.addHijos((Node) dlf);
                 RESULT = node;
         :}
-        | L_PAR math_op R_PAR 
+        | L_PAR math_op:mo R_PAR 
         {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("val");
+                node.setID(parser.cont);
+                node.addHijos((Node) mo);
                 RESULT = node;
         :}
         ;
 
-dec_while ::= WHILE L_PAR condicion R_PAR L_KEY dec_general R_KEY
+dec_while ::= WHILE L_PAR condicion:cond R_PAR L_KEY dec_general:dg R_KEY
             {:
-                System.err.println("Entra a dec_while");
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_while");
+                node.setID(parser.cont);
+                node.addHijos((Node) cond);
+                node.addHijos((Node) dg);
                 RESULT = node;
             :}
 ;
 
-dec_for ::= FOR L_PAR ID COMMA NUM UPTO COMMA STEP L_PAR NUM R_PAR R_PAR L_KEY dec_general R_KEY
+dec_for ::= FOR L_PAR ID:id COMMA NUM:nm1 UPTO NUM:nm2 COMMA STEP L_PAR NUM:nm3 R_PAR R_PAR L_KEY dec_general:dg R_KEY
             {:
                 System.err.println("Entra a dec_for 1");
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_for");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador = new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                parser.cont++;
+                Node num1 =new Node();
+                num1.setEtiqueta("num");
+                num1.setID(parser.cont);
+                num1.setValor(nm1);
+                parser.cont++;
+                Node num2 =new Node();
+                num2.setEtiqueta("num");
+                num2.setID(parser.cont);
+                num2.setValor(nm2);
+                parser.cont++;
+                Node num3 =new Node();
+                num3.setEtiqueta("num");
+                num3.setID(parser.cont);
+                num3.setValor(nm3);     
+                node.addHijos(identificador);
+                node.addHijos(num1);
+                node.addHijos(num2);
+                node.addHijos(num3);
+                node.addHijos((Node) dg);
                 RESULT = node;
             :}
-            | FOR L_PAR ID COMMA NUM DOWNTO NUM COMMA STEP L_PAR NUM R_PAR R_PAR L_KEY dec_general R_KEY
+            | FOR L_PAR ID:id COMMA NUM:nm1 DOWNTO NUM:nm2 COMMA STEP L_PAR NUM:nm3 R_PAR R_PAR L_KEY dec_general:dg R_KEY
             {:
                 System.err.println("Entra a dec_for 2");
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_for");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador = new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                parser.cont++;
+                Node num1 =new Node();
+                num1.setEtiqueta("num");
+                num1.setID(parser.cont);
+                num1.setValor(nm1);
+                parser.cont++;
+                Node num2 =new Node();
+                num2.setEtiqueta("num");
+                num2.setID(parser.cont);
+                num2.setValor(nm2);
+                parser.cont++;
+                Node num3 =new Node();
+                num3.setEtiqueta("num");
+                num3.setID(parser.cont);
+                num3.setValor(nm3);     
+                node.addHijos(identificador);
+                node.addHijos(num1);
+                node.addHijos(num2);
+                node.addHijos(num3);
+                node.addHijos((Node) dg);
                 RESULT = node;
             :}
-            | FOR L_PAR VARIABLE ID COLON INTEGER COMMA NUM UPTO NUM COMMA STEP L_PAR NUM R_PAR R_PAR L_KEY dec_general R_KEY
+            | FOR L_PAR VARIABLE ID:id COLON INTEGER COMMA NUM:nm1 UPTO NUM:nm2 COMMA STEP L_PAR NUM:nm3 R_PAR R_PAR L_KEY dec_general:dg R_KEY
             {:
                 System.err.println("Entra a dec_for 3");
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_for");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador = new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                parser.cont++;
+                Node num1 =new Node();
+                num1.setEtiqueta("num");
+                num1.setID(parser.cont);
+                num1.setValor(nm1);
+                parser.cont++;
+                Node num2 =new Node();
+                num2.setEtiqueta("num");
+                num2.setID(parser.cont);
+                num2.setValor(nm2);
+                parser.cont++;
+                Node num3 =new Node();
+                num3.setEtiqueta("num");
+                num3.setID(parser.cont);
+                num3.setValor(nm3);     
+                node.addHijos(identificador);
+                node.addHijos(num1);
+                node.addHijos(num2);
+                node.addHijos(num3);
+                node.addHijos((Node) dg);
                 RESULT = node;
             :}
-            | FOR L_PAR VARIABLE ID COLON INTEGER COMMA NUM DOWNTO NUM COMMA STEP L_PAR NUM R_PAR R_PAR L_KEY dec_general R_KEY
+            | FOR L_PAR VARIABLE ID:id COLON INTEGER COMMA NUM:nm1 DOWNTO NUM:nm2 COMMA STEP L_PAR NUM:nm3 R_PAR R_PAR L_KEY dec_general:dg R_KEY
             {:
                 System.err.println("Entra a dec_for 4");
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_for");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador = new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                parser.cont++;
+                Node num1 =new Node();
+                num1.setEtiqueta("num");
+                num1.setID(parser.cont);
+                num1.setValor(nm1);
+                parser.cont++;
+                Node num2 =new Node();
+                num2.setEtiqueta("num");
+                num2.setID(parser.cont);
+                num2.setValor(nm2);
+                parser.cont++;
+                Node num3 =new Node();
+                num3.setEtiqueta("num");
+                num3.setID(parser.cont);
+                num3.setValor(nm3);     
+                node.addHijos(identificador);
+                node.addHijos(num1);
+                node.addHijos(num2);
+                node.addHijos(num3);
+                node.addHijos((Node) dg);
                 RESULT = node;
             :}
     
             ;
 
-dec_switch ::= SWITCH L_PAR ID R_PAR L_BRACKET list_op R_BRACKET 
+dec_switch ::= SWITCH L_PAR ID:id R_PAR L_BRACKET list_op:lo R_BRACKET 
             {:
                 System.err.println("Entra a dec_switch");
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_switch");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador = new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                node.addHijos(identificador);
+                node.addHijos((Node) lo);
                 RESULT = node;
             :}
             ;
 
-list_op ::= OPTION valor COLON dec_general new_op 
+list_op ::= OPTION valor:vl COLON dec_general:dg new_op:nwo 
             {:
                 System.err.println("Entra a list_op");
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("list_op");
+                node.setID(parser.cont);
+                node.addHijos((Node) vl);
+                node.addHijos((Node) dg);
+                node.addHijos((Node) nwo);
                 RESULT = node;
             :}
             ;
 
-new_op ::= BREAK SEMICOLON list_op
+new_op ::= BREAK SEMICOLON list_op:lo
             {:
                 System.err.println("Entra a new_op 1");
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("new_op");
+                node.setID(parser.cont);
+                node.addHijos((Node) lo);
                 RESULT = node;
             :}
-            | BREAK SEMICOLON DEFAULT COLON dec_general
+            | BREAK SEMICOLON DEFAULT COLON dec_general:dg
             {:
                 System.err.println("Entra a new_op 2");
-
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("new_op");
+                node.setID(parser.cont);
+                node.addHijos((Node) dg);
                 RESULT = node;
             :}
             | BREAK SEMICOLON 
             {:
                 System.err.println("Entra a new_op 3");
-
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("new_op");
+                node.setID(parser.cont);
                 RESULT = node;
             :}
             ;
 
-dec_if ::= IF L_PAR condicion R_PAR L_KEY dec_general R_KEY dec_else 
+dec_if ::= IF L_PAR condicion:cond R_PAR L_KEY dec_general:dg R_KEY dec_else:del
             {:
                 System.err.println("Entra a dec_if");
-
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_if");
+                node.setID(parser.cont);
+                node.addHijos((Node) cond);
+                node.addHijos((Node) dg);
+                node.addHijos((Node) del);
                 RESULT = node;
             :}
             ;
-dec_else ::= ELSE  dec_if 
+dec_else ::= ELSE  dec_if:di
             {:
                 System.err.println("Entra a dec_else elsif");
-
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_else");
+                node.setID(parser.cont);
+                node.addHijos((Node) di);
                 RESULT = node;
             :}
-            |ELSE L_KEY dec_general R_KEY 
+            |ELSE L_KEY dec_general:dg R_KEY 
             {:
                 System.err.println("Entra a dec_else else");
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_else");
+                node.setID(parser.cont);
+                node.addHijos((Node) dg);
                 RESULT = node;
             :}
             |
             {:
-                System.err.println("Entra a dec_else vacio");
-                Node node = new Node();
-                RESULT = node;
+                parser.cont++;
+                Node nodo = new Node();
+				nodo.setEtiqueta("vacio");
+				nodo.setID(parser.cont);
+                RESULT = nodo;
             :}
             ;
 
-dec_llamada_funcion ::= ID L_PAR llamada_parametros 
+dec_llamada_funcion ::= ID L_PAR llamada_parametros:llp R_PAR
             {:
                 System.err.println("Entra a dec_llamada_funcion");
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_llamada_funcion");
+                node.setID(parser.cont);
+                node.addHijos((Node) llp);
                 RESULT = node;
             :}
             ;
 
-llamada_parametros ::= valor lista_valores R_PAR
+llamada_parametros ::= valor:vl lista_valores:lv
             {:
                 System.err.println("Entra a llamada_parametros 1");
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("llamada_parametros");
+                node.setID(parser.cont);
+                node.addHijos((Node) vl);
+                node.addHijos((Node) lv);
                 RESULT = node;
             :}
-            | valor R_PAR
+            | valor:vl
             {:
                 System.err.println("Entra a llamada_parametros 2");
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("llamada_parametros");
+                node.setID(parser.cont);
+                node.addHijos((Node) vl);
                 RESULT = node;
             :}
-            |R_PAR
+            |
             {:
-                System.err.println("Entra a llamada_parametros 3");
-                Node node = new Node();
-                RESULT = node;
+                System.err.println("Entra a vacio");
+                parser.cont++;
+                Node nodo = new Node();
+				nodo.setEtiqueta("vacio");
+				nodo.setID(parser.cont);
+                RESULT = nodo;
             :}
             ;
 
-lista_valores ::= COMMA valor lista_valores
+lista_valores ::= COMMA valor:vl lista_valores:lv
             {:
                 System.err.println("Entra a lista_valores 1");
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("lista_valores");
+                node.setID(parser.cont);
+                node.addHijos((Node) vl);
+                node.addHijos((Node) lv);
                 RESULT = node;
             :}
-            |COMMA valor
+            |COMMA valor:vl
             {:
                 System.err.println("Entra a lista_valores 2");
-
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("lista_valores");
+                node.setID(parser.cont);
+                node.addHijos((Node) vl);
                 RESULT = node;
             :}
             ;
 
 
-condicion ::= valor_cond OPREL valor_cond 
+condicion ::= valor_cond:vc1 OPREL valor_cond:vc2
             {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("condicion");
+                node.setID(parser.cont);
+                node.addHijos((Node) vc1);
+                node.addHijos((Node) vc2);
                 RESULT = node;
             :}
-            | valor_cond OPREL valor_cond OPLOG condicion 
+            | valor_cond:vc1 OPREL valor_cond:vc2 OPLOG condicion:cond
             {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("condicion");
+                node.setID(parser.cont);
+                node.addHijos((Node) vc1);
+                node.addHijos((Node) vc2);
+                node.addHijos((Node) cond);
                 RESULT = node;
             :}
-            | valor_cond 
+            | valor_cond:vc
             {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("condicion");
+                node.setID(parser.cont);
+                node.addHijos((Node) vc);
                 RESULT = node;
             :}
-            | NULL 
+            | NULL:nll
             {:
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("condicion");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node nulo=new Node();
+                nulo.setEtiqueta("Null");
+                nulo.setID(parser.cont);
+                nulo.setValor(nll);
+
+                node.setValor(nulo.getValor());
+
                 RESULT = node;
             :}
-            | valor_cond OPLOG condicion 
+            | valor_cond:vc OPLOG condicion:cond
             {:
+                parser.cont++;
                 Node node = new Node();
-                RESULT = node;
+                node.setEtiqueta("condicion");
+                node.setID(parser.cont);
+                node.addHijos((Node) vc);
+                node.addHijos((Node) cond);
             :}
             ;
 
-valor_cond ::= NUM
+valor_cond ::= NUM:nm
             {:
                 System.err.println("Entra a valor_cond 1");
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("valor_cond");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node num =new Node();
+                num.setEtiqueta("num");
+                num.setID(parser.cont);
+                num.setValor(nm);
+
+                node.setValor(num.getValor());
                 RESULT = node;
             :}
-            | ID
+            | ID:id
             {:
                 System.err.println("Entra a valor_cond 2");
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("valor_cond");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador =new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+
+                node.setValor(identificador.getValor());
                 RESULT = node;
             :}
-            | TRUE
+            | TRUE:tru
             {:
                 System.err.println("Entra a valor_cond 3");
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("valor_cond");
+                node.setID(parser.cont);
+                
+                parser.cont++;
+                Node bool_true = new Node();
+                bool_true.setEtiqueta("true");
+                bool_true.setID(parser.cont);
+                bool_true.setValor(tru);
+
+                node.setValor(bool_true.getValor());
                 RESULT = node;
             :}
-            | FALSE 
+            | FALSE:fals
             {:
                 System.err.println("Entra a valor_cond 4");
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("valor");
+                node.setID(parser.cont);
+                
+                parser.cont++;
+                Node bool_false = new Node();
+                bool_false.setEtiqueta("false");
+                bool_false.setID(parser.cont);
+                bool_false.setValor(fals);
+
+                node.setValor(bool_false.getValor());
                 RESULT = node;
             :}
             ;
 
-dec_return ::= RETURN valor
+dec_return ::= RETURN valor:vl
             {:
                 System.err.println("Entra a dec_return 1");
-
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_return");
+                node.setID(parser.cont);
+                node.addHijos(vl);
                 RESULT = node;
             :}
             | RETURN 
             {:
                 System.err.println("Entra a dec_return 2");  
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("dec_return");
+                node.setID(parser.cont);
                 RESULT = node;
             :}
             ;
@@ -723,31 +1577,51 @@ dec_return ::= RETURN valor
 tipo ::= BOOLEAN
             {:
                 System.err.println("Entra a tipo 1");
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("tipo");
+                node.setID(parser.cont);
+                node.setValor("boolean");
                 RESULT = node;
             :}
-            | CHARACTER 
+            | CHARACTER
             {:
                 System.err.println("Entra a tipo 2");
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("tipo");
+                node.setID(parser.cont);
+                node.setValor("char");
                 RESULT = node;
             :}
             | INTEGER
             {:
                 System.err.println("Entra a tipo 3");
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("tipo");
+                node.setID(parser.cont);
+                node.setValor("Int");
                 RESULT = node;
             :}
             | VOID
             {:
                 System.err.println("Entra a tipo 4");
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("tipo");
+                node.setID(parser.cont);
+                node.setValor("Void");
                 RESULT = node;
             :}
             | STRING 
             {:  
                 System.err.println("Entra a tipo 5");
+                parser.cont++;
                 Node node = new Node();
+                node.setEtiqueta("tipo");
+                node.setID(parser.cont);
+                node.setValor("String");
                 RESULT = node;
             :}
             ;

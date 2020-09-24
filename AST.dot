@@ -1,0 +1,11 @@
+digraph G {
+"11. INICIO = null"->"7. dec_Funcion = null"
+"7. dec_Funcion = null"->"8. ID = pedos"
+"7. dec_Funcion = null"->"9. Main = Main"
+"7. dec_Funcion = null"->"6. dec_general = null"
+"6. dec_general = null"->"4. func_lenguaje = null"
+"4. func_lenguaje = null"->"2. func_output = null"
+"2. func_output = null"->"3. const_string = hola"
+
+
+}
