@@ -31,7 +31,6 @@ letter = [a-zA-Z]|"_"
 digit = [0-9]
 id = {letter}({letter}|{digit})*
 numbers = {digit}+
-
 //comentarios
 comment = "#*" [^*] ~"*#" | "#*" "*"+ "#"
 l_comment = "##"[^["\n"]]+"\n"
@@ -42,11 +41,13 @@ spaces = [ \n\t\r]
 
 //reservadas
 integer = "int"
+float = "float"
 character= "chr"
 bool = "bool"
 string = "string"
 if = "if"
 else ="else"
+elif = "elif"
 while= "wh"
 for = "for"
 main = "main"
@@ -116,6 +117,9 @@ semicolon=";"
 colon=":"
 dot="."
 
+
+float_value = {numbers}{dot}{numbers}
+
 %%
 
 <YYINITIAL> {
@@ -158,6 +162,12 @@ dot="."
         accum+= output +"\n";
         //System.out.println(output); 
         return new Symbol(Sym.NUM, yycolumn, yyline, yytext());
+    }
+    {float_value} {
+        String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
+        accum+= output +"\n";
+        //System.out.println(output); 
+        return new Symbol(Sym.FLOAT_VAL, yycolumn, yyline, yytext());
     }
     
   
@@ -222,6 +232,14 @@ dot="."
         //System.out.println(output);
         return new Symbol(Sym.INTEGER, yycolumn, yyline, yytext());
     }
+    {float} {
+        String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
+        accum+= output +"\n";
+        //System.out.println(output);
+        return new Symbol(Sym.FLOAT, yycolumn, yyline, yytext());
+    }
+
+
     {character} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
@@ -245,6 +263,12 @@ dot="."
         accum+= output +"\n";
         //System.out.println(output);
         return new Symbol(Sym.ELSE, yycolumn, yyline, yytext());
+    }
+    {elif} {
+        String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
+        accum+= output +"\n";
+        //System.out.println(output);
+        return new Symbol(Sym.ELIF, yycolumn, yyline, yytext());
     }
     {while} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";

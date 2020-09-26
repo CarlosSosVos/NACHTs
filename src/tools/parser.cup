@@ -8,13 +8,14 @@ parser code {:
    ArrayList<String> errores = new ArrayList();
    Node Tree  = new Node();
    int cont=0;
+   int contMain=0;
 
 
     public void report_error(String message,Object info){
                 StringBuffer m=new StringBuffer("Error ");
                 if(info instanceof Symbol){
                         Symbol s=((Symbol)info);
-
+                      
                         if(s.left>=0){
                                 m.append("en linea "+(s.right+1));
                         if(s.right>=0)
@@ -24,6 +25,9 @@ parser code {:
                 m.append(": "+message);
                 System.err.println(m);
                 errores.add(m+"");
+
+                
+
         }
 
         public void report_fatal_error(String message, Object info){
@@ -32,7 +36,7 @@ parser code {:
         }
 
         public void unrecovered_syntax_error(Symbol cur_token){
-                System.out.println(cur_token.toString());
+               // System.out.println(cur_token.toString());
                 System.err.println("CRITICO: At line "+(cur_token.right)+", column "+cur_token.left);
                 errores.add("CRITICO: At line "+(cur_token.right)+", column "+cur_token.left);
                 //System.exit(1);
@@ -54,7 +58,7 @@ action code {:
     
 :}
 
-terminal String FUNCTION,NUM,UPTO,DOWNTO,STEP,VARIABLE,STRING,
+terminal String FUNCTION,NUM,UPTO,DOWNTO,STEP,VARIABLE,STRING,ELIF,FLOAT, FLOAT_VAL,
                 CONSTSTRING,CONSTCHAR,INTEGER,CHARACTER,BOOLEAN,IF,ELSE,
                 WHILE,FOR,RETURN,VOID,TRUE,FALSE,BREAK,NULL,
                 INPUT,OUTPUT,SWITCH,CASE,OPTION,DEFAULT,ID,
@@ -137,8 +141,14 @@ dec_funcion ::= FUNCTION ID:id L_PAR parametros:parts R_PAR COLON tipo:tip L_KEY
             :}
             |FUNCTION ID:id L_PAR parametros:parts R_PAR COLON MAIN L_KEY dec_general:deG R_KEY
             {:
-               System.err.println("Entra a dec_funcion");
-
+               
+                System.err.println("Entra a dec_funcion");
+            
+                parser.contMain++;
+                if(parser.contMain>1){
+                    parser.errores.add("Error! Se ha encontrado otra declaracion de main.");
+                }
+               
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("dec_Funcion");
@@ -295,7 +305,6 @@ func_input ::= INPUT L_PAR ID:id COMMA tipo:tip R_PAR
 
 func_output ::= OUTPUT L_PAR CONSTSTRING:cs R_PAR  
                 {:
-        
                 System.err.println("Entra a func_output 1");
                 parser.cont++;
                 Node node = new Node();
@@ -306,12 +315,28 @@ func_output ::= OUTPUT L_PAR CONSTSTRING:cs R_PAR
                 const_string.setEtiqueta("const_string");
                 const_string.setID(parser.cont);
                 String temp = cs.replaceAll("\"", "");
-                System.err.println("ESTA PUTA STRING ES : " + temp);
 
                 const_string.setValor(temp);
                 node.addHijos(const_string);
                 RESULT = node;
-                :}    
+                :}
+                |OUTPUT L_PAR CONSTCHAR:cs R_PAR  
+                {:
+                System.err.println("Entra a func_output 1");
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("func_output");
+                node.setID(parser.cont);
+                parser.cont++;
+                Node const_string =new Node();
+                const_string.setEtiqueta("const_char");
+                const_string.setID(parser.cont);
+                String temp = cs.replaceAll("\'", "");
+
+                const_string.setValor(temp);
+                node.addHijos(const_string);
+                RESULT = node;
+                :}     
                 | OUTPUT L_PAR NUM:nm R_PAR 
                 {:
                 System.err.println("Entra a func_output 2");
@@ -619,6 +644,21 @@ dec_inst ::= OPASIGN ID:id
                 node.addHijos(num);
                 RESULT = node;
              :}
+             | OPASIGN FLOAT_VAL:nm 
+             {:
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("dec_inst");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node num =new Node();
+                num.setEtiqueta("float");
+                num.setID(parser.cont);
+                num.setValor(nm);
+                node.addHijos(num);
+                RESULT = node;
+             :}
              | OPASIGN CONSTSTRING:cs
              {:
                 parser.cont++;
@@ -831,9 +871,12 @@ valor ::=  CONSTSTRING:cs
                 Node const_string = new Node();
                 const_string.setEtiqueta("const string");
                 const_string.setID(parser.cont);
-                const_string.setValor(cs);
-
-                node.setValor(const_string.getValor());
+                if(cs.equals("")){
+                    const_string.setValor("empty");
+                }else{
+                    const_string.setValor(cs);
+                }    
+                node.setValor(const_string.getValor().replaceAll("\"",""));
 
                 RESULT = node;
            :}
@@ -883,6 +926,38 @@ valor ::=  CONSTSTRING:cs
                 bool_false.setValor(fals);
 
                 node.setValor(bool_false.getValor());
+                RESULT = node;
+           :}
+           | NUM:num
+           {:
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("valor");
+                node.setID(parser.cont);
+                
+                parser.cont++;
+                Node num_int = new Node();
+                num_int.setEtiqueta("INT");
+                num_int.setID(parser.cont);
+                num_int.setValor(num);
+
+                node.setValor(num_int.getValor());
+                RESULT = node;
+           :}
+           | FLOAT_VAL:flt
+           {:
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("valor");
+                node.setID(parser.cont);
+                
+                parser.cont++;
+                Node num_flt = new Node();
+                num_flt.setEtiqueta("FLOAT");
+                num_flt.setID(parser.cont);
+                num_flt.setValor(flt);
+
+                node.setValor(num_flt.getValor());
                 RESULT = node;
            :}
            | math_op:mop
@@ -1250,7 +1325,7 @@ dec_for ::= FOR L_PAR ID:id COMMA NUM:nm1 UPTO NUM:nm2 COMMA STEP L_PAR NUM:nm3 
     
             ;
 
-dec_switch ::= SWITCH L_PAR ID:id R_PAR L_BRACKET list_op:lo R_BRACKET 
+dec_switch ::= SWITCH L_PAR ID:id R_PAR L_KEY list_op:lo R_KEY 
             {:
                 System.err.println("Entra a dec_switch");
                 parser.cont++;
@@ -1288,7 +1363,7 @@ new_op ::= BREAK SEMICOLON list_op:lo
                 System.err.println("Entra a new_op 1");
                 parser.cont++;
                 Node node = new Node();
-                node.setEtiqueta("new_op");
+                node.setEtiqueta("option");
                 node.setID(parser.cont);
                 node.addHijos((Node) lo);
                 RESULT = node;
@@ -1298,7 +1373,7 @@ new_op ::= BREAK SEMICOLON list_op:lo
                 System.err.println("Entra a new_op 2");
                 parser.cont++;
                 Node node = new Node();
-                node.setEtiqueta("new_op");
+                node.setEtiqueta("default");
                 node.setID(parser.cont);
                 node.addHijos((Node) dg);
                 RESULT = node;
@@ -1327,14 +1402,16 @@ dec_if ::= IF L_PAR condicion:cond R_PAR L_KEY dec_general:dg R_KEY dec_else:del
                 RESULT = node;
             :}
             ;
-dec_else ::= ELSE  dec_if:di
+dec_else ::= ELIF L_PAR condicion:cond R_PAR L_KEY dec_general:dg R_KEY dec_else:del
             {:
-                System.err.println("Entra a dec_else elsif");
+                System.err.println("Entra a dec_else elif");
                 parser.cont++;
                 Node node = new Node();
-                node.setEtiqueta("dec_else");
+                node.setEtiqueta("dec_elif");
                 node.setID(parser.cont);
-                node.addHijos((Node) di);
+                node.addHijos((Node) cond);
+                node.addHijos((Node) dg);
+                node.addHijos((Node) del);
                 RESULT = node;
             :}
             |ELSE L_KEY dec_general:dg R_KEY 
@@ -1425,22 +1502,24 @@ lista_valores ::= COMMA valor:vl lista_valores:lv
             ;
 
 
-condicion ::= valor_cond:vc1 OPREL valor_cond:vc2
+condicion ::= valor_cond:vc1 OPREL:opr valor_cond:vc2
             {:
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("condicion");
+                node.setValor(opr);
                 node.setID(parser.cont);
                 node.addHijos((Node) vc1);
                 node.addHijos((Node) vc2);
                 RESULT = node;
             :}
-            | valor_cond:vc1 OPREL valor_cond:vc2 OPLOG condicion:cond
+            | valor_cond:vc1 OPREL:opr valor_cond:vc2 OPLOG:oplg condicion:cond
             {:
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("condicion");
                 node.setID(parser.cont);
+                node.setValor(opr +"," +oplg);
                 node.addHijos((Node) vc1);
                 node.addHijos((Node) vc2);
                 node.addHijos((Node) cond);
@@ -1451,6 +1530,7 @@ condicion ::= valor_cond:vc1 OPREL valor_cond:vc2
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("condicion");
+                node.setValor("valor condicional");
                 node.setID(parser.cont);
                 node.addHijos((Node) vc);
                 RESULT = node;
@@ -1472,14 +1552,16 @@ condicion ::= valor_cond:vc1 OPREL valor_cond:vc2
 
                 RESULT = node;
             :}
-            | valor_cond:vc OPLOG condicion:cond
+            | valor_cond:vc OPLOG:oplg condicion:cond
             {:
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("condicion");
+                node.setValor(oplg);
                 node.setID(parser.cont);
                 node.addHijos((Node) vc);
                 node.addHijos((Node) cond);
+                RESULT = node;
             :}
             ;
 
@@ -1622,6 +1704,16 @@ tipo ::= BOOLEAN
                 node.setEtiqueta("tipo");
                 node.setID(parser.cont);
                 node.setValor("String");
+                RESULT = node;
+            :}
+            | FLOAT 
+            {:  
+                System.err.println("Entra a tipo 5");
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("tipo");
+                node.setID(parser.cont);
+                node.setValor("FLOAT");
                 RESULT = node;
             :}
             ;

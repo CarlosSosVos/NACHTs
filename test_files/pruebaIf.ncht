@@ -1,7 +1,9 @@
 fnc holas ():int {
-if( a && b || b){
+if( a && b || b && a){
 	
-	}
+	}elif(true){
+}
+
 }
 
 

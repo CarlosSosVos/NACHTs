@@ -1,9 +1,4 @@
-esto claramente no es c
- comprende, esto es
-caliche
-pero tal vez sea mas que eso
-
-
-
-
-estoy seguro de eso
+fnc alo():main{
+	var x:float := 20.2;
+alo(20.2);
+}

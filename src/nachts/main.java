@@ -401,15 +401,22 @@ public class main extends javax.swing.JFrame {
             //this.txt_result.setEditable(true);
             this.txt_result.setText("");
             String errors = "";
-            System.out.println(p.errores.size());
+            
+            for (String error : lex.errors) {
+                System.out.println(errors);
+                errors+= error +"\n";
+            }
+                
             for (String error : p.errores) {
                 System.out.println(errors);
                 errors+= error +"\n";
             }
+            
             this.txt_result.setText(errors);
             
             Graficar(recorrido(p.Tree));
-              
+            File imagen= new File("fotoAST.png");
+            Desktop.getDesktop().open(imagen);
 
             //lex.yylex();
         } catch (FileNotFoundException ex) {
@@ -551,29 +558,16 @@ public class main extends javax.swing.JFrame {
         });
     }
 
-    public boolean OneMain() {
-        int cont = 0;
-        for (int i = 0; i < 10; i++) {
-            if (i == 11) {
-                return true;
-            }
-        }
-
-        return false;
-    }
     private static String recorrido(Node raiz) {
   	String cuerpo = "";
     	for (Node child : raiz.hijos) {
     		// System.out.println("hola");  
             if (!(child.getEtiqueta().equals("vacio"))) {
-                
-          
-             
-
-                
+                         
         	cuerpo += "\"" + raiz.getID() + ". " + raiz.getEtiqueta() + " = " + raiz.getValor() +
         	"\"->\""+ child.getID() +". " + child.getEtiqueta()  + " = " + child.getValor() + "\""  + "\n";
-        	cuerpo += recorrido(child);
+        	
+                cuerpo += recorrido(child);
             }
     	}
     	return cuerpo;

@@ -1,11 +1,18 @@
 digraph G {
-"11. INICIO = null"->"7. dec_Funcion = null"
-"7. dec_Funcion = null"->"8. ID = pedos"
-"7. dec_Funcion = null"->"9. Main = Main"
-"7. dec_Funcion = null"->"6. dec_general = null"
-"6. dec_general = null"->"4. func_lenguaje = null"
-"4. func_lenguaje = null"->"2. func_output = null"
-"2. func_output = null"->"3. const_string = hola"
+"19. INICIO = null"->"15. dec_Funcion = null"
+"15. dec_Funcion = null"->"16. ID = alo"
+"15. dec_Funcion = null"->"17. Main = Main"
+"15. dec_Funcion = null"->"14. dec_general = null"
+"14. dec_general = null"->"6. dec_variable = null"
+"6. dec_variable = null"->"7. ID = x"
+"6. dec_variable = null"->"2. tipo = FLOAT"
+"6. dec_variable = null"->"5. dec_var = null"
+"5. dec_var = null"->"3. dec_inst = null"
+"3. dec_inst = null"->"4. float = 20.2"
+"14. dec_general = null"->"13. dec_general = null"
+"13. dec_general = null"->"11. dec_llamada_funcion = null"
+"11. dec_llamada_funcion = null"->"10. llamada_parametros = null"
+"10. llamada_parametros = null"->"8. valor = 20.2"
 
 
 }

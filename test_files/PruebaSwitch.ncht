@@ -1,0 +1,14 @@
+fnc hola(): int {    
+    var x:int:=2;
+    var x:int :=hola("");
+sw(x){
+option 1:
+var d:int :=3;
+brk;
+option 1:
+var d:int :=3;
+brk;
+dft:	var d:int :=3;
+}
+
+}
