@@ -915,6 +915,15 @@ dec_inst ::= OPASIGN ID:id
                 node.addHijos((Node) arr);
                 RESULT = node;
              :}
+             | OPASIGN math_op:mo
+             {:
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("dec_inst");
+                node.setID(parser.cont);
+                node.addHijos((Node) mo);
+                RESULT = node;
+             :}
              |
              {:
                 parser.cont++;
