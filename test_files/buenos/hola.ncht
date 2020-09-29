@@ -1,7 +1,35 @@
 fnc hola():main {
-    addOne(addOne(hola(hola(2))));
+	var id:int := 1;
+	rtn hola( (3*4+2)/(1+2)  );
+	wh( x>0){
+		for( var x:int, 7 dwnTo 0, step(1)){
+			sw(op){
+				option 1:
 
+				if(true){
+				    if(true){
+				        if(true){
+				            if(true){
+					rtn ;
+				            } elif (false){
+                            }else{
+                                x:=2;
+                                output(x);
+                            }
+				        }else{
+                        }
+				    }
+				}
 
+				brk;
+				option 2:
+
+				brk;
+				dft:
+			}
+		}
+	}
+    
 }
 
 fnc addOne(var x[]:int,var x[][]:int,var x[]:int ):int{

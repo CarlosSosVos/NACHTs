@@ -535,17 +535,7 @@ dec_general ::= dec_variable:dva dec_general:dg
                 node.addHijos((Node) dg);
                 RESULT = node;
                :}
-               | dec_var:dv dec_general:dg
-               {:
-                System.err.println("Entra a dec_general de vairable2");
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("dec_general");
-                node.setID(parser.cont);
-                node.addHijos((Node) dv);
-                node.addHijos((Node) dg);
-                RESULT = node;
-               :}
+
                | dec_while:dw dec_general:dg
                {:
                 System.err.println("Entra a dec_general de while");
@@ -623,7 +613,7 @@ dec_general ::= dec_variable:dva dec_general:dg
                 node.addHijos((Node) dg);
                 RESULT = node;
                 :}
-               | dec_return:dr SEMICOLON  
+               | dec_return:dr SEMICOLON dec_general:dg
                 {:
                 System.err.println("Entra a dec_general de dec_return");
                 parser.cont++;
@@ -631,6 +621,7 @@ dec_general ::= dec_variable:dva dec_general:dg
                 node.setEtiqueta("dec_general");
                 node.setID(parser.cont);
                 node.addHijos((Node) dr);
+                node.addHijos((Node) dg);
                 RESULT = node;
                 :}
                 |error R_KEY

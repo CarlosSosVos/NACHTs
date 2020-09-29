@@ -339,7 +339,7 @@ public class main extends javax.swing.JFrame {
 
     public void generateLexer() {
 
-        String parametros[] = {"-d","./src/nachts/","./src/tools/nachts.jflex" };
+        String parametros[] = {"-d","./src/nachts/","./src/tools/nachts.flex" };
         try {
             jflex.Main.generate(parametros);
         } catch (Exception e) {
@@ -402,6 +402,7 @@ public class main extends javax.swing.JFrame {
             this.txt_result.setText("");
             String errors = "";
             
+            System.out.println(lex.errors.size() + ": # errores en lex");
             for (String error : lex.errors) {
                 System.out.println(errors);
                 errors+= error +"\n";

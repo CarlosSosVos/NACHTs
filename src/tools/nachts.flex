@@ -11,8 +11,8 @@ import java.util.ArrayList;
 %class Lexer
 %cupsym Sym
 %cup
-%type java_cup.runtime.Symbol
-%full
+%standalone
+
 
 //%state COMMENT
 //%state L_COMMENT 
@@ -500,7 +500,7 @@ float_value = {numbers}{dot}{numbers}
         
         String descripcion_error =", token no reconocido";
         
-        String error = "ERROR EN" + "("+ yyline +","+ yycolumn+")" + descripcion_error ;
+        String error = "ERROR EN" + "("+ yyline +","+ yycolumn+")" + descripcion_error + "!";
         accum+= error +"\n";
         System.out.println(error);
         errors.add(error);
