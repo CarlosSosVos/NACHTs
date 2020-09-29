@@ -67,8 +67,7 @@ terminal String FUNCTION,NUM,UPTO,DOWNTO,STEP,VARIABLE,STRING,ELIF,FLOAT, FLOAT_
                 L_PAR,R_PAR,COMMA,SEMICOLON,COLON,AT,DOT,MAIN;
 
 non terminal Node inicio,dec_gen_fun,dec_funcion,parametros,
-                nuevo_parametro,func_lenguaje,func_input,
-             func_output,dec_general,dec_variable,dec_var,dec_inst,
+                nuevo_parametro,params_output,dec_general,dec_variable,dec_var,dec_inst,
              arr_cont,dec_var_inst,valor,math_op,s_op,sum_op,m_op,mult_op,
              val,dec_while,dec_for,dec_switch,list_op,new_op,dec_if,
              dec_else,dec_llamada_funcion,llamada_parametros,
@@ -415,7 +414,7 @@ nuevo_parametro ::=COMMA VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 RESULT = node;
                 :}
                 ;
-
+/*
 func_lenguaje ::= func_input:fuI
                   {:
                     System.err.println("Entra a func_lenguaje 1");
@@ -557,7 +556,7 @@ func_output ::= OUTPUT L_PAR CONSTSTRING:cs R_PAR
                 node.addHijos((Node) vp2);
                 RESULT = node;
                 :}    
-                ;
+                ; */
 
 dec_general ::= dec_variable:dva dec_general:dg
                {:
@@ -637,7 +636,7 @@ dec_general ::= dec_variable:dva dec_general:dg
                 node.addHijos((Node) dg);
                 RESULT = node;
                 :}
-               |func_lenguaje:fl SEMICOLON dec_general:dg
+               /*|func_lenguaje:fl SEMICOLON dec_general:dg
                {:
                 System.err.println("Entra a dec_general de func_lenguaje");
                 parser.cont++;
@@ -647,7 +646,7 @@ dec_general ::= dec_variable:dva dec_general:dg
                 node.addHijos((Node) fl);
                 node.addHijos((Node) dg);
                 RESULT = node;
-                :}
+                :}*/
                | dec_return:dr SEMICOLON dec_general:dg
                 {:
                 System.err.println("Entra a dec_general de dec_return");
@@ -1751,6 +1750,37 @@ dec_llamada_funcion ::= ID:id L_PAR llamada_parametros:llp R_PAR
                 node.addHijos((Node) llp);
                 RESULT = node;
             :}
+            | INPUT:in L_PAR ID:id COMMA tipo:tip R_PAR 
+               {:
+                System.err.println("Entra a func_input");
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("func_input");
+                node.setID(parser.cont);
+                parser.cont++;
+                Node identificador =new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                node.addHijos(identificador);
+                node.addHijos((Node) tip);
+                RESULT = node;
+                :}
+                
+
+                |   OUTPUT:out L_PAR params_output:llp R_PAR  
+                {:
+                System.err.println("Entra a func_output ");
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("func_output");
+                node.setValor(out);
+                node.setID(parser.cont);
+                node.addHijos((Node) llp);
+                RESULT = node;
+                :}
+                   
+                
             ;
 
 llamada_parametros ::= valor:vl lista_valores:lv
@@ -1784,6 +1814,28 @@ llamada_parametros ::= valor:vl lista_valores:lv
                 RESULT = nodo;
             :}
             ;
+
+params_output ::= valor:vl lista_valores:lv
+            {:
+                System.err.println("Entra a llamada_parametros 1");
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("params_output");
+                node.setID(parser.cont);
+                node.addHijos((Node) vl);
+                node.addHijos((Node) lv);
+                RESULT = node;
+            :}
+            | valor:vl
+            {:
+                System.err.println("Entra a llamada_parametros 2");
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("params_output");
+                node.setID(parser.cont);
+                node.addHijos((Node) vl);
+                RESULT = node;
+            :};
 
 lista_valores ::= COMMA valor:vl lista_valores:lv
             {:
