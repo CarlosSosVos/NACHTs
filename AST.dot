@@ -1,4 +1,18 @@
 digraph G {
+"22. INICIO = null"->"19. dec_funcion = null"
+"19. dec_funcion = null"->"20. ID = holas"
+"19. dec_funcion = null"->"2. tipo = Int"
+"19. dec_funcion = null"->"18. dec_general = null"
+"18. dec_general = null"->"15. dec_var_inst = null"
+"15. dec_var_inst = null"->"16. ID = a"
+"15. dec_var_inst = null"->"3. posicion = 1"
+"15. dec_var_inst = null"->"12. posicion = null"
+"12. posicion = null"->"11. math_op = null"
+"11. math_op = null"->"10. s_op = null"
+"10. s_op = null"->"5. val = 1"
+"10. s_op = null"->"9. sum_op = null"
+"9. sum_op = null"->"7. val = 2"
+"15. dec_var_inst = null"->"13. valor = b"
 
 
 }

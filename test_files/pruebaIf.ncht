@@ -1,5 +1,5 @@
 fnc holas ():int {
-	a.at(1, hola()) := b;
+	a.at(1, 1+2) := b;
 }
 
 
