@@ -1,5 +1,5 @@
 fnc hola():main {
-	var id:int := 1;
+	var id:int := -1;
 	rtn hola( (3*4+2)/(1+2)  );
 	wh( x>0){
 		for( var x:int, 7 dwnTo 0, step(1)){

@@ -67,7 +67,7 @@ return = "rtn"
 
 cont_string = ("\"")([^"\""]+)("\"")|("\"\"")
 
-cont_char = ("\'")([^"\'"])("\'")|("\'\'")
+cont_char = ("\'")([^"\'"]?)("\'")|("\'\'")
 
 //Escritura y lectura
 

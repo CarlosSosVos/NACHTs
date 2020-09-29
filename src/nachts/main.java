@@ -398,9 +398,13 @@ public class main extends javax.swing.JFrame {
             parser p = new parser(lex2);
             p.parse();
             
+            
             //this.txt_result.setEditable(true);
             this.txt_result.setText("");
             String errors = "";
+            if(p.contMain == 0){
+             errors+= "NO SE DEFINIO UNA FUNCION MAIN !\n";   
+            }
             
             System.out.println(lex.errors.size() + ": # errores en lex");
             for (String error : lex.errors) {

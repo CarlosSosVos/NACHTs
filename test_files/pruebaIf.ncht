@@ -1,6 +1,10 @@
-fnc holas ():int {
-	var x[id][id]:int:= {{1,'a',3},{4,5,6}};
+fnc imprimirMatriz (var a[][]:int, var n1:int, var n2:int ):void {
+	for(var x:int , 1+2 upTo 1 , step(1) ){
+	
+	}
+}
 
+fnc alo (): main{
 }
 
 
