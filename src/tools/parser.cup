@@ -1439,6 +1439,43 @@ val ::= ID:id
                 node.setValor(identificador.getValor());
                 RESULT = node;
         :}
+        | ID:id DOT AT L_PAR val_posicion:vp R_PAR 
+        {:
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("val");
+                node.setID(parser.cont);
+                
+                parser.cont++;
+                Node identificador = new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                node.addHijos(identificador);
+                node.addHijos((Node) vp);
+                node.setValor("");
+
+                RESULT = node;
+            :}
+            | ID:id DOT AT L_PAR val_posicion:vp1 COMMA val_posicion:vp2 R_PAR 
+            {:
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("val");
+                node.setID(parser.cont);
+                
+                parser.cont++;
+                Node identificador = new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                node.addHijos(identificador);
+                node.addHijos((Node) vp1);
+                node.addHijos((Node) vp2);
+                node.setValor("");
+
+                RESULT = node;
+        :}
         | NUM:nm
         {:
                 parser.cont++;

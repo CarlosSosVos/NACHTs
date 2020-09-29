@@ -1,0 +1,40 @@
+fnc alo (): main{
+	var arr2[2][2]:int:={{3,3},{5,5}};
+	var arr[2]:int:={4,4};
+	var tama:int:=2;
+	var des:int:=random(0,4);
+	sw(des){
+		option 1:
+			output("no hace nada");
+			tama:=0;
+		brk;
+		option tama:
+			tama:=yolo(arr2,arr,tama);
+		brk;
+		dft:
+	}
+	output("su tamaño es :",tama);
+}
+
+fnc yolo (var a[][]:int , var b[]:int , var c:int):int {
+	var acum:int:=0;
+	wh(c<=20){
+		for(var i:int ,0 upTo 30, step(1)){
+			for(var j:int ,0 upTo 30, step(1)){
+				acum:=a.at(i,j)/2+b.at(i)/2;
+			}
+		}
+		if(acum>c){
+			for(var i:int ,0 upTo 30, step(1)){
+				for(var j:int ,0 upTo 30, step(1)){
+					output(a.at(i,j),b.at(i));
+				}
+			}
+		}elif(acum<c){
+			c--;
+		}else{
+			c++;
+		}
+	}
+	rtn c+acum;
+}
