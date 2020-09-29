@@ -64,12 +64,11 @@ public class main extends javax.swing.JFrame {
         Save_BT = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        menu_new = new javax.swing.JMenuItem();
         menu_openFile = new javax.swing.JMenuItem();
         menu_genFlex = new javax.swing.JMenuItem();
-        menu_new = new javax.swing.JMenuItem();
         menu_genCup = new javax.swing.JMenuItem();
         menu_lenguaje = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
 
         New_file_JF.setBackground(new java.awt.Color(0, 0, 0));
         New_file_JF.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -226,12 +225,21 @@ public class main extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jMenu1.setText("File");
+        jMenu1.setText("OPCIONES");
         jMenu1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenu1ActionPerformed(evt);
             }
         });
+
+        menu_new.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menu_new.setText("Nuevo Archivo");
+        menu_new.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_newActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menu_new);
 
         menu_openFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         menu_openFile.setText("Abrir archivo");
@@ -243,22 +251,13 @@ public class main extends javax.swing.JFrame {
         jMenu1.add(menu_openFile);
 
         menu_genFlex.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        menu_genFlex.setText("GenerarFlex");
+        menu_genFlex.setText("Generar Flex");
         menu_genFlex.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menu_genFlexActionPerformed(evt);
             }
         });
         jMenu1.add(menu_genFlex);
-
-        menu_new.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        menu_new.setText("Nuevo Archivo");
-        menu_new.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menu_newActionPerformed(evt);
-            }
-        });
-        jMenu1.add(menu_new);
 
         menu_genCup.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         menu_genCup.setText("Generar Cup");
@@ -269,6 +268,7 @@ public class main extends javax.swing.JFrame {
         });
         jMenu1.add(menu_genCup);
 
+        menu_lenguaje.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         menu_lenguaje.setText("Manual NACHTs");
         menu_lenguaje.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -278,9 +278,6 @@ public class main extends javax.swing.JFrame {
         jMenu1.add(menu_lenguaje);
 
         jMenuBar1.add(jMenu1);
-
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
 
@@ -404,10 +401,14 @@ public class main extends javax.swing.JFrame {
                 this.txt_result.setText(errors);
 
                 Graficar(recorrido(p.Tree));
-
-                File imagen = new File("fotoAST.png");
                 
-                Desktop.getDesktop().open(imagen);
+                int ver_arbol;
+                ver_arbol = JOptionPane.showOptionDialog(this, "Desea visualizar el arbol generado?","Visualizar Arbol",1,2,null,null,null);
+                
+                if(ver_arbol ==  JOptionPane.OK_OPTION){
+                    File imagen = new File("fotoAST.png");  
+                    Desktop.getDesktop().open(imagen);
+                }
 
                 //lex.yylex();
             } catch (FileNotFoundException ex) {
@@ -587,7 +588,6 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

@@ -444,10 +444,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Contenido</div>
 <ul class="sectlevel1">
-<li><a href="#_descripcion">1. <span class="icon"><i class="fa fa-book"></i></span> <strong>Descripcion</strong></a></li>
-<li><a href="#_lenguaje">2. <strong>Lenguaje</strong></a>
+<li><a href="#_descripcion">1. <span class="icon"><i class="fa fa-info-circle"></i></span> <strong>Descripcion</strong></a></li>
+<li><a href="#_dependencias">2. <span class="icon"><i class="fa fa-wrench"></i></span>  <strong>Dependencias</strong></a></li>
+<li><a href="#_lenguaje">3. <strong>Lenguaje</strong></a>
 <ul class="sectlevel2">
-<li><a href="#_estructura">2.1. <strong>Estructura</strong></a>
+<li><a href="#_estructura">3.1. <strong>Estructura</strong></a>
 <ul class="sectlevel3">
 <li><a href="#_palabras_reservadas"><strong>Palabras Reservadas</strong></a></li>
 <li><a href="#_declaraciones_instancias_y_llamadas"><strong>Declaraciones, Instancias y Llamadas</strong></a>
@@ -455,7 +456,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_variables"><strong>Variables</strong></a></li>
 <li><a href="#_funciones"><strong>Funciones</strong></a>
 <ul class="sectlevel5">
-<li><a href="#_definicion"><em><strong>Definicion</strong></em></a></li>
+<li><a href="#_definición"><em><strong>Definición</strong></em></a></li>
 <li><a href="#_llamadas"><em><strong>Llamadas</strong></em></a></li>
 <li><a href="#_funciones_de_sistema"><em><strong>Funciones de Sistema</strong></em></a></li>
 </ul>
@@ -468,7 +469,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_while"><em><strong>While</strong></em></a></li>
 </ul>
 </li>
-<li><a href="#_bloques_de_descision"><strong>Bloques de descision</strong></a>
+<li><a href="#_bloques_de_decisión"><strong>Bloques de Decisión</strong></a>
 <ul class="sectlevel4">
 <li><a href="#_if_else"><em><strong>If else</strong></em></a></li>
 <li><a href="#_switch"><em><strong>Switch</strong></em></a></li>
@@ -476,7 +477,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </li>
-<li><a href="#_lexico_y_gramatica">2.2. <strong>Lexico y Gramatica</strong></a>
+<li><a href="#_lexico_y_gramatica">3.2. <strong>Lexico y Gramatica</strong></a>
 <ul class="sectlevel3">
 <li><a href="#_terminales"><strong>Terminales</strong></a></li>
 <li><a href="#_no_terminales"><strong>No-Terminales</strong></a></li>
@@ -484,6 +485,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </li>
+<li><a href="#_funcionamiento_del_programa"><strong>Funcionamiento del Programa</strong></a></li>
 </ul>
 </div>
 </div>
@@ -506,24 +508,57 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 <div class="sect1 data-line-22">
-<h2 id="_descripcion">1. <span class="icon"><i class="fa fa-book"></i></span> <strong>Descripcion</strong></h2>
+<h2 id="_descripcion">1. <span class="icon"><i class="fa fa-info-circle"></i></span> <strong>Descripcion</strong></h2>
 <div class="sectionbody">
 <div class="paragraph data-line-23">
-<p>Despues de varias horas de pensar en un nombre unico para este lenguaje, llegamos a la conclusion de que pasaremos noches de desvelo con este proyecto. Asi que el nombre de este proyecto se origino de un chiste, y por eso, su nombre es <strong>NACHTs</strong> .</p>
+<p>Después de varias horas de pensar en un nombre único para este lenguaje, llegamos a la conclusión de que pasaremos noches de desvelo con este proyecto. Así que el nombre de este proyecto nace de un chiste, y por eso, su nombre es <strong>NACHTs</strong>.</p>
 </div>
-<div class="paragraph data-line-25">
-<p>-<em>Nacht significa noche en aleman.</em></p>
+<div class="paragraph data-line-26">
+<p>-<em>Nacht significa noche en alemán.</em></p>
 </div>
 </div>
 </div>
-<div class="sect1 data-line-28">
-<h2 id="_lenguaje">2. <strong>Lenguaje</strong></h2>
+<div class="sect1 data-line-29">
+<h2 id="_dependencias">2. <span class="icon"><i class="fa fa-wrench"></i></span>  <strong>Dependencias</strong></h2>
 <div class="sectionbody">
-<div class="sect2 data-line-30">
-<h3 id="_estructura">2.1. <strong>Estructura</strong></h3>
-<div class="sect3 data-line-33">
+<div class="paragraph data-line-30">
+<p>Este proyecto utiliza las librerias de JFLEX y JCUP para trabajar la defincion lexica y sintactica.
+Para ilustrar el arbol, utilizamos la herramiena Graphviz.</p>
+</div>
+<div class="paragraph data-line-33">
+<p>En el caso de utilizar una distribucion de linux basada en Debian, ejecutar el siguiente comando en la terminal:</p>
+</div>
+<div class="exampleblock data-line-35">
+<div class="content">
+<div class="listingblock data-line-37">
+<div class="content">
+<pre class="highlight"><code class="language-bash" data-lang="bash">sudo apt-get install graphviz</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph data-line-42">
+<p>En caso de utilizar Windows, descargar el siguiente archivo:</p>
+</div>
+<div class="paragraph data-line-44">
+<p><span class="icon"><i class="fa fa-github"></i></span>  <a href="https://github.com/tim-lebedkov/packages/releases/download/2019_Q1/org.graphviz.Graphviz-2.38-graphviz-2.38.msi">Instalador Graphwiz</a></p>
+</div>
+<div class="paragraph data-line-46">
+<p>y agregar el programa a las variables de entorno:</p>
+</div>
+<div class="paragraph data-line-48">
+<p><span class="icon"><i class="fa fa-youtube"></i></span>  <a href="https://www.youtube.com/watch?v=JYAHwQ_tMG0">Como instalar Graphviz en Windows</a></p>
+</div>
+</div>
+</div>
+<div class="sect1 data-line-53">
+<h2 id="_lenguaje">3. <strong>Lenguaje</strong></h2>
+<div class="sectionbody">
+<div class="sect2 data-line-55">
+<h3 id="_estructura">3.1. <strong>Estructura</strong></h3>
+<div class="sect3 data-line-58">
 <h4 id="_palabras_reservadas"><strong>Palabras Reservadas</strong></h4>
-<table class="tableblock frame-all grid-all stretch data-line-36">
+<table class="tableblock frame-all grid-all stretch data-line-61">
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -553,11 +588,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">if</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Para bloques de decision</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Para bloques de decisión</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">elif</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Para bloques de decisión</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">else</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Para bloques de decision</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Para bloques de decisión</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">wh</p></td>
@@ -569,19 +608,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">main</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Tag para funcion main</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tag para función main</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">sw</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">para bloques de decision tipo switch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">para bloques de decisión tipo switch</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">option</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">para bloques de decision tipo switch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">para bloques de decisión tipo switch</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">dft</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">para bloques de decision tipo switch</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">para bloques de decisión tipo switch</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">brk</p></td>
@@ -601,7 +640,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">null</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">valor nullo</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">valor nulo</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">fnc</p></td>
@@ -625,24 +664,24 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">input</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">funcion de sistema</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">función de sistema</p></td>
 </tr>
 </tbody>
 <tfoot>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">output</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">funcion de sistema</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">función de sistema</p></td>
 </tr>
 </tfoot>
 </table>
 </div>
-<div class="sect3 data-line-66">
+<div class="sect3 data-line-92">
 <h4 id="_declaraciones_instancias_y_llamadas"><strong>Declaraciones, Instancias y Llamadas</strong></h4>
-<div class="sect4 data-line-68">
+<div class="sect4 data-line-94">
 <h5 id="_variables"><strong>Variables</strong></h5>
-<div class="exampleblock data-line-70">
+<div class="exampleblock data-line-96">
 <div class="content">
-<div class="listingblock data-line-73">
+<div class="listingblock data-line-99">
 <div class="content">
 <pre class="highlight"><code class="language-Nachts" data-lang="Nachts">var a:int;
 
@@ -652,7 +691,11 @@ var c:bool;
 
 var d[5]:int := {1,2,3,4,5};
 
-var indice:int:= d.at[3];
+var dd[2][2]:int := {{1,2}, {3,4}};
+
+var indice:int:= d.at(3);
+
+    indice := dd.at(1,1);
 
 var e:chr := 'e';</code></pre>
 </div>
@@ -660,16 +703,16 @@ var e:chr := 'e';</code></pre>
 </div>
 </div>
 </div>
-<div class="sect4 data-line-91">
+<div class="sect4 data-line-121">
 <h5 id="_funciones"><strong>Funciones</strong></h5>
-<div class="paragraph data-line-93">
-<p>Para las funciones se definen en primer lugar usando la palabra reservada "fnc" seguido del id, sus parametros entre parentesis, los cuales se definen de la misma manera que las variables y por ultimo no sin antes poner dos puntos establecemos su tipo(tambien establecimos el tipo void para las funciones que no retornan nada y el tipo main para establecer la funcion principal valga la redundancia) y en cuanto a la llamada de funciones funciona de la misma manera que en java.</p>
+<div class="paragraph data-line-123">
+<p>Para las funciones se definen en primer lugar usando la palabra reservada "fnc" seguido del id, sus parámetros entre paréntesis, los cuales se definen de la misma manera que las variables y por último no sin antes poner dos puntos establecemos su tipo(también establecimos el tipo void para las funciones que no retornan nada y el tipo main para establecer la función principal valga la redundancia) y en cuanto a la llamada de funciones funcióna de la misma manera que en java.</p>
 </div>
-<div class="sect5 data-line-95">
-<h6 id="_definicion"><em><strong>Definicion</strong></em></h6>
-<div class="exampleblock data-line-96">
+<div class="sect5 data-line-125">
+<h6 id="_definición"><em><strong>Definición</strong></em></h6>
+<div class="exampleblock data-line-126">
 <div class="content">
-<div class="listingblock data-line-99">
+<div class="listingblock data-line-129">
 <div class="content">
 <pre class="highlight"><code class="language-Nachts" data-lang="Nachts">fnc main (var a:int, var b:int ):main {
     #*
@@ -693,11 +736,11 @@ fnc adios (var x:string, var b:bool):int{
 </div>
 </div>
 </div>
-<div class="sect5 data-line-120">
+<div class="sect5 data-line-150">
 <h6 id="_llamadas"><em><strong>Llamadas</strong></em></h6>
-<div class="exampleblock data-line-121">
+<div class="exampleblock data-line-151">
 <div class="content">
-<div class="listingblock data-line-124">
+<div class="listingblock data-line-154">
 <div class="content">
 <pre class="highlight"><code class="language-Nachts" data-lang="Nachts">hola();
 
@@ -707,11 +750,11 @@ var test:int := adios("Este no es el final..." , false);</code></pre>
 </div>
 </div>
 </div>
-<div class="sect5 data-line-133">
+<div class="sect5 data-line-163">
 <h6 id="_funciones_de_sistema"><em><strong>Funciones de Sistema</strong></em></h6>
-<div class="exampleblock data-line-134">
+<div class="exampleblock data-line-164">
 <div class="content">
-<div class="listingblock data-line-137">
+<div class="listingblock data-line-167">
 <div class="content">
 <pre class="highlight"><code class="language-Nachts" data-lang="Nachts">var x:int;
 
@@ -725,16 +768,16 @@ output(x + 5);</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3 data-line-148">
+<div class="sect3 data-line-178">
 <h4 id="_bucles"><strong>Bucles</strong></h4>
-<div class="paragraph data-line-150">
-<p>En lo que se refiere a los bucles dentro de nuestro de lenguaje el for funciona primero estableciendo la palabra reservada "for" seguido del parentesis donde primero que nada definimos la variable, seguido de una coma y con esto establecemos el primer la valor con el que instaciaremos esta variable y tenemos dos opciones de palabras reservadas que podemos usar, son el "upTo" y el "downTo" con las que definimos si la variable ira en aumento o decremento, ponemos una coma y usamos la palabra reservada "step" seguida de parentesis y dentro de estos definimos cuanto ira auementan la variable con cada iteracion y en lo que respecta al while unicamente se define la palabra reservada "wh" y entre parentesis la condicion.</p>
+<div class="paragraph data-line-180">
+<p>En lo que se refiere a los bucles dentro de nuestro de lenguaje el for funcióna primero estableciendo la palabra reservada "for" seguido del parentesis donde primero que nada definimos la variable, seguido de una coma y con esto establecemos el primer la valor con el que instaciaremos esta variable y tenemos dos opciones de palabras reservadas que podemos usar, son el "upTo" y el "downTo" con las que definimos si la variable ira en aumento o decremento, ponemos una coma y usamos la palabra reservada "step" seguida de parentesis y dentro de estos definimos cuanto ira auementan la variable con cada iteracion y en lo que respecta al while unicamente se define la palabra reservada "wh" y entre parentesis la condicion.</p>
 </div>
-<div class="sect5 data-line-152">
+<div class="sect5 data-line-182">
 <h6 id="_for"><em><strong>For</strong></em></h6>
-<div class="exampleblock data-line-153">
+<div class="exampleblock data-line-183">
 <div class="content">
-<div class="listingblock data-line-156">
+<div class="listingblock data-line-186">
 <div class="content">
 <pre class="highlight"><code class="language-Nachts" data-lang="Nachts">##iteración por incremento
 for (x:int , 1 upTo 5 , step(1)) {
@@ -750,11 +793,11 @@ for (y:int ,5 downTo 1,step(1)) {
 </div>
 </div>
 </div>
-<div class="sect5 data-line-169">
+<div class="sect5 data-line-199">
 <h6 id="_while"><em><strong>While</strong></em></h6>
-<div class="exampleblock data-line-170">
+<div class="exampleblock data-line-200">
 <div class="content">
-<div class="listingblock data-line-173">
+<div class="listingblock data-line-203">
 <div class="content">
 <pre class="highlight"><code class="language-Nachts" data-lang="Nachts">wh(true){
     output("solo una vez, no harás más");
@@ -766,16 +809,16 @@ for (y:int ,5 downTo 1,step(1)) {
 </div>
 </div>
 </div>
-<div class="sect3 data-line-181">
-<h4 id="_bloques_de_descision"><strong>Bloques de descision</strong></h4>
-<div class="paragraph data-line-183">
+<div class="sect3 data-line-211">
+<h4 id="_bloques_de_decisión"><strong>Bloques de Decisión</strong></h4>
+<div class="paragraph data-line-213">
 <p>Los bloques de descision que manejamos son el de "if else" y "switch", el bloque de "if else" se maneja de la manera mas comun con la palabra "if" seguida de una condicion entre parentesis seguido esta el condigo dentro de la condicion, puede haber otra condicion o un else o directamente nada, el switch se maneja de manera similar al de java iniciando con la palabra reservada "sw" seguida del id de una variable entre parentesis y depues estarian andentro de este bloque los diferente caminos que pue tomar con la palabra reservada "option" seguida de un valor y dos puntos, le seguiria un bloque de codigo y al final la palabra "dft" como el caso por default(cabe destacar que este ultimo caso puede o no estar dentro del bloque).</p>
 </div>
-<div class="sect4 data-line-185">
+<div class="sect4 data-line-215">
 <h5 id="_if_else"><em><strong>If else</strong></em></h5>
-<div class="exampleblock data-line-186">
+<div class="exampleblock data-line-216">
 <div class="content">
-<div class="listingblock data-line-189">
+<div class="listingblock data-line-219">
 <div class="content">
 <pre class="highlight"><code class="language-Nachts" data-lang="Nachts">if(1&lt;3){
     #*
@@ -795,11 +838,11 @@ for (y:int ,5 downTo 1,step(1)) {
 </div>
 </div>
 </div>
-<div class="sect4 data-line-207">
+<div class="sect4 data-line-237">
 <h5 id="_switch"><em><strong>Switch</strong></em></h5>
-<div class="exampleblock data-line-208">
+<div class="exampleblock data-line-238">
 <div class="content">
-<div class="listingblock data-line-211">
+<div class="listingblock data-line-241">
 <div class="content">
 <pre class="highlight"><code class="language-Nachts" data-lang="Nachts">sw (variable) {
     option 1:
@@ -829,11 +872,11 @@ for (y:int ,5 downTo 1,step(1)) {
 </div>
 </div>
 </div>
-<div class="sect2 data-line-238">
-<h3 id="_lexico_y_gramatica">2.2. <strong>Lexico y Gramatica</strong></h3>
-<div class="sect3 data-line-240">
+<div class="sect2 data-line-268">
+<h3 id="_lexico_y_gramatica">3.2. <strong>Lexico y Gramatica</strong></h3>
+<div class="sect3 data-line-270">
 <h4 id="_terminales"><strong>Terminales</strong></h4>
-<table class="tableblock frame-all grid-all stretch data-line-242">
+<table class="tableblock frame-all grid-all stretch data-line-272">
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -847,397 +890,440 @@ for (y:int ,5 downTo 1,step(1)) {
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">FUNCTION</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>work in progress&#8230;&#8203;</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token <em><strong>fnc</strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">NUM</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para tokens de tipo entero</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">UPTO</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token <em><strong>upTo</strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DOWNTO</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token <em><strong>dwnTo</strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">STEP</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token <em><strong>step</strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">VARIABLE</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token <em><strong>var</strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">STRING</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token <em><strong>string</strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CONSTSTRING</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para tokens de tipo cadena</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">INTEGER</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token <em><strong>int</strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">CHARACTER</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token <em><strong>chr</strong></em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONSTSTRING</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para tokens de tipo caracter</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">BOOLEAN</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token <em><strong>bool</strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">IF</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token <em><strong>if</strong></em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ELIF</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token <em><strong>elif</strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ELSE</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token <em><strong>else</strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">WHILE</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token <em><strong>wh</strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">FOR</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token <em><strong>for</strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">RETURN</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token <em><strong>rtn</strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">VOID</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token <em><strong>void</strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">TRUE</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token <em><strong>true</strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">FALSE</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token <em><strong>false</strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">BREAK</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token <em><strong>brk</strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">NULL</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token <em><strong>null</strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">INPUT</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token <em><strong>input</strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OUTPUT</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token <em><strong>output</strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SWITCH</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CASE</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token <em><strong>sw</strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OPTION</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token <em><strong>option</strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DEFAULT</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token <em><strong>dft</strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ID</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para los IDs de cada variable</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">OPCOMP</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">OPDIF</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">OPGREATER</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">OPGREATEREQ</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">OPLESS</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">OPLESSEQ</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OPREL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para tokens  <em><strong> = </strong></em> , <em><strong> &gt; </strong></em> , <em><strong> &gt;= </strong></em> , <em><strong> &lt; </strong></em>, <em><strong> &#8656; </strong></em> y <em><strong> != </strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OPCOND</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token <em><strong> ? </strong></em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">OPOR</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OPLOG</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para tokens  _**</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">OPAND</p></td>
 <td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>_ y  <em></strong> &amp;&amp; **</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OPMOD</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token <em><strong> % </strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OPMULT</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para tokens <em><strong>  *  </strong></em> y <em><strong> / </strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OPSUM</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para tokens <em><strong> + </strong></em>  y <em><strong> - </strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OPINC</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para tokens <em><strong> ++ </strong></em>  y <em><strong>&#8201;&#8212;&#8201;</strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OPASIGN</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token <em><strong> := </strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OPASIGNADD</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para tokens  <em><strong> += </strong></em> y   <em><strong> -= </strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">OPASIGNMULT</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para tokens <em><strong> *= </strong></em> y <em><strong> /= </strong></em></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">L_KEY,R_KEY</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">L_KEY</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token  <em><strong> { </strong></em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R_KEY</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token  <em><strong> } </strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">L_BRACKET</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token  <em><strong> [ </strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">R_BRACKET</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token  <em><strong> ] </strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">L_PAR</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token  <em><strong> ( </strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">R_PAR</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token  <em><strong> ) </strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">COMMA</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token  <em><strong> , </strong></em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">SEMICOLON</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token  <em><strong> ; </strong></em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">COLON</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token  <em><strong> : </strong></em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DOT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token  <em><strong> . </strong></em></p></td>
 </tr>
 </tbody>
 <tfoot>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">COLON</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">terminal para token  <em><strong> at </strong></em></p></td>
 </tr>
 </tfoot>
 </table>
 </div>
-<div class="sect3 data-line-298">
+<div class="sect3 data-line-326">
 <h4 id="_no_terminales"><strong>No-Terminales</strong></h4>
-<table class="tableblock frame-all grid-all stretch data-line-301">
+<table class="tableblock frame-all grid-all stretch data-line-329">
 <colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
+<col style="width: 100%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top"><strong>Nombre de No-Terminal</strong></th>
-<th class="tableblock halign-left valign-top"><strong>Descripcion</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">inicio</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>work in progress..</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">dec_gen_fun</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">dec_funcion</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">dec_función</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">parametros</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">lista_parametro</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">def_parametro</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">nuevo_parametro</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">func_lenguaje</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">func_input</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">func_output</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">dec_general</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">dec_variable</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">dec_var</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">dec_inst</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">arr_cont</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">dec_var_inst</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">valor</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">math_op</p></td>
-<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">s_op</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">sum_op</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">m_op</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">mult_op</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">val</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">dec_while</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">dec_for</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">dec_switch</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">list_op</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">new_op</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">dec_if</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">dec_else</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">dec_llamada_funcion</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">llamada_parametros</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">lista_valores</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">fin_llamada</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">condicion</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">valor_cond</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">dec_return</p></td>
-<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">arreglo</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">arreglo2d</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">arr2_cont</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">val_posicion</p></td>
 </tr>
 </tbody>
 <tfoot>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">tipo</p></td>
-<td class="tableblock halign-left valign-top"></td>
 </tr>
 </tfoot>
 </table>
-<div class="paragraph data-line-344">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1 data-line-374">
+<h2 id="_funcionamiento_del_programa"><strong>Funcionamiento del Programa</strong></h2>
+<div class="sectionbody">
+<div class="ulist data-line-378">
+<ul>
+<li class="data-line-378">
+<p>Aqui estamos en la pantalla principal</p>
+</li>
+</ul>
+</div>
+<div class="imageblock text-center data-line-380">
+<div class="content">
+<img src="images/nachts1.png" alt="nachts1">
+</div>
+</div>
+<div class="ulist data-line-382">
+<ul>
+<li class="data-line-382">
+<p>Este es nuestro menu de opciones.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock text-center data-line-384">
+<div class="content">
+<img src="images/nachts2.png" alt="nachts2">
+</div>
+</div>
+<div class="ulist data-line-386">
+<ul>
+<li class="data-line-386">
+<p>Intentemos abrir un archivo.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock text-center data-line-388">
+<div class="content">
+<img src="images/3_nachts.png" alt="3 nachts">
+</div>
+</div>
+<div class="ulist data-line-390">
+<ul>
+<li class="data-line-390">
+<p>Ya teniendo el archivo abierto, continuamos.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock text-center data-line-392">
+<div class="content">
+<img src="images/nachts3.png" alt="nachts3">
+</div>
+</div>
+<div class="ulist data-line-394">
+<ul>
+<li class="data-line-394">
+<p>Damos click en el boton RUN. Si se quiere visualizar el arbol, seleccionamos Yes</p>
+</li>
+</ul>
+</div>
+<div class="imageblock text-center data-line-396">
+<div class="content">
+<img src="images/nachts4.png" alt="nachts4">
+</div>
+</div>
+<div class="ulist data-line-398">
+<ul>
+<li class="data-line-398">
+<p>&#8230;&#8203; y es asi como se visualiza nuestro arbol.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock text-center data-line-400">
+<div class="content">
+<img src="images/nachts5.png" alt="nachts5">
+</div>
+</div>
+<div class="paragraph data-line-404">
 <p><strong>11441102 CARLOS GUILLERMO CASCO VALLE</strong></p>
 </div>
-<div class="paragraph data-line-346">
+<div class="paragraph data-line-406">
 <p><strong>11511091 CRISTOBAL RAUL ROMERO INESTROZA</strong></p>
-</div>
-</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-09-10 18:05:20 -0600
+Last updated 2020-09-29 16:58:31 -0600
 </div>
 </div>
 </body>
