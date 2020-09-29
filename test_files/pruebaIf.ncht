@@ -1,5 +1,5 @@
 fnc holas ():int {
-var a[3]:int;
+a:=a.at(1,a);
 
 }
 

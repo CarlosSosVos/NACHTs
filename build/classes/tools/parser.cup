@@ -1143,11 +1143,155 @@ valor ::=  CONSTSTRING:cs
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
                 node.addHijos(identificador);
+                parser.cont++;
+                Node num_p = new Node();
+                num_p.setEtiqueta("posicion");
+                num_p.setID(parser.cont);
+                num_p.setValor(nm);
+                node.addHijos(num_p);
                 node.setValor("");
 
                 RESULT = node;
             :}
-           
+            | ID:id1 DOT AT L_PAR ID:id2 R_PAR 
+            {:
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("valor");
+                node.setID(parser.cont);
+                
+                parser.cont++;
+                Node identificador1 = new Node();
+                identificador1.setEtiqueta("ID");
+                identificador1.setID(parser.cont);
+                identificador1.setValor(id1);
+                node.addHijos(identificador1);
+                parser.cont++;
+                Node identificador2 = new Node();
+                identificador2.setEtiqueta("posicion");
+                identificador2.setID(parser.cont);
+                identificador2.setValor(id2);
+                node.addHijos(identificador2);
+                node.setValor("");
+
+                RESULT = node;
+            :}
+            | ID:id DOT AT L_PAR NUM:nm COMMA NUM:nm1 R_PAR 
+            {:
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("valor");
+                node.setID(parser.cont);
+                
+                parser.cont++;
+                Node identificador = new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                node.addHijos(identificador);
+                parser.cont++;
+                Node num_p = new Node();
+                num_p.setEtiqueta("posicion1");
+                num_p.setID(parser.cont);
+                num_p.setValor(nm);
+                node.addHijos(num_p);
+                parser.cont++;
+                Node num_p1 = new Node();
+                num_p1.setEtiqueta("posicion2");
+                num_p1.setID(parser.cont);
+                num_p1.setValor(nm1);
+                node.addHijos(num_p1);
+                node.setValor("");
+
+                RESULT = node;
+            :}
+            | ID:id1 DOT AT L_PAR ID:id2 COMMA ID:id3 R_PAR 
+            {:
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("valor");
+                node.setID(parser.cont);
+                
+                parser.cont++;
+                Node identificador1 = new Node();
+                identificador1.setEtiqueta("ID");
+                identificador1.setID(parser.cont);
+                identificador1.setValor(id1);
+                node.addHijos(identificador1);
+                parser.cont++;
+                Node identificador2 = new Node();
+                identificador2.setEtiqueta("posicion1");
+                identificador2.setID(parser.cont);
+                identificador2.setValor(id2);
+                node.addHijos(identificador2);
+                parser.cont++;
+                Node identificador3 = new Node();
+                identificador3.setEtiqueta("posicion2");
+                identificador3.setID(parser.cont);
+                identificador3.setValor(id3);
+                node.addHijos(identificador3);
+                node.setValor("");
+
+                RESULT = node;
+            :}
+            | ID:id DOT AT L_PAR NUM:nm COMMA ID:id1 R_PAR 
+            {:
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("valor");
+                node.setID(parser.cont);
+                
+                parser.cont++;
+                Node identificador = new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                node.addHijos(identificador);
+                parser.cont++;
+                Node num_p = new Node();
+                num_p.setEtiqueta("posicion1");
+                num_p.setID(parser.cont);
+                num_p.setValor(nm);
+                node.addHijos(num_p);
+                parser.cont++;
+                Node identificador1 = new Node();
+                identificador1.setEtiqueta("posicion2");
+                identificador1.setID(parser.cont);
+                identificador1.setValor(id1);
+                node.addHijos(identificador1);
+                node.setValor("");
+
+                RESULT = node;
+            :}
+            | ID:id1 DOT AT L_PAR ID:id2 COMMA NUM:nm R_PAR 
+            {:
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("valor");
+                node.setID(parser.cont);
+                
+                parser.cont++;
+                Node identificador1 = new Node();
+                identificador1.setEtiqueta("ID");
+                identificador1.setID(parser.cont);
+                identificador1.setValor(id1);
+                node.addHijos(identificador1);
+                parser.cont++;
+                Node identificador2 = new Node();
+                identificador2.setEtiqueta("posicion1");
+                identificador2.setID(parser.cont);
+                identificador2.setValor(id2);
+                node.addHijos(identificador2);
+                parser.cont++;
+                Node num_p = new Node();
+                num_p.setEtiqueta("posicion2");
+                num_p.setID(parser.cont);
+                num_p.setValor(nm);
+                node.addHijos(num_p);
+                node.setValor("");
+
+                RESULT = node;
+            :}
             ;
 
 math_op ::= s_op:so
