@@ -1,0 +1,7 @@
+fnc hola():main {
+    hola(hola(hola(hola(2))));
+}
+
+fnc addOne(var x:int):int{
+    rtn x+1;
+}
