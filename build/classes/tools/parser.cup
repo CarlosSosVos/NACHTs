@@ -214,7 +214,7 @@ parametros ::= VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
 
                 RESULT = node;
                :}
-               VARIABLE ID:id L_BRACKET R_BRACKET COLON tipo:tip nuevo_parametro:nuP
+               | VARIABLE ID:id L_BRACKET R_BRACKET COLON tipo:tip nuevo_parametro:nuP
                 {:
                 System.err.println("Entra a parametros 1");
 
@@ -253,7 +253,7 @@ parametros ::= VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
 
                 RESULT = node;
                :}
-               VARIABLE ID:id L_BRACKET R_BRACKET L_BRACKET R_BRACKET COLON tipo:tip nuevo_parametro:nuP
+               | VARIABLE ID:id L_BRACKET R_BRACKET L_BRACKET R_BRACKET COLON tipo:tip nuevo_parametro:nuP
                 {:
                 System.err.println("Entra a parametros 1");
 

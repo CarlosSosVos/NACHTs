@@ -1,7 +1,9 @@
 fnc hola():main {
-    hola(hola(hola(hola(2))));
+    addOne(addOne(hola(hola(2))));
+
+
 }
 
-fnc addOne(var x:int):int{
-    rtn x+1;
+fnc addOne(var x[]:int,var x[][]:int,var x[]:int ):int{
+    rtn addOne(x) +1;
 }

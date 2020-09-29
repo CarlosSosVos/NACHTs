@@ -1,5 +1,6 @@
 fnc holas ():int {
-	a.at(1, 1+2) := b;
+	var x[id][id]:int:= {{1,'a',3},{4,5,6}};
+
 }
 
 
