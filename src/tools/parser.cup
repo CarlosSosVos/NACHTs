@@ -521,6 +521,41 @@ func_output ::= OUTPUT L_PAR CONSTSTRING:cs R_PAR
                 identificador.setValor(id);
                 node.addHijos(identificador);
                 RESULT = node;
+                :}
+                | OUTPUT L_PAR ID:id DOT AT  L_PAR val_posicion:vp R_PAR R_PAR  
+                {:
+                System.err.println("Entra a func_output 3");
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("func_output");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador =new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                node.addHijos(identificador);
+                node.addHijos((Node) vp);
+                RESULT = node;
+                :}
+                | OUTPUT L_PAR ID:id DOT AT L_PAR val_posicion:vp1 COMMA val_posicion:vp2 R_PAR R_PAR  
+                {:
+                System.err.println("Entra a func_output 3");
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("func_output");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador =new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                node.addHijos(identificador);
+                node.addHijos((Node) vp1);
+                node.addHijos((Node) vp2);
+                RESULT = node;
                 :}    
                 ;
 

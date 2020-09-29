@@ -1,7 +1,5 @@
 fnc imprimirMatriz (var a[][]:int, var n1:int, var n2:int ):void {
-	for(x, 1/2 dwnTo x, step(1) ){
-	
-	}
+	output(a.at(1,a));
 }
 
 fnc alo (): main{
