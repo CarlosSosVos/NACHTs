@@ -1475,7 +1475,7 @@ dec_for ::= FOR L_PAR ID:id COMMA val_posicion:nm1 UPTO val_posicion:nm2 COMMA S
                 node.addHijos((Node) dg);
                 RESULT = node;
             :}
-            | FOR L_PAR ID:id COMMA NUM:nm1 DOWNTO NUM:nm2 COMMA STEP L_PAR NUM:nm3 R_PAR R_PAR L_KEY dec_general:dg R_KEY
+            | FOR L_PAR ID:id COMMA val_posicion:nm1 DOWNTO val_posicion:nm2 COMMA STEP L_PAR val_posicion:nm3 R_PAR R_PAR L_KEY dec_general:dg R_KEY
             {:
                 System.err.println("Entra a dec_for 2");
                 parser.cont++;
@@ -1488,7 +1488,7 @@ dec_for ::= FOR L_PAR ID:id COMMA val_posicion:nm1 UPTO val_posicion:nm2 COMMA S
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
-                parser.cont++;
+                /*parser.cont++;
                 Node num1 =new Node();
                 num1.setEtiqueta("num");
                 num1.setID(parser.cont);
@@ -1502,15 +1502,15 @@ dec_for ::= FOR L_PAR ID:id COMMA val_posicion:nm1 UPTO val_posicion:nm2 COMMA S
                 Node num3 =new Node();
                 num3.setEtiqueta("num");
                 num3.setID(parser.cont);
-                num3.setValor(nm3);     
+                num3.setValor(nm3);*/     
                 node.addHijos(identificador);
-                node.addHijos((Node)num1);
-                node.addHijos((Node)num2);
-                node.addHijos((Node)num3);
+                node.addHijos((Node) nm1);
+                node.addHijos((Node) nm2);
+                node.addHijos((Node) nm3);
                 node.addHijos((Node) dg);
                 RESULT = node;
             :}
-            | FOR L_PAR VARIABLE ID:id COLON INTEGER COMMA NUM:nm1 UPTO NUM:nm2 COMMA STEP L_PAR NUM:nm3 R_PAR R_PAR L_KEY dec_general:dg R_KEY
+            | FOR L_PAR VARIABLE ID:id COLON INTEGER COMMA val_posicion:nm1 UPTO val_posicion:nm2 COMMA STEP L_PAR val_posicion:nm3 R_PAR R_PAR L_KEY dec_general:dg R_KEY
             {:
                 System.err.println("Entra a dec_for 3");
                 parser.cont++;
@@ -1523,7 +1523,7 @@ dec_for ::= FOR L_PAR ID:id COMMA val_posicion:nm1 UPTO val_posicion:nm2 COMMA S
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
-                parser.cont++;
+                /*parser.cont++;
                 Node num1 =new Node();
                 num1.setEtiqueta("num");
                 num1.setID(parser.cont);
@@ -1537,15 +1537,15 @@ dec_for ::= FOR L_PAR ID:id COMMA val_posicion:nm1 UPTO val_posicion:nm2 COMMA S
                 Node num3 =new Node();
                 num3.setEtiqueta("num");
                 num3.setID(parser.cont);
-                num3.setValor(nm3);     
+                num3.setValor(nm3); */    
                 node.addHijos(identificador);
-                node.addHijos(num1);
-                node.addHijos(num2);
-                node.addHijos(num3);
+                node.addHijos((Node) nm1);
+                node.addHijos((Node) nm2);
+                node.addHijos((Node) nm3);
                 node.addHijos((Node) dg);
                 RESULT = node;
             :}
-            | FOR L_PAR VARIABLE ID:id COLON INTEGER COMMA NUM:nm1 DOWNTO NUM:nm2 COMMA STEP L_PAR NUM:nm3 R_PAR R_PAR L_KEY dec_general:dg R_KEY
+            | FOR L_PAR VARIABLE ID:id COLON INTEGER COMMA val_posicion:nm1 DOWNTO val_posicion:nm2 COMMA STEP L_PAR val_posicion:nm3 R_PAR R_PAR L_KEY dec_general:dg R_KEY
             {:
                 System.err.println("Entra a dec_for 4");
                 parser.cont++;
@@ -1558,7 +1558,7 @@ dec_for ::= FOR L_PAR ID:id COMMA val_posicion:nm1 UPTO val_posicion:nm2 COMMA S
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
-                parser.cont++;
+               /* parser.cont++;
                 Node num1 =new Node();
                 num1.setEtiqueta("num");
                 num1.setID(parser.cont);
@@ -1572,11 +1572,11 @@ dec_for ::= FOR L_PAR ID:id COMMA val_posicion:nm1 UPTO val_posicion:nm2 COMMA S
                 Node num3 =new Node();
                 num3.setEtiqueta("num");
                 num3.setID(parser.cont);
-                num3.setValor(nm3);     
+                num3.setValor(nm3);*/     
                 node.addHijos(identificador);
-                node.addHijos(num1);
-                node.addHijos(num2);
-                node.addHijos(num3);
+                node.addHijos((Node) nm1);
+                node.addHijos((Node) nm2);
+                node.addHijos((Node) nm3);
                 node.addHijos((Node) dg);
                 RESULT = node;
             :}
