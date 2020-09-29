@@ -213,6 +213,84 @@ parametros ::= VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 node.addHijos((Node) tip);
 
                 RESULT = node;
+               :}
+               VARIABLE ID:id L_BRACKET R_BRACKET COLON tipo:tip nuevo_parametro:nuP
+                {:
+                System.err.println("Entra a parametros 1");
+
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("parametros");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador =new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                node.addHijos(identificador);
+                node.addHijos((Node) tip);
+                node.addHijos((Node) nuP);
+                
+                RESULT = node;
+                :}
+               |VARIABLE ID:id L_BRACKET R_BRACKET COLON tipo:tip
+               {:
+                System.err.println("Entra a parametros 1");
+
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("parametros");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador =new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                node.addHijos(identificador);
+                node.addHijos((Node) tip);
+
+                RESULT = node;
+               :}
+               VARIABLE ID:id L_BRACKET R_BRACKET L_BRACKET R_BRACKET COLON tipo:tip nuevo_parametro:nuP
+                {:
+                System.err.println("Entra a parametros 1");
+
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("parametros");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador =new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                node.addHijos(identificador);
+                node.addHijos((Node) tip);
+                node.addHijos((Node) nuP);
+                
+                RESULT = node;
+                :}
+               |VARIABLE ID:id L_BRACKET R_BRACKET L_BRACKET R_BRACKET COLON tipo:tip
+               {:
+                System.err.println("Entra a parametros 1");
+
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("parametros");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador =new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                node.addHijos(identificador);
+                node.addHijos((Node) tip);
+
+                RESULT = node;
                :} 
                |
                {:
@@ -261,7 +339,82 @@ nuevo_parametro ::=COMMA VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 node.addHijos(identificador);
                 node.addHijos((Node) tip);
                 RESULT = node;
-                :};
+                :}
+                | COMMA VARIABLE ID:id L_BRACKET R_BRACKET COLON tipo:tip nuevo_parametro:nuP
+                {:
+                System.err.println("Entra a nuevo_parametro 1");
+
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("nuevo_parametro");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador =new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                node.addHijos(identificador);
+                node.addHijos((Node) tip);
+                node.addHijos((Node) nuP);
+
+                RESULT = node;
+                :}
+                | COMMA VARIABLE ID:id L_BRACKET R_BRACKET COLON tipo:tip
+                {:
+                System.err.println("Entra a nuevo_parametro 2");
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("nuevo_parametro");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador =new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                node.addHijos(identificador);
+                node.addHijos((Node) tip);
+                RESULT = node;
+                :}
+                |COMMA VARIABLE ID:id L_BRACKET R_BRACKET L_BRACKET R_BRACKET COLON tipo:tip nuevo_parametro:nuP
+                {:
+                System.err.println("Entra a nuevo_parametro 1");
+
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("nuevo_parametro");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador =new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                node.addHijos(identificador);
+                node.addHijos((Node) tip);
+                node.addHijos((Node) nuP);
+
+                RESULT = node;
+                :}
+                | COMMA VARIABLE ID:id L_BRACKET R_BRACKET L_BRACKET R_BRACKET COLON tipo:tip
+                {:
+                System.err.println("Entra a nuevo_parametro 2");
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("nuevo_parametro");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador =new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                node.addHijos(identificador);
+                node.addHijos((Node) tip);
+                RESULT = node;
+                :}
+                ;
 
 func_lenguaje ::= func_input:fuI
                   {:
