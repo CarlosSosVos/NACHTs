@@ -73,7 +73,7 @@ non terminal Node inicio,dec_gen_fun,dec_funcion,parametros,/*lista_parametro,
              val,dec_while,dec_for,dec_switch,list_op,new_op,dec_if,
              dec_else,dec_llamada_funcion,llamada_parametros,
              lista_valores,fin_llamada,condicion,valor_cond,dec_return,
-             tipo;
+             tipo,arreglo,arreglo2d,arr2_cont;
 
 precedence left OPSUM,OPMULT;
 precedence left OPASIGN;
@@ -528,11 +528,41 @@ dec_variable ::= VARIABLE ID:id COLON tipo:tip dec_var:dv
                 identificador.setValor(id);
                 parser.cont++;
                 Node num =new Node();
-                num.setEtiqueta("num");
+                num.setEtiqueta("tamaño");
                 num.setID(parser.cont);
                 num.setValor(nm);
                 node.addHijos(identificador);
                 node.addHijos(num);
+                node.addHijos((Node) tip);
+                node.addHijos((Node) di);
+                node.addHijos((Node) dv);
+                RESULT = node;
+                :}
+                |VARIABLE ID:id L_BRACKET NUM:nm1 R_BRACKET L_BRACKET NUM:nm2 R_BRACKET COLON tipo:tip dec_inst:di dec_var:dv
+                {:
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("dec_variable");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador =new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                parser.cont++;
+                Node num1 =new Node();
+                num1.setEtiqueta("tamaño1");
+                num1.setID(parser.cont);
+                num1.setValor(nm1);
+                parser.cont++;
+                Node num2 =new Node();
+                num2.setEtiqueta("tamaño2");
+                num2.setID(parser.cont);
+                num2.setValor(nm2);
+                node.addHijos(identificador);
+                node.addHijos(num1);
+                node.addHijos(num2);
                 node.addHijos((Node) tip);
                 node.addHijos((Node) di);
                 node.addHijos((Node) dv);
@@ -581,11 +611,41 @@ dec_var ::= dec_inst:di SEMICOLON
                 identificador.setValor(id);
                 parser.cont++;
                 Node num =new Node();
-                num.setEtiqueta("num");
+                num.setEtiqueta("tamaño");
                 num.setID(parser.cont);
                 num.setValor(nm);
                 node.addHijos(identificador);
                 node.addHijos(num);
+                node.addHijos((Node) tip);
+                node.addHijos((Node) di);
+                node.addHijos((Node) dv);
+                RESULT = node;
+            :}
+            | COMMA ID:id L_BRACKET NUM:nm1 R_BRACKET L_BRACKET NUM:nm2 R_BRACKET COLON tipo:tip dec_inst:di dec_var:dv
+            {:
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("dec_var");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador =new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                parser.cont++;
+                Node num1 =new Node();
+                num1.setEtiqueta("tamaño1");
+                num1.setID(parser.cont);
+                num1.setValor(nm1);
+                parser.cont++;
+                Node num2 =new Node();
+                num2.setEtiqueta("tamaño2");
+                num2.setID(parser.cont);
+                num2.setValor(nm2);
+                node.addHijos(identificador);
+                node.addHijos(num1);
+                node.addHijos(num2);
                 node.addHijos((Node) tip);
                 node.addHijos((Node) di);
                 node.addHijos((Node) dv);
@@ -728,26 +788,74 @@ dec_inst ::= OPASIGN ID:id
                 node.addHijos((Node) dlf);
                 RESULT = node;
              :}
-             | OPASIGN L_KEY valor:va arr_cont:arc R_KEY 
+             | OPASIGN arreglo:arr 
              {:
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("dec_inst");
                 node.setID(parser.cont);
-                node.addHijos((Node) va);
-                node.addHijos((Node) arc);
+                node.addHijos((Node) arr);
+                RESULT = node;
+             :}
+             | OPASIGN arreglo2d:arr
+             {:
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("dec_inst");
+                node.setID(parser.cont);
+                node.addHijos((Node) arr);
                 RESULT = node;
              :}
              |
              {:
                 parser.cont++;
+                Node node = new Node();
+				node.setEtiqueta("vacio");
+				node.setID(parser.cont);
+                RESULT = node;
+             :}
+              ;
+arreglo2d ::=L_KEY arreglo:arr arr2_cont:arc R_KEY
+             {:
+                parser.cont++;
+                Node node=new Node();
+                node.setEtiqueta("arreglo2d");
+                node.setID(parser.cont);
+                node.addHijos((Node) arr);
+                node.addHijos((Node) arc);
+                RESULT=node;
+             :}
+            ;
+arr2_cont ::=COMMA arreglo:arr arr2_cont:arc
+            {:
+                parser.cont++;
+                Node node=new Node();
+                node.setEtiqueta("arr2_cont");
+                node.setID(parser.cont);
+                node.addHijos((Node) arr);
+                node.addHijos((Node) arc);
+                RESULT=node;
+            :}
+            |
+            {:
+                parser.cont++;
                 Node nodo = new Node();
 				nodo.setEtiqueta("vacio");
 				nodo.setID(parser.cont);
                 RESULT = nodo;
+            :}
+            ;
+arreglo ::=L_KEY valor:va arr_cont:arc R_KEY
+             {:
+                parser.cont++;
+                Node node=new Node();
+                node.setEtiqueta("arreglo");
+                node.setID(parser.cont);
+                node.addHijos((Node) va);
+                node.addHijos((Node) arc);
+                RESULT=node;
              :}
-              ;
-
+            ;
 arr_cont ::= COMMA valor:va arr_cont:arc
              {:
                 parser.cont++;
@@ -856,6 +964,34 @@ dec_var_inst ::= ID:id OPASIGN valor:va SEMICOLON
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
                 node.addHijos(identificador);
+                RESULT = node;
+                :}
+                | ID:id DOT AT L_PAR NUM:nm1 COMMA NUM:nm2 R_PAR OPASIGN valor:va SEMICOLON
+                {:
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("dec_var_inst");
+                node.setID(parser.cont);
+
+                parser.cont++;
+                Node identificador =new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                parser.cont++;
+                Node num1 =new Node();
+                num1.setEtiqueta("num");
+                num1.setID(parser.cont);
+                num1.setValor(nm1);
+                parser.cont++;
+                Node num2 =new Node();
+                num2.setEtiqueta("num");
+                num2.setID(parser.cont);
+                num2.setValor(nm2);
+                node.addHijos(identificador);
+                node.addHijos(num1);
+                node.addHijos(num2);
+                node.addHijos((Node) va);
                 RESULT = node;
                 :}
                 ;

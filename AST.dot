@@ -1,18 +1,13 @@
 digraph G {
-"19. INICIO = null"->"15. dec_Funcion = null"
-"15. dec_Funcion = null"->"16. ID = alo"
-"15. dec_Funcion = null"->"17. Main = Main"
-"15. dec_Funcion = null"->"14. dec_general = null"
-"14. dec_general = null"->"6. dec_variable = null"
-"6. dec_variable = null"->"7. ID = x"
-"6. dec_variable = null"->"2. tipo = FLOAT"
-"6. dec_variable = null"->"5. dec_var = null"
-"5. dec_var = null"->"3. dec_inst = null"
-"3. dec_inst = null"->"4. float = 20.2"
-"14. dec_general = null"->"13. dec_general = null"
-"13. dec_general = null"->"11. dec_llamada_funcion = null"
-"11. dec_llamada_funcion = null"->"10. llamada_parametros = null"
-"10. llamada_parametros = null"->"8. valor = 20.2"
+"15. INICIO = null"->"12. dec_funcion = null"
+"12. dec_funcion = null"->"13. ID = holas"
+"12. dec_funcion = null"->"2. tipo = Int"
+"12. dec_funcion = null"->"11. dec_general = null"
+"11. dec_general = null"->"7. dec_variable = null"
+"7. dec_variable = null"->"8. ID = a"
+"7. dec_variable = null"->"9. tamaño = 3"
+"7. dec_variable = null"->"3. tipo = Int"
+"7. dec_variable = null"->"6. dec_var = null"
 
 
 }

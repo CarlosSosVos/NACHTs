@@ -1,8 +1,5 @@
 fnc holas ():int {
-if( a && b || b && a){
-	
-	}elif(true){
-}
+var a[3]:int;
 
 }
 
