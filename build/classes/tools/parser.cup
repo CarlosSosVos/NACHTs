@@ -1016,7 +1016,7 @@ dec_var_inst ::= ID:id OPASIGN valor:va SEMICOLON
                 node.addHijos((Node) va);
                 RESULT = node;
                 :}
-                ID:id DOT AT L_PAR ID:ids COMMA ID:id2 R_PAR OPASIGN valor:va SEMICOLON
+                |ID:id DOT AT L_PAR ID:ids COMMA ID:id2 R_PAR OPASIGN valor:va SEMICOLON
                 {:
                 parser.cont++;
                 Node node = new Node();
@@ -1072,7 +1072,7 @@ dec_var_inst ::= ID:id OPASIGN valor:va SEMICOLON
                 node.addHijos((Node) va);
                 RESULT = node;
                 :}
-                ID:id DOT AT L_PAR ID:ids COMMA NUM:nm R_PAR OPASIGN valor:va SEMICOLON
+                | ID:id DOT AT L_PAR ID:ids COMMA NUM:nm R_PAR OPASIGN valor:va SEMICOLON
                 {:
                 parser.cont++;
                 Node node = new Node();
