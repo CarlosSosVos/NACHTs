@@ -66,8 +66,8 @@ terminal String FUNCTION,NUM,UPTO,DOWNTO,STEP,VARIABLE,STRING,ELIF,FLOAT, FLOAT_
                 OPASIGNADD,OPASIGNMULT,L_KEY,R_KEY,L_BRACKET,R_BRACKET,
                 L_PAR,R_PAR,COMMA,SEMICOLON,COLON,AT,DOT,MAIN;
 
-non terminal Node inicio,dec_gen_fun,dec_funcion,parametros,/*lista_parametro,
-             def_parametro,*/nuevo_parametro,func_lenguaje,func_input,
+non terminal Node inicio,dec_gen_fun,dec_funcion,parametros,
+                nuevo_parametro,func_lenguaje,func_input,
              func_output,dec_general,dec_variable,dec_var,dec_inst,
              arr_cont,dec_var_inst,valor,math_op,s_op,sum_op,m_op,mult_op,
              val,dec_while,dec_for,dec_switch,list_op,new_op,dec_if,
@@ -665,6 +665,12 @@ dec_general ::= dec_variable:dva dec_general:dg
                 Node node = new Node();
                 RESULT = node;
                 :}
+                |error SEMICOLON
+                {:
+                System.err.println("Entra a dec_general nos vamos para el error ");
+                Node node = new Node();
+                RESULT = node;
+                :}
                 | 
                 {:
                 System.err.println("Entra a dec_general a vacio");
@@ -978,6 +984,12 @@ arreglo2d ::=L_KEY arreglo:arr arr2_cont:arc R_KEY
                 node.addHijos((Node) arc);
                 RESULT=node;
              :}
+             |error R_KEY
+                {:
+                System.err.println("arreglo2d error ");
+                Node node = new Node();
+                RESULT = node;
+                :}
             ;
 arr2_cont ::=COMMA arreglo:arr arr2_cont:arc
             {:
@@ -997,6 +1009,7 @@ arr2_cont ::=COMMA arreglo:arr arr2_cont:arc
 				nodo.setID(parser.cont);
                 RESULT = nodo;
             :}
+            
             ;
 arreglo ::=L_KEY valor:va arr_cont:arc R_KEY
              {:
@@ -1727,12 +1740,13 @@ dec_else ::= ELIF L_PAR condicion:cond R_PAR L_KEY dec_general:dg R_KEY dec_else
             :}
             ;
 
-dec_llamada_funcion ::= ID L_PAR llamada_parametros:llp R_PAR
+dec_llamada_funcion ::= ID:id L_PAR llamada_parametros:llp R_PAR
             {:
                 System.err.println("Entra a dec_llamada_funcion");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("dec_llamada_funcion");
+                node.setValor(id);
                 node.setID(parser.cont);
                 node.addHijos((Node) llp);
                 RESULT = node;
@@ -1792,6 +1806,7 @@ lista_valores ::= COMMA valor:vl lista_valores:lv
                 node.addHijos((Node) vl);
                 RESULT = node;
             :}
+            |error COMMA
             ;
 
 

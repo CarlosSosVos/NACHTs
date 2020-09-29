@@ -1,0 +1,30 @@
+fnc imprimirMatriz (var a[][]:int, var n1:int, var n2:int ):void {
+	for(var x:int , 0 upTo n1, step(1) ){
+		for(var y:int , 0 upTo n2, step(1)){
+			output(a.at(3,4));
+		}
+	}
+}
+
+fnc alo (): main{
+	var a[2][2]:int := {{1,2}, {3,4}} ;
+	imprimirMatriz(a ,2,2);
+		
+
+}
+
+
+fnc reloj ():void {
+	for(var x:int , 0 upTo 23, step(1) ){
+		for(var y:int , 0 upTo 59, step(1)){
+			for(var z:int , 0 upTo 59, step(1)){
+				output(x);
+				output(y);
+				output(z);
+				
+			}
+		}
+	}
+	
+
+}

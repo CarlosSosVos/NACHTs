@@ -1,9 +1,0 @@
-fnc imprimirMatriz (var a[][]:int, var n1:int, var n2:int ):void {
-	output(a.at(1,a));
-}
-
-fnc alo (): main{
-}
-
-
-	

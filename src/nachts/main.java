@@ -59,7 +59,6 @@ public class main extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         txt_result = new javax.swing.JTextArea();
         btn_run = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         Save_BT = new javax.swing.JButton();
@@ -173,13 +172,6 @@ public class main extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("jButton2");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Texto de Entrada");
 
@@ -202,22 +194,20 @@ public class main extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(30, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(Save_BT))
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btn_run)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton2))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(30, Short.MAX_VALUE))))
+                                .addComponent(Save_BT)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btn_run))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,21 +215,15 @@ public class main extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btn_run)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Save_BT)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Save_BT)
+                    .addComponent(btn_run)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jMenu1.setText("File");
@@ -249,7 +233,7 @@ public class main extends javax.swing.JFrame {
             }
         });
 
-        menu_openFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        menu_openFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         menu_openFile.setText("Abrir archivo");
         menu_openFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -258,7 +242,7 @@ public class main extends javax.swing.JFrame {
         });
         jMenu1.add(menu_openFile);
 
-        menu_genFlex.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.CTRL_MASK));
+        menu_genFlex.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         menu_genFlex.setText("GenerarFlex");
         menu_genFlex.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -267,7 +251,7 @@ public class main extends javax.swing.JFrame {
         });
         jMenu1.add(menu_genFlex);
 
-        menu_new.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        menu_new.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         menu_new.setText("Nuevo Archivo");
         menu_new.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -276,7 +260,7 @@ public class main extends javax.swing.JFrame {
         });
         jMenu1.add(menu_new);
 
-        menu_genCup.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
+        menu_genCup.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         menu_genCup.setText("Generar Cup");
         menu_genCup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -339,7 +323,7 @@ public class main extends javax.swing.JFrame {
 
     public void generateLexer() {
 
-        String parametros[] = {"-d","./src/nachts/","./src/tools/nachts.flex" };
+        String parametros[] = {"-d", "./src/nachts/", "./src/tools/nachts.flex"};
         try {
             jflex.Main.generate(parametros);
         } catch (Exception e) {
@@ -390,47 +374,54 @@ public class main extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu1ActionPerformed
 
     private void btn_runActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_runActionPerformed
-        BufferedReader br;
-        try {
-            br = new BufferedReader(new FileReader(this.input_file));
-            Lexer lex = new Lexer(br);
-            Lexer lex2 = new Lexer(new FileReader(this.input_file));
-            parser p = new parser(lex2);
-            p.parse();
-            
-            
-            //this.txt_result.setEditable(true);
-            this.txt_result.setText("");
-            String errors = "";
-            if(p.contMain == 0){
-             errors+= "NO SE DEFINIO UNA FUNCION MAIN !\n";   
-            }
-            
-            System.out.println(lex.errors.size() + ": # errores en lex");
-            for (String error : lex.errors) {
-                System.out.println(errors);
-                errors+= error +"\n";
-            }
-                
-            for (String error : p.errores) {
-                System.out.println(errors);
-                errors+= error +"\n";
-            }
-            
-            this.txt_result.setText(errors);
-            
-            Graficar(recorrido(p.Tree));
-            File imagen= new File("fotoAST.png");
-            Desktop.getDesktop().open(imagen);
+        if (this.input_file != null) {
+            BufferedReader br;
+            try {
+                br = new BufferedReader(new FileReader(this.input_file));
+                Lexer lex = new Lexer(br);
+                Lexer lex2 = new Lexer(new FileReader(this.input_file));
+                parser p = new parser(lex2);
+                p.parse();
 
-            //lex.yylex();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                //this.txt_result.setEditable(true);
+                this.txt_result.setText("");
+                String errors = "";
+                if (p.contMain == 0) {
+                    errors += "NO SE DEFINIO UNA FUNCION MAIN !\n";
+                }
+
+                System.out.println(lex.errors.size() + ": # errores en lex");
+                for (String error : lex.errors) {
+                    System.out.println(errors);
+                    errors += error + "\n";
+                }
+
+                for (String error : p.errores) {
+                    System.out.println(errors);
+                    errors += error + "\n";
+                }
+
+                this.txt_result.setText(errors);
+
+                Graficar(recorrido(p.Tree));
+
+                File imagen = new File("fotoAST.png");
+                
+                Desktop.getDesktop().open(imagen);
+
+                //lex.yylex();
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, abra un archivo.", "ERROR", JOptionPane.ERROR_MESSAGE);
+
         }
+
     }//GEN-LAST:event_btn_runActionPerformed
 
     private void menu_newActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_newActionPerformed
@@ -500,28 +491,11 @@ public class main extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_menu_genCupActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        try {
-            parser p = new parser();
-            this.txt_result.setEditable(true);
-            this.txt_result.setText("");
-            String errors = "";
-            System.out.println(p.errores.size());
-            for (String error : p.errores) {
-                System.out.println(errors);
-                errors+= error +"\n ";
-            }
-            this.txt_result.setText(p.errores.size()+"");
-            
-        } catch (Exception ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void menu_lenguajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_lenguajeActionPerformed
         try {
-            File htmlFile = new File("principal.html");
+            
+            File htmlFile = null; 
+                    htmlFile = new File("principal.html");
             Desktop.getDesktop().browse(htmlFile.toURI());
         } catch (IOException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
@@ -564,40 +538,44 @@ public class main extends javax.swing.JFrame {
     }
 
     private static String recorrido(Node raiz) {
-  	String cuerpo = "";
-    	for (Node child : raiz.hijos) {
-    		// System.out.println("hola");  
-            if (!(child.getEtiqueta().equals("vacio"))) {
-                         
-        	cuerpo += "\"" + raiz.getID() + ". " + raiz.getEtiqueta() + " = " + raiz.getValor() +
-        	"\"->\""+ child.getID() +". " + child.getEtiqueta()  + " = " + child.getValor() + "\""  + "\n";
-        	
-                cuerpo += recorrido(child);
+        String cuerpo = "";
+        if (raiz != null) {
+            for (Node child : raiz.hijos) {
+                // System.out.println("hola");
+                if (child != null && child.getEtiqueta() != null) {
+                    if (!(child.getEtiqueta().equals("vacio"))) {
+
+                        cuerpo += "\"" + raiz.getID() + ". " + raiz.getEtiqueta() + " = " + raiz.getValor()
+                                + "\"->\"" + child.getID() + ". " + child.getEtiqueta() + " = " + child.getValor() + "\"" + "\n";
+
+                        cuerpo += recorrido(child);
+                    }
+                }
             }
-    	}
-    	return cuerpo;
+        }
+        return cuerpo;
     }
 
     private static void Graficar(String cadena) {
-	FileWriter fw = null;
-    	PrintWriter pw = null;
-    	String archivo = "AST.dot";
-    	try {
-        	fw = new FileWriter(archivo);
-        	pw = new PrintWriter(fw);
-        	pw.println("digraph G {");
-        	pw.println(cadena);
-        	pw.println("\n}");
-        	fw.close();
-    	} catch (Exception e) {
-        	System.out.println(e);
-    	}
-    	try {
-        	String cmd = "dot -Tpng AST.dot -o fotoAST.png"; 
-        	Runtime.getRuntime().exec(cmd);
-    	} catch (IOException ioe) {
-        	System.out.println(ioe);
-    	}
+        FileWriter fw = null;
+        PrintWriter pw = null;
+        String archivo = "AST.dot";
+        try {
+            fw = new FileWriter(archivo);
+            pw = new PrintWriter(fw);
+            pw.println("digraph G {");
+            pw.println(cadena);
+            pw.println("\n}");
+            fw.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        try {
+            String cmd = "dot -Tpng AST.dot -o fotoAST.png";
+            Runtime.getRuntime().exec(cmd);
+        } catch (IOException ioe) {
+            System.out.println(ioe);
+        }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cancel_BT;
@@ -605,7 +583,6 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JButton Ok_BT;
     private javax.swing.JButton Save_BT;
     private javax.swing.JButton btn_run;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
