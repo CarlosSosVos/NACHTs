@@ -26,11 +26,11 @@ import java.util.ArrayList;
     }   
 %}
 
-
+minus = "-"
 letter = [a-zA-Z]|"_"
 digit = [0-9]
 id = {letter}({letter}|{digit})*
-numbers = {digit}+
+numbers = {digit}+ |{minus}{digit}+
 //comentarios
 comment = "#*" [^*] ~"*#" | "#*" "*"+ "#"
 l_comment = "##"[^["\n"]]+"\n"
