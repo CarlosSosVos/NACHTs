@@ -386,7 +386,7 @@ public class main extends javax.swing.JFrame {
                     errors += "NO SE DEFINIO UNA FUNCION MAIN !\n";
                 }
                 
-                System.out.println(lex2.errors.size() + ": # errores en lex");
+        
                 for (String error : lex2.errors) {
                     System.out.println(errors);
                     errors += error + "\n";
@@ -396,9 +396,11 @@ public class main extends javax.swing.JFrame {
                     System.out.println(errors);
                     errors += error + "\n";
                 }
-
-                this.txt_result.setText(errors);
-
+                if(!errors.isEmpty()){
+                    this.txt_result.setText(errors);
+                }else{
+                    this.txt_result.setText("Su codigo esta libre de errores! :D");
+                }
                 Graficar(recorrido(p.Tree));
                 
                 int ver_arbol;
