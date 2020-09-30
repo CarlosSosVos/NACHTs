@@ -1,0 +1,3 @@
+fnc noHayMain (): int{
+	var x[b][a]:int;
+}
