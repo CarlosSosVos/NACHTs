@@ -171,8 +171,8 @@ dec_funcion ::= FUNCTION ID:id L_PAR parametros:parts R_PAR COLON tipo:tip L_KEY
                 node.addHijos((Node) deG);
                 RESULT = node;
             :}
-            
-;
+            |error R_KEY 
+            ;
 
 parametros ::= VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 {:
@@ -1817,7 +1817,7 @@ dec_llamada_funcion ::= ID:id L_PAR llamada_parametros:llp R_PAR
                 RESULT = node;
                 :}
                    
-                
+            | error R_PAR
             ;
 
 llamada_parametros ::= valor:vl lista_valores:lv
@@ -2165,4 +2165,41 @@ val_posicion::= ID:id
                 node.addHijos((Node) mo);
                 RESULT = node;
         :}
+        | ID:id DOT AT L_PAR val_posicion:vp R_PAR 
+            {:
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("posicion");
+                node.setID(parser.cont);
+                
+                parser.cont++;
+                Node identificador = new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                node.addHijos(identificador);
+                node.addHijos((Node) vp);
+                node.setValor("");
+
+                RESULT = node;
+            :}
+            | ID:id DOT AT L_PAR val_posicion:vp1 COMMA val_posicion:vp2 R_PAR 
+            {:
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("posicion");
+                node.setID(parser.cont);
+                
+                parser.cont++;
+                Node identificador = new Node();
+                identificador.setEtiqueta("ID");
+                identificador.setID(parser.cont);
+                identificador.setValor(id);
+                node.addHijos(identificador);
+                node.addHijos((Node) vp1);
+                node.addHijos((Node) vp2);
+                node.setValor("");
+
+                RESULT = node;
+            :}
         ;
