@@ -4,14 +4,16 @@
 			output(a.at(3,4));
 		}
 	}
-}*#
-
+}
+*#
 fnc alo (): main{
 	var a[2][2]:int := {{1,2}, {3,4}} ;
 	imprimirMatriz(a.at(12) ,2,2);
 		
 
 }
+
+
 
 #*
 fnc reloj ():void {
@@ -26,3 +28,4 @@ fnc reloj ():void {
 	
 
 }*#
+
