@@ -11,7 +11,6 @@ import java.util.ArrayList;
 %class Lexer
 %cupsym Sym
 %cup
-%standalone
 
 
 //%state COMMENT

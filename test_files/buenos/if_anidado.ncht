@@ -1,5 +1,5 @@
 fnc hola():main {
-    if(true){
+    #*if(true){
         if(true){
             if(true){
                 if(true){

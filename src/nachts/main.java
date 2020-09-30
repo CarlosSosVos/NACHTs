@@ -375,20 +375,19 @@ public class main extends javax.swing.JFrame {
             BufferedReader br;
             try {
                 br = new BufferedReader(new FileReader(this.input_file));
-                Lexer lex = new Lexer(br);
                 Lexer lex2 = new Lexer(new FileReader(this.input_file));
                 parser p = new parser(lex2);
                 p.parse();
-
                 //this.txt_result.setEditable(true);
                 this.txt_result.setText("");
                 String errors = "";
+                
                 if (p.contMain == 0) {
                     errors += "NO SE DEFINIO UNA FUNCION MAIN !\n";
                 }
-
-                System.out.println(lex.errors.size() + ": # errores en lex");
-                for (String error : lex.errors) {
+                
+                System.out.println(lex2.errors.size() + ": # errores en lex");
+                for (String error : lex2.errors) {
                     System.out.println(errors);
                     errors += error + "\n";
                 }
@@ -410,7 +409,7 @@ public class main extends javax.swing.JFrame {
                     Desktop.getDesktop().open(imagen);
                 }
 
-                //lex.yylex();
+               
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
