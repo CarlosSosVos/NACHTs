@@ -1,10 +1,4 @@
 fnc principal():main {
-	  que:= 1 ;
+	  a:=a;
 }
 
-fnc principal2():main {
-	 a++; 
-}
-fnc principal3():int {
-	alo; a:= 1;
-}

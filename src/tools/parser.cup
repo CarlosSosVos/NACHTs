@@ -120,7 +120,7 @@ terminal String FUNCTION,NUM,UPTO,DOWNTO,STEP,VARIABLE,STRING,ELIF,FLOAT, FLOAT_
 
 non terminal Node inicio,dec_gen_fun,dec_funcion,parametros,
                 nuevo_parametro,params_output,dec_general,dec_variable,dec_var,dec_inst,
-             arr_cont,dec_var_inst,valor,math_op,s_op,sum_op,m_op,mult_op,
+             arr_cont,dec_var_inst,valor,math_op/*,s_op*/,sum_op,m_op,mult_op,
              val,dec_while,dec_for,dec_switch,list_op,new_op,dec_if,
              dec_else,dec_llamada_funcion,llamada_parametros,
              lista_valores,fin_llamada,condicion,valor_cond,dec_return,
@@ -860,7 +860,7 @@ dec_var ::= dec_inst:di SEMICOLON
             :}
 ;
 
-dec_inst ::= OPASIGN ID:id
+dec_inst ::= /*OPASIGN ID:id
              {:
                 parser.cont++;
                 Node node = new Node();
@@ -906,7 +906,7 @@ dec_inst ::= OPASIGN ID:id
                 node.addHijos(num);
                 RESULT = node;
              :}
-             | OPASIGN FLOAT_VAL:nm 
+             |*/ OPASIGN FLOAT_VAL:nm 
              {:
                 parser.cont++;
                 Node node = new Node();
@@ -981,7 +981,7 @@ dec_inst ::= OPASIGN ID:id
                 node.addHijos(bool_false);
                 RESULT = node;
              :}
-             | OPASIGN dec_llamada_funcion:dlf
+             /*| OPASIGN dec_llamada_funcion:dlf
              {:
                 parser.cont++;
                 Node node = new Node();
@@ -989,7 +989,7 @@ dec_inst ::= OPASIGN ID:id
                 node.setID(parser.cont);
                 node.addHijos((Node) dlf);
                 RESULT = node;
-             :}
+             :}*/
              | OPASIGN arreglo:arr 
              {:
                 parser.cont++;
@@ -1267,7 +1267,7 @@ valor ::=  CONSTSTRING:cs
                 node.setValor(bool_false.getValor());
                 RESULT = node;
            :}
-           | NUM:num
+           /*| NUM:num
            {:
                 parser.cont++;
                 Node node = new Node();
@@ -1282,7 +1282,7 @@ valor ::=  CONSTSTRING:cs
 
                 node.setValor(num_int.getValor());
                 RESULT = node;
-           :}
+           :}*/
            | FLOAT_VAL:flt
            {:
                 parser.cont++;
@@ -1308,7 +1308,7 @@ valor ::=  CONSTSTRING:cs
                 node.addHijos((Node) mop);
                 RESULT = node;
            :}
-           | dec_llamada_funcion:dlf
+           /*| dec_llamada_funcion:dlf
             {:
                 parser.cont++;
                 Node node = new Node();
@@ -1316,8 +1316,8 @@ valor ::=  CONSTSTRING:cs
                 node.setID(parser.cont);
                 node.addHijos((Node) dlf);
                 RESULT = node;
-            :}
-            | ID:id
+            :}*/
+            /*| ID:id
             {:
                 parser.cont++;
                 Node node = new Node();
@@ -1332,8 +1332,8 @@ valor ::=  CONSTSTRING:cs
 
                 node.setValor(identificador.getValor());
                 RESULT = node;
-            :}
-            | ID:id DOT AT L_PAR val_posicion:vp R_PAR 
+            :}*/
+            /*| ID:id DOT AT L_PAR val_posicion:vp R_PAR 
             {:
                 parser.cont++;
                 Node node = new Node();
@@ -1350,8 +1350,8 @@ valor ::=  CONSTSTRING:cs
                 node.setValor("");
 
                 RESULT = node;
-            :}
-            | ID:id DOT AT L_PAR val_posicion:vp1 COMMA val_posicion:vp2 R_PAR 
+            :}*/
+            /*| ID:id DOT AT L_PAR val_posicion:vp1 COMMA val_posicion:vp2 R_PAR 
             {:
                 parser.cont++;
                 Node node = new Node();
@@ -1369,10 +1369,10 @@ valor ::=  CONSTSTRING:cs
                 node.setValor("");
 
                 RESULT = node;
-            :}
+            :}*/
             ;
 
-math_op ::= s_op:so
+/*math_op ::= s_op:so
             {:
                 parser.cont++;
                 Node node = new Node();
@@ -1474,7 +1474,68 @@ mult_op ::= OPMULT val:vl mult_op:mult
                 node.addHijos((Node) vl);
                 RESULT = node;
             :} 
+            ;*/
+math_op ::= m_op:mult sum_op:sum
+            {:
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("math_op");
+                node.setID(parser.cont);
+                node.addHijos((Node) mult);
+                node.addHijos((Node) sum);
+                RESULT = node;
+            :}
             ;
+sum_op ::= OPSUM m_op:mult sum_op:sum
+            {:
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("math_op +");
+                node.setID(parser.cont);
+                node.addHijos((Node) mult);
+                node.addHijos((Node) sum);
+                RESULT = node;
+            :}
+            |
+            {:
+                parser.cont++;
+                Node nodo = new Node();
+				nodo.setEtiqueta("vacio");
+				nodo.setID(parser.cont);
+                RESULT = nodo;
+            :}
+            ;
+m_op ::= val:vl mult_op:mult
+        {:
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("math_op");
+                node.setID(parser.cont);
+                node.addHijos((Node) vl);
+                node.addHijos((Node) mult);
+                RESULT = node;
+        :}
+        ;
+mult_op ::= OPMULT val:vl mult_op:mult
+            {:
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("math_op *");
+                node.setID(parser.cont);
+                node.addHijos((Node) vl);
+                node.addHijos((Node) mult);
+                RESULT = node;
+            :}
+            |
+            {:
+                parser.cont++;
+                Node nodo = new Node();
+				nodo.setEtiqueta("vacio");
+				nodo.setID(parser.cont);
+                RESULT = nodo;
+            :}
+            ;
+
 
 val ::= ID:id
         {:
@@ -2168,7 +2229,7 @@ tipo ::= BOOLEAN
                 RESULT = node;
             :}
             ;
-val_posicion::= ID:id
+val_posicion::= /*ID:id
         {:
                 parser.cont++;
                 Node node = new Node();
@@ -2209,7 +2270,7 @@ val_posicion::= ID:id
                 node.addHijos((Node) dlf);
                 RESULT = node;
         :}
-        | math_op:mo
+        |*/ math_op:mo
         {:
                 parser.cont++;
                 Node node = new Node();
@@ -2217,7 +2278,7 @@ val_posicion::= ID:id
                 node.setID(parser.cont);
                 node.addHijos((Node) mo);
                 RESULT = node;
-        :}
+        :}/*
         | ID:id DOT AT L_PAR val_posicion:vp R_PAR 
             {:
                 parser.cont++;
@@ -2254,5 +2315,5 @@ val_posicion::= ID:id
                 node.setValor("");
 
                 RESULT = node;
-            :}
+            :}*/
         ;
