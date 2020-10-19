@@ -33,8 +33,8 @@ public class Sym {
   public static final int ID = 33;
   public static final int CONSTSTRING = 12;
   public static final int R_BRACKET = 47;
-  public static final int BOOLEAN = 16;
   public static final int EOF = 0;
+  public static final int BOOLEAN = 16;
   public static final int RETURN = 21;
   public static final int TRUE = 23;
   public static final int error = 1;

@@ -11,45 +11,97 @@ parser code {:
    int contMain=0;
 
 
-    public void report_error(String message,Object info){
-                StringBuffer m=new StringBuffer("Error ");
-                if(info instanceof Symbol){
-                        Symbol s=((Symbol)info);
-                      
-                        if(s.left>=0){
-                                m.append("en linea "+(s.right+1));
-                        if(s.right>=0)
-                                m.append(", columna "+(s.left+1));
-                        }
-                }
-                m.append(": "+message);
-                System.err.println(m);
-                errores.add(m+"");
-
-                
-
-        }
-
-        public void report_fatal_error(String message, Object info){
-                report_error("fatal"+ message, info);
-                //System.exit(1);
-        }
-
-        public void unrecovered_syntax_error(Symbol cur_token){
-               // System.out.println(cur_token.toString());
-                System.err.println("CRITICO: At line "+(cur_token.right)+", column "+cur_token.left);
-                errores.add("CRITICO: At line "+(cur_token.right)+", column "+cur_token.left);
-                //System.exit(1);
-        }
-
-        protected void report_expected_token_ids() {
-	        List<Integer> ids = expected_token_ids();
-	        LinkedList<String> list = new LinkedList<String>();
-	        for (Integer expected : ids)
-		        list.add(symbl_name_from_id(expected));
-                System.err.println("Se esperaba cualquiera de estas: "+list);
-                errores.add("Se esperaba cualquiera de estas: "+list);
+   public String token_name_from_id(int id) {
+		// obtenidos de la clase sym.java
+		switch (id) {
+  case 2: return   "FUNCTION" ; 
+  case 44: return  "L_KEY"   ;
+  case 39: return  "OPSUM"   ;
+  case 35: return  "OPCOND"   ;
+  case 28: return  "OUTPUT"   ;
+  case 27: return  "INPUT"   ;
+  case 30: return  "CASE"   ;
+  case 14: return  "INTEGER" ;  
+  case 49: return  "R_PAR"  ; 
+  case 20: return  "FOR"   ;
+  case 15: return  "CHARACTER" ;  
+  case 51: return  "SEMICOLON";   
+  case 41: return  "OPASIGN";   
+  case 31: return  "OPTION";   
+  case 50: return  "COMMA";   
+  case 4: return   "UPTO"  ;
+  case 34: return  "OPREL"  ; 
+  case 45: return  "R_KEY" ;  
+  case  3: return  "NUM"  ;
+  case 55: return  "MAIN"  ; 
+  case 17: return  "IF"   ;
+  case 54: return  "DOT"   ;
+  case 33: return  "ID"   ;
+  case 12: return  "CONSTSTRING";   
+  case 47: return  "R_BRACKET";   
+  case 16: return  "BOOLEAN";   
+  case 0: return   "EOF"  ;
+  case 21: return  "RETURN"  ; 
+  case 23: return  "TRUE"   ;
+  case 1: return   "error"  ;
+  case 11: return  "FLOAT_VAL";   
+  case 26: return  "NULL"   ;
+  case 42: return  "OPASIGNADD";   
+  case 40: return  "OPINC"   ;
+  case 25: return  "BREAK"   ;
+  case 22: return  "VOID"   ;
+  case 29: return  "SWITCH"   ;
+  case 52: return  "COLON"   ;
+  case 18: return  "ELSE"   ;
+  case 7: return   "VARIABLE" ; 
+  case 19: return  "WHILE"   ;
+  case 32: return  "DEFAULT"  ; 
+  case 10: return  "FLOAT"   ;
+  case 37: return  "OPMOD"   ;
+  case 48: return  "L_PAR"   ;
+  case 43: return  "OPASIGNMULT";   
+  case 8: return   "STRING"  ;
+  case 13: return  "CONSTCHAR";   
+  case 36: return  "OPLOG"  ; 
+  case 5: return   "DOWNTO";  
+  case 53: return  "AT"   ;
+  case 24: return  "FALSE"   ;
+  case 46: return  "L_BRACKET";   
+  case 38: return  "OPMULT" ;  
+  case 9: return   "ELIF"  ;
+  case 6: return   "STEP" ;   
+			
+			default: return "N/A";
+		}
 	}
+
+	public void syntax_error(Symbol s) {
+        report_error("Error sintáctico. No se esperaba el siguiente token: <" + s.value + ">. Línea: " + (s.right + 1) + ", Columna: " + (s.left + 1) + 	"\n", null);
+        errores.add("Error sintáctico. No se esperaba el siguiente token: <" + s.value + ">. Línea: " + (s.right + 1) + ", Columna: " + (s.left + 1) + 	"\n");
+
+	List expected = expected_token_ids();
+        if (expected.size() != 0) {
+            int id;
+            String x = "";
+            String inicio = "Se esperaba:  ";
+            x += inicio ;
+            for (int i = 0; i < expected.size(); i++) {
+            	id = (int) expected.get(i);
+            	if (i == expected.size() - 1) {
+            		System.out.println(token_name_from_id(id));
+                        x+= token_name_from_id(id);
+            	} else {
+            		System.out.print(token_name_from_id(id) + " | ");
+                        x+= token_name_from_id(id)+ " | ";
+            	}   
+            }
+            errores.add(x);
+        } else { /* do nothing */ }
+     }
+        
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception {
+        System.out.println("No se pudo reparar y continuar el análisis.");
+    }
     
 
 :}
@@ -115,6 +167,8 @@ dec_gen_fun ::= dec_funcion:df dec_gen_fun:dgf
 				
                 RESULT = nodo;
             :}
+           
+           
 ;
 
 dec_funcion ::= FUNCTION ID:id L_PAR parametros:parts R_PAR COLON tipo:tip L_KEY dec_general:deG R_KEY
@@ -171,7 +225,6 @@ dec_funcion ::= FUNCTION ID:id L_PAR parametros:parts R_PAR COLON tipo:tip L_KEY
                 node.addHijos((Node) deG);
                 RESULT = node;
             :}
-            |error R_KEY 
             ;
 
 parametros ::= VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
@@ -658,7 +711,7 @@ dec_general ::= dec_variable:dva dec_general:dg
                 node.addHijos((Node) dg);
                 RESULT = node;
                 :}
-                |error R_KEY
+                |error 
                 {:
                 System.err.println("Entra a dec_general nos vamos para el error ");
                 Node node = new Node();
