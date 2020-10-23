@@ -2080,7 +2080,8 @@ condicion ::= valor_cond:vc mas_condicion:masc otra_condicion:otrac
                 {:
                     parser.cont++;
                     Node node = new Node();
-                    node.setEtiqueta("inicio_condiciones ");
+                    node.setEtiqueta("inicio_condiciones");
+                    //node.setValor(vc.getValor());
                     node.setID(parser.cont);
                     node.addHijos((Node) vc);
                     node.addHijos((Node) masc);
@@ -2095,6 +2096,8 @@ mas_condicion ::= OPREL:opre valor_cond:vc mas_condicion:masc
                     Node node = new Node();
                     node.setEtiqueta("mas_condicion");
                     node.setID(parser.cont);
+                    node.setValor(opre);
+                    node.addHijos((Node) vc);
                     node.addHijos((Node) masc);
                     RESULT = node;
                 :}
@@ -2113,6 +2116,8 @@ otra_condicion ::= OPLOG:oplg valor_cond:vc mas_condicion:masc otra_condicion:ot
                     Node node = new Node();
                     node.setEtiqueta("otra_condicion");
                     node.setID(parser.cont);
+                    node.setValor(oplg);
+                    node.addHijos((Node) vc);
                     node.addHijos((Node) masc);
                     node.addHijos((Node) otrac);
                     RESULT = node;

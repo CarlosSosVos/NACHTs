@@ -3525,7 +3525,8 @@ class CUP$parser$actions {
 		
                     parser.cont++;
                     Node node = new Node();
-                    node.setEtiqueta("inicio_condiciones ");
+                    node.setEtiqueta("inicio_condiciones");
+                    //node.setValor(vc.getValor());
                     node.setID(parser.cont);
                     node.addHijos((Node) vc);
                     node.addHijos((Node) masc);
@@ -3555,6 +3556,8 @@ class CUP$parser$actions {
                     Node node = new Node();
                     node.setEtiqueta("mas_condicion");
                     node.setID(parser.cont);
+                    node.setValor(opre);
+                    node.addHijos((Node) vc);
                     node.addHijos((Node) masc);
                     RESULT = node;
                 
@@ -3598,6 +3601,8 @@ class CUP$parser$actions {
                     Node node = new Node();
                     node.setEtiqueta("otra_condicion");
                     node.setID(parser.cont);
+                    node.setValor(oplg);
+                    node.addHijos((Node) vc);
                     node.addHijos((Node) masc);
                     node.addHijos((Node) otrac);
                     RESULT = node;
