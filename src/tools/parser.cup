@@ -124,7 +124,7 @@ non terminal Node inicio,dec_gen_fun,dec_funcion,parametros,
              val,dec_while,dec_for,dec_switch,list_op,new_op,dec_if,
              dec_else,dec_llamada_funcion,llamada_parametros,
              lista_valores,fin_llamada,condicion,valor_cond,dec_return,
-             tipo,arreglo,arreglo2d,arr2_cont,val_posicion;
+             tipo,arreglo,arreglo2d,arr2_cont,val_posicion,mas_condicion,otra_condicion;
 
 precedence left OPSUM,OPMULT;
 precedence left OPASIGN;
@@ -2012,7 +2012,7 @@ lista_valores ::= COMMA valor:vl lista_valores:lv
             |error COMMA
             ;
 
-
+/*
 condicion ::= valor_cond:vc1 OPREL:opr valor_cond:vc2
             {:
                 parser.cont++;
@@ -2075,8 +2075,58 @@ condicion ::= valor_cond:vc1 OPREL:opr valor_cond:vc2
                 RESULT = node;
             :}
             ;
-
-valor_cond ::= NUM:nm
+*/
+condicion ::= valor_cond:vc mas_condicion:masc otra_condicion:otrac
+                {:
+                    parser.cont++;
+                    Node node = new Node();
+                    node.setEtiqueta("inicio_condiciones ");
+                    node.setID(parser.cont);
+                    node.addHijos((Node) vc);
+                    node.addHijos((Node) masc);
+                    node.addHijos((Node) otrac);
+                    RESULT = node;
+                
+                :}
+                ;
+mas_condicion ::= OPREL:opre valor_cond:vc mas_condicion:masc
+                {:
+                    parser.cont++;
+                    Node node = new Node();
+                    node.setEtiqueta("mas_condicion");
+                    node.setID(parser.cont);
+                    node.addHijos((Node) masc);
+                    RESULT = node;
+                :}
+                |
+                {:
+                    parser.cont++;
+                    Node nodo = new Node();
+				    nodo.setEtiqueta("vacio");
+				    nodo.setID(parser.cont);
+                    RESULT = nodo;
+                :}
+                ;
+otra_condicion ::= OPLOG:oplg valor_cond:vc mas_condicion:masc otra_condicion:otrac
+                {:
+                    parser.cont++;
+                    Node node = new Node();
+                    node.setEtiqueta("otra_condicion");
+                    node.setID(parser.cont);
+                    node.addHijos((Node) masc);
+                    node.addHijos((Node) otrac);
+                    RESULT = node;
+                :}
+                |
+                {:
+                    parser.cont++;
+                    Node nodo = new Node();
+				    nodo.setEtiqueta("vacio");
+				    nodo.setID(parser.cont);
+                    RESULT = nodo;
+                :}
+                ;
+valor_cond ::= /*NUM:nm
             {:
                 System.err.println("Entra a valor_cond 1");
                 parser.cont++;
@@ -2110,7 +2160,7 @@ valor_cond ::= NUM:nm
                 node.setValor(identificador.getValor());
                 RESULT = node;
             :}
-            | TRUE:tru
+            | */TRUE:tru
             {:
                 System.err.println("Entra a valor_cond 3");
                 parser.cont++;
@@ -2144,6 +2194,15 @@ valor_cond ::= NUM:nm
                 node.setValor(bool_false.getValor());
                 RESULT = node;
             :}
+            | math_op:mop
+           {:
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("valor");
+                node.setID(parser.cont);
+                node.addHijos((Node) mop);
+                RESULT = node;
+           :}
             ;
 
 dec_return ::= RETURN valor:vl

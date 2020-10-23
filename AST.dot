@@ -1,14 +1,20 @@
 digraph G {
-"17. INICIO = null"->"13. dec_Funcion = null"
-"13. dec_Funcion = null"->"14. ID = principal"
-"13. dec_Funcion = null"->"15. Main = Main"
-"13. dec_Funcion = null"->"12. dec_general = null"
-"12. dec_general = null"->"9. dec_var_inst = null"
-"9. dec_var_inst = null"->"10. ID = a"
-"9. dec_var_inst = null"->"8. valor = null"
+"75. INICIO = null"->"71. dec_Funcion = null"
+"71. dec_Funcion = null"->"72. ID = noHayMain"
+"71. dec_Funcion = null"->"73. Main = Main"
+"71. dec_Funcion = null"->"70. dec_general = null"
+"70. dec_general = null"->"68. dec_if = null"
+"68. dec_if = null"->"65. inicio_condiciones  = null"
+"65. inicio_condiciones  = null"->"8. valor = null"
 "8. valor = null"->"7. math_op = null"
 "7. math_op = null"->"5. math_op = null"
-"5. math_op = null"->"2. val = a"
+"5. math_op = null"->"2. val = 7"
+"65. inicio_condiciones  = null"->"41. mas_condicion = null"
+"41. mas_condicion = null"->"40. mas_condicion = null"
+"40. mas_condicion = null"->"39. mas_condicion = null"
+"39. mas_condicion = null"->"38. mas_condicion = null"
+"65. inicio_condiciones  = null"->"64. otra_condicion = null"
+"64. otra_condicion = null"->"62. mas_condicion = null"
 
 
 }
