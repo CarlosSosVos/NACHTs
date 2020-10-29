@@ -1,5 +1,6 @@
 fnc noHayMain (): main{
-	if(7>i+3 && 2<30) {
-
-	}
+	var a:int;
+	var b:bool;
+	var c:chr;
+	var d:string; 
 }

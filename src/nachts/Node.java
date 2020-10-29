@@ -17,8 +17,20 @@ public class Node {
     public ArrayList<Node> hijos = new ArrayList<>();
     public String valor;
     public int id;
-   
     
+    //a trastear esta onda
+    public Object objeto;
+
+    public Object getObjeto() {
+        
+        
+        return objeto;
+    }
+
+    public void setObjeto(Object objeto) {
+        this.objeto = objeto;
+    }
+
     public void setEtiqueta(String e) {
         etiqueta = e;
     }

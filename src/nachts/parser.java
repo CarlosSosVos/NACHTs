@@ -643,6 +643,7 @@ public class parser extends java_cup.runtime.lr_parser {
 
 
    ArrayList<String> errores = new ArrayList();
+   ArrayList<Variable> variables = new ArrayList();
    Node Tree  = new Node();
    int cont=0;
    int contMain=0;
@@ -740,6 +741,33 @@ public class parser extends java_cup.runtime.lr_parser {
         System.out.println("No se pudo reparar y continuar el análisis.");
     }
     
+    public void buscaTipo(String id){
+        for (Variable iter_list : variables) {
+            if(iter_list.getId().equals(id)){
+                System.out.println("El tipo de la variable es: ");
+                System.out.println(iter_list.getTipo());
+                break;
+            }else{
+                System.err.println("NO EXISTE ESTA VARIABLE");
+            }
+        }
+    }
+
+
+    //Check if any id is repeated 
+    public boolean checkRepeatedID(String id){
+        for (Variable iter_list : variables) {
+            if(iter_list.getId().equals(id)){
+                System.out.println("Esta declaracion ya existe");
+                return false;
+            }else{
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 
 
 
@@ -1621,8 +1649,19 @@ class CUP$parser$actions {
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
                 node.addHijos(identificador);
-                node.addHijos((Node) tip);
-                node.addHijos((Node) dv);
+                
+                Node test_nodo = (Node)tip;
+
+                Node test_id = (Node) dv;
+                test_id.setValor(id);
+
+                node.addHijos(test_nodo);
+                node.addHijos(test_id);
+
+                Variable new_var = new Variable(test_nodo.getValor(), test_id.getValor());
+
+                variables.add(new_var);
+                
                 RESULT = node;
                 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_variable",7, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -1727,6 +1766,10 @@ class CUP$parser$actions {
                 Node node = new Node();
                 node.setEtiqueta("dec_var");
                 node.setID(parser.cont);
+                
+                Node test_id = (Node)di;
+                //test_id.setValor()
+
                 node.addHijos((Node) di);
                 RESULT = node;
             
@@ -1765,6 +1808,9 @@ class CUP$parser$actions {
                 node.addHijos((Node) tip);
                 node.addHijos((Node) di);
                 node.addHijos((Node) dv);
+
+
+
                 RESULT = node;
             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_var",8, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-5)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);

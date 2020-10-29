@@ -386,7 +386,6 @@ public class main extends javax.swing.JFrame {
                     errors += "NO SE DEFINIO UNA FUNCION MAIN !\n";
                 }
                 
-        
                 for (String error : lex2.errors) {
                     System.out.println(errors);
                     errors += error + "\n";
@@ -401,6 +400,12 @@ public class main extends javax.swing.JFrame {
                 }else{
                     this.txt_result.setText("Su codigo esta libre de errores! :D");
                 }
+                
+                for (Variable variable : p.variables) {
+                    System.out.println(variable.toString());
+                }
+                
+                
                 Graficar(recorrido(p.Tree));
                 
                 int ver_arbol;
@@ -410,7 +415,6 @@ public class main extends javax.swing.JFrame {
                     File imagen = new File("fotoAST.png");  
                     Desktop.getDesktop().open(imagen);
                 }
-
                
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
