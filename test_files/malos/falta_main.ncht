@@ -1,6 +1,7 @@
 fnc noHayMain (): main{
-	var a:int;
-	var b:bool;
-	var c:chr;
-	var d:string; 
+	var a:int:="da";
+	var b:chr:=2;
+	var c:string:='1';
+	var d:bool:=12;
+
 }
