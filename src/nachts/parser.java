@@ -741,11 +741,11 @@ public class parser extends java_cup.runtime.lr_parser {
         System.out.println("No se pudo reparar y continuar el análisis.");
     }
     
-    public String buscaTipo(String id){
+    public String buscaTipo2(String id){
         for (Variable iter_list : variables) {
-            System.out.println(iter_list.toString());
+            System.out.println(iter_list.toString()+ " " + variables.size());
         }
-        for (Variable iter_list : variables) {
+       for (Variable iter_list : variables) {
             if(iter_list.getId().equals(id)){
                 System.out.println("El tipo de la variable es: ");
                 System.out.println(iter_list.getTipo());
@@ -757,6 +757,30 @@ public class parser extends java_cup.runtime.lr_parser {
         }
         return "";
     }
+
+
+    public String buscaTipo(String id){
+        boolean isFound = false;
+        String tipo = ""; 
+       for (Variable iter_list : variables) {
+            if(iter_list.getId().equals(id)){
+                System.out.println("El tipo de la variable es: ");
+                System.out.println(iter_list.getTipo());
+                tipo= iter_list.getTipo();
+                isFound= true;
+            }
+        }
+        if(isFound ==false){
+            System.err.println("NO EXISTE ESTA VARIABLE");
+        }
+        return tipo;
+    }
+
+
+
+
+
+
 
 
     //Check if any id is repeated 
@@ -1841,7 +1865,9 @@ class CUP$parser$actions {
                     if(n_tip.getValor().equals(n_di.getValor())){
                         System.out.println("la asignacion es correcta en "+ id);
                     }else{
-                        System.out.println("la asignacion es incorrecta en "+ id);
+                        System.out.println(" # la asignacion es incorrecta en "+ id);
+                        System.out.println( n_tip.getValor()+ " =/= "+ id);
+
                     }
                 }
                 node.setValor("");
@@ -2296,11 +2322,16 @@ class CUP$parser$actions {
                 Node n_va=(Node) va;
                 node.addHijos(identificador);
                 node.addHijos(n_va);
-                if(buscaTipo(id).equals(n_va.getValor())){
-                    System.out.println("la asignacion es correcta en "+ id);
+                
+                System.out.println("La variable tiene asignado un: "+n_va.getValor());
+                if(buscaTipo(identificador.getValor()).equals(n_va.getValor())){
+                    System.out.println(" :) la asignacion es correcta en "+ id);
+                    System.out.println( buscaTipo(identificador.getValor()) + " == "+ n_va.getValor());
                 }else{
-                    System.out.println("la asignacion es incorrecta en "+ id);
+                    System.out.println(" :( la asignacion es incorrecta en "+ id);
+                    System.out.println( buscaTipo(identificador.getValor()) + " =/= "+ n_va.getValor());
                 }
+
                 RESULT = node;
                 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_var_inst",11, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);

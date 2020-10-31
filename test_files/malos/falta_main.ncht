@@ -1,6 +1,13 @@
 fnc noHayMain (): main{
-	var a:int,b:int,c:int;
+	var a:bool;
+	var b:int;
+	var c:int;
 
 	a:=1;
+	b:=1;
+	c:=1;
+	
+	var x:int;
+	x:=1;
 
 }

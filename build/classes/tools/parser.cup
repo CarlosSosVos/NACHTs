@@ -104,11 +104,11 @@ parser code {:
         System.out.println("No se pudo reparar y continuar el análisis.");
     }
     
-    public String buscaTipo(String id){
+    public String buscaTipo2(String id){
         for (Variable iter_list : variables) {
-            System.out.println(iter_list.toString());
+            System.out.println(iter_list.toString()+ " " + variables.size());
         }
-        for (Variable iter_list : variables) {
+       for (Variable iter_list : variables) {
             if(iter_list.getId().equals(id)){
                 System.out.println("El tipo de la variable es: ");
                 System.out.println(iter_list.getTipo());
@@ -120,6 +120,30 @@ parser code {:
         }
         return "";
     }
+
+
+    public String buscaTipo(String id){
+        boolean isFound = false;
+        String tipo = ""; 
+       for (Variable iter_list : variables) {
+            if(iter_list.getId().equals(id)){
+                System.out.println("El tipo de la variable es: ");
+                System.out.println(iter_list.getTipo());
+                tipo= iter_list.getTipo();
+                isFound= true;
+            }
+        }
+        if(isFound ==false){
+            System.err.println("NO EXISTE ESTA VARIABLE");
+        }
+        return tipo;
+    }
+
+
+
+
+
+
 
 
     //Check if any id is repeated 
@@ -500,149 +524,6 @@ nuevo_parametro ::=COMMA VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 RESULT = node;
                 :}
                 ;
-/*
-func_lenguaje ::= func_input:fuI
-                  {:
-                    System.err.println("Entra a func_lenguaje 1");
-                    parser.cont++;
-                    Node node = new Node();
-                    node.setEtiqueta("func_lenguaje");
-                    node.setID(parser.cont);
-                    node.addHijos((Node) fuI);
-                    RESULT = node;
-                  :}
-                  | func_output:fuO
-                  {:
-                    System.err.println("Entra a func_lenguaje 2");
-                    parser.cont++;
-                    Node node = new Node();
-                    node.setEtiqueta("func_lenguaje");
-                    node.setID(parser.cont);
-                    node.addHijos((Node) fuO);
-                    RESULT = node;
-                  :}  
-                  ;
-                  
-func_input ::= INPUT L_PAR ID:id COMMA tipo:tip R_PAR 
-               {:
-                System.err.println("Entra a func_input");
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("func_input");
-                node.setID(parser.cont);
-                parser.cont++;
-                Node identificador =new Node();
-                identificador.setEtiqueta("ID");
-                identificador.setID(parser.cont);
-                identificador.setValor(id);
-                node.addHijos(identificador);
-                node.addHijos((Node) tip);
-                RESULT = node;
-                :}
-                ;
-
-func_output ::= OUTPUT L_PAR CONSTSTRING:cs R_PAR  
-                {:
-                System.err.println("Entra a func_output 1");
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("func_output");
-                node.setID(parser.cont);
-                parser.cont++;
-                Node const_string =new Node();
-                const_string.setEtiqueta("const_string");
-                const_string.setID(parser.cont);
-                String temp = cs.replaceAll("\"", "");
-
-                const_string.setValor(temp);
-                node.addHijos(const_string);
-                RESULT = node;
-                :}
-                |OUTPUT L_PAR CONSTCHAR:cs R_PAR  
-                {:
-                System.err.println("Entra a func_output 1");
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("func_output");
-                node.setID(parser.cont);
-                parser.cont++;
-                Node const_string =new Node();
-                const_string.setEtiqueta("const_char");
-                const_string.setID(parser.cont);
-                String temp = cs.replaceAll("\'", "");
-
-                const_string.setValor(temp);
-                node.addHijos(const_string);
-                RESULT = node;
-                :}     
-                | OUTPUT L_PAR NUM:nm R_PAR 
-                {:
-                System.err.println("Entra a func_output 2");
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("func_output");
-                node.setID(parser.cont);
-
-                parser.cont++;
-                Node num =new Node();
-                num.setEtiqueta("Num");
-                num.setID(parser.cont);
-                num.setValor(nm);
-                node.addHijos(num);
-                RESULT = node;
-                :}
-                | OUTPUT L_PAR ID:id R_PAR  
-                {:
-                System.err.println("Entra a func_output 3");
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("func_output");
-                node.setID(parser.cont);
-
-                parser.cont++;
-                Node identificador =new Node();
-                identificador.setEtiqueta("ID");
-                identificador.setID(parser.cont);
-                identificador.setValor(id);
-                node.addHijos(identificador);
-                RESULT = node;
-                :}
-                | OUTPUT L_PAR ID:id DOT AT  L_PAR val_posicion:vp R_PAR R_PAR  
-                {:
-                System.err.println("Entra a func_output 3");
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("func_output");
-                node.setID(parser.cont);
-
-                parser.cont++;
-                Node identificador =new Node();
-                identificador.setEtiqueta("ID");
-                identificador.setID(parser.cont);
-                identificador.setValor(id);
-                node.addHijos(identificador);
-                node.addHijos((Node) vp);
-                RESULT = node;
-                :}
-                | OUTPUT L_PAR ID:id DOT AT L_PAR val_posicion:vp1 COMMA val_posicion:vp2 R_PAR R_PAR  
-                {:
-                System.err.println("Entra a func_output 3");
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("func_output");
-                node.setID(parser.cont);
-
-                parser.cont++;
-                Node identificador =new Node();
-                identificador.setEtiqueta("ID");
-                identificador.setID(parser.cont);
-                identificador.setValor(id);
-                node.addHijos(identificador);
-                node.addHijos((Node) vp1);
-                node.addHijos((Node) vp2);
-                RESULT = node;
-                :}    
-                ; */
 
 dec_general ::= dec_variable:dva dec_general:dg
                {:
@@ -893,7 +774,9 @@ dec_var ::= dec_inst:di SEMICOLON
                     if(n_tip.getValor().equals(n_di.getValor())){
                         System.out.println("la asignacion es correcta en "+ id);
                     }else{
-                        System.out.println("la asignacion es incorrecta en "+ id);
+                        System.out.println(" # la asignacion es incorrecta en "+ id);
+                        System.out.println( n_tip.getValor()+ " =/= "+ id);
+
                     }
                 }
                 node.setValor("");
@@ -1192,11 +1075,16 @@ dec_var_inst ::= ID:id OPASIGN valor:va SEMICOLON
                 Node n_va=(Node) va;
                 node.addHijos(identificador);
                 node.addHijos(n_va);
-                if(buscaTipo(id).equals(n_va.getValor())){
-                    System.out.println("la asignacion es correcta en "+ id);
+                
+                System.out.println("La variable tiene asignado un: "+n_va.getValor());
+                if(buscaTipo(identificador.getValor()).equals(n_va.getValor())){
+                    System.out.println(" :) la asignacion es correcta en "+ id);
+                    System.out.println( buscaTipo(identificador.getValor()) + " == "+ n_va.getValor());
                 }else{
-                    System.out.println("la asignacion es incorrecta en "+ id);
+                    System.out.println(" :( la asignacion es incorrecta en "+ id);
+                    System.out.println( buscaTipo(identificador.getValor()) + " =/= "+ n_va.getValor());
                 }
+
                 RESULT = node;
                 :}
                 |ID:id DOT AT L_PAR val_posicion:vp R_PAR OPASIGN valor:va SEMICOLON

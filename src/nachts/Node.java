@@ -17,19 +17,17 @@ public class Node {
     public ArrayList<Node> hijos = new ArrayList<>();
     public String valor;
     public int id;
-    
+    public String tipo;
     //a trastear esta onda
-    public Object objeto;
 
-    public Object getObjeto() {
-        
-        
-        return objeto;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setObjeto(Object objeto) {
-        this.objeto = objeto;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
+
 
     public void setEtiqueta(String e) {
         etiqueta = e;
