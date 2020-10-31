@@ -20,10 +20,20 @@ public class Variable {
     
     String tipo;
     String id;
+    boolean esArray = false;
     public Variable(String tipo, String id) {
         this.tipo = tipo;
         this.id = id;
     }
+
+    public boolean isArray() {
+        return esArray;
+    }
+
+    public void setArray(boolean esArray) {
+        this.esArray = esArray;
+    }
+    
 
     public String getTipo() {
         return tipo;
