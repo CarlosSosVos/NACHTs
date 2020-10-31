@@ -1,13 +1,4 @@
 fnc noHayMain (): main{
-	var a:bool;
-	var b:int;
-	var c:int;
-
-	a:=1;
-	b:=1;
-	c:=1;
-	
-	var x:int;
-	x:=1;
+	var c[3]:int,b[32][2]:int,a[3][4]:bool:={{true,false,true,false},{true,true,true}};
 
 }

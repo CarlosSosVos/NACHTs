@@ -662,32 +662,32 @@ dec_variable ::= VARIABLE ID:id COLON tipo:tip dec_var:dv
                 identificador.setValor(id);
                 node.addHijos(identificador);
                 
-                Node test_nodo = (Node)tip;
+                Node n_tip = (Node)tip;
 
-                Node test_id = (Node) dv;
-                //test_id.setValor(id);
+                Node n_dv = (Node) dv;
+                //n_dv.setValor(id);
 
-                node.addHijos(test_nodo);
-                node.addHijos(test_id);
+                node.addHijos(n_tip);
+                node.addHijos(n_dv);
 
-                Variable new_var = new Variable(test_nodo.getValor(), id);
-                String test=test_id.getValor()+"";
+                Variable new_var = new Variable(n_tip.getValor(), id);
+                String test=n_dv.getValor()+"";
                 variables.add(new_var);
                 if(test.equals("")){
                     System.out.println("no se hizo asignacion en "+id);
                 }else{
-                    if(test_nodo.getValor().equals(test_id.getValor())){
+                    if(n_tip.getValor().equals(n_dv.getValor())){
                         System.out.println("la asignacion es correcta en "+id);
                     }else{
                         System.out.println("la asignacion es incorrecta en "+ id);
                     }
                 }
                 
-                //System.out.println(test_nodo.getValor());
+                //System.out.println(n_tip.getValor());
                 
                 RESULT = node;
                 :}   
-                | VARIABLE ID:id L_BRACKET val_posicion:vp R_BRACKET COLON tipo:tip dec_inst:di dec_var:dv 
+                | VARIABLE ID:id L_BRACKET val_posicion:vp R_BRACKET COLON tipo:tip dec_var:dv 
                 {:
                 parser.cont++;
                 Node node = new Node();
@@ -699,14 +699,33 @@ dec_variable ::= VARIABLE ID:id COLON tipo:tip dec_var:dv
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
+
+                Node n_tip = (Node)tip;
+
+                Node n_dv = (Node) dv;
+
+                node.addHijos(n_tip);
+                node.addHijos(n_dv);
                 node.addHijos(identificador);
                 node.addHijos((Node) vp);
-                node.addHijos((Node) tip);
-                node.addHijos((Node) di);
-                node.addHijos((Node) dv);
+
+                Variable new_var = new Variable(n_tip.getValor(), id);
+                String test=n_dv.getValor()+"";
+                variables.add(new_var);
+
+                if(test.equals("")){
+                    System.out.println("no se hizo asignacion en "+id);
+                }else{
+                    if(n_tip.getValor().equals(n_dv.getValor())){
+                        System.out.println("la asignacion es correcta en "+id);
+                    }else{
+                        System.out.println("la asignacion es incorrecta en "+ id);
+                    }
+                }
+
                 RESULT = node;
                 :}
-                |VARIABLE ID:id L_BRACKET val_posicion:vp1 R_BRACKET L_BRACKET val_posicion:vp2 R_BRACKET COLON tipo:tip dec_inst:di dec_var:dv
+                |VARIABLE ID:id L_BRACKET val_posicion:vp1 R_BRACKET L_BRACKET val_posicion:vp2 R_BRACKET COLON tipo:tip dec_var:dv
                 {:
                 parser.cont++;
                 Node node = new Node();
@@ -718,12 +737,31 @@ dec_variable ::= VARIABLE ID:id COLON tipo:tip dec_var:dv
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
+
+                Node n_tip = (Node)tip;
+
+                Node n_dv = (Node) dv;
+
+                node.addHijos(n_tip);
+                node.addHijos(n_dv);
                 node.addHijos(identificador);
                 node.addHijos((Node) vp1);
                 node.addHijos((Node) vp2);
-                node.addHijos((Node) tip);
-                node.addHijos((Node) di);
-                node.addHijos((Node) dv);
+
+                Variable new_var = new Variable(n_tip.getValor(), id);
+                String test=n_dv.getValor()+"";
+                variables.add(new_var);
+
+                if(test.equals("")){
+                    System.out.println("no se hizo asignacion en "+id);
+                }else{
+                    if(n_tip.getValor().equals(n_dv.getValor())){
+                        System.out.println("la asignacion es correcta en "+id);
+                    }else{
+                        System.out.println("la asignacion es incorrecta en "+ id);
+                    }
+                }
+
                 RESULT = node;
                 :}
                 ;
@@ -794,11 +832,36 @@ dec_var ::= dec_inst:di SEMICOLON
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
+
+                Node n_tip =(Node) tip;
+                Node n_di=(Node) di;
+
+
+                node.addHijos(n_tip);
+                node.addHijos(n_di);
                 node.addHijos(identificador);
                 node.addHijos((Node) vp);
-                node.addHijos((Node) tip);
-                node.addHijos((Node) di);
+                node.addHijos(n_tip);
+                node.addHijos(n_di);
                 node.addHijos((Node) dv);
+
+                Variable new_var = new Variable(n_tip.getValor(), id);
+
+                variables.add(new_var);
+                String test=n_di.getValor()+"";
+                
+                if(test.equals("")){
+                    System.out.println("no hubo asignacion en "+ id);
+                }else{
+                    if(n_tip.getValor().equals(n_di.getValor())){
+                        System.out.println("la asignacion es correcta en "+ id);
+                    }else{
+                        System.out.println(" # la asignacion es incorrecta en "+ id);
+                        System.out.println( n_tip.getValor()+ " =/= "+ id);
+
+                    }
+                }
+                node.setValor("");
                 RESULT = node;
             :}
             | COMMA ID:id L_BRACKET val_posicion:vp1 R_BRACKET L_BRACKET val_posicion:vp2 R_BRACKET COLON tipo:tip dec_inst:di dec_var:dv
@@ -813,63 +876,39 @@ dec_var ::= dec_inst:di SEMICOLON
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
+
+                Node n_tip =(Node) tip;
+                Node n_di=(Node) di;
+
+                node.addHijos(n_tip);
+                node.addHijos(n_di);
                 node.addHijos(identificador);
                 node.addHijos((Node) vp1);
                 node.addHijos((Node) vp2);
-                node.addHijos((Node) tip);
-                node.addHijos((Node) di);
                 node.addHijos((Node) dv);
+
+                Variable new_var = new Variable(n_tip.getValor(), id);
+
+                variables.add(new_var);
+                String test=n_di.getValor()+"";
+                
+                if(test.equals("")){
+                    System.out.println("no hubo asignacion en "+ id);
+                }else{
+                    if(n_tip.getValor().equals(n_di.getValor())){
+                        System.out.println("la asignacion es correcta en "+ id);
+                    }else{
+                        System.out.println(" # la asignacion es incorrecta en "+ id);
+                        System.out.println( n_tip.getValor()+ " =/= "+ id);
+
+                    }
+                }
+                node.setValor("");
                 RESULT = node;
             :}
 ;
 
-dec_inst ::= /*OPASIGN ID:id
-             {:
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("dec_inst");
-                node.setID(parser.cont);
-
-                parser.cont++;
-                Node identificador =new Node();
-                identificador.setEtiqueta("ID");
-                identificador.setID(parser.cont);
-                identificador.setValor(id);
-                node.addHijos(identificador);
-                RESULT = node;
-             :}
-             | OPASIGN ID:id DOT AT L_PAR val_posicion:vp R_PAR
-             {:
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("dec_inst");
-                node.setID(parser.cont);
-
-                parser.cont++;
-                Node identificador =new Node();
-                identificador.setEtiqueta("ID");
-                identificador.setID(parser.cont);
-                identificador.setValor(id);
-                node.addHijos(identificador);
-                node.addHijos((Node) vp);
-                RESULT = node;
-             :}
-             | OPASIGN NUM:nm 
-             {:
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("dec_inst");
-                node.setID(parser.cont);
-
-                parser.cont++;
-                Node num =new Node();
-                num.setEtiqueta("num");
-                num.setID(parser.cont);
-                num.setValor(nm);
-                node.addHijos(num);
-                RESULT = node;
-             :}
-             |*/ OPASIGN FLOAT_VAL:nm 
+dec_inst ::= OPASIGN FLOAT_VAL:nm 
              {:
                 parser.cont++;
                 Node node = new Node();
@@ -944,22 +983,17 @@ dec_inst ::= /*OPASIGN ID:id
                 node.addHijos(bool_false);
                 RESULT = node;
              :}
-             /*| OPASIGN dec_llamada_funcion:dlf
-             {:
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("dec_inst");
-                node.setID(parser.cont);
-                node.addHijos((Node) dlf);
-                RESULT = node;
-             :}*/
              | OPASIGN arreglo:arr 
              {:
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("dec_inst");
                 node.setID(parser.cont);
-                node.addHijos((Node) arr);
+                Node n_arr=(Node) arr;
+                node.addHijos(n_arr);
+
+                node.setValor(n_arr.getValor());
+
                 RESULT = node;
              :}
              | OPASIGN arreglo2d:arr
@@ -968,7 +1002,10 @@ dec_inst ::= /*OPASIGN ID:id
                 Node node = new Node();
                 node.setEtiqueta("dec_inst");
                 node.setID(parser.cont);
-                node.addHijos((Node) arr);
+                Node n_arr=(Node) arr;
+                node.addHijos(n_arr);
+
+                node.setValor(n_arr.getValor());
                 RESULT = node;
              :}
              | OPASIGN math_op:mo
@@ -996,9 +1033,18 @@ arreglo2d ::=L_KEY arreglo:arr arr2_cont:arc R_KEY
                 parser.cont++;
                 Node node=new Node();
                 node.setEtiqueta("arreglo2d");
-                node.setID(parser.cont);
-                node.addHijos((Node) arr);
+                Node n_arr=(Node) arr;
+                Node n_arc=(Node) arc;
+                node.addHijos(n_arr);
                 node.addHijos((Node) arc);
+
+                if(n_arc.getValor().equals("nada")){
+                    node.setValor(n_arr.getValor());
+                }else if(n_arc.getValor().equals(n_arr.getValor())){
+                    node.setValor(n_arr.getValor());
+                }else{
+                    node.setValor("error");
+                }
                 RESULT=node;
              :}
              |error R_KEY
@@ -1014,8 +1060,20 @@ arr2_cont ::=COMMA arreglo:arr arr2_cont:arc
                 Node node=new Node();
                 node.setEtiqueta("arr2_cont");
                 node.setID(parser.cont);
-                node.addHijos((Node) arr);
+
+                Node n_arr=(Node) arr;
+                Node n_arc=(Node) arc;
+                node.addHijos(n_arr);
                 node.addHijos((Node) arc);
+
+                if(n_arc.getValor().equals("nada")){
+                    node.setValor(n_arr.getValor());
+                }else if(n_arc.getValor().equals(n_arr.getValor())){
+                    node.setValor(n_arr.getValor());
+                }else{
+                    node.setValor("error");
+                }
+
                 RESULT=node;
             :}
             |
@@ -1024,6 +1082,7 @@ arr2_cont ::=COMMA arreglo:arr arr2_cont:arc
                 Node nodo = new Node();
 				nodo.setEtiqueta("vacio");
 				nodo.setID(parser.cont);
+                nodo.setValor("nada");
                 RESULT = nodo;
             :}
             
@@ -1034,9 +1093,21 @@ arreglo ::=L_KEY valor:va arr_cont:arc R_KEY
                 Node node=new Node();
                 node.setEtiqueta("arreglo");
                 node.setID(parser.cont);
-                node.addHijos((Node) va);
-                node.addHijos((Node) arc);
+                Node n_va=(Node) va;
+                Node n_arc=(Node) arc;
+                
+                node.addHijos(n_va);
+                node.addHijos(n_arc);
+
+                if(n_arc.getValor().equals("nada")){
+                    node.setValor(n_va.getValor());
+                }else if(n_arc.getValor().equals(n_va.getValor())){
+                    node.setValor(n_va.getValor());
+                }else{
+                    node.setValor("error");
+                }
                 RESULT=node;
+
              :}
             ;
 arr_cont ::= COMMA valor:va arr_cont:arc
@@ -1045,8 +1116,19 @@ arr_cont ::= COMMA valor:va arr_cont:arc
                 Node node = new Node();
                 node.setEtiqueta("arr_cont");
                 node.setID(parser.cont);
-                node.addHijos((Node) va);
-                node.addHijos((Node) arc);
+
+                Node n_va=(Node) va;
+                Node n_arc=(Node) arc;
+                
+                node.addHijos(n_va);
+                node.addHijos(n_arc);
+                if(n_arc.getValor().equals("nada")){
+                    node.setValor(n_va.getValor());
+                }else if(n_arc.getValor().equals(n_va.getValor())){
+                    node.setValor(n_va.getValor());
+                }else{
+                    node.setValor("error");
+                }
                 RESULT = node;
             :}
             |
@@ -1055,6 +1137,7 @@ arr_cont ::= COMMA valor:va arr_cont:arc
                 Node nodo = new Node();
 				nodo.setEtiqueta("vacio");
 				nodo.setID(parser.cont);
+                nodo.setValor("nada");
                 RESULT = nodo;
             :}
             ;
@@ -1242,7 +1325,7 @@ valor ::=  CONSTSTRING:cs
                 bool_false.setID(parser.cont);
                 bool_false.setValor(fals);
 
-                node.setValor(bool_false.getValor());
+                //node.setValor(bool_false.getValor());
                 RESULT = node;
            :}
            /*| NUM:num
