@@ -1,4 +1,5 @@
 fnc noHayMain (): main{
-	var c[3]:int,b[32][2]:int,a[3][4]:bool:={{true,false,true,false},{true,true,true}};
-
+	var c[3][4]:int;
+	
+	c := 4;
 }

@@ -646,6 +646,9 @@ public class parser extends java_cup.runtime.lr_parser {
    int cont=0;
    int contMain=0;
 
+   int contContenido= 0;
+   boolean testCont = false;
+   String tempTipo = ""; 
 
    public String token_name_from_id(int id) {
 		// obtenidos de la clase sym.java
@@ -756,7 +759,6 @@ public class parser extends java_cup.runtime.lr_parser {
         return "";
     }
 
-
     public String buscaTipo(String id){
         boolean isFound = false;
         String tipo = ""; 
@@ -773,13 +775,6 @@ public class parser extends java_cup.runtime.lr_parser {
         }
         return tipo;
     }
-
-
-
-
-
-
-
 
     //Check if any id is repeated 
     public boolean checkRepeatedID(String id){
@@ -1942,16 +1937,16 @@ class CUP$parser$actions {
                 Node n_di=(Node) di;
 
 
-                node.addHijos(n_tip);
-                node.addHijos(n_di);
                 node.addHijos(identificador);
                 node.addHijos((Node) vp);
                 node.addHijos(n_tip);
                 node.addHijos(n_di);
                 node.addHijos((Node) dv);
 
-                Variable new_var = new Variable(n_tip.getValor(), id);
 
+
+                Variable new_var = new Variable(n_tip.getValor(), id);
+                new_var.setArray(true);
                 variables.add(new_var);
                 String test=n_di.getValor()+"";
                 
@@ -2018,7 +2013,7 @@ class CUP$parser$actions {
                 node.addHijos((Node) dv);
 
                 Variable new_var = new Variable(n_tip.getValor(), id);
-
+                new_var.setArray(true);
                 variables.add(new_var);
                 String test=n_di.getValor()+"";
                 
@@ -2365,7 +2360,7 @@ class CUP$parser$actions {
 
                 if(n_arc.getValor().equals("nada")){
                     node.setValor(n_va.getValor());
-                }else if(n_arc.getValor().equals(n_va.getValor())){
+                }else if(n_arc.getValor().equals(n_va.getValor())){                   
                     node.setValor(n_va.getValor());
                 }else{
                     node.setValor("error");
@@ -2400,7 +2395,7 @@ class CUP$parser$actions {
                 node.addHijos(n_arc);
                 if(n_arc.getValor().equals("nada")){
                     node.setValor(n_va.getValor());
-                }else if(n_arc.getValor().equals(n_va.getValor())){
+                }else if(n_arc.getValor().equals(n_va.getValor())){         
                     node.setValor(n_va.getValor());
                 }else{
                     node.setValor("error");
@@ -2492,9 +2487,22 @@ class CUP$parser$actions {
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
-                node.addHijos(identificador);
                 node.addHijos((Node) vp);
-                node.addHijos((Node) va);
+
+                Node n_va=(Node) va;
+                node.addHijos(identificador);
+                node.addHijos(n_va);
+                
+
+                if(buscaTipo(identificador.getValor()).equals(n_va.getValor())){
+                    System.out.println(" :) la asignacion es correcta en "+ id);
+                    System.out.println( buscaTipo(identificador.getValor()) + " == "+ n_va.getValor());
+                }else{
+                    System.out.println(" :( la asignacion es incorrecta en "+ id);
+                    System.out.println( buscaTipo(identificador.getValor()) + " =/= "+ n_va.getValor());
+                }
+
+
                 RESULT = node;
                 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_var_inst",11, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-8)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -2616,10 +2624,22 @@ class CUP$parser$actions {
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
-                node.addHijos(identificador);
                 node.addHijos((Node) vp1);
                 node.addHijos((Node) vp2);
-                node.addHijos((Node) va);
+
+                Node n_va=(Node) va;
+                node.addHijos(identificador);
+                node.addHijos(n_va);
+                
+
+                if(buscaTipo(identificador.getValor()).equals(n_va.getValor())){
+                    System.out.println(" :) la asignacion es correcta en "+ id);
+                    System.out.println( buscaTipo(identificador.getValor()) + " == "+ n_va.getValor());
+                }else{
+                    System.out.println(" :( la asignacion es incorrecta en "+ id);
+                    System.out.println( buscaTipo(identificador.getValor()) + " =/= "+ n_va.getValor());
+                }
+
                 RESULT = node;
                 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_var_inst",11, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-10)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
