@@ -1,5 +1,5 @@
 fnc noHayMain (): main{
 	var c[3][4]:int;
 	
-	c.at(2,4) := 4;
+	c.at(2,4) := a;
 }

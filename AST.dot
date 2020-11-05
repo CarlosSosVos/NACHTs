@@ -29,7 +29,7 @@ digraph G {
 "42. dec_var_inst = null"->"41. valor = int"
 "41. valor = int"->"40. math_op = null"
 "40. math_op = null"->"38. math_op = null"
-"38. math_op = null"->"35. val = 4"
+"38. math_op = null"->"35. val = a"
 
 
 }
