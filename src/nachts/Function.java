@@ -15,10 +15,20 @@ public class Function {
 
     public String tipo, id;
     public ArrayList<Variable> parametros;
+    public boolean returnsArray = false;
 
-    public Function(String tipo, String id) {
+    public boolean isReturnsArray() {
+        return returnsArray;
+    }
+
+    public void setReturnsArray(boolean returnsArray) {
+        this.returnsArray = returnsArray;
+    }
+
+    public Function(String tipo, String id, boolean returnsArray) {
         this.tipo = tipo;
         this.id = id;
+        this.returnsArray = returnsArray;
         this.parametros = new ArrayList();
     }
 
@@ -57,7 +67,7 @@ public class Function {
         String ret_val = "Funcion: " + id + "\n" + "tipo: " + tipo + "\n";
         if (this.parametros.size() > 0) {
             for (int i = 0; i < parametros.size(); i++) {
-                ret_val += "parametro no: " + i + " | id: " + parametros.get(i).getId() + " | tipo: " + parametros.get(i).getTipo();
+                ret_val += "parametro no: " + i + " | id: " + parametros.get(i).getId() + " | tipo: " + parametros.get(i).getTipo() +"\n";
             }
         }
         return ret_val;

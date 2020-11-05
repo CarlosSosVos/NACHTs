@@ -7,6 +7,7 @@ import java.util.List;
 parser code {:
    ArrayList<String> errores = new ArrayList();
    ArrayList<Variable> variables = new ArrayList();
+   ArrayList<Function> funciones = new ArrayList();
    Node Tree  = new Node();
    int cont=0;
    int contMain=0;
@@ -107,27 +108,26 @@ parser code {:
         System.out.println("No se pudo reparar y continuar el análisis.");
     }
     
-    public String buscaTipo2(String id){
-        for (Variable iter_list : variables) {
-            System.out.println(iter_list.toString()+ " " + variables.size());
-        }
-       for (Variable iter_list : variables) {
-            if(iter_list.getId().equals(id)){
-                System.out.println("El tipo de la variable es: ");
-                System.out.println(iter_list.getTipo());
-                return iter_list.getTipo();
-            }else{
-                System.err.println("NO EXISTE ESTA VARIABLE");
-                return "";
+    public Function buscaTipo2(String id , boolean returnsArray){
+      String tipo = "";
+        for (Function iter_list : funciones) {
+
+            if(iter_list.getId().equals(id) && iter_list.isReturnsArray() == returnsArray){
+               
+                System.out.println(iter_list.toString());
+                tipo = iter_list.getTipo();
+                return iter_list;
+                //isFound= true;
             }
         }
-        return "";
+       
+        System.err.println("NO EXISTE ESTA FUNCION");
+        return new Function("-1","-1",false);
     }
 
     public Variable buscaTipo(String id, boolean esArray){
         //boolean isFound = false;
         String tipo = "";
-
         for (Variable iter_list : variables) {
             if(iter_list.getId().equals(id) && iter_list.isArray() == esArray){
                 System.out.println("El tipo de la variable es: ");
@@ -137,10 +137,7 @@ parser code {:
                 //isFound= true;
             }
         }
-        /*
-        if(isFound ==false){
-            System.err.println("NO EXISTE ESTA VARIABLE");
-        } */
+       
         System.err.println("NO EXISTE ESTA VARIABLE");
         return new Variable("-1","-1");
     }
