@@ -642,6 +642,7 @@ public class parser extends java_cup.runtime.lr_parser {
 
    ArrayList<String> errores = new ArrayList();
    ArrayList<Variable> variables = new ArrayList();
+   ArrayList<Function> funciones = new ArrayList();
    Node Tree  = new Node();
    int cont=0;
    int contMain=0;
@@ -742,27 +743,26 @@ public class parser extends java_cup.runtime.lr_parser {
         System.out.println("No se pudo reparar y continuar el análisis.");
     }
     
-    public String buscaTipo2(String id){
-        for (Variable iter_list : variables) {
-            System.out.println(iter_list.toString()+ " " + variables.size());
-        }
-       for (Variable iter_list : variables) {
-            if(iter_list.getId().equals(id)){
-                System.out.println("El tipo de la variable es: ");
-                System.out.println(iter_list.getTipo());
-                return iter_list.getTipo();
-            }else{
-                System.err.println("NO EXISTE ESTA VARIABLE");
-                return "";
+    public Function buscaTipo2(String id , boolean returnsArray){
+      String tipo = "";
+        for (Function iter_list : funciones) {
+
+            if(iter_list.getId().equals(id) && iter_list.isReturnsArray() == returnsArray){
+               
+                System.out.println(iter_list.toString());
+                tipo = iter_list.getTipo();
+                return iter_list;
+                //isFound= true;
             }
         }
-        return "";
+       
+        System.err.println("NO EXISTE ESTA FUNCION");
+        return new Function("-1","-1",false);
     }
 
     public Variable buscaTipo(String id, boolean esArray){
         //boolean isFound = false;
         String tipo = "";
-
         for (Variable iter_list : variables) {
             if(iter_list.getId().equals(id) && iter_list.isArray() == esArray){
                 System.out.println("El tipo de la variable es: ");
@@ -772,10 +772,7 @@ public class parser extends java_cup.runtime.lr_parser {
                 //isFound= true;
             }
         }
-        /*
-        if(isFound ==false){
-            System.err.println("NO EXISTE ESTA VARIABLE");
-        } */
+       
         System.err.println("NO EXISTE ESTA VARIABLE");
         return new Variable("-1","-1");
     }
@@ -936,12 +933,21 @@ class CUP$parser$actions {
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
+
+                Node n_parts=(Node) parts;
+                Node n_tip=(Node) tip;
+        
                 node.addHijos(identificador);
-                node.addHijos((Node) parts);
-                node.addHijos((Node) tip);
+                node.addHijos(n_parts);
+                node.addHijos(n_tip);
                 node.addHijos((Node) deG);
 
-                
+                ArrayList<Variable> params = (ArrayList<Variable>) n_parts.getValue();
+                Function nueva_funcion=new Function(n_tip.getValor(),id,false);
+                nueva_funcion.setParametros(params);
+                System.out.println(nueva_funcion.toString());
+                funciones.add(nueva_funcion);
+
                 RESULT = node;
             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_funcion",2, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-9)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -1023,10 +1029,21 @@ class CUP$parser$actions {
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
+
+                Node n_nuP=(Node) nuP;
+                Node n_tip=(Node) tip;
                 node.addHijos(identificador);
-                node.addHijos((Node) tip);
-                node.addHijos((Node) nuP);
-                
+                node.addHijos(n_tip);
+                node.addHijos(n_nuP);
+
+                ArrayList<Variable> var = (ArrayList<Variable>) n_nuP.getValue();
+                Variable tempo=new Variable(n_tip.getValor(),id);
+                tempo.setArray(false);
+                var.add(tempo);
+                node.setValue(var);
+                for(Variable lista: var){
+                    System.out.println("Parametro: "+lista.getId());
+                }
                 RESULT = node;
                 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("parametros",3, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -1056,8 +1073,19 @@ class CUP$parser$actions {
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
+                Node n_tip=(Node) tip;
                 node.addHijos(identificador);
-                node.addHijos((Node) tip);
+                node.addHijos(n_tip);
+
+                ArrayList<Variable> var = new ArrayList();
+                Variable tempo=new Variable(n_tip.getValor(),id);
+                tempo.setArray(false);
+                var.add(tempo);
+                node.setValue(var);
+
+                for(Variable lista: var){
+                    System.out.println("Parametro solo: "+lista.getId());
+                }
 
                 RESULT = node;
                
@@ -1091,9 +1119,22 @@ class CUP$parser$actions {
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
+
+                Node n_nuP=(Node) nuP;
+                Node n_tip=(Node) tip;
                 node.addHijos(identificador);
-                node.addHijos((Node) tip);
-                node.addHijos((Node) nuP);
+                node.addHijos(n_tip);
+                node.addHijos(n_nuP);
+
+                ArrayList<Variable> var = (ArrayList<Variable>) n_nuP.getValue();
+                Variable tempo=new Variable(n_tip.getValor(),id);
+                tempo.setArray(true);
+                var.add(tempo);
+                node.setValue(var);
+
+                for(Variable lista: var){
+                    System.out.println("Parametro: "+lista.getId());
+                }
                 
                 RESULT = node;
                 
@@ -1124,8 +1165,19 @@ class CUP$parser$actions {
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
+                Node n_tip=(Node) tip;
                 node.addHijos(identificador);
-                node.addHijos((Node) tip);
+                node.addHijos(n_tip);
+
+                ArrayList<Variable> var = new ArrayList();
+                Variable tempo=new Variable(n_tip.getValor(),id);
+                tempo.setArray(true);
+                var.add(tempo);
+                node.setValue(var);
+
+                for(Variable lista: var){
+                    System.out.println("Parametro solo: "+lista.getId());
+                }
 
                 RESULT = node;
                
@@ -1159,10 +1211,23 @@ class CUP$parser$actions {
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
+
+                Node n_nuP=(Node) nuP;
+                Node n_tip=(Node) tip;
                 node.addHijos(identificador);
-                node.addHijos((Node) tip);
-                node.addHijos((Node) nuP);
-                
+                node.addHijos(n_tip);
+                node.addHijos(n_nuP);
+
+                ArrayList<Variable> var = (ArrayList<Variable>) n_nuP.getValue();
+                Variable tempo=new Variable(n_tip.getValor(),id);
+                tempo.setArray(true);
+                var.add(tempo);
+                node.setValue(var);
+
+                for(Variable lista: var){
+                    System.out.println("Parametro: "+lista.getId());
+                }
+
                 RESULT = node;
                 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("parametros",3, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-8)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -1192,8 +1257,19 @@ class CUP$parser$actions {
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
+                Node n_tip=(Node) tip;
                 node.addHijos(identificador);
-                node.addHijos((Node) tip);
+                node.addHijos(n_tip);
+
+                ArrayList<Variable> var = new ArrayList();
+                Variable tempo=new Variable(n_tip.getValor(),id);
+                tempo.setArray(true);
+                var.add(tempo);
+                node.setValue(var);
+
+                for(Variable lista: var){
+                    System.out.println("Parametro solo: "+lista.getId());
+                }
 
                 RESULT = node;
                
@@ -1212,6 +1288,9 @@ class CUP$parser$actions {
                 Node nodo = new Node();
 				nodo.setEtiqueta("vacio");
 				nodo.setID(parser.cont);
+                ArrayList<Variable> var = new ArrayList();
+                nodo.setValue(var);
+                System.out.println("No tiene parametros");
                 RESULT = nodo;
                
               CUP$parser$result = parser.getSymbolFactory().newSymbol("parametros",3, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -1244,9 +1323,18 @@ class CUP$parser$actions {
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
+
+                Node n_nuP=(Node) nuP;
+                Node n_tip=(Node) tip;
                 node.addHijos(identificador);
-                node.addHijos((Node) tip);
-                node.addHijos((Node) nuP);
+                node.addHijos(n_tip);
+                node.addHijos(n_nuP);
+
+                ArrayList<Variable> var = (ArrayList<Variable>) n_nuP.getValue();
+                Variable tempo=new Variable(n_tip.getValor(),id);
+                tempo.setArray(false);
+                var.add(tempo);
+                node.setValue(var);
 
                 RESULT = node;
                 
@@ -1276,8 +1364,16 @@ class CUP$parser$actions {
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
+                Node n_tip=(Node) tip;
                 node.addHijos(identificador);
-                node.addHijos((Node) tip);
+                node.addHijos(n_tip);
+
+                ArrayList<Variable> var = new ArrayList();
+                Variable tempo=new Variable(n_tip.getValor(),id);
+                tempo.setArray(false);
+                var.add(tempo);
+                node.setValue(var);
+
                 RESULT = node;
                 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("nuevo_parametro",4, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -1310,9 +1406,17 @@ class CUP$parser$actions {
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
+                Node n_nuP=(Node) nuP;
+                Node n_tip=(Node) tip;
                 node.addHijos(identificador);
-                node.addHijos((Node) tip);
-                node.addHijos((Node) nuP);
+                node.addHijos(n_tip);
+                node.addHijos(n_nuP);
+
+                ArrayList<Variable> var = (ArrayList<Variable>) n_nuP.getValue();
+                Variable tempo=new Variable(n_tip.getValor(),id);
+                tempo.setArray(true);
+                var.add(tempo);
+                node.setValue(var);
 
                 RESULT = node;
                 
@@ -1342,8 +1446,17 @@ class CUP$parser$actions {
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
+
+                Node n_tip=(Node) tip;
                 node.addHijos(identificador);
-                node.addHijos((Node) tip);
+                node.addHijos(n_tip);
+
+                ArrayList<Variable> var = new ArrayList();
+                Variable tempo=new Variable(n_tip.getValor(),id);
+                tempo.setArray(true);
+                var.add(tempo);
+                node.setValue(var);
+
                 RESULT = node;
                 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("nuevo_parametro",4, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -1376,9 +1489,18 @@ class CUP$parser$actions {
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
+
+                Node n_nuP=(Node) nuP;
+                Node n_tip=(Node) tip;
                 node.addHijos(identificador);
-                node.addHijos((Node) tip);
-                node.addHijos((Node) nuP);
+                node.addHijos(n_tip);
+                node.addHijos(n_nuP);
+
+                ArrayList<Variable> var = (ArrayList<Variable>) n_nuP.getValue();
+                Variable tempo=new Variable(n_tip.getValor(),id);
+                tempo.setArray(true);
+                var.add(tempo);
+                node.setValue(var);
 
                 RESULT = node;
                 
@@ -1408,8 +1530,16 @@ class CUP$parser$actions {
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
+                Node n_tip=(Node) tip;
                 node.addHijos(identificador);
-                node.addHijos((Node) tip);
+                node.addHijos(n_tip);
+
+                ArrayList<Variable> var = new ArrayList();
+                Variable tempo=new Variable(n_tip.getValor(),id);
+                tempo.setArray(true);
+                var.add(tempo);
+                node.setValue(var);
+
                 RESULT = node;
                 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("nuevo_parametro",4, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-8)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -3568,7 +3698,30 @@ class CUP$parser$actions {
                 node.setEtiqueta("dec_llamada_funcion");
                 node.setValor(id);
                 node.setID(parser.cont);
-                node.addHijos((Node) llp);
+                Node n_llp=(Node) llp;
+                node.addHijos(n_llp);
+                ArrayList<String> tipos =(ArrayList<String>)n_llp.getValue();
+                Function tempo=buscaTipo2(id,false);
+                ArrayList<Variable> var =(ArrayList<Variable>) tempo.getParametros();
+                boolean bandera=true;
+
+                if(tipos.size()==var.size() && !tempo.getId().equals("-1")){
+                    for (int i = 0; i < var.size(); i++) {
+                        if(!tipos.get(i).equals(var.get(i).getTipo())){
+                            bandera=false;
+                        }
+                    }
+                    if(bandera){
+                        System.out.println("LLAMADA CORRECTA");
+                    }else{
+                        System.out.println("INCOMPATIBILIDAD DE TIPOS");
+                    }
+                }else{
+                    System.out.println("diferente cantidad de parametros o no existe");
+                }
+                
+
+
                 RESULT = node;
             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_llamada_funcion",25, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -3656,8 +3809,16 @@ class CUP$parser$actions {
                 Node node = new Node();
                 node.setEtiqueta("llamada_parametros");
                 node.setID(parser.cont);
-                node.addHijos((Node) vl);
-                node.addHijos((Node) lv);
+                Node n_vl=(Node) vl;
+                Node n_lv=(Node) lv;
+                node.addHijos(n_vl);
+                node.addHijos(n_lv);
+                ArrayList<String> tipos=(ArrayList<String>) n_lv.getValue();
+                tipos.add(n_vl.getValor());
+                for(String tips: tipos){
+                    System.out.println(tips);
+                }
+                node.setValue(tipos);
                 RESULT = node;
             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("llamada_parametros",26, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -3677,7 +3838,14 @@ class CUP$parser$actions {
                 Node node = new Node();
                 node.setEtiqueta("llamada_parametros");
                 node.setID(parser.cont);
-                node.addHijos((Node) vl);
+                Node n_vl=(Node) vl;
+                node.addHijos(n_vl);
+                ArrayList<String> tipos=new ArrayList();
+                tipos.add(n_vl.getValor());
+                for(String tips: tipos){
+                    System.out.println("solo: "+tips);
+                }
+                node.setValue(tipos);
                 RESULT = node;
             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("llamada_parametros",26, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -3694,6 +3862,9 @@ class CUP$parser$actions {
                 Node nodo = new Node();
 				nodo.setEtiqueta("vacio");
 				nodo.setID(parser.cont);
+                ArrayList<String> tipos=new ArrayList();
+                nodo.setValue(tipos);
+                System.out.println("no llama nada");
                 RESULT = nodo;
             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("llamada_parametros",26, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -3760,8 +3931,13 @@ class CUP$parser$actions {
                 Node node = new Node();
                 node.setEtiqueta("lista_valores");
                 node.setID(parser.cont);
-                node.addHijos((Node) vl);
-                node.addHijos((Node) lv);
+                Node n_vl=(Node) vl;
+                Node n_lv=(Node) lv;
+                node.addHijos(n_vl);
+                node.addHijos(n_lv);
+                ArrayList<String> tipos=(ArrayList<String>) n_lv.getValue();
+                tipos.add(n_vl.getValor());
+                node.setValue(tipos);
                 RESULT = node;
             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("lista_valores",27, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -3781,7 +3957,11 @@ class CUP$parser$actions {
                 Node node = new Node();
                 node.setEtiqueta("lista_valores");
                 node.setID(parser.cont);
-                node.addHijos((Node) vl);
+                Node n_vl=(Node) vl;
+                node.addHijos(n_vl);
+                ArrayList<String> tipos=new ArrayList();
+                tipos.add(n_vl.getValor());
+                node.setValue(tipos);
                 RESULT = node;
             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("lista_valores",27, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);

@@ -237,12 +237,21 @@ dec_funcion ::= FUNCTION ID:id L_PAR parametros:parts R_PAR COLON tipo:tip L_KEY
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
+
+                Node n_parts=(Node) parts;
+                Node n_tip=(Node) tip;
+        
                 node.addHijos(identificador);
-                node.addHijos((Node) parts);
-                node.addHijos((Node) tip);
+                node.addHijos(n_parts);
+                node.addHijos(n_tip);
                 node.addHijos((Node) deG);
 
-                
+                ArrayList<Variable> params = (ArrayList<Variable>) n_parts.getValue();
+                Function nueva_funcion=new Function(n_tip.getValor(),id,false);
+                nueva_funcion.setParametros(params);
+                System.out.println(nueva_funcion.toString());
+                funciones.add(nueva_funcion);
+
                 RESULT = node;
             :}
             |FUNCTION ID:id L_PAR parametros:parts R_PAR COLON MAIN L_KEY dec_general:deG R_KEY
@@ -294,10 +303,21 @@ parametros ::= VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
+
+                Node n_nuP=(Node) nuP;
+                Node n_tip=(Node) tip;
                 node.addHijos(identificador);
-                node.addHijos((Node) tip);
-                node.addHijos((Node) nuP);
-                
+                node.addHijos(n_tip);
+                node.addHijos(n_nuP);
+
+                ArrayList<Variable> var = (ArrayList<Variable>) n_nuP.getValue();
+                Variable tempo=new Variable(n_tip.getValor(),id);
+                tempo.setArray(false);
+                var.add(tempo);
+                node.setValue(var);
+                for(Variable lista: var){
+                    System.out.println("Parametro: "+lista.getId());
+                }
                 RESULT = node;
                 :}
                |VARIABLE ID:id COLON tipo:tip
@@ -314,8 +334,19 @@ parametros ::= VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
+                Node n_tip=(Node) tip;
                 node.addHijos(identificador);
-                node.addHijos((Node) tip);
+                node.addHijos(n_tip);
+
+                ArrayList<Variable> var = new ArrayList();
+                Variable tempo=new Variable(n_tip.getValor(),id);
+                tempo.setArray(false);
+                var.add(tempo);
+                node.setValue(var);
+
+                for(Variable lista: var){
+                    System.out.println("Parametro solo: "+lista.getId());
+                }
 
                 RESULT = node;
                :}
@@ -333,9 +364,22 @@ parametros ::= VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
+
+                Node n_nuP=(Node) nuP;
+                Node n_tip=(Node) tip;
                 node.addHijos(identificador);
-                node.addHijos((Node) tip);
-                node.addHijos((Node) nuP);
+                node.addHijos(n_tip);
+                node.addHijos(n_nuP);
+
+                ArrayList<Variable> var = (ArrayList<Variable>) n_nuP.getValue();
+                Variable tempo=new Variable(n_tip.getValor(),id);
+                tempo.setArray(true);
+                var.add(tempo);
+                node.setValue(var);
+
+                for(Variable lista: var){
+                    System.out.println("Parametro: "+lista.getId());
+                }
                 
                 RESULT = node;
                 :}
@@ -353,8 +397,19 @@ parametros ::= VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
+                Node n_tip=(Node) tip;
                 node.addHijos(identificador);
-                node.addHijos((Node) tip);
+                node.addHijos(n_tip);
+
+                ArrayList<Variable> var = new ArrayList();
+                Variable tempo=new Variable(n_tip.getValor(),id);
+                tempo.setArray(true);
+                var.add(tempo);
+                node.setValue(var);
+
+                for(Variable lista: var){
+                    System.out.println("Parametro solo: "+lista.getId());
+                }
 
                 RESULT = node;
                :}
@@ -372,10 +427,23 @@ parametros ::= VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
+
+                Node n_nuP=(Node) nuP;
+                Node n_tip=(Node) tip;
                 node.addHijos(identificador);
-                node.addHijos((Node) tip);
-                node.addHijos((Node) nuP);
-                
+                node.addHijos(n_tip);
+                node.addHijos(n_nuP);
+
+                ArrayList<Variable> var = (ArrayList<Variable>) n_nuP.getValue();
+                Variable tempo=new Variable(n_tip.getValor(),id);
+                tempo.setArray(true);
+                var.add(tempo);
+                node.setValue(var);
+
+                for(Variable lista: var){
+                    System.out.println("Parametro: "+lista.getId());
+                }
+
                 RESULT = node;
                 :}
                |VARIABLE ID:id L_BRACKET R_BRACKET L_BRACKET R_BRACKET COLON tipo:tip
@@ -392,8 +460,19 @@ parametros ::= VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
+                Node n_tip=(Node) tip;
                 node.addHijos(identificador);
-                node.addHijos((Node) tip);
+                node.addHijos(n_tip);
+
+                ArrayList<Variable> var = new ArrayList();
+                Variable tempo=new Variable(n_tip.getValor(),id);
+                tempo.setArray(true);
+                var.add(tempo);
+                node.setValue(var);
+
+                for(Variable lista: var){
+                    System.out.println("Parametro solo: "+lista.getId());
+                }
 
                 RESULT = node;
                :} 
@@ -405,6 +484,9 @@ parametros ::= VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 Node nodo = new Node();
 				nodo.setEtiqueta("vacio");
 				nodo.setID(parser.cont);
+                ArrayList<Variable> var = new ArrayList();
+                nodo.setValue(var);
+                System.out.println("No tiene parametros");
                 RESULT = nodo;
                :} ;
 
@@ -422,9 +504,18 @@ nuevo_parametro ::=COMMA VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
+
+                Node n_nuP=(Node) nuP;
+                Node n_tip=(Node) tip;
                 node.addHijos(identificador);
-                node.addHijos((Node) tip);
-                node.addHijos((Node) nuP);
+                node.addHijos(n_tip);
+                node.addHijos(n_nuP);
+
+                ArrayList<Variable> var = (ArrayList<Variable>) n_nuP.getValue();
+                Variable tempo=new Variable(n_tip.getValor(),id);
+                tempo.setArray(false);
+                var.add(tempo);
+                node.setValue(var);
 
                 RESULT = node;
                 :}
@@ -441,8 +532,16 @@ nuevo_parametro ::=COMMA VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
+                Node n_tip=(Node) tip;
                 node.addHijos(identificador);
-                node.addHijos((Node) tip);
+                node.addHijos(n_tip);
+
+                ArrayList<Variable> var = new ArrayList();
+                Variable tempo=new Variable(n_tip.getValor(),id);
+                tempo.setArray(false);
+                var.add(tempo);
+                node.setValue(var);
+
                 RESULT = node;
                 :}
                 | COMMA VARIABLE ID:id L_BRACKET R_BRACKET COLON tipo:tip nuevo_parametro:nuP
@@ -459,9 +558,17 @@ nuevo_parametro ::=COMMA VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
+                Node n_nuP=(Node) nuP;
+                Node n_tip=(Node) tip;
                 node.addHijos(identificador);
-                node.addHijos((Node) tip);
-                node.addHijos((Node) nuP);
+                node.addHijos(n_tip);
+                node.addHijos(n_nuP);
+
+                ArrayList<Variable> var = (ArrayList<Variable>) n_nuP.getValue();
+                Variable tempo=new Variable(n_tip.getValor(),id);
+                tempo.setArray(true);
+                var.add(tempo);
+                node.setValue(var);
 
                 RESULT = node;
                 :}
@@ -478,8 +585,17 @@ nuevo_parametro ::=COMMA VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
+
+                Node n_tip=(Node) tip;
                 node.addHijos(identificador);
-                node.addHijos((Node) tip);
+                node.addHijos(n_tip);
+
+                ArrayList<Variable> var = new ArrayList();
+                Variable tempo=new Variable(n_tip.getValor(),id);
+                tempo.setArray(true);
+                var.add(tempo);
+                node.setValue(var);
+
                 RESULT = node;
                 :}
                 |COMMA VARIABLE ID:id L_BRACKET R_BRACKET L_BRACKET R_BRACKET COLON tipo:tip nuevo_parametro:nuP
@@ -496,9 +612,18 @@ nuevo_parametro ::=COMMA VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
+
+                Node n_nuP=(Node) nuP;
+                Node n_tip=(Node) tip;
                 node.addHijos(identificador);
-                node.addHijos((Node) tip);
-                node.addHijos((Node) nuP);
+                node.addHijos(n_tip);
+                node.addHijos(n_nuP);
+
+                ArrayList<Variable> var = (ArrayList<Variable>) n_nuP.getValue();
+                Variable tempo=new Variable(n_tip.getValor(),id);
+                tempo.setArray(true);
+                var.add(tempo);
+                node.setValue(var);
 
                 RESULT = node;
                 :}
@@ -515,8 +640,16 @@ nuevo_parametro ::=COMMA VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
+                Node n_tip=(Node) tip;
                 node.addHijos(identificador);
-                node.addHijos((Node) tip);
+                node.addHijos(n_tip);
+
+                ArrayList<Variable> var = new ArrayList();
+                Variable tempo=new Variable(n_tip.getValor(),id);
+                tempo.setArray(true);
+                var.add(tempo);
+                node.setValue(var);
+
                 RESULT = node;
                 :}
                 ;
@@ -1993,7 +2126,30 @@ dec_llamada_funcion ::= ID:id L_PAR llamada_parametros:llp R_PAR
                 node.setEtiqueta("dec_llamada_funcion");
                 node.setValor(id);
                 node.setID(parser.cont);
-                node.addHijos((Node) llp);
+                Node n_llp=(Node) llp;
+                node.addHijos(n_llp);
+                ArrayList<String> tipos =(ArrayList<String>)n_llp.getValue();
+                Function tempo=buscaTipo2(id,false);
+                ArrayList<Variable> var =(ArrayList<Variable>) tempo.getParametros();
+                boolean bandera=true;
+
+                if(tipos.size()==var.size() && !tempo.getId().equals("-1")){
+                    for (int i = 0; i < var.size(); i++) {
+                        if(!tipos.get(i).equals(var.get(i).getTipo())){
+                            bandera=false;
+                        }
+                    }
+                    if(bandera){
+                        System.out.println("LLAMADA CORRECTA");
+                    }else{
+                        System.out.println("INCOMPATIBILIDAD DE TIPOS");
+                    }
+                }else{
+                    System.out.println("diferente cantidad de parametros o no existe");
+                }
+                
+
+
                 RESULT = node;
             :}
             | INPUT:in L_PAR ID:id COMMA tipo:tip R_PAR 
@@ -2036,8 +2192,16 @@ llamada_parametros ::= valor:vl lista_valores:lv
                 Node node = new Node();
                 node.setEtiqueta("llamada_parametros");
                 node.setID(parser.cont);
-                node.addHijos((Node) vl);
-                node.addHijos((Node) lv);
+                Node n_vl=(Node) vl;
+                Node n_lv=(Node) lv;
+                node.addHijos(n_vl);
+                node.addHijos(n_lv);
+                ArrayList<String> tipos=(ArrayList<String>) n_lv.getValue();
+                tipos.add(n_vl.getValor());
+                for(String tips: tipos){
+                    System.out.println(tips);
+                }
+                node.setValue(tipos);
                 RESULT = node;
             :}
             | valor:vl
@@ -2047,7 +2211,14 @@ llamada_parametros ::= valor:vl lista_valores:lv
                 Node node = new Node();
                 node.setEtiqueta("llamada_parametros");
                 node.setID(parser.cont);
-                node.addHijos((Node) vl);
+                Node n_vl=(Node) vl;
+                node.addHijos(n_vl);
+                ArrayList<String> tipos=new ArrayList();
+                tipos.add(n_vl.getValor());
+                for(String tips: tipos){
+                    System.out.println("solo: "+tips);
+                }
+                node.setValue(tipos);
                 RESULT = node;
             :}
             |
@@ -2057,6 +2228,9 @@ llamada_parametros ::= valor:vl lista_valores:lv
                 Node nodo = new Node();
 				nodo.setEtiqueta("vacio");
 				nodo.setID(parser.cont);
+                ArrayList<String> tipos=new ArrayList();
+                nodo.setValue(tipos);
+                System.out.println("no llama nada");
                 RESULT = nodo;
             :}
             ;
@@ -2090,8 +2264,13 @@ lista_valores ::= COMMA valor:vl lista_valores:lv
                 Node node = new Node();
                 node.setEtiqueta("lista_valores");
                 node.setID(parser.cont);
-                node.addHijos((Node) vl);
-                node.addHijos((Node) lv);
+                Node n_vl=(Node) vl;
+                Node n_lv=(Node) lv;
+                node.addHijos(n_vl);
+                node.addHijos(n_lv);
+                ArrayList<String> tipos=(ArrayList<String>) n_lv.getValue();
+                tipos.add(n_vl.getValor());
+                node.setValue(tipos);
                 RESULT = node;
             :}
             |COMMA valor:vl
@@ -2101,7 +2280,11 @@ lista_valores ::= COMMA valor:vl lista_valores:lv
                 Node node = new Node();
                 node.setEtiqueta("lista_valores");
                 node.setID(parser.cont);
-                node.addHijos((Node) vl);
+                Node n_vl=(Node) vl;
+                node.addHijos(n_vl);
+                ArrayList<String> tipos=new ArrayList();
+                tipos.add(n_vl.getValor());
+                node.setValue(tipos);
                 RESULT = node;
             :}
             |error COMMA

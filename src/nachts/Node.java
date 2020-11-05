@@ -16,6 +16,7 @@ public class Node {
     public String etiqueta;
     public ArrayList<Node> hijos = new ArrayList<>();
     public String valor;
+    public Object value;
     public int id;
     public String tipo;
     //a trastear esta onda
@@ -63,4 +64,13 @@ public class Node {
     public int getID() {
         return id;
     }
+
+    public Object getValue() {
+        return value;
+    }
+
+    public void setValue(Object value) {
+        this.value = value;
+    }
+    
 }

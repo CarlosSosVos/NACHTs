@@ -1,5 +1,7 @@
-fnc noHayMain (): main{
-	var c[3][4]:int;
+fnc noHay (var a:int ,var b:chr ,var c:int): int{
 	
-	c.at(2,4) := a;
+}
+
+fnc noHayMain (): main{
+	noHay(1,'c',1);
 }
