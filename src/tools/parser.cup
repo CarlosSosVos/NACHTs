@@ -1432,11 +1432,16 @@ valor ::=  CONSTSTRING:cs
                 node.setEtiqueta("valor");
                 node.setID(parser.cont);
                 node.setValor("string");
-                
+                node.setValue(cs);
                 parser.cont++;
+                
+                /********************
+                    REVISAR ESTO
+                *********************/
                 Node const_string = new Node();
                 const_string.setEtiqueta("const string");
                 const_string.setID(parser.cont);
+                
                 if(cs.equals("")){
                     const_string.setValor("empty");
                 }else{
@@ -1453,6 +1458,8 @@ valor ::=  CONSTSTRING:cs
                 node.setEtiqueta("valor");
                 node.setID(parser.cont);
                 node.setValor("chr");
+                node.setValue(cc);
+
                 parser.cont++;
                 Node const_char = new Node();
                 const_char.setEtiqueta("const char");
@@ -1469,6 +1476,8 @@ valor ::=  CONSTSTRING:cs
                 node.setEtiqueta("valor");
                 node.setID(parser.cont);
                 node.setValor("bool");
+                node.setValue(true);
+
                 parser.cont++;
                 Node bool_true = new Node();
                 bool_true.setEtiqueta("true");
@@ -1485,6 +1494,7 @@ valor ::=  CONSTSTRING:cs
                 node.setEtiqueta("valor");
                 node.setID(parser.cont);
                 node.setValor("bool");
+                node.setValue(false);
                 parser.cont++;
                 Node bool_false = new Node();
                 bool_false.setEtiqueta("false");
@@ -1534,181 +1544,19 @@ valor ::=  CONSTSTRING:cs
                 node.setID(parser.cont);
                 node.addHijos((Node) mop);
                 node.setValor("int");
+                node.setValue(mop.getValue());
                 RESULT = node;
            :}
-           /*| dec_llamada_funcion:dlf
-            {:
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("valor");
-                node.setID(parser.cont);
-                node.addHijos((Node) dlf);
-                RESULT = node;
-            :}*/
-            /*| ID:id
-            {:
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("valor");
-                node.setID(parser.cont);
-                
-                parser.cont++;
-                Node identificador = new Node();
-                identificador.setEtiqueta("ID");
-                identificador.setID(parser.cont);
-                identificador.setValor(id);
+           ;
 
-                node.setValor(identificador.getValor());
-                RESULT = node;
-            :}*/
-            /*| ID:id DOT AT L_PAR val_posicion:vp R_PAR 
-            {:
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("valor");
-                node.setID(parser.cont);
-                
-                parser.cont++;
-                Node identificador = new Node();
-                identificador.setEtiqueta("ID");
-                identificador.setID(parser.cont);
-                identificador.setValor(id);
-                node.addHijos(identificador);
-                node.addHijos((Node) vp);
-                node.setValor("");
-
-                RESULT = node;
-            :}*/
-            /*| ID:id DOT AT L_PAR val_posicion:vp1 COMMA val_posicion:vp2 R_PAR 
-            {:
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("valor");
-                node.setID(parser.cont);
-                
-                parser.cont++;
-                Node identificador = new Node();
-                identificador.setEtiqueta("ID");
-                identificador.setID(parser.cont);
-                identificador.setValor(id);
-                node.addHijos(identificador);
-                node.addHijos((Node) vp1);
-                node.addHijos((Node) vp2);
-                node.setValor("");
-
-                RESULT = node;
-            :}*/
-            ;
-
-/*math_op ::= s_op:so
-            {:
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("math_op");
-                node.setID(parser.cont);
-                node.addHijos((Node) so);
-                RESULT = node;
-            :}
-            | m_op:mo
-            {:
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("math_op");
-                node.setID(parser.cont);
-                node.addHijos((Node) mo);
-                RESULT = node;
-            :}
-            ;
-
-s_op ::= val:vl sum_op:sum
-            {:
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("s_op");
-                node.setID(parser.cont);
-                node.addHijos((Node) vl);
-                node.addHijos((Node) sum);
-                RESULT = node;
-            :};
-
-sum_op ::= OPSUM val:vl sum_op:sum
-            {:
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("sum_op");
-                node.setID(parser.cont);
-                node.addHijos((Node) vl);
-                node.addHijos((Node) sum);
-                RESULT = node;
-            :}
-            | OPSUM val:vl mult_op:mult
-            {:
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("sum_op");
-                node.setID(parser.cont);
-                node.addHijos((Node) vl);
-                node.addHijos((Node) mult);
-                RESULT = node;
-            :}
-            | OPSUM val:vl
-            {:
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("sum_op");
-                node.setID(parser.cont);
-                node.addHijos((Node) vl);
-                RESULT = node;
-            :} 
-            ;
-
-m_op ::= val:vl mult_op:mult 
-            {:
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("m_op");
-                node.setID(parser.cont);
-                node.addHijos((Node) vl);
-                node.addHijos((Node) mult);
-                RESULT = node;
-            :};
-            
-mult_op ::= OPMULT val:vl mult_op:mult
-            {:
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("mult_op");
-                node.setID(parser.cont);
-                node.addHijos((Node) vl);
-                node.addHijos((Node) mult);
-                RESULT = node;
-            :}
-            | OPMULT val:vl sum_op:sum
-            {:
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("mult_op");
-                node.setID(parser.cont);
-                node.addHijos((Node) vl);
-                node.addHijos((Node) sum);
-                RESULT = node;
-            :}
-            | OPMULT val:vl
-            {:
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("mult_op");
-                node.setID(parser.cont);
-                node.addHijos((Node) vl);
-                RESULT = node;
-            :} 
-            ;*/
 math_op ::= m_op:mult sum_op:sum
             {:
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("math_op");
                 node.setID(parser.cont);
+                node.setValue((int)mult.getValue() + (int)sum.getValue());
+
                 node.addHijos((Node) mult);
                 node.addHijos((Node) sum);
                 RESULT = node;
@@ -1719,6 +1567,7 @@ sum_op ::= OPSUM m_op:mult sum_op:sum
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("math_op +");
+                node.setValue((int)mult.getValue() + (int)sum.getValue());
                 node.setID(parser.cont);
                 node.addHijos((Node) mult);
                 node.addHijos((Node) sum);
@@ -1730,6 +1579,8 @@ sum_op ::= OPSUM m_op:mult sum_op:sum
                 Node nodo = new Node();
 				nodo.setEtiqueta("vacio");
 				nodo.setID(parser.cont);
+                nodo.setValue(0);
+
                 RESULT = nodo;
             :}
             ;
@@ -1739,8 +1590,10 @@ m_op ::= val:vl mult_op:mult
                 Node node = new Node();
                 node.setEtiqueta("math_op");
                 node.setID(parser.cont);
+                node.setValue((int)vl.getValue() * (int)mult.getValue());
                 node.addHijos((Node) vl);
                 node.addHijos((Node) mult);
+
                 RESULT = node;
         :}
         ;
@@ -1750,15 +1603,17 @@ mult_op ::= OPMULT val:vl mult_op:mult
                 Node node = new Node();
                 node.setEtiqueta("math_op *");
                 node.setID(parser.cont);
+                node.setValue((int)vl.getValue() * (int)mult.getValue());
                 node.addHijos((Node) vl);
                 node.addHijos((Node) mult);
                 RESULT = node;
             :}
-            |
+            |  
             {:
                 parser.cont++;
                 Node nodo = new Node();
 				nodo.setEtiqueta("vacio");
+                nodo.setValue(1);
 				nodo.setID(parser.cont);
                 RESULT = nodo;
             :}
@@ -1767,12 +1622,46 @@ mult_op ::= OPMULT val:vl mult_op:mult
 
 val ::= ID:id
         {:
+                /*
+                *** !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                SE DEBE DISTINGUIR ENTRE STRINGS E 
+                INTEGERS, YA QUE PODEMOS CONCATENAR CADENAS
+                ***!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                */
+
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("val");
                 node.setID(parser.cont);
                 
+                Variable temp = buscaTipo(id,false);
+
+                if(temp.getTipo().equals("int")){
+                    int valor_temp = (int)temp.getValue();
+                    node.setValue(valor_temp);
+                    
+                }else if(temp.getTipo().equals("string")){
+                    String valor_temp = (String)temp.getValue();
+                    node.setValue(valor_temp);
+
+                }
+                else if(temp.getTipo().equals("chr")){
+                    char valor_temp = (char)temp.getValue();
+                    node.setValue(valor_temp);
+
+                }
+                else if(temp.getTipo().equals("bool")){
+                    if(temp.getValue()){
+                         boolean valor_temp = true;
+                    }else{
+                        boolean valor_temp = false;
+                    }
+                    node.setValue(valor_temp);
+                     
+                }
+                
                 parser.cont++;
+
                 Node identificador = new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
@@ -1788,6 +1677,29 @@ val ::= ID:id
                 node.setEtiqueta("val");
                 node.setID(parser.cont);
                 
+                Variable temp = buscaTipo(id,true);
+
+                if(temp.getTipo().equals("int")){
+                    ArrayList<int> valor_temp = (ArrayList<int>)temp.getValue();
+                    node.setValue(valor_temp.get( (int)vp.getValue() ) ;
+                    
+                }else if(temp.getTipo().equals("string")){
+                    ArrayList<String> valor_temp = (ArrayList<String>)temp.getValue();
+                    node.setValue(valor_temp.get( (int)vp.getValue() ) ;
+
+                }
+                else if(temp.getTipo().equals("chr")){
+                    ArrayList<char> valor_temp = (ArrayList<char>)temp.getValue();
+                    node.setValue(valor_temp.get( (int)vp.getValue() ) ;
+
+                }
+                else if(temp.getTipo().equals("bool")){
+                    ArrayList<boolean> valor_temp = (ArrayList<boolean>)temp.getValue();
+                    node.setValue(valor_temp.get( (int)vp.getValue() ) ;
+                     
+                }
+
+
                 parser.cont++;
                 Node identificador = new Node();
                 identificador.setEtiqueta("ID");
@@ -1824,7 +1736,7 @@ val ::= ID:id
                 Node node = new Node();
                 node.setEtiqueta("val");
                 node.setID(parser.cont);
-                
+                node.setValue(Integer.ParseInt(nm));
                 parser.cont++;
                 Node num = new Node();
                 num.setEtiqueta("num");
@@ -2290,70 +2202,6 @@ lista_valores ::= COMMA valor:vl lista_valores:lv
             |error COMMA
             ;
 
-/*
-condicion ::= valor_cond:vc1 OPREL:opr valor_cond:vc2
-            {:
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("condicion");
-                node.setValor(opr);
-                node.setID(parser.cont);
-                node.addHijos((Node) vc1);
-                node.addHijos((Node) vc2);
-                RESULT = node;
-            :}
-            | valor_cond:vc1 OPREL:opr valor_cond:vc2 OPLOG:oplg condicion:cond
-            {:
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("condicion");
-                node.setID(parser.cont);
-                node.setValor(opr +"," +oplg);
-                node.addHijos((Node) vc1);
-                node.addHijos((Node) vc2);
-                node.addHijos((Node) cond);
-                RESULT = node;
-            :}
-            | valor_cond:vc
-            {:
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("condicion");
-                node.setValor("valor condicional");
-                node.setID(parser.cont);
-                node.addHijos((Node) vc);
-                RESULT = node;
-            :}
-            | NULL:nll
-            {:
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("condicion");
-                node.setID(parser.cont);
-
-                parser.cont++;
-                Node nulo=new Node();
-                nulo.setEtiqueta("Null");
-                nulo.setID(parser.cont);
-                nulo.setValor(nll);
-
-                node.setValor(nulo.getValor());
-
-                RESULT = node;
-            :}
-            | valor_cond:vc OPLOG:oplg condicion:cond
-            {:
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("condicion");
-                node.setValor(oplg);
-                node.setID(parser.cont);
-                node.addHijos((Node) vc);
-                node.addHijos((Node) cond);
-                RESULT = node;
-            :}
-            ;
-*/
 condicion ::= valor_cond:vc mas_condicion:masc otra_condicion:otrac
                 {:
                     parser.cont++;
@@ -2409,41 +2257,7 @@ otra_condicion ::= OPLOG:oplg valor_cond:vc mas_condicion:masc otra_condicion:ot
                     RESULT = nodo;
                 :}
                 ;
-valor_cond ::= /*NUM:nm
-            {:
-                System.err.println("Entra a valor_cond 1");
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("valor_cond");
-                node.setID(parser.cont);
-
-                parser.cont++;
-                Node num =new Node();
-                num.setEtiqueta("num");
-                num.setID(parser.cont);
-                num.setValor(nm);
-
-                node.setValor(num.getValor());
-                RESULT = node;
-            :}
-            | ID:id
-            {:
-                System.err.println("Entra a valor_cond 2");
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("valor_cond");
-                node.setID(parser.cont);
-
-                parser.cont++;
-                Node identificador =new Node();
-                identificador.setEtiqueta("ID");
-                identificador.setID(parser.cont);
-                identificador.setValor(id);
-
-                node.setValor(identificador.getValor());
-                RESULT = node;
-            :}
-            | */TRUE:tru
+valor_cond ::= TRUE:tru
             {:
                 System.err.println("Entra a valor_cond 3");
                 parser.cont++;
@@ -2571,91 +2385,16 @@ tipo ::= BOOLEAN
                 RESULT = node;
             :}
             ;
-val_posicion::= /*ID:id
-        {:
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("posicion");
-                node.setID(parser.cont);
-                
-                parser.cont++;
-                Node identificador = new Node();
-                identificador.setEtiqueta("ID");
-                identificador.setID(parser.cont);
-                identificador.setValor(id);
 
-                node.setValor(identificador.getValor());
-                RESULT = node;
-        :}
-        | NUM:nm
-        {:
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("posicion");
-                node.setID(parser.cont);
-                
-                parser.cont++;
-                Node num = new Node();
-                num.setEtiqueta("num");
-                num.setID(parser.cont);
-                num.setValor(nm);
-
-                node.setValor(num.getValor());
-                RESULT = node;
-        :}
-        | dec_llamada_funcion:dlf
-        {:
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("posicion");
-                node.setID(parser.cont);
-                node.addHijos((Node) dlf);
-                RESULT = node;
-        :}
-        |*/ math_op:mo
+val_posicion::=  math_op:mo
         {:
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("posicion");
                 node.setID(parser.cont);
                 node.addHijos((Node) mo);
+                node.setValue( ((Node)mo).getValue() );
                 RESULT = node;
-        :}/*
-        | ID:id DOT AT L_PAR val_posicion:vp R_PAR 
-            {:
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("posicion");
-                node.setID(parser.cont);
-                
-                parser.cont++;
-                Node identificador = new Node();
-                identificador.setEtiqueta("ID");
-                identificador.setID(parser.cont);
-                identificador.setValor(id);
-                node.addHijos(identificador);
-                node.addHijos((Node) vp);
-                node.setValor("");
-
-                RESULT = node;
-            :}
-            | ID:id DOT AT L_PAR val_posicion:vp1 COMMA val_posicion:vp2 R_PAR 
-            {:
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("posicion");
-                node.setID(parser.cont);
-                
-                parser.cont++;
-                Node identificador = new Node();
-                identificador.setEtiqueta("ID");
-                identificador.setID(parser.cont);
-                identificador.setValor(id);
-                node.addHijos(identificador);
-                node.addHijos((Node) vp1);
-                node.addHijos((Node) vp2);
-                node.setValor("");
-
-                RESULT = node;
-            :}*/
+        :}
+        
         ;

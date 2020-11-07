@@ -28,6 +28,14 @@ public class Variable {
         return ambito;
     }
 
+    public Object getValue() {
+        return value;
+    }
+
+    public void setValue(Object value) {
+        this.value = value;
+    }
+
     public void setAmbito(String ambito) {
         this.ambito = ambito;
     }
