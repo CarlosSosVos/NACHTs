@@ -11,19 +11,32 @@ package nachts;
  */
 public class Variable {
     
-    /*
-    int
-    chr
-    bool
-    string
-    */
-    
-    String tipo;
-    String id;
+    String tipo, id,ambito = "0";
+    Object value;
     boolean esArray = false;
+
+    public boolean isEsArray() {
+        return esArray;
+    }
+    
+    
+    public void setEsArray(boolean esArray) {
+        this.esArray = esArray;
+    }
+
+    public String getAmbito() {
+        return ambito;
+    }
+
+    public void setAmbito(String ambito) {
+        this.ambito = ambito;
+    }
+    
+    
     public Variable(String tipo, String id) {
         this.tipo = tipo;
         this.id = id;
+        this.value = new Object();
     }
 
     public boolean isArray() {
