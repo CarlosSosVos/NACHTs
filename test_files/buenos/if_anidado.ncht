@@ -4,27 +4,12 @@ fnc hola():main {
             if(true){
                 if(true){
                     output("hola");
-                }
+                }else{
+
+		}
+                var a:int;
             }
         }
     }
-
-
-    sw(p){
-        option 1 :
-            output("hola");
-            brk;
-        option 2 :
-            sw(p){
-                option 1 :
-                output("hola");
-                brk;
-                option 2 :
-                output("adios");
-                brk;
-            }
-        brk;	      	
-    }
 }
-
 

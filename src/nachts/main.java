@@ -17,6 +17,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -401,12 +402,15 @@ public class main extends javax.swing.JFrame {
                     this.txt_result.setText("Su codigo esta libre de errores! :D");
                 }
                 
-                for (Variable variable : p.variables) {
+                
+                variables=p.variables;
+                miArbol=p.Tree;
+                ambito(miArbol);
+                Graficar(recorrido(miArbol));
+                
+                for (Variable variable : variables) {
                     System.out.println(variable.toString());
                 }
-                
-                
-                Graficar(recorrido(p.Tree));
                 
                 int ver_arbol;
                 ver_arbol = JOptionPane.showOptionDialog(this, "Desea visualizar el arbol generado?","Visualizar Arbol",1,2,null,null,null);
@@ -415,6 +419,7 @@ public class main extends javax.swing.JFrame {
                     File imagen = new File("fotoAST.png");  
                     Desktop.getDesktop().open(imagen);
                 }
+                
                
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
@@ -541,7 +546,7 @@ public class main extends javax.swing.JFrame {
                 new main().setVisible(true);
             }
         });
-    }
+    }   
 
     private static String recorrido(Node raiz) {
         String cuerpo = "";
@@ -583,6 +588,42 @@ public class main extends javax.swing.JFrame {
             System.out.println(ioe);
         }
     }
+    private static void ambito(Node arbol){
+        for (Node hijo : arbol.getHijos()) {
+            hijo.setPadre(arbol);
+        }
+        for (Node hijos : arbol.getHijos()) {
+            if (arbol.getPadre().equals(null)) {
+                contAmbito=0;
+            }
+            ambito(hijos);
+            
+            if(hijos.getEtiqueta().equals("dec_funcion")){
+                contAmbito++;
+            }
+            if(hijos.getEtiqueta().equals("dec_gen_fun")){
+                contAmbito++;
+            }
+            if(hijos.getEtiqueta().equals("dec_variable")){
+                for (Variable var : variables) {
+                    if (var.getId().equals(hijos.getHijos().get(0).getValor())) {
+                        String ambi=""+contAmbito;
+                        var.setAmbito(ambi);
+                    }
+                }
+            }
+            if(hijos.getEtiqueta().equals("dec_if")){
+                contAmbito++;
+                ambito(hijos);
+                contAmbito--;
+            }
+            if(hijos.getEtiqueta().equals("dec_else")){
+                contAmbito++;
+                ambito(hijos);
+                contAmbito--;
+            }
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cancel_BT;
     private javax.swing.JFrame New_file_JF;
@@ -610,5 +651,7 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JTextArea txt_result;
     // End of variables declaration//GEN-END:variables
     private File input_file;
-
+    Node miArbol;
+    static ArrayList<Variable> variables = new ArrayList();
+    static int contAmbito=0;
 }

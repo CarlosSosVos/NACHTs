@@ -15,10 +15,12 @@ public class Node {
 
     public String etiqueta;
     public ArrayList<Node> hijos = new ArrayList<>();
+    public Node padre;
     public String valor;
     public Object value;
     public int id;
     public String tipo;
+    public String isInt;
     //a trastear esta onda
 
     public String getTipo() {
@@ -47,6 +49,14 @@ public class Node {
         return hijos;
     }
 
+    public Node getPadre() {
+        return padre;
+    }
+
+    public void setPadre(Node padre) {
+        this.padre = padre;
+    }
+    
     // valor
     public void setValor(String v) {
         valor = v;
@@ -72,5 +82,19 @@ public class Node {
     public void setValue(Object value) {
         this.value = value;
     }
+
+    public String isIsInt() {
+        return isInt;
+    }
+
+    public void setIsInt(String isInt) {
+        this.isInt = isInt;
+    }
+
+    @Override
+    public String toString() {
+        return "Node{" + "etiqueta=" + etiqueta + ", hijos=" + hijos + ", padre=" + padre.getEtiqueta() + ", valor=" + valor + ", value=" + value + ", id=" + id + ", tipo=" + tipo + ", isInt=" + isInt + '}';
+    }
+    
     
 }

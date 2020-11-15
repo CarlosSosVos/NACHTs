@@ -11,7 +11,7 @@ parser code {:
    Node Tree  = new Node();
    int cont=0;
    int contMain=0;
-
+   int contAmbito=0;
    int contContenido= 0;
    boolean testCont = false;
    String tempTipo = ""; 
@@ -656,6 +656,8 @@ nuevo_parametro ::=COMMA VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
 
 dec_general ::= dec_variable:dva dec_general:dg
                {:
+                System.out.println("ambito: "+contAmbito);
+                contAmbito++;
                 System.err.println("Entra a dec_general de vairable");
                 parser.cont++;
                 Node node = new Node();
@@ -668,6 +670,8 @@ dec_general ::= dec_variable:dva dec_general:dg
 
                | dec_while:dw dec_general:dg
                {:
+                System.out.println("ambito: "+contAmbito);
+                contAmbito++;
                 System.err.println("Entra a dec_general de while");
                 parser.cont++;
                 Node node = new Node();
@@ -679,6 +683,8 @@ dec_general ::= dec_variable:dva dec_general:dg
                 :}
                | dec_for:df dec_general:dg
                {:
+                System.out.println("ambito: "+contAmbito);
+                contAmbito++;
                 System.err.println("Entra a dec_general de for");
                 parser.cont++;
                 Node node = new Node();
@@ -690,6 +696,8 @@ dec_general ::= dec_variable:dva dec_general:dg
                 :}
                | dec_switch:ds dec_general:dg
                 {:
+                System.out.println("ambito: "+contAmbito);
+                contAmbito++;
                 System.err.println("Entra a dec_general de switch");
                 parser.cont++;
                 Node node = new Node();
@@ -701,7 +709,9 @@ dec_general ::= dec_variable:dva dec_general:dg
                 :} 
                |dec_if:di dec_general:dg
                {:
-               System.err.println("Entra a dec_general de if");
+                System.out.println("ambito: "+contAmbito);
+                contAmbito++;
+                System.err.println("Entra a dec_general de if");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("dec_general");
@@ -712,6 +722,8 @@ dec_general ::= dec_variable:dva dec_general:dg
                :}
                |dec_llamada_funcion:dlf SEMICOLON dec_general:dg
                {:
+                System.out.println("ambito: "+contAmbito);
+                contAmbito++;
                 System.err.println("Entra a dec_general de llamada_funcion");
                 parser.cont++;
                 Node node = new Node();
@@ -723,6 +735,8 @@ dec_general ::= dec_variable:dva dec_general:dg
                :}
                |dec_var_inst:dvi dec_general:dg
                {:
+                System.out.println("ambito: "+contAmbito);
+                contAmbito++;
                 System.err.println("Entra a dec_general de dec_var_inst");
                 parser.cont++;
                 Node node = new Node();
@@ -745,6 +759,8 @@ dec_general ::= dec_variable:dva dec_general:dg
                 :}*/
                | dec_return:dr SEMICOLON dec_general:dg
                 {:
+                System.out.println("ambito: "+contAmbito);
+                contAmbito++;
                 System.err.println("Entra a dec_general de dec_return");
                 parser.cont++;
                 Node node = new Node();
@@ -881,6 +897,9 @@ dec_variable ::= VARIABLE ID:id COLON tipo:tip dec_var:dv
                 node.addHijos((Node) vp2);
 
                 Variable new_var = new Variable(n_tip.getValor(), id);
+                /*if(!n_di.getEtiqueta.equals("vacio")){
+                    new_var.setValue(n_di.getValue());
+                }*/
                 new_var.setArray(true);
                 String test=n_dv.getValor()+"";
                 variables.add(new_var);
@@ -909,7 +928,12 @@ dec_var ::= dec_inst:di SEMICOLON
                 node.addHijos(node_di);
                 System.out.println("aqui "+ node_di.getValor() +" aqui");
                 node.setValor(node_di.getValor());
-                
+                node.setValue(node_di.getValue());
+                /*if(){
+
+                }else{
+                    
+                }*/
                 RESULT = node;
             :}
             | COMMA ID:id COLON tipo:tip dec_inst:di dec_var:dv
@@ -935,6 +959,9 @@ dec_var ::= dec_inst:di SEMICOLON
                 node.addHijos((Node) dv);
                 
                 Variable new_var = new Variable(n_tip.getValor(), id);
+                /*if(!n_di.getEtiqueta().equals("vacio")){
+                    new_var.setValue(n_di.getValue());
+                }*/
                 new_var.setArray(false);
                 variables.add(new_var);
                 String test=n_di.getValor()+"";
@@ -979,6 +1006,9 @@ dec_var ::= dec_inst:di SEMICOLON
 
 
                 Variable new_var = new Variable(n_tip.getValor(), id);
+                /*if(!n_di.getEtiqueta().equals("vacio")){
+                    new_var.setValue(n_di.getValue());
+                }*/
                 new_var.setArray(true);
                 variables.add(new_var);
                 String test=n_di.getValor()+"";
@@ -1021,6 +1051,9 @@ dec_var ::= dec_inst:di SEMICOLON
                 node.addHijos((Node) dv);
 
                 Variable new_var = new Variable(n_tip.getValor(), id);
+                /*if(!n_di.getEtiqueta().equals("vacio")){
+                    new_var.setValue(n_di.getValue());
+                }*/
                 new_var.setArray(true);
                 variables.add(new_var);
                 String test=n_di.getValor()+"";
@@ -1069,6 +1102,7 @@ dec_inst ::= OPASIGN FLOAT_VAL:nm
                 const_string.setID(parser.cont);
                 const_string.setValor(cs.replaceAll("\"",""));
                 node.addHijos(const_string);
+                node.setValue(cs);
                 RESULT = node;
              :}
              | OPASIGN CONSTCHAR:cc  
@@ -1084,6 +1118,7 @@ dec_inst ::= OPASIGN FLOAT_VAL:nm
                 const_char.setID(parser.cont);
                 const_char.setValor(cc.replaceAll("\'",""));
                 node.addHijos(const_char);
+                node.setValue(cc);
                 RESULT = node;
              :}
              | OPASIGN TRUE:tru
@@ -1099,6 +1134,7 @@ dec_inst ::= OPASIGN FLOAT_VAL:nm
                 bool_true.setID(parser.cont);
                 bool_true.setValor(tru);
                 node.addHijos(bool_true);
+                node.setValue(true);
                 RESULT = node;
              :}
              | OPASIGN FALSE:fals 
@@ -1114,6 +1150,7 @@ dec_inst ::= OPASIGN FLOAT_VAL:nm
                 bool_false.setID(parser.cont);
                 bool_false.setValor(fals);
                 node.addHijos(bool_false);
+                node.setValue(false);
                 RESULT = node;
              :}
              | OPASIGN arreglo:arr 
@@ -1126,7 +1163,7 @@ dec_inst ::= OPASIGN FLOAT_VAL:nm
                 node.addHijos(n_arr);
 
                 node.setValor(n_arr.getValor());
-
+                node.setValue("testing");
                 RESULT = node;
              :}
              | OPASIGN arreglo2d:arr
@@ -1139,6 +1176,7 @@ dec_inst ::= OPASIGN FLOAT_VAL:nm
                 node.addHijos(n_arr);
 
                 node.setValor(n_arr.getValor());
+                node.setValue("testing2");
                 RESULT = node;
              :}
              | OPASIGN math_op:mo
@@ -1147,8 +1185,11 @@ dec_inst ::= OPASIGN FLOAT_VAL:nm
                 Node node = new Node();
                 node.setEtiqueta("dec_inst");
                 node.setID(parser.cont);
-                node.setValor("int");
-                node.addHijos((Node) mo);
+                
+                Node n_mo=(Node) mo;
+                node.addHijos(n_mo);
+                node.setValue(n_mo.getValue());
+                node.setValor(n_mo.isIsInt());
                 RESULT = node;
              :}
              |
@@ -1158,6 +1199,7 @@ dec_inst ::= OPASIGN FLOAT_VAL:nm
 				node.setEtiqueta("vacio");
 				node.setID(parser.cont);
                 node.setValor("");
+                node.setValue("vacio");
                 RESULT = node;
              :}
               ;
@@ -1542,9 +1584,10 @@ valor ::=  CONSTSTRING:cs
                 Node node = new Node();
                 node.setEtiqueta("valor");
                 node.setID(parser.cont);
-                node.addHijos((Node) mop);
-                node.setValor("int");
-                node.setValue(mop.getValue());
+                Node n_mop=(Node) mop;
+                node.addHijos(n_mop);
+                node.setValor(n_mop.isIsInt());
+                node.setValue(n_mop.getValue());
                 RESULT = node;
            :}
            ;
@@ -1555,10 +1598,20 @@ math_op ::= m_op:mult sum_op:sum
                 Node node = new Node();
                 node.setEtiqueta("math_op");
                 node.setID(parser.cont);
-                node.setValue((int)mult.getValue() + (int)sum.getValue());
-
-                node.addHijos((Node) mult);
-                node.addHijos((Node) sum);
+                Node n_mult=(Node) mult;
+                Node n_sum=(Node) sum;
+                if(n_mult.isIsInt().equals("int")){
+                    node.setValue((int)n_mult.getValue() * (int)n_sum.getValue());
+                    node.setIsInt("int");
+                }else if(n_sum.getEtiqueta().equals("vacio")){
+                    node.setValue(n_mult.getValue());
+                    node.setIsInt(n_mult.isIsInt());
+                }else {
+                    System.err.println("OPERACIONES INCOMPATIBLES");
+                    node.setIsInt("error");
+                }
+                node.addHijos(n_mult);
+                node.addHijos(n_sum);
                 RESULT = node;
             :}
             ;
@@ -1567,10 +1620,18 @@ sum_op ::= OPSUM m_op:mult sum_op:sum
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("math_op +");
-                node.setValue((int)mult.getValue() + (int)sum.getValue());
+                Node n_mult=(Node) mult;
+                Node n_sum=(Node) sum;
+                if(n_mult.isIsInt().equals("int") && n_sum.isIsInt().equals("int")){
+                    node.setValue((int)n_mult.getValue() + (int)n_sum.getValue());
+                    node.setIsInt("int");
+                }else {
+                    System.err.println("OPERACIONES INCOMPATIBLES");
+                    node.setIsInt("error");
+                }
                 node.setID(parser.cont);
-                node.addHijos((Node) mult);
-                node.addHijos((Node) sum);
+                node.addHijos(n_mult);
+                node.addHijos(n_sum);
                 RESULT = node;
             :}
             |
@@ -1580,7 +1641,7 @@ sum_op ::= OPSUM m_op:mult sum_op:sum
 				nodo.setEtiqueta("vacio");
 				nodo.setID(parser.cont);
                 nodo.setValue(0);
-
+                nodo.setIsInt("int");
                 RESULT = nodo;
             :}
             ;
@@ -1590,9 +1651,20 @@ m_op ::= val:vl mult_op:mult
                 Node node = new Node();
                 node.setEtiqueta("math_op");
                 node.setID(parser.cont);
-                node.setValue((int)vl.getValue() * (int)mult.getValue());
-                node.addHijos((Node) vl);
-                node.addHijos((Node) mult);
+                Node n_vl=(Node) vl;
+                Node n_mult=(Node) mult;
+                if(n_vl.isIsInt().equals("int")){
+                    node.setValue((int)n_vl.getValue() * (int)n_mult.getValue());
+                    node.setIsInt("int");
+                }else if(n_mult.getEtiqueta().equals("vacio")){
+                    node.setValue(n_vl.getValue());
+                    node.setIsInt(n_vl.isIsInt());
+                }else {
+                    System.err.println("OPERACIONES INCOMPATIBLES");
+                    node.setIsInt("error");
+                }
+                node.addHijos(n_vl);
+                node.addHijos(n_mult);
 
                 RESULT = node;
         :}
@@ -1603,9 +1675,17 @@ mult_op ::= OPMULT val:vl mult_op:mult
                 Node node = new Node();
                 node.setEtiqueta("math_op *");
                 node.setID(parser.cont);
-                node.setValue((int)vl.getValue() * (int)mult.getValue());
-                node.addHijos((Node) vl);
-                node.addHijos((Node) mult);
+                Node n_vl=(Node) vl;
+                Node n_mult=(Node) mult;
+                if(n_vl.isIsInt().equals("int") && n_mult.isIsInt().equals("int")){
+                    node.setValue((int)n_vl.getValue() * (int)n_mult.getValue());
+                    node.setIsInt("int");
+                }else {
+                    System.err.println("OPERACIONES INCOMPATIBLES");
+                    node.setIsInt("error");
+                }
+                node.addHijos(n_vl);
+                node.addHijos(n_mult);
                 RESULT = node;
             :}
             |  
@@ -1615,6 +1695,7 @@ mult_op ::= OPMULT val:vl mult_op:mult
 				nodo.setEtiqueta("vacio");
                 nodo.setValue(1);
 				nodo.setID(parser.cont);
+                nodo.setIsInt("int");
                 RESULT = nodo;
             :}
             ;
@@ -1639,25 +1720,26 @@ val ::= ID:id
                 if(temp.getTipo().equals("int")){
                     int valor_temp = (int)temp.getValue();
                     node.setValue(valor_temp);
-                    
+                    node.setIsInt("int");
                 }else if(temp.getTipo().equals("string")){
                     String valor_temp = (String)temp.getValue();
                     node.setValue(valor_temp);
-
+                    node.setIsInt("string");
                 }
                 else if(temp.getTipo().equals("chr")){
                     char valor_temp = (char)temp.getValue();
                     node.setValue(valor_temp);
-
+                    node.setIsInt("chr");
                 }
                 else if(temp.getTipo().equals("bool")){
-                    if(temp.getValue()){
-                         boolean valor_temp = true;
+                    boolean valor_temp;
+                    if((boolean)temp.getValue()){
+                        valor_temp = true;
                     }else{
-                        boolean valor_temp = false;
+                        valor_temp = false;
                     }
                     node.setValue(valor_temp);
-                     
+                    node.setIsInt("bool");
                 }
                 
                 parser.cont++;
@@ -1678,25 +1760,30 @@ val ::= ID:id
                 node.setID(parser.cont);
                 
                 Variable temp = buscaTipo(id,true);
+                Node n_vp = (Node)vp;
 
                 if(temp.getTipo().equals("int")){
-                    ArrayList<int> valor_temp = (ArrayList<int>)temp.getValue();
-                    node.setValue(valor_temp.get( (int)vp.getValue() ) ;
+                    ArrayList valor_temp = (ArrayList)temp.getValue();
+                    int pos =(int)valor_temp.get( (int)n_vp.getValue() );
+                    node.setValue(pos);
+                    node.setIsInt("int");
                     
                 }else if(temp.getTipo().equals("string")){
                     ArrayList<String> valor_temp = (ArrayList<String>)temp.getValue();
-                    node.setValue(valor_temp.get( (int)vp.getValue() ) ;
-
+                    node.setValue(valor_temp.get( (int)n_vp.getValue() ) );
+                    node.setIsInt("string");
                 }
                 else if(temp.getTipo().equals("chr")){
-                    ArrayList<char> valor_temp = (ArrayList<char>)temp.getValue();
-                    node.setValue(valor_temp.get( (int)vp.getValue() ) ;
-
+                    ArrayList valor_temp = (ArrayList)temp.getValue();
+                    char pos =(char)valor_temp.get( (int)n_vp.getValue() );
+                    node.setValue(pos);
+                    node.setIsInt("chr");
                 }
                 else if(temp.getTipo().equals("bool")){
-                    ArrayList<boolean> valor_temp = (ArrayList<boolean>)temp.getValue();
-                    node.setValue(valor_temp.get( (int)vp.getValue() ) ;
-                     
+                    ArrayList valor_temp = (ArrayList)temp.getValue();
+                    boolean pos =(boolean)valor_temp.get( (int)n_vp.getValue() );
+                    node.setValue(pos);
+                    node.setIsInt("bool");
                 }
 
 
@@ -1736,7 +1823,7 @@ val ::= ID:id
                 Node node = new Node();
                 node.setEtiqueta("val");
                 node.setID(parser.cont);
-                node.setValue(Integer.ParseInt(nm));
+                node.setValue(Integer.parseInt(nm));
                 parser.cont++;
                 Node num = new Node();
                 num.setEtiqueta("num");
@@ -1744,6 +1831,7 @@ val ::= ID:id
                 num.setValor(nm);
 
                 node.setValor(num.getValor());
+                node.setIsInt("int");
                 RESULT = node;
         :}
         | dec_llamada_funcion:dlf
@@ -1761,7 +1849,10 @@ val ::= ID:id
                 Node node = new Node();
                 node.setEtiqueta("val");
                 node.setID(parser.cont);
-                node.addHijos((Node) mo);
+                Node n_mo=(Node) mo;
+                node.addHijos(n_mo);
+                node.setValue(n_mo.getValue());
+                node.setIsInt(n_mo.isIsInt());
                 RESULT = node;
         :}
         ;

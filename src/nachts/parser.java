@@ -646,7 +646,7 @@ public class parser extends java_cup.runtime.lr_parser {
    Node Tree  = new Node();
    int cont=0;
    int contMain=0;
-
+   int contAmbito=0;
    int contContenido= 0;
    boolean testCont = false;
    String tempTipo = ""; 
@@ -1557,6 +1557,8 @@ class CUP$parser$actions {
 		int dgright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Node dg = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
+                System.out.println("ambito: "+contAmbito);
+                contAmbito++;
                 System.err.println("Entra a dec_general de vairable");
                 parser.cont++;
                 Node node = new Node();
@@ -1581,6 +1583,8 @@ class CUP$parser$actions {
 		int dgright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Node dg = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
+                System.out.println("ambito: "+contAmbito);
+                contAmbito++;
                 System.err.println("Entra a dec_general de while");
                 parser.cont++;
                 Node node = new Node();
@@ -1605,6 +1609,8 @@ class CUP$parser$actions {
 		int dgright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Node dg = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
+                System.out.println("ambito: "+contAmbito);
+                contAmbito++;
                 System.err.println("Entra a dec_general de for");
                 parser.cont++;
                 Node node = new Node();
@@ -1629,6 +1635,8 @@ class CUP$parser$actions {
 		int dgright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Node dg = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
+                System.out.println("ambito: "+contAmbito);
+                contAmbito++;
                 System.err.println("Entra a dec_general de switch");
                 parser.cont++;
                 Node node = new Node();
@@ -1653,7 +1661,9 @@ class CUP$parser$actions {
 		int dgright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Node dg = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
-               System.err.println("Entra a dec_general de if");
+                System.out.println("ambito: "+contAmbito);
+                contAmbito++;
+                System.err.println("Entra a dec_general de if");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("dec_general");
@@ -1677,6 +1687,8 @@ class CUP$parser$actions {
 		int dgright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Node dg = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
+                System.out.println("ambito: "+contAmbito);
+                contAmbito++;
                 System.err.println("Entra a dec_general de llamada_funcion");
                 parser.cont++;
                 Node node = new Node();
@@ -1701,6 +1713,8 @@ class CUP$parser$actions {
 		int dgright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Node dg = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
+                System.out.println("ambito: "+contAmbito);
+                contAmbito++;
                 System.err.println("Entra a dec_general de dec_var_inst");
                 parser.cont++;
                 Node node = new Node();
@@ -1725,6 +1739,8 @@ class CUP$parser$actions {
 		int dgright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Node dg = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
+                System.out.println("ambito: "+contAmbito);
+                contAmbito++;
                 System.err.println("Entra a dec_general de dec_return");
                 parser.cont++;
                 Node node = new Node();
@@ -1937,6 +1953,9 @@ class CUP$parser$actions {
                 node.addHijos((Node) vp2);
 
                 Variable new_var = new Variable(n_tip.getValor(), id);
+                /*if(!n_di.getEtiqueta.equals("vacio")){
+                    new_var.setValue(n_di.getValue());
+                }*/
                 new_var.setArray(true);
                 String test=n_dv.getValor()+"";
                 variables.add(new_var);
@@ -1973,7 +1992,12 @@ class CUP$parser$actions {
                 node.addHijos(node_di);
                 System.out.println("aqui "+ node_di.getValor() +" aqui");
                 node.setValor(node_di.getValor());
-                
+                node.setValue(node_di.getValue());
+                /*if(){
+
+                }else{
+                    
+                }*/
                 RESULT = node;
             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_var",8, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -2018,6 +2042,9 @@ class CUP$parser$actions {
                 node.addHijos((Node) dv);
                 
                 Variable new_var = new Variable(n_tip.getValor(), id);
+                /*if(!n_di.getEtiqueta().equals("vacio")){
+                    new_var.setValue(n_di.getValue());
+                }*/
                 new_var.setArray(false);
                 variables.add(new_var);
                 String test=n_di.getValor()+"";
@@ -2084,6 +2111,9 @@ class CUP$parser$actions {
 
 
                 Variable new_var = new Variable(n_tip.getValor(), id);
+                /*if(!n_di.getEtiqueta().equals("vacio")){
+                    new_var.setValue(n_di.getValue());
+                }*/
                 new_var.setArray(true);
                 variables.add(new_var);
                 String test=n_di.getValor()+"";
@@ -2151,6 +2181,9 @@ class CUP$parser$actions {
                 node.addHijos((Node) dv);
 
                 Variable new_var = new Variable(n_tip.getValor(), id);
+                /*if(!n_di.getEtiqueta().equals("vacio")){
+                    new_var.setValue(n_di.getValue());
+                }*/
                 new_var.setArray(true);
                 variables.add(new_var);
                 String test=n_di.getValor()+"";
@@ -2217,6 +2250,7 @@ class CUP$parser$actions {
                 const_string.setID(parser.cont);
                 const_string.setValor(cs.replaceAll("\"",""));
                 node.addHijos(const_string);
+                node.setValue(cs);
                 RESULT = node;
              
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_inst",9, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -2242,6 +2276,7 @@ class CUP$parser$actions {
                 const_char.setID(parser.cont);
                 const_char.setValor(cc.replaceAll("\'",""));
                 node.addHijos(const_char);
+                node.setValue(cc);
                 RESULT = node;
              
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_inst",9, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -2267,6 +2302,7 @@ class CUP$parser$actions {
                 bool_true.setID(parser.cont);
                 bool_true.setValor(tru);
                 node.addHijos(bool_true);
+                node.setValue(true);
                 RESULT = node;
              
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_inst",9, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -2292,6 +2328,7 @@ class CUP$parser$actions {
                 bool_false.setID(parser.cont);
                 bool_false.setValor(fals);
                 node.addHijos(bool_false);
+                node.setValue(false);
                 RESULT = node;
              
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_inst",9, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -2314,7 +2351,7 @@ class CUP$parser$actions {
                 node.addHijos(n_arr);
 
                 node.setValor(n_arr.getValor());
-
+                node.setValue("testing");
                 RESULT = node;
              
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_inst",9, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -2337,6 +2374,7 @@ class CUP$parser$actions {
                 node.addHijos(n_arr);
 
                 node.setValor(n_arr.getValor());
+                node.setValue("testing2");
                 RESULT = node;
              
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_inst",9, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -2355,8 +2393,11 @@ class CUP$parser$actions {
                 Node node = new Node();
                 node.setEtiqueta("dec_inst");
                 node.setID(parser.cont);
-                node.setValor("int");
-                node.addHijos((Node) mo);
+                
+                Node n_mo=(Node) mo;
+                node.addHijos(n_mo);
+                node.setValue(n_mo.getValue());
+                node.setValor(n_mo.isIsInt());
                 RESULT = node;
              
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_inst",9, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -2373,6 +2414,7 @@ class CUP$parser$actions {
 				node.setEtiqueta("vacio");
 				node.setID(parser.cont);
                 node.setValor("");
+                node.setValue("vacio");
                 RESULT = node;
              
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_inst",9, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -2949,9 +2991,10 @@ class CUP$parser$actions {
                 Node node = new Node();
                 node.setEtiqueta("valor");
                 node.setID(parser.cont);
-                node.addHijos((Node) mop);
-                node.setValor("int");
-                node.setValue(mop.getValue());
+                Node n_mop=(Node) mop;
+                node.addHijos(n_mop);
+                node.setValor(n_mop.isIsInt());
+                node.setValue(n_mop.getValue());
                 RESULT = node;
            
               CUP$parser$result = parser.getSymbolFactory().newSymbol("valor",12, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -2973,10 +3016,20 @@ class CUP$parser$actions {
                 Node node = new Node();
                 node.setEtiqueta("math_op");
                 node.setID(parser.cont);
-                node.setValue((int)mult.getValue() + (int)sum.getValue());
-
-                node.addHijos((Node) mult);
-                node.addHijos((Node) sum);
+                Node n_mult=(Node) mult;
+                Node n_sum=(Node) sum;
+                if(n_mult.isIsInt().equals("int")){
+                    node.setValue((int)n_mult.getValue() * (int)n_sum.getValue());
+                    node.setIsInt("int");
+                }else if(n_sum.getEtiqueta().equals("vacio")){
+                    node.setValue(n_mult.getValue());
+                    node.setIsInt(n_mult.isIsInt());
+                }else {
+                    System.err.println("OPERACIONES INCOMPATIBLES");
+                    node.setIsInt("error");
+                }
+                node.addHijos(n_mult);
+                node.addHijos(n_sum);
                 RESULT = node;
             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("math_op",13, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -2997,10 +3050,18 @@ class CUP$parser$actions {
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("math_op +");
-                node.setValue((int)mult.getValue() + (int)sum.getValue());
+                Node n_mult=(Node) mult;
+                Node n_sum=(Node) sum;
+                if(n_mult.isIsInt().equals("int") && n_sum.isIsInt().equals("int")){
+                    node.setValue((int)n_mult.getValue() + (int)n_sum.getValue());
+                    node.setIsInt("int");
+                }else {
+                    System.err.println("OPERACIONES INCOMPATIBLES");
+                    node.setIsInt("error");
+                }
                 node.setID(parser.cont);
-                node.addHijos((Node) mult);
-                node.addHijos((Node) sum);
+                node.addHijos(n_mult);
+                node.addHijos(n_sum);
                 RESULT = node;
             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("sum_op",14, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -3017,7 +3078,7 @@ class CUP$parser$actions {
 				nodo.setEtiqueta("vacio");
 				nodo.setID(parser.cont);
                 nodo.setValue(0);
-
+                nodo.setIsInt("int");
                 RESULT = nodo;
             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("sum_op",14, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -3039,9 +3100,20 @@ class CUP$parser$actions {
                 Node node = new Node();
                 node.setEtiqueta("math_op");
                 node.setID(parser.cont);
-                node.setValue((int)vl.getValue() * (int)mult.getValue());
-                node.addHijos((Node) vl);
-                node.addHijos((Node) mult);
+                Node n_vl=(Node) vl;
+                Node n_mult=(Node) mult;
+                if(n_vl.isIsInt().equals("int")){
+                    node.setValue((int)n_vl.getValue() * (int)n_mult.getValue());
+                    node.setIsInt("int");
+                }else if(n_mult.getEtiqueta().equals("vacio")){
+                    node.setValue(n_vl.getValue());
+                    node.setIsInt(n_vl.isIsInt());
+                }else {
+                    System.err.println("OPERACIONES INCOMPATIBLES");
+                    node.setIsInt("error");
+                }
+                node.addHijos(n_vl);
+                node.addHijos(n_mult);
 
                 RESULT = node;
         
@@ -3064,9 +3136,17 @@ class CUP$parser$actions {
                 Node node = new Node();
                 node.setEtiqueta("math_op *");
                 node.setID(parser.cont);
-                node.setValue((int)vl.getValue() * (int)mult.getValue());
-                node.addHijos((Node) vl);
-                node.addHijos((Node) mult);
+                Node n_vl=(Node) vl;
+                Node n_mult=(Node) mult;
+                if(n_vl.isIsInt().equals("int") && n_mult.isIsInt().equals("int")){
+                    node.setValue((int)n_vl.getValue() * (int)n_mult.getValue());
+                    node.setIsInt("int");
+                }else {
+                    System.err.println("OPERACIONES INCOMPATIBLES");
+                    node.setIsInt("error");
+                }
+                node.addHijos(n_vl);
+                node.addHijos(n_mult);
                 RESULT = node;
             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("mult_op",16, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -3083,6 +3163,7 @@ class CUP$parser$actions {
 				nodo.setEtiqueta("vacio");
                 nodo.setValue(1);
 				nodo.setID(parser.cont);
+                nodo.setIsInt("int");
                 RESULT = nodo;
             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("mult_op",16, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -3114,25 +3195,26 @@ class CUP$parser$actions {
                 if(temp.getTipo().equals("int")){
                     int valor_temp = (int)temp.getValue();
                     node.setValue(valor_temp);
-                    
+                    node.setIsInt("int");
                 }else if(temp.getTipo().equals("string")){
                     String valor_temp = (String)temp.getValue();
                     node.setValue(valor_temp);
-
+                    node.setIsInt("string");
                 }
                 else if(temp.getTipo().equals("chr")){
                     char valor_temp = (char)temp.getValue();
                     node.setValue(valor_temp);
-
+                    node.setIsInt("chr");
                 }
                 else if(temp.getTipo().equals("bool")){
-                    if(temp.getValue()){
-                         boolean valor_temp = true;
+                    boolean valor_temp;
+                    if((boolean)temp.getValue()){
+                        valor_temp = true;
                     }else{
-                        boolean valor_temp = false;
+                        valor_temp = false;
                     }
                     node.setValue(valor_temp);
-                     
+                    node.setIsInt("bool");
                 }
                 
                 parser.cont++;
@@ -3166,32 +3248,30 @@ class CUP$parser$actions {
                 node.setID(parser.cont);
                 
                 Variable temp = buscaTipo(id,true);
-                
-                Node n_val = (Node)vp;
-                
+                Node n_vp = (Node)vp;
 
                 if(temp.getTipo().equals("int")){
-                    
-                    ArrayList<int> valor_temp = 
-                    
-                    int pos = (int)n_val.getValue();
-                    
-                    node.setValue(valor_temp.get(pos)) ;
+                    ArrayList valor_temp = (ArrayList)temp.getValue();
+                    int pos =(int)valor_temp.get( (int)n_vp.getValue() );
+                    node.setValue(pos);
+                    node.setIsInt("int");
                     
                 }else if(temp.getTipo().equals("string")){
                     ArrayList<String> valor_temp = (ArrayList<String>)temp.getValue();
-                    node.setValue(valor_temp.get( (int)vp.getValue() ) ;
-
+                    node.setValue(valor_temp.get( (int)n_vp.getValue() ) );
+                    node.setIsInt("string");
                 }
                 else if(temp.getTipo().equals("chr")){
-                    ArrayList<char> valor_temp = (ArrayList<char>)temp.getValue();
-                    node.setValue(valor_temp.get( (int)vp.getValue() ) ;
-
+                    ArrayList valor_temp = (ArrayList)temp.getValue();
+                    char pos =(char)valor_temp.get( (int)n_vp.getValue() );
+                    node.setValue(pos);
+                    node.setIsInt("chr");
                 }
                 else if(temp.getTipo().equals("bool")){
-                    ArrayList<boolean> valor_temp = (ArrayList<boolean>)temp.getValue();
-                    node.setValue(valor_temp.get( (int)vp.getValue() ) ;
-                     
+                    ArrayList valor_temp = (ArrayList)temp.getValue();
+                    boolean pos =(boolean)valor_temp.get( (int)n_vp.getValue() );
+                    node.setValue(pos);
+                    node.setIsInt("bool");
                 }
 
 
@@ -3257,7 +3337,7 @@ class CUP$parser$actions {
                 Node node = new Node();
                 node.setEtiqueta("val");
                 node.setID(parser.cont);
-                node.setValue(Integer.ParseInt(nm));
+                node.setValue(Integer.parseInt(nm));
                 parser.cont++;
                 Node num = new Node();
                 num.setEtiqueta("num");
@@ -3265,6 +3345,7 @@ class CUP$parser$actions {
                 num.setValor(nm);
 
                 node.setValor(num.getValor());
+                node.setIsInt("int");
                 RESULT = node;
         
               CUP$parser$result = parser.getSymbolFactory().newSymbol("val",17, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -3302,7 +3383,10 @@ class CUP$parser$actions {
                 Node node = new Node();
                 node.setEtiqueta("val");
                 node.setID(parser.cont);
-                node.addHijos((Node) mo);
+                Node n_mo=(Node) mo;
+                node.addHijos(n_mo);
+                node.setValue(n_mo.getValue());
+                node.setIsInt(n_mo.isIsInt());
                 RESULT = node;
         
               CUP$parser$result = parser.getSymbolFactory().newSymbol("val",17, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
