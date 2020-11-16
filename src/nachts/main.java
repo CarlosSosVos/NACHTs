@@ -588,38 +588,54 @@ public class main extends javax.swing.JFrame {
             System.out.println(ioe);
         }
     }
-    private static void ambito(Node arbol){
+    private  void ambito(Node arbol){
+        
         for (Node hijo : arbol.getHijos()) {
             hijo.setPadre(arbol);
         }
-        for (Node hijos : arbol.getHijos()) {
-            if (arbol.getPadre().equals(null)) {
+        
+        for (Node hijo : arbol.getHijos()) {
+            if (arbol.getPadre() == null) {
                 contAmbito=0;
-            }
-            ambito(hijos);
+                System.out.println(":'v");
+                arbol.setAmbito(contAmbito);
+            } 
             
-            if(hijos.getEtiqueta().equals("dec_funcion")){
+            ambito(hijo);
+            
+            if(hijo.getEtiqueta().equals("dec_funcion")){
+                hijo.getPadre().setAmbito(contAmbito);
                 contAmbito++;
+                hijo.setAmbito(contAmbito);
             }
-            if(hijos.getEtiqueta().equals("dec_gen_fun")){
+            if(hijo.getEtiqueta().equals("dec_gen_fun")){
+                hijo.getPadre().setAmbito(contAmbito);
                 contAmbito++;
+                hijo.setAmbito(contAmbito);
+
             }
-            if(hijos.getEtiqueta().equals("dec_variable")){
+            
+            if(hijo.getEtiqueta().equals("dec_variable")){
+                
                 for (Variable var : variables) {
-                    if (var.getId().equals(hijos.getHijos().get(0).getValor())) {
-                        String ambi=""+contAmbito;
-                        var.setAmbito(ambi);
+                    if (var.getId().equals(hijo.getHijos().get(0).getValor())) {
+                        //var.setAmbito(contAmbito+ "");
+                        hijo.setAmbito(contAmbito);
+                        
+                        hijo.getPadre().setAmbito(contAmbito);
+                        var.setAmbito(hijo.getPadre().getAmbito()+"");
                     }
                 }
+            
             }
-            if(hijos.getEtiqueta().equals("dec_if")){
+            if(hijo.getEtiqueta().equals("dec_if")){
                 contAmbito++;
-                ambito(hijos);
+                ambito(hijo);
                 contAmbito--;
             }
-            if(hijos.getEtiqueta().equals("dec_else")){
+            if(hijo.getEtiqueta().equals("dec_else")){
                 contAmbito++;
-                ambito(hijos);
+                ambito(hijo);
                 contAmbito--;
             }
         }
@@ -652,6 +668,7 @@ public class main extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     private File input_file;
     Node miArbol;
-    static ArrayList<Variable> variables = new ArrayList();
-    static int contAmbito=0;
+    ArrayList<Variable> variables = new ArrayList();
+    int contAmbito=0;
+    
 }

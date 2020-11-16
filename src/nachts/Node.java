@@ -21,7 +21,24 @@ public class Node {
     public int id;
     public String tipo;
     public String isInt;
+    public int ambito; 
     //a trastear esta onda
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getAmbito() {
+        return ambito;
+    }
+
+    public void setAmbito(int ambito) {
+        this.ambito = ambito;
+    }
 
     public String getTipo() {
         return tipo;
