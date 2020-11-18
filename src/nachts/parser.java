@@ -3027,14 +3027,16 @@ class CUP$parser$actions {
                 Node node = new Node();
                 node.setEtiqueta("math_op");
                 node.setID(parser.cont);
+
                 Node n_mult=(Node) mult;
                 Node n_sum=(Node) sum;
-                if(n_mult.isIsInt().equals("int")){
-                    node.setValue((int)n_mult.getValue() * (int)n_sum.getValue());
-                    node.setIsInt("int");
-                }else if(n_sum.getEtiqueta().equals("vacio")){
+
+                if(n_sum.getEtiqueta().equals("vacio")  ){
                     node.setValue(n_mult.getValue());
                     node.setIsInt(n_mult.isIsInt());
+                }else if(n_mult.isIsInt().equals("int")){
+                    node.setValue((int)n_mult.getValue() + (int)n_sum.getValue());
+                    node.setIsInt("int");
                 }else {
                     System.err.println("OPERACIONES INCOMPATIBLES");
                     node.setIsInt("error");
@@ -3113,12 +3115,14 @@ class CUP$parser$actions {
                 node.setID(parser.cont);
                 Node n_vl=(Node) vl;
                 Node n_mult=(Node) mult;
-                if(n_vl.isIsInt().equals("int")){
-                    node.setValue((int)n_vl.getValue() * (int)n_mult.getValue());
-                    node.setIsInt("int");
-                }else if(n_mult.getEtiqueta().equals("vacio")){
+
+                if(n_mult.getEtiqueta().equals("vacio")){
                     node.setValue(n_vl.getValue());
                     node.setIsInt(n_vl.isIsInt());
+
+                }else if( n_vl.isIsInt().equals("int")){
+                    node.setValue((int)n_vl.getValue() * (int)n_mult.getValue());
+                    node.setIsInt("int");
                 }else {
                     System.err.println("OPERACIONES INCOMPATIBLES");
                     node.setIsInt("error");

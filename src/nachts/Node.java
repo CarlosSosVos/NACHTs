@@ -21,8 +21,17 @@ public class Node {
     public int id;
     public String tipo;
     public String isInt;
-    public int ambito; 
+    public int ambito; //ambito de ubicacion
+    public ArrayList<Integer> Ambitos = new ArrayList();
     //a trastear esta onda
+
+    public ArrayList<Integer> getAmbitos() {
+        return Ambitos;
+    }
+
+    public void setAmbitos(ArrayList<Integer> Ambitos) {
+        this.Ambitos = Ambitos;
+    }
 
     public int getId() {
         return id;
@@ -110,7 +119,24 @@ public class Node {
 
     @Override
     public String toString() {
-        return "Node{" + "etiqueta=" + etiqueta + ", hijos=" + hijos + ", padre=" + padre.getEtiqueta() + ", valor=" + valor + ", value=" + value + ", id=" + id + ", tipo=" + tipo + ", isInt=" + isInt + '}';
+
+        String retval = "";
+        if(this.getTipo().equals("string")){
+            retval = (String)this.getValue();
+        }
+
+        else if (this.getTipo().equals("chr")) {
+            retval = (char)this.getValue() + "";
+        }
+
+        else if (this.getTipo().equals("int")) {
+            retval = (int)this.getValue() + "";
+        }
+        else if (this.getTipo().equals("bool")) {
+            retval = (boolean)this.getValue()+ "";
+        }
+
+        return "Node{" + "etiqueta=" + etiqueta + ", hijos=" + hijos + ", padre=" + padre.getEtiqueta() + ", valor=" + valor + ", value=" + retval + ", id=" + id + ", tipo=" + tipo + ", isInt=" + isInt + '}';
     }
     
     
