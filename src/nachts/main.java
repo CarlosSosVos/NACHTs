@@ -405,6 +405,8 @@ public class main extends javax.swing.JFrame {
                 
                 variables=p.variables;
                 miArbol=p.Tree;
+                Ambito=-1;
+                AmbitoActual=0;
                 ambito(miArbol);
                 Graficar(recorrido(miArbol));
                 
@@ -605,23 +607,19 @@ public class main extends javax.swing.JFrame {
                 hijo.setAmbito(AmbitoActual);
                 //System.out.println(Ambito);
             }
-            /*if(hijo.getEtiqueta().equals("dec_gen_fun")){
-                hijo.getPadre().setAmbito(profundidad);
-                profundidad++;
-                hijo.setAmbito(profundidad);
-
-            }*/
             if (hijo.getEtiqueta().equals("dec_general")) {
                 hijo.setAmbito(AmbitoActual);
+            }
+            if (hijo.getEtiqueta().equals("dec_switch")) {
+                hijo.setAmbito(AmbitoActual);
+            }
+            if (hijo.getEtiqueta().equals("option")) {
+                hijo.setAmbito(hijo.getPadre().getAmbito());
             }
             if(hijo.getEtiqueta().equals("dec_variable")){
                 
                 for (Variable var : variables) {
                     if (var.getId().equals(hijo.getHijos().get(0).getValor())) {
-                        //var.setAmbito(profundidad+ "");
-                        //hijo.setAmbito(AmbitoActual);
-                        
-                        //hijo.getPadre().setAmbito(profundidad);
                         //System.out.println(AmbitoActual+":"+var.getId()+":"+Ambito);
                         var.setAmbito(AmbitoActual+"");
                     }
@@ -646,8 +644,21 @@ public class main extends javax.swing.JFrame {
                 Ambito=Ambito+1;
                 AmbitoActual=Ambito;
             }
+            if(hijo.getEtiqueta().equals("dec_for")){
+                Ambito=Ambito+1;
+                AmbitoActual=Ambito;
+            }
+            if(hijo.getEtiqueta().equals("list_op")){
+                Ambito=Ambito+1;
+                AmbitoActual=Ambito;
+                hijo.setAmbito(hijo.getPadre().getAmbito());
+            }
+            if(hijo.getEtiqueta().equals("default")){
+                Ambito=Ambito+1;
+                AmbitoActual=Ambito;
+            }
             
-            ambito(hijo);//apartir de aqui se cierra el if y vuelve al bloque anterior
+            ambito(hijo);//apartir de aqui se cierra el bloque actual y vuelve al bloque anterior
             
             if(hijo.getEtiqueta().equals("dec_if")){
                 AmbitoActual=hijo.getPadre().getAmbito();
@@ -659,6 +670,15 @@ public class main extends javax.swing.JFrame {
                 AmbitoActual=hijo.getPadre().getAmbito();
             }
             if(hijo.getEtiqueta().equals("dec_while")){
+                AmbitoActual=hijo.getPadre().getAmbito();
+            }
+            if(hijo.getEtiqueta().equals("dec_for")){
+                AmbitoActual=hijo.getPadre().getAmbito();
+            }
+            if(hijo.getEtiqueta().equals("list_op")){
+                AmbitoActual=hijo.getPadre().getAmbito();
+            }
+            if(hijo.getEtiqueta().equals("default")){
                 AmbitoActual=hijo.getPadre().getAmbito();
             }
         }

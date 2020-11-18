@@ -1,0 +1,67 @@
+fnc noHayMain (): main{
+	var a:int;
+	sw(a){
+		option 2:
+			var b:int;
+			sw(a){
+				option 2:
+					var g:int;
+				brk;
+				option 3:
+					var h:int;
+				brk;
+				option 4:
+					var i:int;
+				brk; 
+				dft:
+					var j:int;
+		
+			}
+			var k:int;
+		brk;
+		option 3:
+			var c:int;
+		brk;
+		option 4:
+			var d:int;
+		brk; 
+		dft:
+			var e:int;
+		
+	}
+	var f:int;
+}
+
+fnc funcA (): int{
+	var hola1:int;
+	sw(a){
+		option 2:
+			var hola2:int;
+			sw(a){
+				option 2:
+					var hola3:int;
+				brk;
+				option 3:
+					var hola4:int;
+				brk;
+				option 4:
+					var hola5:int;
+				brk; 
+				dft:
+					var hola6:int;
+		
+			}
+			var hola7:int;
+		brk;
+		option 3:
+			var hola8:int;
+		brk;
+		option 4:
+			var hola9:int;
+		brk; 
+		dft:
+			var hola10:int;
+		
+	}
+	var hola11:int;
+}

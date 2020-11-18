@@ -819,17 +819,18 @@ dec_variable ::= VARIABLE ID:id COLON tipo:tip dec_var:dv
                 new_var.setArray(false);
 
                 String test=n_dv.getValor()+"";
-                variables.add(new_var);
+                
                 if(test.equals("")){
                     System.out.println("no se hizo asignacion en "+id);
                 }else{
                     if(n_tip.getValor().equals(n_dv.getValor())){
                         System.out.println("la asignacion es correcta en "+id);
+                        new_var.setValue(n_dv.getValue());
                     }else{
                         System.out.println("la asignacion es incorrecta en "+ id);
                     }
                 }
-                
+                variables.add(new_var);
                 //System.out.println(n_tip.getValor());
                 
                 RESULT = node;
@@ -859,18 +860,19 @@ dec_variable ::= VARIABLE ID:id COLON tipo:tip dec_var:dv
                 Variable new_var = new Variable(n_tip.getValor(), id);
                 new_var.setArray(true);
                 String test=n_dv.getValor()+"";
-                variables.add(new_var);
+                
 
                 if(test.equals("")){
                     System.out.println("no se hizo asignacion en "+id);
                 }else{
                     if(n_tip.getValor().equals(n_dv.getValor())){
                         System.out.println("la asignacion es correcta en "+id);
+                        new_var.setValue(n_dv.getValue());
                     }else{
                         System.out.println("la asignacion es incorrecta en "+ id);
                     }
                 }
-
+                variables.add(new_var);
                 RESULT = node;
                 :}
                 |VARIABLE ID:id L_BRACKET val_posicion:vp1 R_BRACKET L_BRACKET val_posicion:vp2 R_BRACKET COLON tipo:tip dec_var:dv
@@ -902,18 +904,19 @@ dec_variable ::= VARIABLE ID:id COLON tipo:tip dec_var:dv
                 }*/
                 new_var.setArray(true);
                 String test=n_dv.getValor()+"";
-                variables.add(new_var);
+                
 
                 if(test.equals("")){
                     System.out.println("no se hizo asignacion en "+id);
                 }else{
                     if(n_tip.getValor().equals(n_dv.getValor())){
                         System.out.println("la asignacion es correcta en "+id);
+                        new_var.setValue(n_dv.getValue());
                     }else{
                         System.out.println("la asignacion es incorrecta en "+ id);
                     }
                 }
-
+                variables.add(new_var);
                 RESULT = node;
                 :}
                 ;
@@ -929,8 +932,8 @@ dec_var ::= dec_inst:di SEMICOLON
                 System.out.println("aqui "+ node_di.getValor() +" aqui");
                 node.setValor(node_di.getValor());
                 node.setValue(node_di.getValue());
-                /*if(){
-
+                /*if(node_di.getValor().equals("")){
+                    node
                 }else{
                     
                 }*/
@@ -952,18 +955,18 @@ dec_var ::= dec_inst:di SEMICOLON
 
                 Node n_tip =(Node) tip;
                 Node n_di=(Node) di;
-
+                Node n_dv=(Node) dv;
 
                 node.addHijos(n_tip);
                 node.addHijos(n_di);
-                node.addHijos((Node) dv);
+                node.addHijos(n_dv);
                 
                 Variable new_var = new Variable(n_tip.getValor(), id);
                 /*if(!n_di.getEtiqueta().equals("vacio")){
                     new_var.setValue(n_di.getValue());
                 }*/
                 new_var.setArray(false);
-                variables.add(new_var);
+                
                 String test=n_di.getValor()+"";
                 
                 if(test.equals("")){
@@ -971,6 +974,7 @@ dec_var ::= dec_inst:di SEMICOLON
                 }else{
                     if(n_tip.getValor().equals(n_di.getValor())){
                         System.out.println("la asignacion es correcta en "+ id);
+                        new_var.setValue(n_dv.getValue());
                     }else{
                         System.out.println(" # la asignacion es incorrecta en "+ id);
                         System.out.println( n_tip.getValor()+ " =/= "+ id);
@@ -978,6 +982,7 @@ dec_var ::= dec_inst:di SEMICOLON
                     }
                 }
                 node.setValor("");
+                variables.add(new_var);
                 RESULT = node;
             :}
             | COMMA ID:id L_BRACKET val_posicion:vp R_BRACKET COLON tipo:tip dec_inst:di dec_var:dv
@@ -995,13 +1000,14 @@ dec_var ::= dec_inst:di SEMICOLON
 
                 Node n_tip =(Node) tip;
                 Node n_di=(Node) di;
+                Node n_dv=(Node) dv;
 
-
+                node.addHijos(n_dv);
                 node.addHijos(identificador);
                 node.addHijos((Node) vp);
                 node.addHijos(n_tip);
                 node.addHijos(n_di);
-                node.addHijos((Node) dv);
+
 
 
 
@@ -1018,6 +1024,7 @@ dec_var ::= dec_inst:di SEMICOLON
                 }else{
                     if(n_tip.getValor().equals(n_di.getValor())){
                         System.out.println("la asignacion es correcta en "+ id);
+                        new_var.setValue(n_dv.getValue());
                     }else{
                         System.out.println(" # la asignacion es incorrecta en "+ id);
                         System.out.println( n_tip.getValor()+ " =/= "+ id);
@@ -1025,6 +1032,7 @@ dec_var ::= dec_inst:di SEMICOLON
                     }
                 }
                 node.setValor("");
+                variables.add(new_var);
                 RESULT = node;
             :}
             | COMMA ID:id L_BRACKET val_posicion:vp1 R_BRACKET L_BRACKET val_posicion:vp2 R_BRACKET COLON tipo:tip dec_inst:di dec_var:dv
@@ -1042,20 +1050,21 @@ dec_var ::= dec_inst:di SEMICOLON
 
                 Node n_tip =(Node) tip;
                 Node n_di=(Node) di;
-
+                Node n_dv=(Node) dv;
+                
+                node.addHijos(n_dv);
                 node.addHijos(n_tip);
                 node.addHijos(n_di);
                 node.addHijos(identificador);
                 node.addHijos((Node) vp1);
                 node.addHijos((Node) vp2);
-                node.addHijos((Node) dv);
 
                 Variable new_var = new Variable(n_tip.getValor(), id);
                 /*if(!n_di.getEtiqueta().equals("vacio")){
                     new_var.setValue(n_di.getValue());
                 }*/
                 new_var.setArray(true);
-                variables.add(new_var);
+                
                 String test=n_di.getValor()+"";
                 
                 if(test.equals("")){
@@ -1063,12 +1072,14 @@ dec_var ::= dec_inst:di SEMICOLON
                 }else{
                     if(n_tip.getValor().equals(n_di.getValor())){
                         System.out.println("la asignacion es correcta en "+ id);
+                        new_var.setValue(n_dv.getValue());
                     }else{
                         System.out.println(" # la asignacion es incorrecta en "+ id);
                         System.out.println( n_tip.getValor()+ " =/= "+ id);
 
                     }
                 }
+                variables.add(new_var);
                 node.setValor("");
                 RESULT = node;
             :}

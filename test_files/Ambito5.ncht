@@ -1,0 +1,16 @@
+fnc noHayMain (): main{
+	var a:int:=5;
+	if(1<2){
+		var c:int;
+		c:=a;
+	}elif(1<2){
+		var d:chr;
+	}else{
+		var f:chr;
+	}
+	
+}
+
+fnc funcA (): int{
+
+}

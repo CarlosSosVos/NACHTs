@@ -74,8 +74,7 @@ public class Variable {
 
     @Override
     public String toString() {
-        return "Variable{" + "tipo=" + tipo + ", id=" + id + ", ambito=" + ambito + '}';
+        return "Variable{" + "tipo=" + tipo + ", id=" + id + ", ambito=" + ambito + ", value=" + value + '}';
     }
-    
  
 }

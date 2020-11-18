@@ -1834,17 +1834,18 @@ class CUP$parser$actions {
                 new_var.setArray(false);
 
                 String test=n_dv.getValor()+"";
-                variables.add(new_var);
+                
                 if(test.equals("")){
                     System.out.println("no se hizo asignacion en "+id);
                 }else{
                     if(n_tip.getValor().equals(n_dv.getValor())){
                         System.out.println("la asignacion es correcta en "+id);
+                        new_var.setValue(n_dv.getValue());
                     }else{
                         System.out.println("la asignacion es incorrecta en "+ id);
                     }
                 }
-                
+                variables.add(new_var);
                 //System.out.println(n_tip.getValor());
                 
                 RESULT = node;
@@ -1893,18 +1894,19 @@ class CUP$parser$actions {
                 Variable new_var = new Variable(n_tip.getValor(), id);
                 new_var.setArray(true);
                 String test=n_dv.getValor()+"";
-                variables.add(new_var);
+                
 
                 if(test.equals("")){
                     System.out.println("no se hizo asignacion en "+id);
                 }else{
                     if(n_tip.getValor().equals(n_dv.getValor())){
                         System.out.println("la asignacion es correcta en "+id);
+                        new_var.setValue(n_dv.getValue());
                     }else{
                         System.out.println("la asignacion es incorrecta en "+ id);
                     }
                 }
-
+                variables.add(new_var);
                 RESULT = node;
                 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_variable",7, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-7)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -1958,18 +1960,19 @@ class CUP$parser$actions {
                 }*/
                 new_var.setArray(true);
                 String test=n_dv.getValor()+"";
-                variables.add(new_var);
+                
 
                 if(test.equals("")){
                     System.out.println("no se hizo asignacion en "+id);
                 }else{
                     if(n_tip.getValor().equals(n_dv.getValor())){
                         System.out.println("la asignacion es correcta en "+id);
+                        new_var.setValue(n_dv.getValue());
                     }else{
                         System.out.println("la asignacion es incorrecta en "+ id);
                     }
                 }
-
+                variables.add(new_var);
                 RESULT = node;
                 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_variable",7, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-10)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -1993,8 +1996,8 @@ class CUP$parser$actions {
                 System.out.println("aqui "+ node_di.getValor() +" aqui");
                 node.setValor(node_di.getValor());
                 node.setValue(node_di.getValue());
-                /*if(){
-
+                /*if(node_di.getValor().equals("")){
+                    node
                 }else{
                     
                 }*/
@@ -2035,18 +2038,18 @@ class CUP$parser$actions {
 
                 Node n_tip =(Node) tip;
                 Node n_di=(Node) di;
-
+                Node n_dv=(Node) dv;
 
                 node.addHijos(n_tip);
                 node.addHijos(n_di);
-                node.addHijos((Node) dv);
+                node.addHijos(n_dv);
                 
                 Variable new_var = new Variable(n_tip.getValor(), id);
                 /*if(!n_di.getEtiqueta().equals("vacio")){
                     new_var.setValue(n_di.getValue());
                 }*/
                 new_var.setArray(false);
-                variables.add(new_var);
+                
                 String test=n_di.getValor()+"";
                 
                 if(test.equals("")){
@@ -2054,6 +2057,7 @@ class CUP$parser$actions {
                 }else{
                     if(n_tip.getValor().equals(n_di.getValor())){
                         System.out.println("la asignacion es correcta en "+ id);
+                        new_var.setValue(n_dv.getValue());
                     }else{
                         System.out.println(" # la asignacion es incorrecta en "+ id);
                         System.out.println( n_tip.getValor()+ " =/= "+ id);
@@ -2061,6 +2065,7 @@ class CUP$parser$actions {
                     }
                 }
                 node.setValor("");
+                variables.add(new_var);
                 RESULT = node;
             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_var",8, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-5)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -2100,13 +2105,14 @@ class CUP$parser$actions {
 
                 Node n_tip =(Node) tip;
                 Node n_di=(Node) di;
+                Node n_dv=(Node) dv;
 
-
+                node.addHijos(n_dv);
                 node.addHijos(identificador);
                 node.addHijos((Node) vp);
                 node.addHijos(n_tip);
                 node.addHijos(n_di);
-                node.addHijos((Node) dv);
+
 
 
 
@@ -2123,6 +2129,7 @@ class CUP$parser$actions {
                 }else{
                     if(n_tip.getValor().equals(n_di.getValor())){
                         System.out.println("la asignacion es correcta en "+ id);
+                        new_var.setValue(n_dv.getValue());
                     }else{
                         System.out.println(" # la asignacion es incorrecta en "+ id);
                         System.out.println( n_tip.getValor()+ " =/= "+ id);
@@ -2130,6 +2137,7 @@ class CUP$parser$actions {
                     }
                 }
                 node.setValor("");
+                variables.add(new_var);
                 RESULT = node;
             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_var",8, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-8)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -2172,20 +2180,21 @@ class CUP$parser$actions {
 
                 Node n_tip =(Node) tip;
                 Node n_di=(Node) di;
-
+                Node n_dv=(Node) dv;
+                
+                node.addHijos(n_dv);
                 node.addHijos(n_tip);
                 node.addHijos(n_di);
                 node.addHijos(identificador);
                 node.addHijos((Node) vp1);
                 node.addHijos((Node) vp2);
-                node.addHijos((Node) dv);
 
                 Variable new_var = new Variable(n_tip.getValor(), id);
                 /*if(!n_di.getEtiqueta().equals("vacio")){
                     new_var.setValue(n_di.getValue());
                 }*/
                 new_var.setArray(true);
-                variables.add(new_var);
+                
                 String test=n_di.getValor()+"";
                 
                 if(test.equals("")){
@@ -2193,12 +2202,14 @@ class CUP$parser$actions {
                 }else{
                     if(n_tip.getValor().equals(n_di.getValor())){
                         System.out.println("la asignacion es correcta en "+ id);
+                        new_var.setValue(n_dv.getValue());
                     }else{
                         System.out.println(" # la asignacion es incorrecta en "+ id);
                         System.out.println( n_tip.getValor()+ " =/= "+ id);
 
                     }
                 }
+                variables.add(new_var);
                 node.setValor("");
                 RESULT = node;
             
