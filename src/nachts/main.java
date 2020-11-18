@@ -20,6 +20,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -382,11 +384,11 @@ public class main extends javax.swing.JFrame {
                 //this.txt_result.setEditable(true);
                 this.txt_result.setText("");
                 String errors = "";
-                
+
                 if (p.contMain == 0) {
                     errors += "NO SE DEFINIO UNA FUNCION MAIN !\n";
                 }
-                
+
                 for (String error : lex2.errors) {
                     System.out.println(errors);
                     errors += error + "\n";
@@ -396,33 +398,31 @@ public class main extends javax.swing.JFrame {
                     System.out.println(errors);
                     errors += error + "\n";
                 }
-                if(!errors.isEmpty()){
+                if (!errors.isEmpty()) {
                     this.txt_result.setText(errors);
-                }else{
+                } else {
                     this.txt_result.setText("Su codigo esta libre de errores! :D");
                 }
-                
-                
-                variables=p.variables;
-                miArbol=p.Tree;
-                Ambito=-1;
-                AmbitoActual=0;
+
+                variables = p.variables;
+                miArbol = p.Tree;
+                Ambito = -1;
+                AmbitoActual = 0;
                 ambito(miArbol);
                 Graficar(recorrido(miArbol));
-                
+
                 for (Variable variable : variables) {
                     System.out.println(variable.toString());
                 }
-                
+
                 int ver_arbol;
-                ver_arbol = JOptionPane.showOptionDialog(this, "Desea visualizar el arbol generado?","Visualizar Arbol",1,2,null,null,null);
-                
-                if(ver_arbol ==  JOptionPane.OK_OPTION){
-                    File imagen = new File("fotoAST.png");  
+                ver_arbol = JOptionPane.showOptionDialog(this, "Desea visualizar el arbol generado?", "Visualizar Arbol", 1, 2, null, null, null);
+
+                if (ver_arbol == JOptionPane.OK_OPTION) {
+                    File imagen = new File("fotoAST.png");
                     Desktop.getDesktop().open(imagen);
                 }
-                
-               
+
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
@@ -506,9 +506,9 @@ public class main extends javax.swing.JFrame {
 
     private void menu_lenguajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_lenguajeActionPerformed
         try {
-            
-            File htmlFile = null; 
-                    htmlFile = new File("principal.html");
+
+            File htmlFile = null;
+            htmlFile = new File("principal.html");
             Desktop.getDesktop().browse(htmlFile.toURI());
         } catch (IOException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
@@ -548,7 +548,7 @@ public class main extends javax.swing.JFrame {
                 new main().setVisible(true);
             }
         });
-    }   
+    }
 
     private static String recorrido(Node raiz) {
         String cuerpo = "";
@@ -590,20 +590,20 @@ public class main extends javax.swing.JFrame {
             System.out.println(ioe);
         }
     }
-   
-        
-    private  void ambito(Node arbol){
+
+    private void ambito(Node arbol) {
+
         if (arbol.getPadre() == null) {
             System.out.println(":'v");
             arbol.setAmbito(-1);
-        } 
+        }
         for (Node hijo : arbol.getHijos()) {
             hijo.setPadre(arbol);
-            
-            if(hijo.getEtiqueta().equals("dec_funcion") || hijo.getEtiqueta().equals("dec_Funcion")){
+
+            if (hijo.getEtiqueta().equals("dec_funcion") || hijo.getEtiqueta().equals("dec_Funcion")) {
                 System.out.println();
-                AmbitoActual=Ambito+1;
-                Ambito=AmbitoActual;
+                AmbitoActual = Ambito + 1;
+                Ambito = AmbitoActual;
                 hijo.setAmbito(AmbitoActual);
                 //System.out.println(Ambito);
             }
@@ -616,50 +616,72 @@ public class main extends javax.swing.JFrame {
             if (hijo.getEtiqueta().equals("option")) {
                 hijo.setAmbito(hijo.getPadre().getAmbito());
             }
-            if(hijo.getEtiqueta().equals("dec_variable")){
-                
+
+            if (hijo.getEtiqueta().equals("dec_variable")) {
+
                 for (Variable var : variables) {
                     if (var.getId().equals(hijo.getHijos().get(0).getValor())) {
                         //System.out.println(AmbitoActual+":"+var.getId()+":"+Ambito);
-                        var.setAmbito(AmbitoActual+"");
+                        var.setAmbito(AmbitoActual + "");
                     }
                 }
-            
+
             }
-            if(hijo.getEtiqueta().equals("dec_if")){
-                Ambito=Ambito+1;
-                AmbitoActual=Ambito;
+            /*
+            if (hijo.getEtiqueta().equals("dec_if")) {
+                Ambito = Ambito + 1;
+                AmbitoActual = Ambito;
                 hijo.setAmbito(hijo.getPadre().getAmbito());
             }
-            if(hijo.getEtiqueta().equals("dec_elif")){
-                Ambito=Ambito+1;
-                AmbitoActual=Ambito;
+            if (hijo.getEtiqueta().equals("dec_elif")) {
+                Ambito = Ambito + 1;
+                AmbitoActual = Ambito;
                 hijo.setAmbito(hijo.getPadre().getAmbito());
             }
-            if(hijo.getEtiqueta().equals("dec_else")){
-                Ambito=Ambito+1;
-                AmbitoActual=Ambito;
-            }
-            if(hijo.getEtiqueta().equals("dec_while")){
-                Ambito=Ambito+1;
-                AmbitoActual=Ambito;
-            }
-            if(hijo.getEtiqueta().equals("dec_for")){
-                Ambito=Ambito+1;
-                AmbitoActual=Ambito;
-            }
-            if(hijo.getEtiqueta().equals("list_op")){
-                Ambito=Ambito+1;
-                AmbitoActual=Ambito;
+
+            if (hijo.getEtiqueta().equals("list_op")) {
+                Ambito = Ambito + 1;
+                AmbitoActual = Ambito;
                 hijo.setAmbito(hijo.getPadre().getAmbito());
             }
-            if(hijo.getEtiqueta().equals("default")){
-                Ambito=Ambito+1;
-                AmbitoActual=Ambito;
+
+            if (hijo.getEtiqueta().equals("dec_else")) {
+                Ambito = Ambito + 1;
+                AmbitoActual = Ambito;
             }
-            
+            if (hijo.getEtiqueta().equals("dec_while")) {
+                Ambito = Ambito + 1;
+                AmbitoActual = Ambito;
+            }
+            if (hijo.getEtiqueta().equals("dec_for")) {
+                Ambito = Ambito + 1;
+                AmbitoActual = Ambito;
+            }
+            if (hijo.getEtiqueta().equals("default")) {
+                Ambito = Ambito + 1;
+                AmbitoActual = Ambito;
+            }*/
+
+            String rgx = "dec_if dec_elif dec_else dec_while dec_for list_op default";
+            Pattern p = Pattern.compile(hijo.getEtiqueta());
+            Matcher m = p.matcher(rgx);
+
+            if(m.find()){
+                Ambito = Ambito + 1;
+                AmbitoActual = Ambito;
+                hijo.setAmbito(hijo.getPadre().getAmbito());
+            }
+
             ambito(hijo);//apartir de aqui se cierra el bloque actual y vuelve al bloque anterior
             
+            p = Pattern.compile(hijo.getEtiqueta());
+            m = p.matcher(rgx);
+            
+            if (m.find()) {
+                AmbitoActual = hijo.getPadre().getAmbito();
+            }
+
+            /*
             if(hijo.getEtiqueta().equals("dec_if")){
                 AmbitoActual=hijo.getPadre().getAmbito();
             }
@@ -680,7 +702,7 @@ public class main extends javax.swing.JFrame {
             }
             if(hijo.getEtiqueta().equals("default")){
                 AmbitoActual=hijo.getPadre().getAmbito();
-            }
+            }*/
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -712,7 +734,7 @@ public class main extends javax.swing.JFrame {
     private File input_file;
     Node miArbol;
     ArrayList<Variable> variables = new ArrayList();
-    int profundidad=0;
-    int Ambito=-1;
-    int AmbitoActual=0;
+    int profundidad = 0;
+    int Ambito = -1;
+    int AmbitoActual = 0;
 }

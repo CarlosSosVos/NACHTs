@@ -22,15 +22,20 @@ public class Node {
     public String tipo;
     public String isInt;
     public int ambito; //ambito de ubicacion
-    public ArrayList<Integer> Ambitos = new ArrayList();
+    
+    public ArrayList<Integer> Ambitos = new ArrayList(); // Ambito de los llamadores
     //a trastear esta onda
 
     public ArrayList<Integer> getAmbitos() {
         return Ambitos;
     }
-
+    
     public void setAmbitos(ArrayList<Integer> Ambitos) {
         this.Ambitos = Ambitos;
+    }
+    
+    public void addNewAmbito(int pos){    
+        this.Ambitos.add(pos);
     }
 
     public int getId() {
