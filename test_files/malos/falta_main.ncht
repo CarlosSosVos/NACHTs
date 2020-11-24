@@ -1,27 +1,8 @@
 fnc noHayMain (): main{
-	var a:int;
-	if(1<4){
-		var b:int;
-		if(1<3){
-			var c:int;
-		}else{
-			var d:int;
-		}
-	}else{
-		var e:int;
-		var f:int;
-	}
-	var g:int;
-	var h:int;
-	if(2<4){
-		var i:int;
-		if(2<4){
-			var j:int;
-		}else{
-			var k:int;
-		}
-		var l:int;
-	}
-	var m:int;
+	var a:int:=1;
+	var b:int:=5+a;
+	var c:chr:='f';
+	a:=a+b;
+	c:='t';
 }
 

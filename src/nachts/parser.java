@@ -2645,6 +2645,11 @@ class CUP$parser$actions {
                 if(compare.getTipo().equals(n_va.getValor())){
                     System.out.println(" :) la asignacion es correcta en "+ id);
                     System.out.println( compare.getTipo() + " == "+ n_va.getValor());
+                    for(Variable iter: variables ){
+                        if(iter.getId().equals(identificador.getValor())){
+                            iter.setValue(n_va.getValue());
+                        }
+                    }
                 }else{
                     System.out.println(" :( la asignacion es incorrecta en "+ id);
                     System.out.println(  compare.getTipo() + " =/= "+ n_va.getValor());
@@ -3031,12 +3036,14 @@ class CUP$parser$actions {
                 Node n_mult=(Node) mult;
                 Node n_sum=(Node) sum;
 
-                if(n_sum.getEtiqueta().equals("vacio")  ){
-                    node.setValue(n_mult.getValue());
-                    node.setIsInt(n_mult.isIsInt());
-                }else if(n_mult.isIsInt().equals("int")){
+                if( n_mult.isIsInt().equals("int") && n_sum.isIsInt().equals("int") ){
                     node.setValue((int)n_mult.getValue() + (int)n_sum.getValue());
                     node.setIsInt("int");
+
+                    
+                }else if(  n_sum.getEtiqueta().equals("vacio") ){
+                    node.setValue(n_mult.getValue());
+                    node.setIsInt(n_mult.isIsInt());
                 }else {
                     System.err.println("OPERACIONES INCOMPATIBLES");
                     node.setIsInt("error");
@@ -3116,13 +3123,13 @@ class CUP$parser$actions {
                 Node n_vl=(Node) vl;
                 Node n_mult=(Node) mult;
 
-                if(n_mult.getEtiqueta().equals("vacio")){
+                if(n_vl.isIsInt().equals("int") && n_mult.isIsInt().equals("int") ){
+                    node.setValue((int)n_vl.getValue() * (int)n_mult.getValue());
+                    node.setIsInt("int");
+                }else if( n_mult.getEtiqueta().equals("vacio")){
                     node.setValue(n_vl.getValue());
                     node.setIsInt(n_vl.isIsInt());
 
-                }else if( n_vl.isIsInt().equals("int")){
-                    node.setValue((int)n_vl.getValue() * (int)n_mult.getValue());
-                    node.setIsInt("int");
                 }else {
                     System.err.println("OPERACIONES INCOMPATIBLES");
                     node.setIsInt("error");
@@ -3208,16 +3215,19 @@ class CUP$parser$actions {
                 Variable temp = buscaTipo(id,false);
 
                 if(temp.getTipo().equals("int")){
-                    int valor_temp = (int)temp.getValue();
-                    node.setValue(valor_temp);
-                    node.setIsInt("int");
+                        //System.out.println(temp.getValue().getClass());
+                    if(temp.getValue().getClass() == Integer.class ){
+                        int valor_temp = (int)temp.getValue();
+                        node.setValue(valor_temp);
+                        node.setIsInt("int");
+                    }
                 }else if(temp.getTipo().equals("string")){
                     String valor_temp = (String)temp.getValue();
                     node.setValue(valor_temp);
                     node.setIsInt("string");
                 }
                 else if(temp.getTipo().equals("chr")){
-                    char valor_temp = (char)temp.getValue();
+                    char valor_temp = ((String)temp.getValue()).charAt(0);
                     node.setValue(valor_temp);
                     node.setIsInt("chr");
                 }

@@ -1,9 +1,11 @@
 fnc noHayMain (): main{
 	if(1<2){
-		var c:int;
+		var c:int:=2;
+		var c1:chr:='c';
+		var c2:int:=3;
 	}elif(1<2){
 		if(1<2){
-			var x:int;
+			var x:int:=c+c2+c1;
 			if(12<4){
 				var w:int;
 			}
