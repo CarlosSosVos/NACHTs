@@ -1742,7 +1742,7 @@ val ::= ID:id
                     node.setIsInt("string");
                 }
                 else if(temp.getTipo().equals("chr")){
-                    char valor_temp = (char)temp.getValue();
+                    char valor_temp = ((String)temp.getValue()).charAt(0);
                     node.setValue(valor_temp);
                     node.setIsInt("chr");
                 }
