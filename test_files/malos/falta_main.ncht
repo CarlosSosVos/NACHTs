@@ -1,8 +1,23 @@
 fnc noHayMain (): main{
 	var a:int:=1;
-	var b:int:=5+a;
-	var c:chr:='f';
-	a:=a+b;
-	c:='t';
+	if( a > 2){
+		var c:int:=0;
+		if( c > 2){
+			var v:int:=c;
+				if( v > 2){
+					var y:int:=a;
+				}
+		}
+	}
+	var x:int;
+	x:=a;
+	
 }
 
+fnc noHayMain (): int{
+	var d:int:=1;
+	if( d > 2){
+		var b:int:=0;
+	}	
+	
+}

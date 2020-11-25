@@ -408,7 +408,11 @@ public class main extends javax.swing.JFrame {
                 miArbol = p.Tree;
                 Ambito = -1;
                 AmbitoActual = 0;
+                this.AmbitoActualR = new ArrayList();
+                this.AmbitoActualR.add(0);
                 ambito(miArbol);
+                //this.AmbitoActualR.add(5);
+
                 Graficar(recorrido(miArbol));
 
                 for (Variable variable : variables) {
@@ -605,24 +609,92 @@ public class main extends javax.swing.JFrame {
                 AmbitoActual = Ambito + 1;
                 Ambito = AmbitoActual;
                 hijo.setAmbito(AmbitoActual);
-                //System.out.println(Ambito);
+                ArrayList<Integer> temp = new ArrayList();
+
+                temp.add(AmbitoActual);
+
+                //hijo.setAmbitos(AmbitoActualR);
+                this.AmbitoActualR = temp;
+
+                //this.AmbitoActualR.add(AmbitoActual);
             }
             if (hijo.getEtiqueta().equals("dec_general")) {
+                ArrayList<Integer> temp = new ArrayList();
+
+                for (Integer index : AmbitoActualR) {
+                    temp.add(index);
+                }
+
                 hijo.setAmbito(AmbitoActual);
+                hijo.setAmbitos(temp);
             }
             if (hijo.getEtiqueta().equals("dec_switch")) {
+                ArrayList<Integer> temp = new ArrayList();
+                for (Integer index : AmbitoActualR) {
+                    temp.add(index);
+                }
+
                 hijo.setAmbito(AmbitoActual);
+                hijo.setAmbitos(temp);
+
             }
             if (hijo.getEtiqueta().equals("option")) {
                 hijo.setAmbito(hijo.getPadre().getAmbito());
+                hijo.setAmbitos(hijo.getPadre().getAmbitos());
+
+            }
+
+            if (hijo.getEtiqueta().equals("val")) {
+
+                if (hijo.isValueIsID()) {
+                    System.out.println("Entra a val " + hijo.getValor());
+                    Variable temp = new Variable("-1", "-1");
+                    for (Variable variable : variables) {
+                        if (hijo.getValor().equals(variable.getId())) {
+                            temp = variable;
+                        }
+                    }
+
+                    boolean flag;
+                    int temp_ambitos;
+
+                    if (temp.getAmbitos().size() <= this.AmbitoActualR.size()) {
+
+                        for (int i = 0; i < temp.getAmbitos().size(); i++) {
+                            if (temp.getAmbitos().get(i) != this.AmbitoActualR.get(i)) {
+                                flag = false;
+                                System.out.println("Acceso a variables erroneo, conflicto de ambito");
+                            }
+                        }
+                    } else {
+                        System.out.println("Acceso a variables erroneo, conflicto de ambito");
+                    }
+
+                }
+
             }
 
             if (hijo.getEtiqueta().equals("dec_variable")) {
 
+                System.out.println("test   " + this.AmbitoActualR.toString());
+
                 for (Variable var : variables) {
                     if (var.getId().equals(hijo.getHijos().get(0).getValor())) {
+
                         //System.out.println(AmbitoActual+":"+var.getId()+":"+Ambito);
+                        ArrayList<Integer> temp = new ArrayList();
+                        for (Integer index : AmbitoActualR) {
+                            temp.add(index);
+                        }
+
                         var.setAmbito(AmbitoActual + "");
+                        var.setAmbitos(temp);
+
+                        //var.setAmbitos(new ArrayList());
+                        //var.addAmbito(0);
+                        //var.addAmbito(AmbitoActual);
+                        System.out.println("test dentro   " + this.AmbitoActualR.toString());
+
                     }
                 }
 
@@ -666,19 +738,31 @@ public class main extends javax.swing.JFrame {
             Pattern p = Pattern.compile(hijo.getEtiqueta());
             Matcher m = p.matcher(rgx);
 
-            if(m.find()){
+            if (m.find()) {
                 Ambito = Ambito + 1;
                 AmbitoActual = Ambito;
                 hijo.setAmbito(hijo.getPadre().getAmbito());
+
+                this.AmbitoActualR.add(Ambito);
+                hijo.setAmbitos(hijo.getPadre().getAmbitos());
+
             }
 
             ambito(hijo);//apartir de aqui se cierra el bloque actual y vuelve al bloque anterior
-            
+
             p = Pattern.compile(hijo.getEtiqueta());
             m = p.matcher(rgx);
-            
+
             if (m.find()) {
                 AmbitoActual = hijo.getPadre().getAmbito();
+                ArrayList<Integer> temp = new ArrayList();
+
+                for (Integer index : hijo.getPadre().getAmbitos()) {
+                    temp.add(index);
+                }
+
+                this.AmbitoActualR = temp;
+
             }
 
             /*
@@ -737,4 +821,5 @@ public class main extends javax.swing.JFrame {
     int profundidad = 0;
     int Ambito = -1;
     int AmbitoActual = 0;
+    ArrayList<Integer> AmbitoActualR;
 }

@@ -19,9 +19,19 @@ public class Node {
     public String valor;
     public Object value;
     public int id;
+    public boolean ValueIsID = false;
     public String tipo;
     public String isInt;
     public int ambito; //ambito de ubicacion
+
+    public boolean isValueIsID() {
+        return ValueIsID;
+    }
+
+    public void setValueIsID(boolean ValueIsID) {
+        this.ValueIsID = ValueIsID;
+    }
+    
     
     public ArrayList<Integer> Ambitos = new ArrayList(); // Ambito de los llamadores
     //a trastear esta onda

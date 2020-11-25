@@ -2648,6 +2648,7 @@ class CUP$parser$actions {
                     for(Variable iter: variables ){
                         if(iter.getId().equals(identificador.getValor())){
                             iter.setValue(n_va.getValue());
+                            
                         }
                     }
                 }else{
@@ -3211,6 +3212,7 @@ class CUP$parser$actions {
                 Node node = new Node();
                 node.setEtiqueta("val");
                 node.setID(parser.cont);
+                node.setValueIsID(true);
                 
                 Variable temp = buscaTipo(id,false);
 

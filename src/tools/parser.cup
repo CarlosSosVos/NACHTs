@@ -1737,6 +1737,7 @@ val ::= ID:id
                 Node node = new Node();
                 node.setEtiqueta("val");
                 node.setID(parser.cont);
+                node.setValueIsID(true);
                 
                 Variable temp = buscaTipo(id,false);
 

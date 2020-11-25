@@ -1,0 +1,8 @@
+fnc noHayMain (): main{
+	var d:int:=1;
+	if( d > 2){
+		var b:int:=0;
+	}
+	var x:int;
+	x:=d + 2 + 3;
+}

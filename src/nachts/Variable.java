@@ -5,6 +5,8 @@
  */
 package nachts;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author k_k_r
@@ -14,7 +16,9 @@ public class Variable {
     String tipo, id,ambito = "0";
     Object value;
     boolean esArray = false;
-
+    ArrayList<Integer> ambitos;
+    
+    
     public boolean isEsArray() {
         return esArray;
     }
@@ -45,6 +49,18 @@ public class Variable {
         this.tipo = tipo;
         this.id = id;
         this.value = new Object();
+        this.ambitos = new ArrayList();
+    }
+
+    public ArrayList<Integer> getAmbitos() {
+        return ambitos;
+    }
+
+    public void setAmbitos(ArrayList<Integer> ambitos) {
+        this.ambitos = ambitos;
+    }
+    public void addAmbito(int param) {
+        this.ambitos.add(param);
     }
 
     public boolean isArray() {
@@ -74,7 +90,9 @@ public class Variable {
 
     @Override
     public String toString() {
-        return "Variable{" + "tipo=" + tipo + ", id=" + id + ", ambito=" + ambito + ", value=" + value + '}';
+        return "Variable{" + "tipo=" + tipo + ", id=" + id + ", ambito=" + ambito + ", value=" + value + ", esArray=" + esArray + ", ambitos=" + ambitos.toString() + '}';
     }
+
+    
  
 }
