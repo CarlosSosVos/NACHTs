@@ -406,11 +406,13 @@ public class main extends javax.swing.JFrame {
 
                 variables = p.variables;
                 miArbol = p.Tree;
+                funciones=p.funciones;
                 Ambito = -1;
                 AmbitoActual = 0;
                 this.AmbitoActualR = new ArrayList();
                 this.AmbitoActualR.add(0);
                 ambito(miArbol);
+                
                 //this.AmbitoActualR.add(5);
 
                 Graficar(recorrido(miArbol));
@@ -694,7 +696,19 @@ public class main extends javax.swing.JFrame {
                         //var.addAmbito(0);
                         //var.addAmbito(AmbitoActual);
                         System.out.println("test dentro   " + this.AmbitoActualR.toString());
-
+                        if (var.getTipo().equals("int")) {
+                            var.setOffset(this.offset);
+                            this.offset=this.offset+4;
+                        }else if (var.getTipo().equals("chr")){
+                            var.setOffset(this.offset);
+                            this.offset=this.offset+1;
+                        }else if (var.getTipo().equals("bool")){
+                            var.setOffset(this.offset);
+                            this.offset=this.offset+4;
+                        }else if (var.getTipo().equals("string")){
+                            var.setOffset(this.offset);
+                            this.offset=this.offset+var.getOffset();
+                        }
                     }
                 }
 
@@ -818,8 +832,10 @@ public class main extends javax.swing.JFrame {
     private File input_file;
     Node miArbol;
     ArrayList<Variable> variables = new ArrayList();
+    ArrayList<Function> funciones = new ArrayList();
     int profundidad = 0;
     int Ambito = -1;
     int AmbitoActual = 0;
     ArrayList<Integer> AmbitoActualR;
+    int offset=0;
 }

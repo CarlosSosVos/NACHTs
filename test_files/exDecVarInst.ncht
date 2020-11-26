@@ -6,3 +6,6 @@ fnc noHayMain (): main{
 	var x:int;
 	x:=d + 2 + 3;
 }
+fnc noHayMain (var x:int,var y:int): int{
+	var h:int:=1;
+}

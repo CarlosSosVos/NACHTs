@@ -17,6 +17,7 @@ public class Variable {
     Object value;
     boolean esArray = false;
     ArrayList<Integer> ambitos;
+    int offset;
     
     
     public boolean isEsArray() {
@@ -38,6 +39,10 @@ public class Variable {
 
     public void setValue(Object value) {
         this.value = value;
+        if (this.tipo.equals("string")) {
+            String temp=(String)value;
+            this.offset=temp.length();
+        }
     }
 
     public void setAmbito(String ambito) {
@@ -50,6 +55,7 @@ public class Variable {
         this.id = id;
         this.value = new Object();
         this.ambitos = new ArrayList();
+        this.offset=0;
     }
 
     public ArrayList<Integer> getAmbitos() {
@@ -88,10 +94,20 @@ public class Variable {
         this.id = id;
     }
 
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
+    }
+
     @Override
     public String toString() {
-        return "Variable{" + "tipo=" + tipo + ", id=" + id + ", ambito=" + ambito + ", value=" + value + ", esArray=" + esArray + ", ambitos=" + ambitos.toString() + '}';
+        return "Variable{" + "tipo=" + tipo + ", id=" + id + ", value=" + value + ", ambitos=" + ambitos + ", offset=" + offset + '}';
     }
+    
+    
 
     
  

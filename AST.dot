@@ -1,5 +1,5 @@
 digraph G {
-"79. INICIO = null"->"75. dec_Funcion = null"
+"102. INICIO = null"->"75. dec_Funcion = null"
 "75. dec_Funcion = null"->"76. ID = noHayMain"
 "75. dec_Funcion = null"->"77. Main = Main"
 "75. dec_Funcion = null"->"74. dec_general = null"
@@ -50,6 +50,25 @@ digraph G {
 "65. math_op + = null"->"64. math_op + = null"
 "64. math_op + = null"->"62. math_op = null"
 "62. math_op = null"->"59. val = 3"
+"102. INICIO = null"->"101. dec_gen_fun = null"
+"101. dec_gen_fun = null"->"98. dec_funcion = null"
+"98. dec_funcion = null"->"99. ID = noHayMain"
+"98. dec_funcion = null"->"82. parametros = null"
+"82. parametros = null"->"83. ID = x"
+"82. parametros = null"->"78. tipo = int"
+"82. parametros = null"->"80. nuevo_parametro = null"
+"80. nuevo_parametro = null"->"81. ID = y"
+"80. nuevo_parametro = null"->"79. tipo = int"
+"98. dec_funcion = null"->"84. tipo = int"
+"98. dec_funcion = null"->"97. dec_general = null"
+"97. dec_general = null"->"94. dec_variable = null"
+"94. dec_variable = null"->"95. ID = h"
+"94. dec_variable = null"->"85. tipo = int"
+"94. dec_variable = null"->"93. dec_var = int"
+"93. dec_var = int"->"92. dec_inst = int"
+"92. dec_inst = int"->"91. math_op = null"
+"91. math_op = null"->"89. math_op = null"
+"89. math_op = null"->"86. val = 1"
 
 
 }
