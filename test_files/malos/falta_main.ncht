@@ -1,4 +1,5 @@
 fnc noHayMain (): main{
-	var a:string:="yolo";
+	var a[1][2]:int:={{2,3,3,333,3}};
+	var b:int:=1;
 }
 

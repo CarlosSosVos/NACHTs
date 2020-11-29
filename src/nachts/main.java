@@ -676,12 +676,12 @@ public class main extends javax.swing.JFrame {
 
             }
 
-            if (hijo.getEtiqueta().equals("dec_variable")) {
+            if (hijo.getEtiqueta().equals("dec_variable") || hijo.getEtiqueta().equals("dec_var")) {
 
                 System.out.println("test   " + this.AmbitoActualR.toString());
 
                 for (Variable var : variables) {
-                    if (var.getId().equals(hijo.getHijos().get(0).getValor())) {
+                    if (var.getId().equals(hijo.getHijos().get(0).getValor()) ) {
 
                         //System.out.println(AmbitoActual+":"+var.getId()+":"+Ambito);
                         ArrayList<Integer> temp = new ArrayList();
@@ -709,6 +709,39 @@ public class main extends javax.swing.JFrame {
                             var.setOffset(this.offset);
                             this.offset=this.offset+var.getOffset();
                         }
+                    }
+                    if(hijo.getHijos().size()>2){
+                    if(hijo.getHijos().get(2).getEtiqueta().equals("ID")){
+                    if (var.getId().equals(hijo.getHijos().get(2).getValor()) ) {
+
+                        //System.out.println(AmbitoActual+":"+var.getId()+":"+Ambito);
+                        ArrayList<Integer> temp = new ArrayList();
+                        for (Integer index : AmbitoActualR) {
+                            temp.add(index);
+                        }
+
+                        var.setAmbito(AmbitoActual + "");
+                        var.setAmbitos(temp);
+
+                        //var.setAmbitos(new ArrayList());
+                        //var.addAmbito(0);
+                        //var.addAmbito(AmbitoActual);
+                        System.out.println("test dentro   " + this.AmbitoActualR.toString());
+                        if (var.getTipo().equals("int")) {
+                            var.setOffset(this.offset);
+                            this.offset=this.offset+4;
+                        }else if (var.getTipo().equals("chr")){
+                            var.setOffset(this.offset);
+                            this.offset=this.offset+1;
+                        }else if (var.getTipo().equals("bool")){
+                            var.setOffset(this.offset);
+                            this.offset=this.offset+4;
+                        }else if (var.getTipo().equals("string")){
+                            var.setOffset(this.offset);
+                            this.offset=this.offset+var.getOffset();
+                        }
+                    }
+                    }
                     }
                 }
 

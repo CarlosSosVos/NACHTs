@@ -1,8 +1,6 @@
 package nachts;
 import java_cup.runtime.*;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 parser code {:
    ArrayList<String> errores = new ArrayList();
@@ -177,7 +175,7 @@ non terminal Node inicio,dec_gen_fun,dec_funcion,parametros,
              val,dec_while,dec_for,dec_switch,list_op,new_op,dec_if,
              dec_else,dec_llamada_funcion,llamada_parametros,
              lista_valores,fin_llamada,condicion,valor_cond,dec_return,
-             tipo,arreglo,arreglo2d,arr2_cont,val_posicion,mas_condicion,otra_condicion;
+             tipo,arreglo,arreglo2d,arr2_cont,/*math_op,*/mas_condicion,otra_condicion;
 
 precedence left OPSUM,OPMULT;
 precedence left OPASIGN;
@@ -835,7 +833,7 @@ dec_variable ::= VARIABLE ID:id COLON tipo:tip dec_var:dv
                 
                 RESULT = node;
                 :}   
-                | VARIABLE ID:id L_BRACKET val_posicion:vp R_BRACKET COLON tipo:tip dec_var:dv 
+                | VARIABLE ID:id L_BRACKET math_op:vp R_BRACKET COLON tipo:tip dec_var:dv 
                 {:
                 parser.cont++;
                 Node node = new Node();
@@ -849,13 +847,13 @@ dec_variable ::= VARIABLE ID:id COLON tipo:tip dec_var:dv
                 identificador.setValor(id);
 
                 Node n_tip = (Node)tip;
-
                 Node n_dv = (Node) dv;
+                Node n_vp= (Node) vp;
 
                 node.addHijos(n_tip);
                 node.addHijos(n_dv);
                 node.addHijos(identificador);
-                node.addHijos((Node) vp);
+                node.addHijos(n_vp);
 
                 Variable new_var = new Variable(n_tip.getValor(), id);
                 new_var.setArray(true);
@@ -866,8 +864,16 @@ dec_variable ::= VARIABLE ID:id COLON tipo:tip dec_var:dv
                     System.out.println("no se hizo asignacion en "+id);
                 }else{
                     if(n_tip.getValor().equals(n_dv.getValor())){
-                        System.out.println("la asignacion es correcta en "+id);
-                        new_var.setValue(n_dv.getValue());
+                        ArrayList temp=(ArrayList)n_dv.getValue();
+
+                        int size=(int)n_vp.getValue();
+                        if(size==temp.size()){
+                            System.out.println("la asignacion es correcta en "+ id);
+                            new_var.setValue(temp);
+                        }else{
+                            System.out.println("la asignacion no corresponde con el tamaño");
+                            new_var.setValue("Error");
+                        }
                     }else{
                         System.out.println("la asignacion es incorrecta en "+ id);
                     }
@@ -875,7 +881,7 @@ dec_variable ::= VARIABLE ID:id COLON tipo:tip dec_var:dv
                 variables.add(new_var);
                 RESULT = node;
                 :}
-                |VARIABLE ID:id L_BRACKET val_posicion:vp1 R_BRACKET L_BRACKET val_posicion:vp2 R_BRACKET COLON tipo:tip dec_var:dv
+                |VARIABLE ID:id L_BRACKET math_op:vp1 R_BRACKET L_BRACKET math_op:vp2 R_BRACKET COLON tipo:tip dec_var:dv
                 {:
                 parser.cont++;
                 Node node = new Node();
@@ -891,12 +897,14 @@ dec_variable ::= VARIABLE ID:id COLON tipo:tip dec_var:dv
                 Node n_tip = (Node)tip;
 
                 Node n_dv = (Node) dv;
+                Node ind1= (Node) vp1;
+                Node ind2=(Node) vp2;
 
                 node.addHijos(n_tip);
                 node.addHijos(n_dv);
                 node.addHijos(identificador);
-                node.addHijos((Node) vp1);
-                node.addHijos((Node) vp2);
+                node.addHijos(ind1);
+                node.addHijos(ind2);
 
                 Variable new_var = new Variable(n_tip.getValor(), id);
                 /*if(!n_di.getEtiqueta.equals("vacio")){
@@ -910,11 +918,31 @@ dec_variable ::= VARIABLE ID:id COLON tipo:tip dec_var:dv
                     System.out.println("no se hizo asignacion en "+id);
                 }else{
                     if(n_tip.getValor().equals(n_dv.getValor())){
-                        System.out.println("la asignacion es correcta en "+id);
-                        new_var.setValue(n_dv.getValue());
+                                                    
+                        ArrayList temp = (ArrayList)n_dv.getValue();
+                        ArrayList temp_Compare = (ArrayList)temp.get(0);
+
+                        if(temp.size() == (int)ind1.getValue() && temp_Compare.size() == (int)ind2.getValue()){
+                            boolean compare = true;
+                            
+                            for (int i = 1; i < temp.size() ; i++){
+                                if(temp_Compare.size() != ((ArrayList)temp.get(i)).size()){
+                                    System.out.println("Tamaños incorrectos "+ id);
+                                    compare= false;
+                                }
+                            }
+                            if(compare){
+                                System.out.println("la asignacion es correcta en "+ id);
+                                new_var.setValue(n_dv.getValue());
+                            }
+                        }else{
+                            System.out.println("Tamaños incorrectos "+ id);
+                        }
                     }else{
                         System.out.println("la asignacion es incorrecta en "+ id);
+                        System.out.println( n_tip.getValor()+ " =/= "+ id);   
                     }
+
                 }
                 variables.add(new_var);
                 RESULT = node;
@@ -974,7 +1002,7 @@ dec_var ::= dec_inst:di SEMICOLON
                 }else{
                     if(n_tip.getValor().equals(n_di.getValor())){
                         System.out.println("la asignacion es correcta en "+ id);
-                        new_var.setValue(n_dv.getValue());
+                        new_var.setValue(n_di.getValue());
                     }else{
                         System.out.println(" # la asignacion es incorrecta en "+ id);
                         System.out.println( n_tip.getValor()+ " =/= "+ id);
@@ -985,7 +1013,7 @@ dec_var ::= dec_inst:di SEMICOLON
                 variables.add(new_var);
                 RESULT = node;
             :}
-            | COMMA ID:id L_BRACKET val_posicion:vp R_BRACKET COLON tipo:tip dec_inst:di dec_var:dv
+            | COMMA ID:id L_BRACKET math_op:vp R_BRACKET COLON tipo:tip dec_inst:di dec_var:dv
             {:
                 parser.cont++;
                 Node node = new Node();
@@ -1001,15 +1029,12 @@ dec_var ::= dec_inst:di SEMICOLON
                 Node n_tip =(Node) tip;
                 Node n_di=(Node) di;
                 Node n_dv=(Node) dv;
-
+                Node n_vp=(Node) vp;
                 node.addHijos(n_dv);
                 node.addHijos(identificador);
-                node.addHijos((Node) vp);
+                node.addHijos(n_vp);
                 node.addHijos(n_tip);
                 node.addHijos(n_di);
-
-
-
 
                 Variable new_var = new Variable(n_tip.getValor(), id);
                 /*if(!n_di.getEtiqueta().equals("vacio")){
@@ -1023,8 +1048,17 @@ dec_var ::= dec_inst:di SEMICOLON
                     System.out.println("no hubo asignacion en "+ id);
                 }else{
                     if(n_tip.getValor().equals(n_di.getValor())){
-                        System.out.println("la asignacion es correcta en "+ id);
-                        new_var.setValue(n_dv.getValue());
+                        
+                        ArrayList temp=(ArrayList)n_di.getValue();
+                        int size=(int)n_vp.getValue();
+                        if(size==temp.size()){
+                            System.out.println("la asignacion es correcta en "+ id);
+                            new_var.setValue(n_di.getValue());
+                        }else{
+                            System.out.println("la asignacion no corresponde con el tamaño");
+                            new_var.setValue("Error");
+                        }
+                        
                     }else{
                         System.out.println(" # la asignacion es incorrecta en "+ id);
                         System.out.println( n_tip.getValor()+ " =/= "+ id);
@@ -1035,7 +1069,7 @@ dec_var ::= dec_inst:di SEMICOLON
                 variables.add(new_var);
                 RESULT = node;
             :}
-            | COMMA ID:id L_BRACKET val_posicion:vp1 R_BRACKET L_BRACKET val_posicion:vp2 R_BRACKET COLON tipo:tip dec_inst:di dec_var:dv
+            | COMMA ID:id L_BRACKET math_op:vp1 R_BRACKET L_BRACKET math_op:vp2 R_BRACKET COLON tipo:tip dec_inst:di dec_var:dv
             {:
                 parser.cont++;
                 Node node = new Node();
@@ -1051,13 +1085,15 @@ dec_var ::= dec_inst:di SEMICOLON
                 Node n_tip =(Node) tip;
                 Node n_di=(Node) di;
                 Node n_dv=(Node) dv;
+                Node ind1=(Node) vp1;
+                Node ind2= (Node) vp2;
                 
                 node.addHijos(n_dv);
                 node.addHijos(n_tip);
                 node.addHijos(n_di);
                 node.addHijos(identificador);
-                node.addHijos((Node) vp1);
-                node.addHijos((Node) vp2);
+                node.addHijos(ind1);
+                node.addHijos(ind2);
 
                 Variable new_var = new Variable(n_tip.getValor(), id);
                 /*if(!n_di.getEtiqueta().equals("vacio")){
@@ -1069,14 +1105,34 @@ dec_var ::= dec_inst:di SEMICOLON
                 
                 if(test.equals("")){
                     System.out.println("no hubo asignacion en "+ id);
+                    
                 }else{
                     if(n_tip.getValor().equals(n_di.getValor())){
-                        System.out.println("la asignacion es correcta en "+ id);
-                        new_var.setValue(n_dv.getValue());
+                        
+                        ArrayList temp = (ArrayList)n_di.getValue();
+                        ArrayList temp_Compare = (ArrayList)temp.get(0);
+
+                        if(temp.size() == (int)ind1.getValue() && temp_Compare.size() == (int)ind2.getValue()){
+                            boolean compare = true;
+                            
+                            for (int i = 1; i < temp.size() ; i++){
+                                
+                                if(temp_Compare.size() != ((ArrayList)temp.get(i)).size()){
+                                    System.out.println("Tamaños incorrectos "+ id);
+                                    compare= false;
+                                }
+                            }
+
+                            if(compare){
+                                System.out.println("la asignacion es correcta en "+ id);
+                                new_var.setValue(n_di.getValue());
+                            }
+                        }else{
+                            System.out.println("Tamaños incorrectos "+ id);
+                        }
                     }else{
                         System.out.println(" # la asignacion es incorrecta en "+ id);
                         System.out.println( n_tip.getValor()+ " =/= "+ id);
-
                     }
                 }
                 variables.add(new_var);
@@ -1174,7 +1230,7 @@ dec_inst ::= OPASIGN FLOAT_VAL:nm
                 node.addHijos(n_arr);
 
                 node.setValor(n_arr.getValor());
-                node.setValue("testing");
+                node.setValue(n_arr.getValue());
                 RESULT = node;
              :}
              | OPASIGN arreglo2d:arr
@@ -1187,7 +1243,7 @@ dec_inst ::= OPASIGN FLOAT_VAL:nm
                 node.addHijos(n_arr);
 
                 node.setValor(n_arr.getValor());
-                node.setValue("testing2");
+                node.setValue(arr.getValue());
                 RESULT = node;
              :}
              | OPASIGN math_op:mo
@@ -1226,8 +1282,21 @@ arreglo2d ::=L_KEY arreglo:arr arr2_cont:arc R_KEY
 
                 if(n_arc.getValor().equals("nada")){
                     node.setValor(n_arr.getValor());
+                    ArrayList temp1 = new ArrayList();
+                    temp1.add(n_arr.getValue());
+                    node.setValue(temp1);
+
                 }else if(n_arc.getValor().equals(n_arr.getValor())){
                     node.setValor(n_arr.getValor());
+                    ArrayList temp1=new ArrayList();
+                    ArrayList temp2=(ArrayList)n_arc.getValue();
+                    
+                    for(int i=0;i<temp2.size();i++){
+                        temp1.add(temp2.get(i));
+                    }
+                    temp1.add(n_arc.getValue());
+                    Collections.reverse(temp1);
+                    node.setValue(temp1);
                 }else{
                     node.setValor("error");
                 }
@@ -1246,6 +1315,9 @@ arr2_cont ::=COMMA arreglo:arr arr2_cont:arc
                 Node node=new Node();
                 node.setEtiqueta("arr2_cont");
                 node.setID(parser.cont);
+                
+
+
 
                 Node n_arr=(Node) arr;
                 Node n_arc=(Node) arc;
@@ -1254,8 +1326,21 @@ arr2_cont ::=COMMA arreglo:arr arr2_cont:arc
 
                 if(n_arc.getValor().equals("nada")){
                     node.setValor(n_arr.getValor());
+                    ArrayList temp1 = new ArrayList();
+                    temp1.add(n_arr.getValue());
+                    node.setValue(temp1);
+
                 }else if(n_arc.getValor().equals(n_arr.getValor())){
                     node.setValor(n_arr.getValor());
+                    ArrayList temp1=new ArrayList();
+                    ArrayList temp2=(ArrayList)n_arc.getValue();
+                    
+                    for(int i=0;i<temp2.size();i++){
+                        temp1.add(temp2.get(i));
+                    }
+                    temp1.add(n_arc.getValue());
+                    node.setValue(temp1);
+
                 }else{
                     node.setValor("error");
                 }
@@ -1285,10 +1370,24 @@ arreglo ::=L_KEY valor:va arr_cont:arc R_KEY
                 node.addHijos(n_va);
                 node.addHijos(n_arc);
 
+
                 if(n_arc.getValor().equals("nada")){
                     node.setValor(n_va.getValor());
+                    ArrayList temp1=new ArrayList();
+                    temp1.add(n_va.getValue());
+                    node.setValue(temp1);
                 }else if(n_arc.getValor().equals(n_va.getValor())){                   
                     node.setValor(n_va.getValor());
+                    ArrayList temp1=new ArrayList();
+                    ArrayList temp2=(ArrayList)n_arc.getValue();
+                    
+                    for(int i=0;i<temp2.size();i++){
+                        temp1.add(temp2.get(i));
+                    }
+                    temp1.add(n_va.getValue());
+                    Collections.reverse(temp1);
+
+                    node.setValue(temp1);
                 }else{
                     node.setValor("error");
                 }
@@ -1308,10 +1407,23 @@ arr_cont ::= COMMA valor:va arr_cont:arc
                 
                 node.addHijos(n_va);
                 node.addHijos(n_arc);
+
                 if(n_arc.getValor().equals("nada")){
                     node.setValor(n_va.getValor());
+                    ArrayList temp1=new ArrayList();
+                    temp1.add(n_va.getValue());
+                    node.setValue(temp1);
                 }else if(n_arc.getValor().equals(n_va.getValor())){         
                     node.setValor(n_va.getValor());
+                    ArrayList temp1=new ArrayList();
+                    ArrayList temp2=(ArrayList)n_arc.getValue();
+                    //if( temp2!=null && !temp2.isEmpty() ){
+                        for(int i=0;i<temp2.size();i++){
+                            temp1.add(temp2.get(i));
+                        }
+                        temp1.add(n_va.getValue());
+                        node.setValue(temp1);
+                    //}
                 }else{
                     node.setValor("error");
                 }
@@ -1364,7 +1476,7 @@ dec_var_inst ::= ID:id OPASIGN valor:va SEMICOLON
 
                 RESULT = node;
                 :}
-                |ID:id DOT AT L_PAR val_posicion:vp R_PAR OPASIGN valor:va SEMICOLON
+                |ID:id DOT AT L_PAR math_op:vp R_PAR OPASIGN valor:va SEMICOLON
                 {:
                 parser.cont++;
                 Node node = new Node();
@@ -1449,7 +1561,7 @@ dec_var_inst ::= ID:id OPASIGN valor:va SEMICOLON
                 node.addHijos(identificador);
                 RESULT = node;
                 :}
-                | ID:id DOT AT L_PAR val_posicion:vp1 COMMA val_posicion:vp2 R_PAR OPASIGN valor:va SEMICOLON
+                | ID:id DOT AT L_PAR math_op:vp1 COMMA math_op:vp2 R_PAR OPASIGN valor:va SEMICOLON
                 {:
                 parser.cont++;
                 Node node = new Node();
@@ -1779,7 +1891,7 @@ val ::= ID:id
                 node.setValor(identificador.getValor());
                 RESULT = node;
         :}
-        | ID:id DOT AT L_PAR val_posicion:vp R_PAR 
+        | ID:id DOT AT L_PAR math_op:vp R_PAR 
         {:
                 parser.cont++;
                 Node node = new Node();
@@ -1825,7 +1937,7 @@ val ::= ID:id
 
                 RESULT = node;
             :}
-            | ID:id DOT AT L_PAR val_posicion:vp1 COMMA val_posicion:vp2 R_PAR 
+            | ID:id DOT AT L_PAR math_op:vp1 COMMA math_op:vp2 R_PAR 
             {:
                 parser.cont++;
                 Node node = new Node();
@@ -1898,7 +2010,7 @@ dec_while ::= WHILE L_PAR condicion:cond R_PAR L_KEY dec_general:dg R_KEY
 
 
 
-dec_for ::= FOR L_PAR ID:id COMMA val_posicion:nm1 UPTO val_posicion:nm2 COMMA STEP L_PAR val_posicion:nm3 R_PAR R_PAR L_KEY dec_general:dg R_KEY
+dec_for ::= FOR L_PAR ID:id COMMA math_op:nm1 UPTO math_op:nm2 COMMA STEP L_PAR math_op:nm3 R_PAR R_PAR L_KEY dec_general:dg R_KEY
             {:
                 System.err.println("Entra a dec_for 1");
                 parser.cont++;
@@ -1933,7 +2045,7 @@ dec_for ::= FOR L_PAR ID:id COMMA val_posicion:nm1 UPTO val_posicion:nm2 COMMA S
                 node.addHijos((Node) dg);
                 RESULT = node;
             :}
-            | FOR L_PAR ID:id COMMA val_posicion:nm1 DOWNTO val_posicion:nm2 COMMA STEP L_PAR val_posicion:nm3 R_PAR R_PAR L_KEY dec_general:dg R_KEY
+            | FOR L_PAR ID:id COMMA math_op:nm1 DOWNTO math_op:nm2 COMMA STEP L_PAR math_op:nm3 R_PAR R_PAR L_KEY dec_general:dg R_KEY
             {:
                 System.err.println("Entra a dec_for 2");
                 parser.cont++;
@@ -1968,7 +2080,7 @@ dec_for ::= FOR L_PAR ID:id COMMA val_posicion:nm1 UPTO val_posicion:nm2 COMMA S
                 node.addHijos((Node) dg);
                 RESULT = node;
             :}
-            | FOR L_PAR VARIABLE ID:id COLON INTEGER COMMA val_posicion:nm1 UPTO val_posicion:nm2 COMMA STEP L_PAR val_posicion:nm3 R_PAR R_PAR L_KEY dec_general:dg R_KEY
+            | FOR L_PAR VARIABLE ID:id COLON INTEGER COMMA math_op:nm1 UPTO math_op:nm2 COMMA STEP L_PAR math_op:nm3 R_PAR R_PAR L_KEY dec_general:dg R_KEY
             {:
                 System.err.println("Entra a dec_for 3");
                 parser.cont++;
@@ -2003,7 +2115,7 @@ dec_for ::= FOR L_PAR ID:id COMMA val_posicion:nm1 UPTO val_posicion:nm2 COMMA S
                 node.addHijos((Node) dg);
                 RESULT = node;
             :}
-            | FOR L_PAR VARIABLE ID:id COLON INTEGER COMMA val_posicion:nm1 DOWNTO val_posicion:nm2 COMMA STEP L_PAR val_posicion:nm3 R_PAR R_PAR L_KEY dec_general:dg R_KEY
+            | FOR L_PAR VARIABLE ID:id COLON INTEGER COMMA math_op:nm1 DOWNTO math_op:nm2 COMMA STEP L_PAR math_op:nm3 R_PAR R_PAR L_KEY dec_general:dg R_KEY
             {:
                 System.err.println("Entra a dec_for 4");
                 parser.cont++;
@@ -2506,7 +2618,7 @@ tipo ::= BOOLEAN
             :}
             ;
 
-val_posicion::=  math_op:mo
+/*math_op::=  math_op:mo
         {:
                 parser.cont++;
                 Node node = new Node();
@@ -2517,4 +2629,4 @@ val_posicion::=  math_op:mo
                 RESULT = node;
         :}
         
-        ;
+        ;*/

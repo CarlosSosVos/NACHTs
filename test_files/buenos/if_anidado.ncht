@@ -1,15 +1,4 @@
 fnc hola():main {
-    if(true){
-        if(true){
-            if(true){
-                if(true){
-                    output("hola");
-                }else{
-
-		}
-                var a:int;
-            }
-        }
-    }
+	var a:int,b:int,c:int,d:int:=5;
 }
 
