@@ -636,11 +636,13 @@ public class parser extends java_cup.runtime.lr_parser {
    ArrayList<String> errores = new ArrayList();
    ArrayList<Variable> variables = new ArrayList();
    ArrayList<Function> funciones = new ArrayList();
+   ArrayList<Cuadruplo> cuadruplos = new ArrayList();
    Node Tree  = new Node();
    int cont=0;
    int contMain=0;
    int contAmbito=0;
    int contContenido= 0;
+   int resultId=1;
    boolean testCont = false;
    String tempTipo = ""; 
 
@@ -3145,10 +3147,21 @@ class CUP$parser$actions {
                 Node n_sum=(Node) sum;
 
                 if( n_mult.isIsInt().equals("int") && n_sum.isIsInt().equals("int") ){
-                    node.setValue((int)n_mult.getValue() + (int)n_sum.getValue());
+                    //node.setValue((int)n_mult.getValue() + (int)n_sum.getValue());
+                    if(n_sum.getEtiqueta().equals("vacio")){
+                        node.setValue(n_mult.getValue());
+                    }else{
+                        String result="T"+resultId;
+                        node.setValue(result);
+                        resultId++;
+                        Cuadruplo temp= new Cuadruplo();
+                        temp.setOperator(n_sum.getOperador());
+                        temp.setArgs1(n_mult.getValue()+"");
+                        temp.setArgs2(n_sum.getValue()+ "");
+                        temp.setResult(result); 
+                        cuadruplos.add(temp);
+                    }
                     node.setIsInt("int");
-
-                    
                 }else if(  n_sum.getEtiqueta().equals("vacio") ){
                     node.setValue(n_mult.getValue());
                     node.setIsInt(n_mult.isIsInt());
@@ -3168,6 +3181,9 @@ class CUP$parser$actions {
           case 66: // sum_op ::= OPSUM m_op sum_op 
             {
               Node RESULT =null;
+		int operadorleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
+		int operadorright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
+		String operador = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int multleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int multright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Node mult = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -3181,7 +3197,21 @@ class CUP$parser$actions {
                 Node n_mult=(Node) mult;
                 Node n_sum=(Node) sum;
                 if(n_mult.isIsInt().equals("int") && n_sum.isIsInt().equals("int")){
-                    node.setValue((int)n_mult.getValue() + (int)n_sum.getValue());
+                    //node.setValue((int)n_mult.getValue() + (int)n_sum.getValue());
+                    if(n_sum.getEtiqueta().equals("vacio")){
+                        node.setValue(n_mult.getValue());
+                    }else{
+                        String result="T"+resultId;
+                        node.setValue(result);
+                        resultId++;
+                        Cuadruplo temp= new Cuadruplo();
+                        temp.setOperator(n_sum.getOperador());
+                        temp.setArgs1(n_mult.getValue()+"");
+                        temp.setArgs2(n_sum.getValue()+ "");
+                        temp.setResult(result); 
+                        cuadruplos.add(temp);
+                    }
+                    node.setOperador(operador);
                     node.setIsInt("int");
                 }else {
                     System.err.println("OPERACIONES INCOMPATIBLES");
@@ -3232,7 +3262,21 @@ class CUP$parser$actions {
                 Node n_mult=(Node) mult;
 
                 if(n_vl.isIsInt().equals("int") && n_mult.isIsInt().equals("int") ){
-                    node.setValue((int)n_vl.getValue() * (int)n_mult.getValue());
+                    //node.setValue((int)n_vl.getValue() * (int)n_mult.getValue());
+                    if(n_mult.getEtiqueta().equals("vacio")){
+                        node.setValue(n_vl.getValue());
+                    }else{
+                        String result="T"+resultId;
+                        node.setValue(result);
+                        resultId++;
+                        Cuadruplo temp= new Cuadruplo();
+                        temp.setOperator(n_mult.getOperador());
+                        temp.setArgs1(n_vl.getValue()+"");
+                        temp.setArgs2(n_mult.getValue()+ "");
+                        temp.setResult(result); 
+                        cuadruplos.add(temp);
+                    }
+                    node.setOperador(n_mult.getOperador());
                     node.setIsInt("int");
                 }else if( n_mult.getEtiqueta().equals("vacio")){
                     node.setValue(n_vl.getValue());
@@ -3255,6 +3299,9 @@ class CUP$parser$actions {
           case 69: // mult_op ::= OPMULT val mult_op 
             {
               Node RESULT =null;
+		int operadorleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
+		int operadorright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
+		String operador = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int vlleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int vlright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Node vl = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -3269,7 +3316,21 @@ class CUP$parser$actions {
                 Node n_vl=(Node) vl;
                 Node n_mult=(Node) mult;
                 if(n_vl.isIsInt().equals("int") && n_mult.isIsInt().equals("int")){
-                    node.setValue((int)n_vl.getValue() * (int)n_mult.getValue());
+                    //node.setValue((int)n_vl.getValue() * (int)n_mult.getValue());
+                    if(n_mult.getEtiqueta().equals("vacio")){
+                        node.setValue(n_vl.getValue());
+                    }else{
+                        String result="T"+resultId;
+                        node.setValue(result);
+                        resultId++;
+                        Cuadruplo temp= new Cuadruplo();
+                        temp.setOperator(n_mult.getOperador());
+                        temp.setArgs1(n_vl.getValue()+"");
+                        temp.setArgs2(n_mult.getValue()+ "");
+                        temp.setResult(result); 
+                        cuadruplos.add(temp);
+                    }
+                    node.setOperador(operador);
                     node.setIsInt("int");
                 }else {
                     System.err.println("OPERACIONES INCOMPATIBLES");

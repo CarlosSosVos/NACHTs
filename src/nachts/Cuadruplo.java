@@ -22,6 +22,8 @@ public class Cuadruplo {
         this.args2 = args2;
         this.result = result;
     }
+    public Cuadruplo() {    
+    }
 
     public String getArgs1() {
         return args1;

@@ -421,6 +421,11 @@ public class main extends javax.swing.JFrame {
                     System.out.println(variable.toString());
                 }
 
+                for( Cuadruplo iter : p.cuadruplos){
+                    System.out.println(iter.toString());
+
+                }
+
                 int ver_arbol;
                 ver_arbol = JOptionPane.showOptionDialog(this, "Desea visualizar el arbol generado?", "Visualizar Arbol", 1, 2, null, null, null);
 

@@ -6,11 +6,13 @@ parser code {:
    ArrayList<String> errores = new ArrayList();
    ArrayList<Variable> variables = new ArrayList();
    ArrayList<Function> funciones = new ArrayList();
+   ArrayList<Cuadruplo> cuadruplos = new ArrayList();
    Node Tree  = new Node();
    int cont=0;
    int contMain=0;
    int contAmbito=0;
    int contContenido= 0;
+   int resultId=1;
    boolean testCont = false;
    String tempTipo = ""; 
 
@@ -1732,10 +1734,21 @@ math_op ::= m_op:mult sum_op:sum
                 Node n_sum=(Node) sum;
 
                 if( n_mult.isIsInt().equals("int") && n_sum.isIsInt().equals("int") ){
-                    node.setValue((int)n_mult.getValue() + (int)n_sum.getValue());
+                    //node.setValue((int)n_mult.getValue() + (int)n_sum.getValue());
+                    if(n_sum.getEtiqueta().equals("vacio")){
+                        node.setValue(n_mult.getValue());
+                    }else{
+                        String result="T"+resultId;
+                        node.setValue(result);
+                        resultId++;
+                        Cuadruplo temp= new Cuadruplo();
+                        temp.setOperator(n_sum.getOperador());
+                        temp.setArgs1(n_mult.getValue()+"");
+                        temp.setArgs2(n_sum.getValue()+ "");
+                        temp.setResult(result); 
+                        cuadruplos.add(temp);
+                    }
                     node.setIsInt("int");
-
-                    
                 }else if(  n_sum.getEtiqueta().equals("vacio") ){
                     node.setValue(n_mult.getValue());
                     node.setIsInt(n_mult.isIsInt());
@@ -1748,7 +1761,7 @@ math_op ::= m_op:mult sum_op:sum
                 RESULT = node;
             :}
             ;
-sum_op ::= OPSUM m_op:mult sum_op:sum
+sum_op ::= OPSUM:operador m_op:mult sum_op:sum
             {:
                 parser.cont++;
                 Node node = new Node();
@@ -1756,7 +1769,21 @@ sum_op ::= OPSUM m_op:mult sum_op:sum
                 Node n_mult=(Node) mult;
                 Node n_sum=(Node) sum;
                 if(n_mult.isIsInt().equals("int") && n_sum.isIsInt().equals("int")){
-                    node.setValue((int)n_mult.getValue() + (int)n_sum.getValue());
+                    //node.setValue((int)n_mult.getValue() + (int)n_sum.getValue());
+                    if(n_sum.getEtiqueta().equals("vacio")){
+                        node.setValue(n_mult.getValue());
+                    }else{
+                        String result="T"+resultId;
+                        node.setValue(result);
+                        resultId++;
+                        Cuadruplo temp= new Cuadruplo();
+                        temp.setOperator(n_sum.getOperador());
+                        temp.setArgs1(n_mult.getValue()+"");
+                        temp.setArgs2(n_sum.getValue()+ "");
+                        temp.setResult(result); 
+                        cuadruplos.add(temp);
+                    }
+                    node.setOperador(operador);
                     node.setIsInt("int");
                 }else {
                     System.err.println("OPERACIONES INCOMPATIBLES");
@@ -1788,7 +1815,21 @@ m_op ::= val:vl mult_op:mult
                 Node n_mult=(Node) mult;
 
                 if(n_vl.isIsInt().equals("int") && n_mult.isIsInt().equals("int") ){
-                    node.setValue((int)n_vl.getValue() * (int)n_mult.getValue());
+                    //node.setValue((int)n_vl.getValue() * (int)n_mult.getValue());
+                    if(n_mult.getEtiqueta().equals("vacio")){
+                        node.setValue(n_vl.getValue());
+                    }else{
+                        String result="T"+resultId;
+                        node.setValue(result);
+                        resultId++;
+                        Cuadruplo temp= new Cuadruplo();
+                        temp.setOperator(n_mult.getOperador());
+                        temp.setArgs1(n_vl.getValue()+"");
+                        temp.setArgs2(n_mult.getValue()+ "");
+                        temp.setResult(result); 
+                        cuadruplos.add(temp);
+                    }
+                    node.setOperador(n_mult.getOperador());
                     node.setIsInt("int");
                 }else if( n_mult.getEtiqueta().equals("vacio")){
                     node.setValue(n_vl.getValue());
@@ -1804,7 +1845,7 @@ m_op ::= val:vl mult_op:mult
                 RESULT = node;
         :}
         ;
-mult_op ::= OPMULT val:vl mult_op:mult
+mult_op ::= OPMULT:operador val:vl mult_op:mult
             {:
                 parser.cont++;
                 Node node = new Node();
@@ -1813,7 +1854,21 @@ mult_op ::= OPMULT val:vl mult_op:mult
                 Node n_vl=(Node) vl;
                 Node n_mult=(Node) mult;
                 if(n_vl.isIsInt().equals("int") && n_mult.isIsInt().equals("int")){
-                    node.setValue((int)n_vl.getValue() * (int)n_mult.getValue());
+                    //node.setValue((int)n_vl.getValue() * (int)n_mult.getValue());
+                    if(n_mult.getEtiqueta().equals("vacio")){
+                        node.setValue(n_vl.getValue());
+                    }else{
+                        String result="T"+resultId;
+                        node.setValue(result);
+                        resultId++;
+                        Cuadruplo temp= new Cuadruplo();
+                        temp.setOperator(n_mult.getOperador());
+                        temp.setArgs1(n_vl.getValue()+"");
+                        temp.setArgs2(n_mult.getValue()+ "");
+                        temp.setResult(result); 
+                        cuadruplos.add(temp);
+                    }
+                    node.setOperador(operador);
                     node.setIsInt("int");
                 }else {
                     System.err.println("OPERACIONES INCOMPATIBLES");

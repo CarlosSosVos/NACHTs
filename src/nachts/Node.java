@@ -23,6 +23,7 @@ public class Node {
     public String tipo;
     public String isInt;
     public int ambito; //ambito de ubicacion
+    public String operador="";
 
     public boolean isValueIsID() {
         return ValueIsID;
@@ -132,6 +133,14 @@ public class Node {
         this.isInt = isInt;
     }
 
+    public String getOperador() {
+        return operador;
+    }
+
+    public void setOperador(String operador) {
+        this.operador = operador;
+    }
+    
     @Override
     public String toString() {
 
