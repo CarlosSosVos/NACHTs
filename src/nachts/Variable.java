@@ -39,10 +39,6 @@ public class Variable {
 
     public void setValue(Object value) {
         this.value = value;
-        if (this.tipo.equals("string")) {
-            String temp=(String)value;
-            this.offset=temp.length();
-        }
     }
 
     public void setAmbito(String ambito) {
@@ -55,6 +51,7 @@ public class Variable {
         this.id = id;
         this.value = new Object();
         this.ambitos = new ArrayList();
+        this.ambitos.add(-1);            
         this.offset=0;
     }
 

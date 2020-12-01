@@ -1,43 +1,23 @@
 fnc noHayMain (): main{
 	if(1<2){
-		var c:int:=2;
-		var c1:chr:='c';
-		var c2:int:=3;
+		var c:int;
+		var d:int;
+		var d:int;
 	}elif(1<2){
 		if(1<2){
-			var x:int:=c+c2+c1;
+			var c:int;
 			if(12<4){
-				var w:int;
+				var x:int;
 			}
-			var u:int;
+			var c:int;
 		}elif(1<2){
-			var y:int;
+			var c:int;
 		}else{
-			var z:int;
+			var c:int;
 		}
 	}else{
-		var f:int;
+		var c:int;
 	}
-	var a:int;
+	var x:int;
 }
 
-fnc funcA (): int{
-	if(1<2){
-		var hola1:int;
-	}elif(1<2){
-		if(1<2){
-			var hola2:int;
-			if(12<4){
-				var hola3:int;
-			}
-			var hola4:int;
-		}elif(1<2){
-			var hola5:int;
-		}else{
-			var hola6:int;
-		}
-	}else{
-		var hola7:int;
-	}
-	var hola8:int;
-}
