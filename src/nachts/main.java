@@ -411,25 +411,6 @@ public class main extends javax.swing.JFrame {
 
                 ambito(miArbol);
 
-
-/*
-                ArrayList<Object> lista_indices = new ArrayList(); 
-
-                for( int i = 0 ; i< variables.size() ; i++){
-                    ArrayList<Integer> indexes = new ArrayList();
-                    for (int j = 0; j < variables.size(); j++) {
-                        if(variables.get(i).getId().equals(variables.get(j).getId())){
-                            indexes.add(j);
-                        }        
-                    }
-                    lista_indices.add(indexes);
-                }
-                
-                for( int i = 0 ; i< lista_indices.size() ; i++){
-                    System.out.println(lista_indices.get(i).toString());
-                }*/
-
-
                 for( int i = 0 ; i< variables.size() ; i++){
                     for( int j = i+1 ; j< variables.size() ; j++){
                         int iguales=0;
@@ -445,7 +426,6 @@ public class main extends javax.swing.JFrame {
                         }
                     }
                 }
-                // this.AmbitoActualR.add(5);
 
                 Graficar(recorrido(miArbol));
 
@@ -455,7 +435,6 @@ public class main extends javax.swing.JFrame {
 
                 for (Cuadruplo iter : p.cuadruplos) {
                     System.out.println(iter.toString());
-
                 }
 
                 int ver_arbol;
@@ -558,6 +537,9 @@ public class main extends javax.swing.JFrame {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }// GEN-LAST:event_menu_lenguajeActionPerformed
+
+
+
 
     /**
      * @param args the command line arguments
@@ -684,7 +666,6 @@ public class main extends javax.swing.JFrame {
             if (hijo.getEtiqueta().equals("option")) {
                 hijo.setAmbito(hijo.getPadre().getAmbito());
                 hijo.setAmbitos(hijo.getPadre().getAmbitos());
-
             }
 
             if (hijo.getEtiqueta().equals("val")) {
@@ -762,6 +743,8 @@ public class main extends javax.swing.JFrame {
                        
                     }
                     if (hijo.getHijos().size() > 2) {
+                        cont_e = 0;
+
                         if (hijo.getHijos().get(2).getEtiqueta().equals("ID")) {
                             if (var.getId().equals(hijo.getHijos().get(2).getValor())) {
 
@@ -827,10 +810,17 @@ public class main extends javax.swing.JFrame {
                 Ambito = Ambito + 1;
                 AmbitoActual = Ambito;
                 hijo.setAmbito(hijo.getPadre().getAmbito());
-
-                this.AmbitoActualR.add(Ambito);
+                if(hijo.getEtiqueta().equals("dec_else")||hijo.getEtiqueta().equals("dec_elif")||hijo.getEtiqueta().equals("list_op")||hijo.getEtiqueta().equals("default")){
+                    ArrayList<Integer> temp = new ArrayList();
+                    for (Integer index : hijo.getPadre().getAmbitos()) {
+                        temp.add(index);
+                    }
+                    temp.add(Ambito);
+                    this.AmbitoActualR=temp;
+                }else{
+                    this.AmbitoActualR.add(Ambito);
+                }
                 hijo.setAmbitos(hijo.getPadre().getAmbitos());
-
             }
 
             
@@ -847,9 +837,7 @@ public class main extends javax.swing.JFrame {
                 for (Integer index : hijo.getPadre().getAmbitos()) {
                     temp.add(index);
                 }
-
                 this.AmbitoActualR = temp;
-
             }
 
             /*
@@ -867,9 +855,39 @@ public class main extends javax.swing.JFrame {
              * AmbitoActual=hijo.getPadre().getAmbito(); }
              * if(hijo.getEtiqueta().equals("default")){
              * AmbitoActual=hijo.getPadre().getAmbito(); }
+             * if(hijo.getEtiqueta().equals("list_op")){
+             * AmbitoActual=hijo.getPadre().getAmbito(); }
+             * if(hijo.getEtiqueta().equals("default")){
+             * AmbitoActual=hijo.getPadre().getAmbito(); }
+             * if(hijo.getEtiqueta().equals("list_op")){
+             * AmbitoActual=hijo.getPadre().getAmbito(); }
+             * if(hijo.getEtiqueta().equals("default")){
+             * AmbitoActual=hijo.getPadre().getAmbito(); }
+             * if(hijo.getEtiqueta().equals("list_op")){
+             * AmbitoActual=hijo.getPadre().getAmbito(); }
+             * if(hijo.getEtiqueta().equals("default")){
+             * AmbitoActual=hijo.getPadre().getAmbito(); }
+             * if(hijo.getEtiqueta().equals("list_op")){
+             * AmbitoActual=hijo.getPadre().getAmbito(); }
+             * if(hijo.getEtiqueta().equals("default")){
+             * AmbitoActual=hijo.getPadre().getAmbito(); }
+             * if(hijo.getEtiqueta().equals("list_op")){
+             * AmbitoActual=hijo.getPadre().getAmbito(); }
+             * if(hijo.getEtiqueta().equals("default")){
+             * AmbitoActual=hijo.getPadre().getAmbito(); }
+             * if(hijo.getEtiqueta().equals("list_op")){
+             * AmbitoActual=hijo.getPadre().getAmbito(); }
+             * if(hijo.getEtiqueta().equals("default")){
+             * AmbitoActual=hijo.getPadre().getAmbito(); }
+             * if(hijo.getEtiqueta().equals("list_op")){
+             * AmbitoActual=hijo.getPadre().getAmbito(); }
+             * if(hijo.getEtiqueta().equals("default")){
+             * AmbitoActual=hijo.getPadre().getAmbito(); }
              */
         }
     }
+
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cancel_BT;

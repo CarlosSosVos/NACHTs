@@ -32,36 +32,3 @@ fnc noHayMain (): main{
 	var f:int;
 }
 
-fnc funcA (): int{
-	var hola1:int;
-	sw(a){
-		option 2:
-			var hola2:int;
-			sw(a){
-				option 2:
-					var hola3:int;
-				brk;
-				option 3:
-					var hola4:int;
-				brk;
-				option 4:
-					var hola5:int;
-				brk; 
-				dft:
-					var hola6:int;
-		
-			}
-			var hola7:int;
-		brk;
-		option 3:
-			var hola8:int;
-		brk;
-		option 4:
-			var hola9:int;
-		brk; 
-		dft:
-			var hola10:int;
-		
-	}
-	var hola11:int;
-}
