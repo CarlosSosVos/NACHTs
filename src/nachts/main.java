@@ -681,7 +681,7 @@ public class main extends javax.swing.JFrame {
 
                     boolean flag;
                     int temp_ambitos;
-
+                    System.out.println(temp.toString());
                     if (temp.getAmbitos().size() <= this.AmbitoActualR.size()) {
 
                         for (int i = 0; i < temp.getAmbitos().size(); i++) {
@@ -743,7 +743,7 @@ public class main extends javax.swing.JFrame {
                        
                     }
                     if (hijo.getHijos().size() > 2) {
-                        cont_e = 0;
+                        //cont_e = 0;
 
                         if (hijo.getHijos().get(2).getEtiqueta().equals("ID")) {
                             if (var.getId().equals(hijo.getHijos().get(2).getValor())) {

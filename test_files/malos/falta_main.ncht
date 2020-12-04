@@ -1,12 +1,4 @@
 fnc noHayMain (): main{
-	var b:int:=1;
-	if(2<6){
-		var x:int:=3;	
-	}elif(2<5){
-		var z:int:=5;
-	}else{
-		var y:int:=5;
-	}
-	var h:int:=7;
+	var x:int:=1+5/6*8;
 }
 

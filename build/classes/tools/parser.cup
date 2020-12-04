@@ -179,8 +179,10 @@ non terminal Node inicio,dec_gen_fun,dec_funcion,parametros,
              lista_valores,fin_llamada,condicion,valor_cond,dec_return,
              tipo,arreglo,arreglo2d,arr2_cont,/*math_op,*/mas_condicion,otra_condicion;
 
-precedence left OPSUM,OPMULT;
-precedence left OPASIGN;
+precedence right OPASIGN;
+precedence left OPMULT;
+precedence left OPSUM;
+
 
 start with inicio;
 
