@@ -630,7 +630,6 @@ public class main extends javax.swing.JFrame {
             hijo.setPadre(arbol);
 
             if (hijo.getEtiqueta().equals("dec_funcion") || hijo.getEtiqueta().equals("dec_Funcion")) {
-                System.out.println();
                 AmbitoActual = Ambito + 1;
                 Ambito = AmbitoActual;
                 hijo.setAmbito(AmbitoActual);
@@ -671,7 +670,7 @@ public class main extends javax.swing.JFrame {
             if (hijo.getEtiqueta().equals("val")) {
 
                 if (hijo.isValueIsID()) {
-                    System.out.println("Entra a val " + hijo.getValor());
+                    //System.out.println("Entra a val " + hijo.getValor());
                     Variable temp = new Variable("-1", "-1");
                     for (Variable variable : variables) {
                         if (hijo.getValor().equals(variable.getId())) {
@@ -681,7 +680,7 @@ public class main extends javax.swing.JFrame {
 
                     boolean flag;
                     int temp_ambitos;
-                    System.out.println(temp.toString());
+                    //System.out.println(temp.toString());
                     if (temp.getAmbitos().size() <= this.AmbitoActualR.size()) {
 
                         for (int i = 0; i < temp.getAmbitos().size(); i++) {
@@ -712,14 +711,14 @@ public class main extends javax.swing.JFrame {
                         }
 
                         if (var.getAmbitos().get(0) == -1 && cont_e == 0) {
-                            System.out.println(temp);
+                            //System.out.println(temp);
                             var.setAmbito(AmbitoActual + "");
                             var.setAmbitos(temp);
                             cont_e = 1;
                             if (var.getTipo().equals("int")) {
                                 var.setOffset(this.offset);
                                 this.offset = this.offset + 4;
-                                System.out.println("entra comparacion int: " + this.offset);
+                                //System.out.println("entra comparacion int: " + this.offset);
 
                             } else if (var.getTipo().equals("chr")) {
                                 var.setOffset(this.offset);
@@ -755,14 +754,14 @@ public class main extends javax.swing.JFrame {
                                 }
 
                                 if (var.getAmbitos().get(0) == -1 && cont_e == 0) {
-                                    System.out.println(temp);
+                                   // System.out.println(temp);
                                     var.setAmbito(AmbitoActual + "");
                                     var.setAmbitos(temp);
                                     cont_e = 1;
                                     if (var.getTipo().equals("int")) {
                                         var.setOffset(this.offset);
                                         this.offset = this.offset + 4;
-                                        System.out.println("entra comparacion int: " + this.offset);
+                                        //System.out.println("entra comparacion int: " + this.offset);
 
                                     } else if (var.getTipo().equals("chr")) {
                                         var.setOffset(this.offset);
