@@ -48,8 +48,6 @@ import java.util.ArrayList;
 
 
 
-
-
     
 
 
@@ -189,7 +187,8 @@ float_value = {numbers}{dot}{numbers}
     {numbers} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
-        //System.out.println(output); 
+        System.out.println("HOLAAAAAAAAAAAAAAAAAAAAAAa"+yytext()); 
+
         return new Symbol(Sym.NUM, yycolumn, yyline, yytext());
     }
     {float_value} {

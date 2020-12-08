@@ -918,7 +918,6 @@ class CUP$parser$actions {
                 Node nodo = new Node();
 				nodo.setEtiqueta("vacio");
 				nodo.setID(parser.cont);
-				
                 RESULT = nodo;
             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_gen_fun",1, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -931,7 +930,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-8)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-8)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-8)).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-8)).value;
 		int partsleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)).left;
 		int partsright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)).right;
 		Node parts = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-6)).value;
@@ -952,7 +951,7 @@ class CUP$parser$actions {
                 Node identificador =new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
+                identificador.setValor(id.value +" ");
 
                 Node n_parts=(Node) parts;
                 Node n_tip=(Node) tip;
@@ -963,7 +962,7 @@ class CUP$parser$actions {
                 node.addHijos((Node) deG);
 
                 ArrayList<Variable> params = (ArrayList<Variable>) n_parts.getValue();
-                Function nueva_funcion=new Function(n_tip.getValor(),id,false);
+                Function nueva_funcion=new Function(n_tip.getValor(),id.value+"",false);
                 nueva_funcion.setParametros(params);
                 System.out.println(nueva_funcion.toString());
                 funciones.add(nueva_funcion);
@@ -980,7 +979,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-8)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-8)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-8)).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-8)).value;
 		int partsleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)).left;
 		int partsright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)).right;
 		Node parts = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-6)).value;
@@ -1005,7 +1004,7 @@ class CUP$parser$actions {
                 Node identificador =new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
+                identificador.setValor(id.value+ "");
                 parser.cont++;
                 Node main =new Node();
                 main.setEtiqueta("Main");
@@ -1029,7 +1028,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
 		int tipleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int tipright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Node tip = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -1048,7 +1047,7 @@ class CUP$parser$actions {
                 Node identificador =new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
+                identificador.setValor(id.value+"");
 
                 Node n_nuP=(Node) nuP;
                 Node n_tip=(Node) tip;
@@ -1057,7 +1056,7 @@ class CUP$parser$actions {
                 node.addHijos(n_nuP);
 
                 ArrayList<Variable> var = (ArrayList<Variable>) n_nuP.getValue();
-                Variable tempo=new Variable(n_tip.getValor(),id);
+                Variable tempo=new Variable(n_tip.getValor(),id.value+"");
                 tempo.setArray(false);
                 var.add(tempo);
                 node.setValue(var);
@@ -1076,7 +1075,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int tipleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int tipright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Node tip = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
@@ -1092,13 +1091,13 @@ class CUP$parser$actions {
                 Node identificador =new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
+                identificador.setValor(id.value + "");
                 Node n_tip=(Node) tip;
                 node.addHijos(identificador);
                 node.addHijos(n_tip);
 
                 ArrayList<Variable> var = new ArrayList();
-                Variable tempo=new Variable(n_tip.getValor(),id);
+                Variable tempo=new Variable(n_tip.getValor(),id.value+"");
                 tempo.setArray(false);
                 var.add(tempo);
                 node.setValue(var);
@@ -1119,7 +1118,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-5)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-5)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-5)).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-5)).value;
 		int tipleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int tipright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Node tip = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -1138,7 +1137,7 @@ class CUP$parser$actions {
                 Node identificador =new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
+                identificador.setValor(id.value+"");
 
                 Node n_nuP=(Node) nuP;
                 Node n_tip=(Node) tip;
@@ -1147,7 +1146,7 @@ class CUP$parser$actions {
                 node.addHijos(n_nuP);
 
                 ArrayList<Variable> var = (ArrayList<Variable>) n_nuP.getValue();
-                Variable tempo=new Variable(n_tip.getValor(),id);
+                Variable tempo=new Variable(n_tip.getValor(),id.value+"");
                 tempo.setArray(true);
                 var.add(tempo);
                 node.setValue(var);
@@ -1168,7 +1167,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-4)).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-4)).value;
 		int tipleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int tipright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Node tip = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
@@ -1184,13 +1183,13 @@ class CUP$parser$actions {
                 Node identificador =new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
+                identificador.setValor(id.value+"");
                 Node n_tip=(Node) tip;
                 node.addHijos(identificador);
                 node.addHijos(n_tip);
 
                 ArrayList<Variable> var = new ArrayList();
-                Variable tempo=new Variable(n_tip.getValor(),id);
+                Variable tempo=new Variable(n_tip.getValor(),id.value +"");
                 tempo.setArray(true);
                 var.add(tempo);
                 node.setValue(var);
@@ -1211,7 +1210,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-7)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-7)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-7)).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-7)).value;
 		int tipleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int tipright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Node tip = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -1230,7 +1229,7 @@ class CUP$parser$actions {
                 Node identificador =new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
+                identificador.setValor(id.value+"");
 
                 Node n_nuP=(Node) nuP;
                 Node n_tip=(Node) tip;
@@ -1239,7 +1238,7 @@ class CUP$parser$actions {
                 node.addHijos(n_nuP);
 
                 ArrayList<Variable> var = (ArrayList<Variable>) n_nuP.getValue();
-                Variable tempo=new Variable(n_tip.getValor(),id);
+                Variable tempo=new Variable(n_tip.getValor(),id.value +"");
                 tempo.setArray(true);
                 var.add(tempo);
                 node.setValue(var);
@@ -1260,7 +1259,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-6)).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-6)).value;
 		int tipleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int tipright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Node tip = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
@@ -1276,13 +1275,13 @@ class CUP$parser$actions {
                 Node identificador =new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
+                identificador.setValor(id.value+"");
                 Node n_tip=(Node) tip;
                 node.addHijos(identificador);
                 node.addHijos(n_tip);
 
                 ArrayList<Variable> var = new ArrayList();
-                Variable tempo=new Variable(n_tip.getValor(),id);
+                Variable tempo=new Variable(n_tip.getValor(),id.value +"");
                 tempo.setArray(true);
                 var.add(tempo);
                 node.setValue(var);
@@ -1323,7 +1322,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
 		int tipleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int tipright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Node tip = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -1342,7 +1341,7 @@ class CUP$parser$actions {
                 Node identificador =new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
+                identificador.setValor(id.value+"");
 
                 Node n_nuP=(Node) nuP;
                 Node n_tip=(Node) tip;
@@ -1351,7 +1350,7 @@ class CUP$parser$actions {
                 node.addHijos(n_nuP);
 
                 ArrayList<Variable> var = (ArrayList<Variable>) n_nuP.getValue();
-                Variable tempo=new Variable(n_tip.getValor(),id);
+                Variable tempo=new Variable(n_tip.getValor(),id.value +"");
                 tempo.setArray(false);
                 var.add(tempo);
                 node.setValue(var);
@@ -1368,7 +1367,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int tipleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int tipright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Node tip = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
@@ -1383,13 +1382,13 @@ class CUP$parser$actions {
                 Node identificador =new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
+                identificador.setValor(id.value+"");
                 Node n_tip=(Node) tip;
                 node.addHijos(identificador);
                 node.addHijos(n_tip);
 
                 ArrayList<Variable> var = new ArrayList();
-                Variable tempo=new Variable(n_tip.getValor(),id);
+                Variable tempo=new Variable(n_tip.getValor(),id.value +"");
                 tempo.setArray(false);
                 var.add(tempo);
                 node.setValue(var);
@@ -1406,7 +1405,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-5)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-5)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-5)).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-5)).value;
 		int tipleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int tipright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Node tip = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -1425,7 +1424,7 @@ class CUP$parser$actions {
                 Node identificador =new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
+                identificador.setValor(id.value+"");
                 Node n_nuP=(Node) nuP;
                 Node n_tip=(Node) tip;
                 node.addHijos(identificador);
@@ -1433,7 +1432,7 @@ class CUP$parser$actions {
                 node.addHijos(n_nuP);
 
                 ArrayList<Variable> var = (ArrayList<Variable>) n_nuP.getValue();
-                Variable tempo=new Variable(n_tip.getValor(),id);
+                Variable tempo=new Variable(n_tip.getValor(),id.value +"");
                 tempo.setArray(true);
                 var.add(tempo);
                 node.setValue(var);
@@ -1450,7 +1449,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-4)).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-4)).value;
 		int tipleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int tipright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Node tip = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
@@ -1465,14 +1464,14 @@ class CUP$parser$actions {
                 Node identificador =new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
+                identificador.setValor(id.value+"");
 
                 Node n_tip=(Node) tip;
                 node.addHijos(identificador);
                 node.addHijos(n_tip);
 
                 ArrayList<Variable> var = new ArrayList();
-                Variable tempo=new Variable(n_tip.getValor(),id);
+                Variable tempo=new Variable(n_tip.getValor(),id.value +"");
                 tempo.setArray(true);
                 var.add(tempo);
                 node.setValue(var);
@@ -1489,7 +1488,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-7)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-7)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-7)).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-7)).value;
 		int tipleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int tipright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Node tip = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -1508,7 +1507,7 @@ class CUP$parser$actions {
                 Node identificador =new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
+                identificador.setValor(id.value+"");
 
                 Node n_nuP=(Node) nuP;
                 Node n_tip=(Node) tip;
@@ -1517,7 +1516,7 @@ class CUP$parser$actions {
                 node.addHijos(n_nuP);
 
                 ArrayList<Variable> var = (ArrayList<Variable>) n_nuP.getValue();
-                Variable tempo=new Variable(n_tip.getValor(),id);
+                Variable tempo=new Variable(n_tip.getValor(),id.value +"");
                 tempo.setArray(true);
                 var.add(tempo);
                 node.setValue(var);
@@ -1534,7 +1533,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-6)).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-6)).value;
 		int tipleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int tipright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Node tip = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
@@ -1549,13 +1548,13 @@ class CUP$parser$actions {
                 Node identificador =new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
+                identificador.setValor(id.value+"");
                 Node n_tip=(Node) tip;
                 node.addHijos(identificador);
                 node.addHijos(n_tip);
 
                 ArrayList<Variable> var = new ArrayList();
-                Variable tempo=new Variable(n_tip.getValor(),id);
+                Variable tempo=new Variable(n_tip.getValor(),id.value +"");
                 tempo.setArray(true);
                 var.add(tempo);
                 node.setValue(var);
@@ -1806,7 +1805,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
 		int tipleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int tipright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Node tip = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -1823,18 +1822,18 @@ class CUP$parser$actions {
                 Node identificador =new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
+                identificador.setValor(id.value+"");
                 node.addHijos(identificador);
                 
                 Node n_tip = (Node)tip;
 
                 Node n_dv = (Node) dv;
-                //n_dv.setValor(id);
+                //n_dv.setValor(id.value+"");
 
                 node.addHijos(n_tip);
                 node.addHijos(n_dv);
 
-                Variable new_var = new Variable(n_tip.getValor(), id);
+                Variable new_var = new Variable(n_tip.getValor(), id.value+"");
                 new_var.setArray(false);
 
                 String test=n_dv.getValor()+"";
@@ -1843,11 +1842,11 @@ class CUP$parser$actions {
                     //System.out.println("no se hizo asignacion en "+id);
                 }else{
                     if(n_tip.getValor().equals(n_dv.getValor())){
-                        System.out.println("la asignacion es correcta en "+id);
+                        System.out.println("la asignacion es correcta en "+id.value);
                         new_var.setValue(n_dv.getValue());
-                        cuadruplos.add(new Cuadruplo("=",""+n_dv.getValue()," ",id));
+                        cuadruplos.add(new Cuadruplo("=",""+n_dv.getValue()," ",id.value+""));
                     }else{
-                        System.out.println("la asignacion es incorrecta en "+ id);
+                        System.out.println("la asignacion es incorrecta en "+ id.value);
                     }
                 }
                 variables.add(new_var);
@@ -1865,7 +1864,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-6)).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-6)).value;
 		int vpleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).left;
 		int vpright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).right;
 		Node vp = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-4)).value;
@@ -1885,7 +1884,7 @@ class CUP$parser$actions {
                 Node identificador =new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
+                identificador.setValor(id.value+"");
 
                 Node n_tip = (Node)tip;
                 Node n_dv = (Node) dv;
@@ -1896,7 +1895,7 @@ class CUP$parser$actions {
                 node.addHijos(identificador);
                 node.addHijos(n_vp);
 
-                Variable new_var = new Variable(n_tip.getValor(), id);
+                Variable new_var = new Variable(n_tip.getValor(), id.value+"");
                 new_var.setArray(true);
                 String test=n_dv.getValor()+"";
                 
@@ -1909,14 +1908,14 @@ class CUP$parser$actions {
 
                         int size=(int)n_vp.getValue();
                         if(size==temp.size()){
-                            System.out.println("la asignacion es correcta en "+ id);
+                            System.out.println("la asignacion es correcta en "+ id.value);
                             new_var.setValue(temp);
                         }else{
                             System.out.println("la asignacion no corresponde con el tamaño");
                             new_var.setValue("Error");
                         }
                     }else{
-                        System.out.println("la asignacion es incorrecta en "+ id);
+                        System.out.println("la asignacion es incorrecta en "+ id.value);
                     }
                 }
 
@@ -1933,7 +1932,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-9)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-9)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-9)).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-9)).value;
 		int vp1left = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-7)).left;
 		int vp1right = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-7)).right;
 		Node vp1 = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-7)).value;
@@ -1956,7 +1955,7 @@ class CUP$parser$actions {
                 Node identificador =new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
+                identificador.setValor(id.value+"");
 
                 Node n_tip = (Node)tip;
 
@@ -1970,7 +1969,7 @@ class CUP$parser$actions {
                 node.addHijos(ind1);
                 node.addHijos(ind2);
 
-                Variable new_var = new Variable(n_tip.getValor(), id);
+                Variable new_var = new Variable(n_tip.getValor(), id.value+"");
                 /*if(!n_di.getEtiqueta.equals("vacio")){
                     new_var.setValue(n_di.getValue());
                 }*/
@@ -1991,20 +1990,20 @@ class CUP$parser$actions {
                             
                             for (int i = 1; i < temp.size() ; i++){
                                 if(temp_Compare.size() != ((ArrayList)temp.get(i)).size()){
-                                    System.out.println("Tamaños incorrectos "+ id);
+                                    System.out.println("Tamaños incorrectos "+ id.value);
                                     compare= false;
                                 }
                             }
                             if(compare){
-                                System.out.println("la asignacion es correcta en "+ id);
+                                System.out.println("la asignacion es correcta en "+ id.value);
                                 new_var.setValue(n_dv.getValue());
                             }
                         }else{
-                            System.out.println("Tamaños incorrectos "+ id);
+                            System.out.println("Tamaños incorrectos "+ id.value);
                         }
                     }else{
-                        System.out.println("la asignacion es incorrecta en "+ id);
-                        System.out.println( n_tip.getValor()+ " =/= "+ id);   
+                        System.out.println("la asignacion es incorrecta en "+ id.value);
+                        System.out.println( n_tip.getValor()+ " =/= "+ id.value);   
                     }
 
                 }
@@ -2049,7 +2048,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-4)).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-4)).value;
 		int tipleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int tipright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Node tip = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
@@ -2069,7 +2068,7 @@ class CUP$parser$actions {
                 Node identificador =new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
+                identificador.setValor(id.value+"");
                 node.addHijos(identificador);
 
                 Node n_tip =(Node) tip;
@@ -2080,7 +2079,7 @@ class CUP$parser$actions {
                 node.addHijos(n_di);
                 node.addHijos(n_dv);
                 
-                Variable new_var = new Variable(n_tip.getValor(), id);
+                Variable new_var = new Variable(n_tip.getValor(), id.value+"");
                 /*if(!n_di.getEtiqueta().equals("vacio")){
                     new_var.setValue(n_di.getValue());
                 }*/
@@ -2089,14 +2088,14 @@ class CUP$parser$actions {
                 String test=n_di.getValor()+"";
                 
                 if(test.equals("")){
-                    System.out.println("no hubo asignacion en "+ id);
+                    System.out.println("no hubo asignacion en "+ id.value);
                 }else{
                     if(n_tip.getValor().equals(n_di.getValor())){
-                        System.out.println("la asignacion es correcta en "+ id);
+                        System.out.println("la asignacion es correcta en "+ id.value);
                         new_var.setValue(n_di.getValue());
                     }else{
-                        System.out.println(" # la asignacion es incorrecta en "+ id);
-                        System.out.println( n_tip.getValor()+ " =/= "+ id);
+                        System.out.println(" # la asignacion es incorrecta en "+ id.value);
+                        System.out.println( n_tip.getValor()+ " =/= "+ id.value);
 
                     }
                 }
@@ -2114,7 +2113,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-7)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-7)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-7)).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-7)).value;
 		int vpleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-5)).left;
 		int vpright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-5)).right;
 		Node vp = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-5)).value;
@@ -2137,7 +2136,7 @@ class CUP$parser$actions {
                 Node identificador =new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
+                identificador.setValor(id.value+"");
 
                 Node n_tip =(Node) tip;
                 Node n_di=(Node) di;
@@ -2149,7 +2148,7 @@ class CUP$parser$actions {
                 node.addHijos(n_tip);
                 node.addHijos(n_di);
 
-                Variable new_var = new Variable(n_tip.getValor(), id);
+                Variable new_var = new Variable(n_tip.getValor(), id.value+"");
                 /*if(!n_di.getEtiqueta().equals("vacio")){
                     new_var.setValue(n_di.getValue());
                 }*/
@@ -2158,14 +2157,14 @@ class CUP$parser$actions {
                 String test=n_di.getValor()+"";
                 
                 if(test.equals("")){
-                    System.out.println("no hubo asignacion en "+ id);
+                    System.out.println("no hubo asignacion en "+ id.value);
                 }else{
                     if(n_tip.getValor().equals(n_di.getValor())){
                         
                         ArrayList temp=(ArrayList)n_di.getValue();
                         int size=(int)n_vp.getValue();
                         if(size==temp.size()){
-                            System.out.println("la asignacion es correcta en "+ id);
+                            System.out.println("la asignacion es correcta en "+ id.value);
                             new_var.setValue(n_di.getValue());
                         }else{
                             System.out.println("la asignacion no corresponde con el tamaño");
@@ -2173,8 +2172,8 @@ class CUP$parser$actions {
                         }
                         
                     }else{
-                        System.out.println(" # la asignacion es incorrecta en "+ id);
-                        System.out.println( n_tip.getValor()+ " =/= "+ id);
+                        System.out.println(" # la asignacion es incorrecta en "+ id.value);
+                        System.out.println( n_tip.getValor()+ " =/= "+ id.value);
 
                     }
                 }
@@ -2192,7 +2191,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-10)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-10)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-10)).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-10)).value;
 		int vp1left = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-8)).left;
 		int vp1right = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-8)).right;
 		Node vp1 = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-8)).value;
@@ -2218,7 +2217,7 @@ class CUP$parser$actions {
                 Node identificador =new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
+                identificador.setValor(id.value+"");
 
                 Node n_tip =(Node) tip;
                 Node n_di=(Node) di;
@@ -2233,7 +2232,7 @@ class CUP$parser$actions {
                 node.addHijos(ind1);
                 node.addHijos(ind2);
 
-                Variable new_var = new Variable(n_tip.getValor(), id);
+                Variable new_var = new Variable(n_tip.getValor(), id.value+"");
                 /*if(!n_di.getEtiqueta().equals("vacio")){
                     new_var.setValue(n_di.getValue());
                 }*/
@@ -2242,7 +2241,7 @@ class CUP$parser$actions {
                 String test=n_di.getValor()+"";
                 
                 if(test.equals("")){
-                    System.out.println("no hubo asignacion en "+ id);
+                    System.out.println("no hubo asignacion en "+ id.value);
                     
                 }else{
                     if(n_tip.getValor().equals(n_di.getValor())){
@@ -2256,21 +2255,21 @@ class CUP$parser$actions {
                             for (int i = 1; i < temp.size() ; i++){
                                 
                                 if(temp_Compare.size() != ((ArrayList)temp.get(i)).size()){
-                                    System.out.println("Tamaños incorrectos "+ id);
+                                    System.out.println("Tamaños incorrectos "+ id.value);
                                     compare= false;
                                 }
                             }
 
                             if(compare){
-                                System.out.println("la asignacion es correcta en "+ id);
+                                System.out.println("la asignacion es correcta en "+ id.value);
                                 new_var.setValue(n_di.getValue());
                             }
                         }else{
-                            System.out.println("Tamaños incorrectos "+ id);
+                            System.out.println("Tamaños incorrectos "+ id.value);
                         }
                     }else{
                         System.out.println(" # la asignacion es incorrecta en "+ id);
-                        System.out.println( n_tip.getValor()+ " =/= "+ id);
+                        System.out.println( n_tip.getValor()+ " =/= "+ id.value);
                     }
                 }
                 variables.add(new_var);
@@ -2287,7 +2286,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int nmleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int nmright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		String nm = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		Symbol nm = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
                 parser.cont++;
                 Node node = new Node();
@@ -2298,7 +2297,7 @@ class CUP$parser$actions {
                 Node num =new Node();
                 num.setEtiqueta("float");
                 num.setID(parser.cont);
-                num.setValor(nm);
+                num.setValor(nm.value+"");
                 node.addHijos(num);
                 RESULT = node;
              
@@ -2312,8 +2311,9 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int csleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int csright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		String cs = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		Symbol cs = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
+                String temp = cs.value +"";
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("dec_inst");
@@ -2323,9 +2323,9 @@ class CUP$parser$actions {
                 Node const_string =new Node();
                 const_string.setEtiqueta("string");
                 const_string.setID(parser.cont);
-                const_string.setValor(cs.replaceAll("\"",""));
+                const_string.setValor(temp.replaceAll("\"",""));
                 node.addHijos(const_string);
-                node.setValue(cs);
+                node.setValue(cs.value+"");
                 RESULT = node;
              
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_inst",9, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -2338,8 +2338,9 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int ccleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int ccright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		String cc = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		Symbol cc = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
+                String temp = cc.value +"";
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("dec_inst");
@@ -2349,9 +2350,9 @@ class CUP$parser$actions {
                 Node const_char =new Node();
                 const_char.setEtiqueta("const char");
                 const_char.setID(parser.cont);
-                const_char.setValor(cc.replaceAll("\'",""));
+                const_char.setValor(temp.replaceAll("\'",""));
                 node.addHijos(const_char);
-                node.setValue(cc);
+                node.setValue(cc.value+"");
                 RESULT = node;
              
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_inst",9, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -2364,7 +2365,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int truleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int truright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		String tru = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		Symbol tru = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
                 parser.cont++;
                 Node node = new Node();
@@ -2375,7 +2376,7 @@ class CUP$parser$actions {
                 Node bool_true =new Node();
                 bool_true.setEtiqueta("true");
                 bool_true.setID(parser.cont);
-                bool_true.setValor(tru);
+                bool_true.setValor(tru.value+"");
                 node.addHijos(bool_true);
                 node.setValue(true);
                 RESULT = node;
@@ -2390,7 +2391,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int falsleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int falsright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		String fals = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		Symbol fals = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
                 parser.cont++;
                 Node node = new Node();
@@ -2401,7 +2402,7 @@ class CUP$parser$actions {
                 Node bool_false =new Node();
                 bool_false.setEtiqueta("false");
                 bool_false.setID(parser.cont);
-                bool_false.setValor(fals);
+                bool_false.setValor(fals.value+"");
                 node.addHijos(bool_false);
                 node.setValue(false);
                 RESULT = node;
@@ -2739,7 +2740,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
 		int valeft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int varight = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Node va = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -2753,7 +2754,7 @@ class CUP$parser$actions {
                 Node identificador =new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
+                identificador.setValor(id.value+"");
 
                 Node n_va=(Node) va;
                 node.addHijos(identificador);
@@ -2763,16 +2764,16 @@ class CUP$parser$actions {
                 System.out.println("La variable tiene asignado un: "+n_va.getValor());
                 
                 if(compare.getTipo().equals(n_va.getValor())){
-                    System.out.println(" :) la asignacion es correcta en "+ id);
+                    System.out.println(" :) la asignacion es correcta en "+ id.value);
                     System.out.println( compare.getTipo() + " == "+ n_va.getValor());
                     for(Variable iter: variables ){
                         if(iter.getId().equals(identificador.getValor())){
                             iter.setValue(n_va.getValue());
-                            cuadruplos.add(new Cuadruplo("=",""+n_va.getValue()," ",id));
+                            cuadruplos.add(new Cuadruplo("=",""+n_va.getValue()," ",id.value+""));
                         }
                     }
                 }else{
-                    System.out.println(" :( la asignacion es incorrecta en "+ id);
+                    System.out.println(" :( la asignacion es incorrecta en "+ id.value);
                     System.out.println(  compare.getTipo() + " =/= "+ n_va.getValor());
                 }
 
@@ -2788,7 +2789,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-8)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-8)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-8)).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-8)).value;
 		int vpleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).left;
 		int vpright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).right;
 		Node vp = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-4)).value;
@@ -2805,7 +2806,7 @@ class CUP$parser$actions {
                 Node identificador =new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
+                identificador.setValor(id.value+"");
                 node.addHijos((Node) vp);
 
                 Node n_va=(Node) va;
@@ -2817,10 +2818,10 @@ class CUP$parser$actions {
                 System.out.println("La variable tiene asignado un: "+n_va.getValor());
                 
                 if(compare.getTipo().equals(n_va.getValor())){
-                    System.out.println(" :) la asignacion es correcta en "+ id);
+                    System.out.println(" :) la asignacion es correcta en "+ id.value);
                     System.out.println( compare.getTipo() + " == "+ n_va.getValor());
                 }else{
-                    System.out.println(" :( la asignacion es incorrecta en "+ id);
+                    System.out.println(" :( la asignacion es incorrecta en "+ id.value);
                     System.out.println(  compare.getTipo() + " =/= "+ n_va.getValor());
                 }
 
@@ -2837,10 +2838,10 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
 		int opasleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int opasright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		String opas = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		Symbol opas = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int valeft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int varight = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Node va = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -2854,30 +2855,30 @@ class CUP$parser$actions {
                 Node identificador =new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
+                identificador.setValor(id.value+"");
                 Node n_va=(Node) va;
                 node.addHijos(identificador);
                 node.addHijos(n_va);
 
                 Variable compare = buscaTipo(identificador.getValor(),false);
-                String operadorAritmetico = ((String)opas).charAt(0) + " ";
+                String operadorAritmetico = ((String)opas.value).charAt(0) + " ";
                 if(compare.getTipo().equals(n_va.getValor())){
-                    System.out.println("incrementando o decrementando"+ id);
+                    System.out.println("incrementando o decrementando"+ id.value);
                     //System.out.println( compare.getTipo() + " == "+ n_va.getValor());
                     for(Variable iter: variables ){
                         if(iter.getId().equals(identificador.getValor())){
                             iter.setValue(n_va.getValue());
                             
                             String temp="T"+resultId;
-                            cuadruplos.add(new Cuadruplo(operadorAritmetico,id,""+n_va.getValue(),temp));
-                            cuadruplos.add(new Cuadruplo("=",temp," ",id));
+                            cuadruplos.add(new Cuadruplo(operadorAritmetico,id.value+"",""+n_va.getValue(),temp));
+                            cuadruplos.add(new Cuadruplo("=",temp," ",id.value+""));
                         }
                     }
                 }else{
-                    if(opas.equals("+=")){
-                        System.out.println("incremento incorrecto"+ id);
+                    if(((String)opas.value).equals("+=")){
+                        System.out.println("incremento incorrecto"+ id.value);
                     }else{
-                        System.out.println("decremento incorrecto"+ id);
+                        System.out.println("decremento incorrecto"+ id.value);
                     }
                     System.out.println(  compare.getTipo() + " =/= "+ n_va.getValor());
                 }
@@ -2893,10 +2894,10 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
 		int opasleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int opasright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		String opas = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		Symbol opas = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int valeft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int varight = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Node va = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -2910,7 +2911,7 @@ class CUP$parser$actions {
                 Node identificador =new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
+                identificador.setValor(id.value+"");
                 parser.cont++;
                 //Node num =new Node();
                 //num.setEtiqueta("num");
@@ -2921,17 +2922,17 @@ class CUP$parser$actions {
                 node.addHijos(n_va);
 
                 Variable compare = buscaTipo(identificador.getValor(),false);
-                String operadorAritmetico = ((String)opas).charAt(0) + " ";
+                String operadorAritmetico = ((String)opas.value).charAt(0) + " ";
                 if(compare.getTipo().equals(n_va.getValor())){
-                    System.out.println("multiplicando o dividiendo"+ id);
+                    System.out.println("multiplicando o dividiendo"+ id.value);
                     //System.out.println( compare.getTipo() + " == "+ n_va.getValor());
                     for(Variable iter: variables ){
                         if(iter.getId().equals(identificador.getValor())){
                             iter.setValue(n_va.getValue());
                             
                             String temp="T"+resultId;
-                            cuadruplos.add(new Cuadruplo(operadorAritmetico,id,""+n_va.getValue(),temp));
-                            cuadruplos.add(new Cuadruplo("=",temp," ",id));
+                            cuadruplos.add(new Cuadruplo(operadorAritmetico,id.value+"",""+n_va.getValue(),temp));
+                            cuadruplos.add(new Cuadruplo("=",temp," ",id.value+""));
                         }
                     }
                 }else{
@@ -2954,10 +2955,10 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int opasleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int opasright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		String opas = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		Symbol opas = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		
                 parser.cont++;
                 Node node = new Node();
@@ -2968,23 +2969,23 @@ class CUP$parser$actions {
                 Node identificador =new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
+                identificador.setValor(id.value+"");
                 node.addHijos(identificador);
                 Variable compare = buscaTipo(identificador.getValor(),false);
-                String operadorAritmetico = ((String)opas).charAt(0) + " ";
+                String operadorAritmetico = ((String)opas.value).charAt(0) + " ";
                 if(compare.getTipo().equals("int")){
-                    System.out.println("incrementando o decrementando"+ id);
+                    System.out.println("incrementando o decrementando"+ id.value);
                     //System.out.println( compare.getTipo() + " == "+ n_va.getValor());
                     for(Variable iter: variables ){
                         if(iter.getId().equals(identificador.getValor())){
                             String temp="T"+resultId;
-                            cuadruplos.add(new Cuadruplo(operadorAritmetico,id,"1",temp));
-                            cuadruplos.add(new Cuadruplo("=",temp," ",id));
+                            cuadruplos.add(new Cuadruplo(operadorAritmetico,id.value+"","1",temp));
+                            cuadruplos.add(new Cuadruplo("=",temp," ",id.value+""));
                             iter.setValue(temp);
                         }
                     }
                 }else{
-                    if(opas.equals("+=")){
+                    if(((String)opas.value).equals("+=")){
                         System.out.println("incremento incorrecto"+ id);
                     }else{
                         System.out.println("decremento incorrecto"+ id);
@@ -3002,7 +3003,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-10)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-10)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-10)).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-10)).value;
 		int vp1left = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)).left;
 		int vp1right = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)).right;
 		Node vp1 = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-6)).value;
@@ -3022,7 +3023,7 @@ class CUP$parser$actions {
                 Node identificador =new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
+                identificador.setValor(id.value+"");
                 node.addHijos((Node) vp1);
                 node.addHijos((Node) vp2);
 
@@ -3035,10 +3036,10 @@ class CUP$parser$actions {
                 System.out.println("La variable tiene asignado un: "+n_va.getValor());
                 
                 if(compare.getTipo().equals(n_va.getValor())){
-                    System.out.println(" :) la asignacion es correcta en "+ id);
+                    System.out.println(" :) la asignacion es correcta en "+ id.value);
                     System.out.println( compare.getTipo() + " == "+ n_va.getValor());
                 }else{
-                    System.out.println(" :( la asignacion es incorrecta en "+ id);
+                    System.out.println(" :( la asignacion es incorrecta en "+ id.value);
                     System.out.println(  compare.getTipo() + " =/= "+ n_va.getValor());
                 }
 
@@ -3054,7 +3055,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int csleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int csright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		String cs = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		Symbol cs = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
                 parser.cont++;
                 Node node = new Node();
@@ -3071,10 +3072,10 @@ class CUP$parser$actions {
                 const_string.setEtiqueta("const string");
                 const_string.setID(parser.cont);
                 
-                if(cs.equals("")){
+                if(((String)cs.value).equals("")){
                     const_string.setValor("empty");
                 }else{
-                    const_string.setValor(cs);
+                    const_string.setValor(cs.value+"");
                 }    
                 //node.setValor(const_string.getValor().replaceAll("\"",""));
 
@@ -3090,20 +3091,20 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int ccleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int ccright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		String cc = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		Symbol cc = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("valor");
                 node.setID(parser.cont);
                 node.setValor("chr");
-                node.setValue(cc);
+                node.setValue(cc.value+"");
 
                 parser.cont++;
                 Node const_char = new Node();
                 const_char.setEtiqueta("const char");
                 const_char.setID(parser.cont);
-                const_char.setValor(cc);
+                const_char.setValor(cc.value+"");
 
                 //node.setValor(const_char.getValor());
                 RESULT = node;
@@ -3118,7 +3119,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int truleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int truright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		String tru = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		Symbol tru = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
                 parser.cont++;
                 Node node = new Node();
@@ -3131,7 +3132,7 @@ class CUP$parser$actions {
                 Node bool_true = new Node();
                 bool_true.setEtiqueta("true");
                 bool_true.setID(parser.cont);
-                bool_true.setValor(tru);
+                bool_true.setValor(tru.value +" ");
 
                 //node.setValor(bool_true.getValor());
                 RESULT = node;
@@ -3146,7 +3147,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int falsleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int falsright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		String fals = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		Symbol fals = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
                 parser.cont++;
                 Node node = new Node();
@@ -3158,7 +3159,7 @@ class CUP$parser$actions {
                 Node bool_false = new Node();
                 bool_false.setEtiqueta("false");
                 bool_false.setID(parser.cont);
-                bool_false.setValor(fals);
+                bool_false.setValor(fals.value +"");
 
                 //node.setValor(bool_false.getValor());
                 RESULT = node;
@@ -3173,7 +3174,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int fltleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int fltright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		String flt = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		Symbol flt = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
                 parser.cont++;
                 Node node = new Node();
@@ -3184,7 +3185,7 @@ class CUP$parser$actions {
                 Node num_flt = new Node();
                 num_flt.setEtiqueta("FLOAT");
                 num_flt.setID(parser.cont);
-                num_flt.setValor(flt);
+                num_flt.setValor(flt.value+"");
 
                 node.setValor(num_flt.getValor());
                 RESULT = node;
@@ -3274,7 +3275,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int operadorleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int operadorright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		String operador = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		Symbol operador = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int multleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int multright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Node mult = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -3304,7 +3305,7 @@ class CUP$parser$actions {
                         cuadruplos.add(new Cuadruplo(n_mult.getOperador(),n_sum.getValue()+"",n_mult.getValue()+ "",result));
 
                     }
-                    node.setOperador(operador);
+                    node.setOperador(operador.value+"");
                     node.setIsInt("int");
                 }else {
                     System.err.println("OPERACIONES INCOMPATIBLES");
@@ -3395,7 +3396,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int operadorleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int operadorright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		String operador = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		Symbol operador = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int vlleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int vlright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Node vl = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -3426,7 +3427,7 @@ class CUP$parser$actions {
                         cuadruplos.add(new Cuadruplo(n_mult.getOperador(),n_vl.getValue()+"",n_mult.getValue()+ "",result));
 
                     }
-                    node.setOperador(operador);
+                    node.setOperador(operador.value+"");
                     node.setIsInt("int");
                 }else {
                     System.err.println("OPERACIONES INCOMPATIBLES");
@@ -3463,7 +3464,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
                 /*
                 *** !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -3478,7 +3479,7 @@ class CUP$parser$actions {
                 node.setID(parser.cont);
                 node.setValueIsID(true);
                 
-                Variable temp = buscaTipo(id,false);
+                Variable temp = buscaTipo(id.value+"",false);
 
                 if(temp.getTipo().equals("int")){
                         //System.out.println(temp.getValue().getClass());
@@ -3513,7 +3514,7 @@ class CUP$parser$actions {
                 Node identificador = new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
+                identificador.setValor(id.value+"");
 
                 node.setValor(identificador.getValor());
                 RESULT = node;
@@ -3528,7 +3529,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-5)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-5)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-5)).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-5)).value;
 		int vpleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int vpright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Node vp = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -3538,7 +3539,7 @@ class CUP$parser$actions {
                 node.setEtiqueta("val");
                 node.setID(parser.cont);
                 
-                Variable temp = buscaTipo(id,true);
+                Variable temp = buscaTipo(id.value+"",true);
                 Node n_vp = (Node)vp;
 
                 if(temp.getTipo().equals("int")){
@@ -3570,7 +3571,7 @@ class CUP$parser$actions {
                 Node identificador = new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
+                identificador.setValor(id.value+"");
                 node.addHijos(identificador);
                 node.addHijos((Node) vp);
                 node.setValor("");
@@ -3587,7 +3588,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-7)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-7)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-7)).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-7)).value;
 		int vp1left = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int vp1right = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
 		Node vp1 = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
@@ -3604,7 +3605,7 @@ class CUP$parser$actions {
                 Node identificador = new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
+                identificador.setValor(id.value+"");
                 node.addHijos(identificador);
                 node.addHijos((Node) vp1);
                 node.addHijos((Node) vp2);
@@ -3622,18 +3623,18 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int nmleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int nmright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		String nm = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		Symbol nm = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("val");
                 node.setID(parser.cont);
-                node.setValue(Integer.parseInt(nm));
+                node.setValue(Integer.parseInt(nm.value+""));
                 parser.cont++;
                 Node num = new Node();
                 num.setEtiqueta("num");
                 num.setID(parser.cont);
-                num.setValor(nm);
+                num.setValor(nm.value+"");
 
                 node.setValor(num.getValor());
                 node.setIsInt("int");
@@ -3713,7 +3714,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-13)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-13)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-13)).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-13)).value;
 		int nm1left = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-11)).left;
 		int nm1right = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-11)).right;
 		Node nm1 = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-11)).value;
@@ -3737,7 +3738,7 @@ class CUP$parser$actions {
                 Node identificador = new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
+                identificador.setValor(id.value+"");
                 /*parser.cont++;
                 Node num1 =new Node();
                 num1.setEtiqueta("num");
@@ -3770,7 +3771,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-13)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-13)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-13)).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-13)).value;
 		int nm1left = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-11)).left;
 		int nm1right = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-11)).right;
 		Node nm1 = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-11)).value;
@@ -3794,7 +3795,7 @@ class CUP$parser$actions {
                 Node identificador = new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
+                identificador.setValor(id.value+"");
                 /*parser.cont++;
                 Node num1 =new Node();
                 num1.setEtiqueta("num");
@@ -3827,7 +3828,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-15)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-15)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-15)).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-15)).value;
 		int nm1left = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-11)).left;
 		int nm1right = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-11)).right;
 		Node nm1 = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-11)).value;
@@ -3851,7 +3852,7 @@ class CUP$parser$actions {
                 Node identificador = new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
+                identificador.setValor(id.value+"");
                 /*parser.cont++;
                 Node num1 =new Node();
                 num1.setEtiqueta("num");
@@ -3884,7 +3885,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-15)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-15)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-15)).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-15)).value;
 		int nm1left = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-11)).left;
 		int nm1right = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-11)).right;
 		Node nm1 = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-11)).value;
@@ -3908,7 +3909,7 @@ class CUP$parser$actions {
                 Node identificador = new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
+                identificador.setValor(id.value+"");
                /* parser.cont++;
                 Node num1 =new Node();
                 num1.setEtiqueta("num");
@@ -3941,7 +3942,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-4)).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-4)).value;
 		int loleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int loright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Node lo = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -3956,7 +3957,7 @@ class CUP$parser$actions {
                 Node identificador = new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
+                identificador.setValor(id.value+"");
                 node.addHijos(identificador);
                 node.addHijos((Node) lo);
                 RESULT = node;
@@ -4146,7 +4147,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
 		int llpleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int llpright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Node llp = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -4155,12 +4156,12 @@ class CUP$parser$actions {
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("dec_llamada_funcion");
-                node.setValor(id);
+                node.setValor(id.value+"");
                 node.setID(parser.cont);
                 Node n_llp=(Node) llp;
                 node.addHijos(n_llp);
                 ArrayList<String> tipos =(ArrayList<String>)n_llp.getValue();
-                Function tempo=buscaTipo2(id,false);
+                Function tempo=buscaTipo2(id.value+"",false);
                 ArrayList<Variable> var =(ArrayList<Variable>) tempo.getParametros();
                 boolean bandera=true;
 
@@ -4193,10 +4194,10 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int inleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-5)).left;
 		int inright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-5)).right;
-		String in = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-5)).value;
+		Symbol in = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-5)).value;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
+		Symbol id = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
 		int tipleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int tipright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Node tip = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -4210,7 +4211,7 @@ class CUP$parser$actions {
                 Node identificador =new Node();
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
+                identificador.setValor(id.value+"");
                 node.addHijos(identificador);
                 node.addHijos((Node) tip);
                 RESULT = node;
@@ -4225,7 +4226,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int outleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int outright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
-		String out = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
+		Symbol out = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
 		int llpleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int llpright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Node llp = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -4234,7 +4235,7 @@ class CUP$parser$actions {
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("func_output");
-                node.setValor(out);
+                node.setValor(out.value +" ");
                 node.setID(parser.cont);
                 node.addHijos((Node) llp);
                 RESULT = node;
@@ -4471,7 +4472,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int opreleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int opreright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		String opre = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		Symbol opre = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int vcleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int vcright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Node vc = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -4483,7 +4484,7 @@ class CUP$parser$actions {
                     Node node = new Node();
                     node.setEtiqueta("mas_condicion");
                     node.setID(parser.cont);
-                    node.setValor(opre);
+                    node.setValor(opre.value+"");
                     node.addHijos((Node) vc);
                     node.addHijos((Node) masc);
                     RESULT = node;
@@ -4513,7 +4514,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int oplgleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int oplgright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
-		String oplg = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
+		Symbol oplg = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
 		int vcleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int vcright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Node vc = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
@@ -4528,7 +4529,7 @@ class CUP$parser$actions {
                     Node node = new Node();
                     node.setEtiqueta("otra_condicion");
                     node.setID(parser.cont);
-                    node.setValor(oplg);
+                    node.setValor(oplg.value+"");
                     node.addHijos((Node) vc);
                     node.addHijos((Node) masc);
                     node.addHijos((Node) otrac);
@@ -4559,7 +4560,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int truleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int truright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		String tru = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		Symbol tru = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
                 MensajesEntrada.add("Entra a valor_cond 3");
                 parser.cont++;
@@ -4571,7 +4572,7 @@ class CUP$parser$actions {
                 Node bool_true = new Node();
                 bool_true.setEtiqueta("true");
                 bool_true.setID(parser.cont);
-                bool_true.setValor(tru);
+                bool_true.setValor(tru.value+"");
 
                 node.setValor(bool_true.getValor());
                 RESULT = node;
@@ -4586,7 +4587,7 @@ class CUP$parser$actions {
               Node RESULT =null;
 		int falsleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int falsright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		String fals = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		Symbol fals = (Symbol)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
                 MensajesEntrada.add("Entra a valor_cond 4");
                 parser.cont++;
@@ -4598,7 +4599,7 @@ class CUP$parser$actions {
                 Node bool_false = new Node();
                 bool_false.setEtiqueta("false");
                 bool_false.setID(parser.cont);
-                bool_false.setValor(fals);
+                bool_false.setValor(fals.value+"");
 
                 node.setValor(bool_false.getValor());
                 RESULT = node;
