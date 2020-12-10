@@ -737,6 +737,11 @@ public class parser extends java_cup.runtime.lr_parser {
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception {
         System.out.println("No se pudo reparar y continuar el análisis.");
     }
+
+    public void genError(Node Actual, String tipo){
+        //asignacion de una funcion a una cariable de tipo diferente
+        //
+    }
     
     public Function buscaTipo2(String id , boolean returnsArray){
       String tipo = "";
@@ -965,6 +970,7 @@ class CUP$parser$actions {
 		
                
                 System.err.println("Entra a dec_funcion");
+                System.err.println( "posicion id: (" +idleft +","+idright+")" );
             
                 parser.contMain++;
                 if(parser.contMain>1){
@@ -1965,7 +1971,7 @@ class CUP$parser$actions {
                 }*/
                 new_var.setArray(true);
                 String test=n_dv.getValor()+"";
-                
+                System.out.println("Maldita sea"+n_dv.getValue());
 
                 if(test.equals("")){
                     System.out.println("no se hizo asignacion en "+id);
@@ -2018,7 +2024,7 @@ class CUP$parser$actions {
                 node.setID(parser.cont);
                 Node node_di = (Node) di;
                 node.addHijos(node_di);
-                System.out.println("aqui "+ node_di.getValor() +" aqui");
+                System.out.println("aqui "+ node_di.getValue() +" aqui");
                 node.setValor(node_di.getValor());
                 node.setValue(node_di.getValue());
                 /*if(node_di.getValor().equals("")){
@@ -2439,6 +2445,7 @@ class CUP$parser$actions {
 
                 node.setValor(n_arr.getValor());
                 node.setValue(arr.getValue());
+               // System.out.println("Sera?"+arr.getValue().toString());
                 RESULT = node;
              
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_inst",9, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -2511,14 +2518,22 @@ class CUP$parser$actions {
                     node.setValue(temp1);
 
                 }else if(n_arc.getValor().equals(n_arr.getValor())){
-                    node.setValor(n_arr.getValor());
+                    node.setValor(n_arr.getValor());                
                     ArrayList temp1=new ArrayList();
                     ArrayList temp2=(ArrayList)n_arc.getValue();
-                    
-                    for(int i=0;i<temp2.size();i++){
-                        temp1.add(temp2.get(i));
+                    ArrayList temp3=new ArrayList();
+
+                    for(int i=0;i<temp2.size();i++){ 
+                        temp3= new ArrayList();
+                        ArrayList temp_iter = (ArrayList)temp2.get(i);
+                        for(int j=0;j<temp_iter.size();j++){
+                            temp3.add(temp_iter.get(j));
+                        }
+                        temp1.add(temp3);
                     }
-                    temp1.add(n_arc.getValue());
+                    //System.out.println("Aqui perrin:"+temp1.toString());
+                    temp1.add(n_arr.getValue());
+                    //System.out.println("Aqui perrin:"+temp1.toString());
                     Collections.reverse(temp1);
                     node.setValue(temp1);
                 }else{
@@ -2577,11 +2592,21 @@ class CUP$parser$actions {
                     node.setValor(n_arr.getValor());
                     ArrayList temp1=new ArrayList();
                     ArrayList temp2=(ArrayList)n_arc.getValue();
-                    
-                    for(int i=0;i<temp2.size();i++){
-                        temp1.add(temp2.get(i));
+                    ArrayList temp3=new ArrayList();
+
+                    for(int i=0;i<temp2.size();i++){ 
+                        temp3= new ArrayList();
+                        ArrayList temp_iter = (ArrayList)temp2.get(i);
+                        for(int j=0;j<temp_iter.size();j++){
+                            temp3.add(temp_iter.get(j));
+                        }
+                        temp1.add(temp3);
                     }
-                    temp1.add(n_arc.getValue());
+                    //System.out.println("ejenie queseso" +temp3.toString());
+                    temp1.add(n_arr.getValue());
+                    //temp1.add(temp3);
+                    //System.out.println("Puntito cinco le voy a dar" +temp1.toString());
+
                     node.setValue(temp1);
 
                 }else{
@@ -3215,6 +3240,10 @@ class CUP$parser$actions {
                     node.setIsInt("int");
                 }else {
                     System.err.println("OPERACIONES INCOMPATIBLES");
+                    System.err.println( "posicion operador: (" +operadorleft +","+operadorright+")" );
+                    System.err.println( "mult: (" +multleft +","+multright+")" );
+                    System.err.println( "sum: (" +sumleft +","+sumright+")" );
+
                     node.setIsInt("error");
                 }
                 node.setID(parser.cont);
@@ -3382,34 +3411,77 @@ class CUP$parser$actions {
                 node.setID(parser.cont);
                 node.setValueIsID(true);
                 
+                //Para ver si es variable
                 Variable temp = buscaTipo(id,false);
+                //Para ver si es array
+                if( temp.getTipo().equals("-1")){
+                    temp = buscaTipo(id,true);
+                }
+                System.out.println(temp.toString());
+
+                
 
                 if(temp.getTipo().equals("int")){
-                        //System.out.println(temp.getValue().getClass());
                     if(temp.getValue().getClass() == Integer.class ){
+                        System.out.println("veamo si entra prrin");
                         int valor_temp = (int)temp.getValue();
                         node.setValue(valor_temp);
                         node.setIsInt("int");
+                    }else if (temp.isEsArray()){
+                        System.out.println("a que es array prrin");
+                        node.setValue(temp.getValue());
+                        node.setIsInt("int");
                     }
                 }else if(temp.getTipo().equals("string")){
-                    String valor_temp = (String)temp.getValue();
-                    node.setValue(valor_temp);
-                    node.setIsInt("string");
+                    //String valor_temp = (String)temp.getValue();
+                    //node.setValue(valor_temp);
+                    //node.setIsInt("string");
+                    if(temp.getValue().getClass() == String.class ){
+                        System.out.println("veamo si entra prrin");
+                        String valor_temp = (String)temp.getValue();
+                        node.setValue(valor_temp);
+                        node.setIsInt("string");
+                    }else if (temp.isEsArray()){
+                        System.out.println("a que es array prrin");
+                        node.setValue(temp.getValue());
+                        node.setIsInt("string");
+                    }
+
                 }
                 else if(temp.getTipo().equals("chr")){
-                    char valor_temp = ((String)temp.getValue()).charAt(0);
-                    node.setValue(valor_temp);
-                    node.setIsInt("chr");
+                    //char valor_temp = ((String)temp.getValue()).charAt(0);
+                    //node.setValue(valor_temp);
+                    //node.setIsInt("chr");
+                    if(temp.getValue().getClass() == Character.class ){
+                        System.out.println("veamo si entra prrin");
+                        char valor_temp = ((String)temp.getValue()).charAt(0);
+                        node.setValue(valor_temp);
+                        node.setIsInt("chr");
+                    }else if (temp.isEsArray()){
+                        System.out.println("a que es array prrin:"+temp.getValue().toString());
+
+                        node.setValue(temp.getValue());
+                        node.setIsInt("chr");
+                    }
                 }
                 else if(temp.getTipo().equals("bool")){
-                    boolean valor_temp;
-                    if((boolean)temp.getValue()){
-                        valor_temp = true;
-                    }else{
-                        valor_temp = false;
+                    if(temp.getValue().getClass() == Boolean.class ){
+                        System.out.println("veamo si entra prrin");
+                        boolean valor_temp;
+                        if((boolean)temp.getValue()){
+                            valor_temp = true;
+                        }else{
+                            valor_temp = false;
+                        }
+                        node.setValue(valor_temp);
+                        node.setIsInt("bool");
+                    
+
+                    }else if (temp.isEsArray()){
+                        System.out.println("a que es array prrin");
+                        node.setValue(temp.getValue());
+                        node.setIsInt("bool");
                     }
-                    node.setValue(valor_temp);
-                    node.setIsInt("bool");
                 }
                 
                 parser.cont++;
@@ -3458,7 +3530,7 @@ class CUP$parser$actions {
                 }
                 else if(temp.getTipo().equals("chr")){
                     ArrayList valor_temp = (ArrayList)temp.getValue();
-                    char pos =(char)valor_temp.get( (int)n_vp.getValue() );
+                    char pos =((String)valor_temp.get( (int)n_vp.getValue())).charAt(0);
                     node.setValue(pos);
                     node.setIsInt("chr");
                 }

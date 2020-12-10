@@ -24,6 +24,8 @@ public class Node {
     public String isInt;
     public int ambito; //ambito de ubicacion
     public String operador="";
+    public int line;
+    public int colummn;
 
     public boolean isValueIsID() {
         return ValueIsID;
@@ -140,7 +142,21 @@ public class Node {
     public void setOperador(String operador) {
         this.operador = operador;
     }
-    
+    public int getLine() {
+        return line;
+    }
+
+    public void setLine(int line) {
+        this.line = line;
+    }
+
+    public int getColummn() {
+        return colummn;
+    }
+
+    public void setColummn(int colummn) {
+        this.colummn = colummn;
+    }
     @Override
     public String toString() {
 

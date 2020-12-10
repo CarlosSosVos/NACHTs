@@ -101,6 +101,12 @@ public class Variable {
 
     @Override
     public String toString() {
+        String StringValor;
+        if(esArray){
+            
+        
+        }
+        
         return "Variable{" + "tipo=" + tipo + ", id=" + id + ", value=" + value + ", ambitos=" + ambitos + ", offset=" + offset + '}';
     }
     
