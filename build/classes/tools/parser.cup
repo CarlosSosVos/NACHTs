@@ -7,6 +7,7 @@ parser code {:
    ArrayList<Variable> variables = new ArrayList();
    ArrayList<Function> funciones = new ArrayList();
    ArrayList<Cuadruplo> cuadruplos = new ArrayList();
+   ArrayList<String> MensajesEntrada =new ArrayList();
    Node Tree  = new Node();
    int cont=0;
    int contMain=0;
@@ -14,7 +15,29 @@ parser code {:
    int contContenido= 0;
    int resultId=1;
    boolean testCont = false;
-   String tempTipo = ""; 
+   String tempTipo = "";
+   public static int errors = 0;
+
+   public static Lexer s;
+   //public parser(java.io.reader input){
+   //    super(s=new Lexer(input));
+   //}
+   /*
+   public void report_error_temporal(String message, Object info){
+       if (info instanceof String){
+           //java_cup.runtime.Symbol s = ((java_cup.runtime.Symbol)info);
+           errors++;
+           System.err.println(" " + errors "==>" +" "+message + s.current_lexxeme()+"\n");
+       } else {
+           StringBuffer m new StringBuffer("Error ");
+           if (info instanceof java_cup.runtime.Symbol){
+               m.append("(" + info.toString() + ")");
+           }
+        m.append(":" + message);
+        System.err.println(m);
+       }
+   }
+   */
 
    public String token_name_from_id(int id) {
 		// obtenidos de la clase sym.java
@@ -184,14 +207,16 @@ non terminal Node inicio,dec_gen_fun,dec_funcion,parametros,
              lista_valores,fin_llamada,condicion,valor_cond,dec_return,
              tipo,arreglo,arreglo2d,arr2_cont,/*math_op,*/mas_condicion,otra_condicion;
 
-precedence left OPSUM,OPMULT;
-precedence left OPASIGN;
+precedence right OPASIGN;
+precedence left OPMULT;
+precedence left OPSUM;
+
 
 start with inicio;
 
 inicio ::= dec_funcion:dg dec_gen_fun:dgf
     {:
-    System.err.println("Entra a inicio");
+    MensajesEntrada.add("Entra a inicio");
     parser.cont++;
     Node node = new Node();
     node.setEtiqueta("INICIO");
@@ -206,7 +231,7 @@ inicio ::= dec_funcion:dg dec_gen_fun:dgf
 
 dec_gen_fun ::= dec_funcion:df dec_gen_fun:dgf
             {:
-                System.err.println("Entra a dec_gen_fun");
+                MensajesEntrada.add("Entra a dec_gen_fun");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("dec_gen_fun");
@@ -231,7 +256,7 @@ dec_gen_fun ::= dec_funcion:df dec_gen_fun:dgf
 
 dec_funcion ::= FUNCTION ID:id L_PAR parametros:parts R_PAR COLON tipo:tip L_KEY dec_general:deG R_KEY
             {:
-               System.err.println("Entra a dec_funcion");
+               MensajesEntrada.add("Entra a dec_funcion");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("dec_funcion");
@@ -262,8 +287,12 @@ dec_funcion ::= FUNCTION ID:id L_PAR parametros:parts R_PAR COLON tipo:tip L_KEY
             |FUNCTION ID:id L_PAR parametros:parts R_PAR COLON MAIN L_KEY dec_general:deG R_KEY
             {:
                
+<<<<<<< HEAD
                 System.err.println("Entra a dec_funcion");
                 System.err.println( "posicion id: (" +idleft +","+idright+")" );
+=======
+                MensajesEntrada.add("Entra a dec_funcion");
+>>>>>>> 5c918f9c5ec836a98e108de3b44db6a49508f47f
             
                 parser.contMain++;
                 if(parser.contMain>1){
@@ -297,7 +326,7 @@ dec_funcion ::= FUNCTION ID:id L_PAR parametros:parts R_PAR COLON tipo:tip L_KEY
 
 parametros ::= VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 {:
-                System.err.println("Entra a parametros 1");
+                MensajesEntrada.add("Entra a parametros 1");
 
                 parser.cont++;
                 Node node = new Node();
@@ -328,7 +357,7 @@ parametros ::= VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 :}
                |VARIABLE ID:id COLON tipo:tip
                {:
-                System.err.println("Entra a parametros 1");
+                MensajesEntrada.add("Entra a parametros 1");
 
                 parser.cont++;
                 Node node = new Node();
@@ -358,7 +387,7 @@ parametros ::= VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                :}
                | VARIABLE ID:id L_BRACKET R_BRACKET COLON tipo:tip nuevo_parametro:nuP
                 {:
-                System.err.println("Entra a parametros 1");
+                MensajesEntrada.add("Entra a parametros 1");
 
                 parser.cont++;
                 Node node = new Node();
@@ -391,7 +420,7 @@ parametros ::= VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 :}
                |VARIABLE ID:id L_BRACKET R_BRACKET COLON tipo:tip
                {:
-                System.err.println("Entra a parametros 1");
+                MensajesEntrada.add("Entra a parametros 1");
 
                 parser.cont++;
                 Node node = new Node();
@@ -421,7 +450,7 @@ parametros ::= VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                :}
                | VARIABLE ID:id L_BRACKET R_BRACKET L_BRACKET R_BRACKET COLON tipo:tip nuevo_parametro:nuP
                 {:
-                System.err.println("Entra a parametros 1");
+                MensajesEntrada.add("Entra a parametros 1");
 
                 parser.cont++;
                 Node node = new Node();
@@ -454,7 +483,7 @@ parametros ::= VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 :}
                |VARIABLE ID:id L_BRACKET R_BRACKET L_BRACKET R_BRACKET COLON tipo:tip
                {:
-                System.err.println("Entra a parametros 1");
+                MensajesEntrada.add("Entra a parametros 1");
 
                 parser.cont++;
                 Node node = new Node();
@@ -484,7 +513,7 @@ parametros ::= VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                :} 
                |
                {:
-                System.err.println("Entra a vacio");
+                MensajesEntrada.add("Entra a vacio");
 
                 parser.cont++;
                 Node nodo = new Node();
@@ -492,13 +521,13 @@ parametros ::= VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
 				nodo.setID(parser.cont);
                 ArrayList<Variable> var = new ArrayList();
                 nodo.setValue(var);
-                System.out.println("No tiene parametros");
+                //System.out.println("No tiene parametros");
                 RESULT = nodo;
                :} ;
 
 nuevo_parametro ::=COMMA VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 {:
-                System.err.println("Entra a nuevo_parametro 1");
+                MensajesEntrada.add("Entra a nuevo_parametro 1");
 
                 parser.cont++;
                 Node node = new Node();
@@ -527,7 +556,7 @@ nuevo_parametro ::=COMMA VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 :}
                 | COMMA VARIABLE ID:id COLON tipo:tip
                 {:
-                System.err.println("Entra a nuevo_parametro 2");
+                MensajesEntrada.add("Entra a nuevo_parametro 2");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("nuevo_parametro");
@@ -552,7 +581,7 @@ nuevo_parametro ::=COMMA VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 :}
                 | COMMA VARIABLE ID:id L_BRACKET R_BRACKET COLON tipo:tip nuevo_parametro:nuP
                 {:
-                System.err.println("Entra a nuevo_parametro 1");
+                MensajesEntrada.add("Entra a nuevo_parametro 1");
 
                 parser.cont++;
                 Node node = new Node();
@@ -580,7 +609,7 @@ nuevo_parametro ::=COMMA VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 :}
                 | COMMA VARIABLE ID:id L_BRACKET R_BRACKET COLON tipo:tip
                 {:
-                System.err.println("Entra a nuevo_parametro 2");
+                MensajesEntrada.add("Entra a nuevo_parametro 2");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("nuevo_parametro");
@@ -606,7 +635,7 @@ nuevo_parametro ::=COMMA VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 :}
                 |COMMA VARIABLE ID:id L_BRACKET R_BRACKET L_BRACKET R_BRACKET COLON tipo:tip nuevo_parametro:nuP
                 {:
-                System.err.println("Entra a nuevo_parametro 1");
+                MensajesEntrada.add("Entra a nuevo_parametro 1");
 
                 parser.cont++;
                 Node node = new Node();
@@ -635,7 +664,7 @@ nuevo_parametro ::=COMMA VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 :}
                 | COMMA VARIABLE ID:id L_BRACKET R_BRACKET L_BRACKET R_BRACKET COLON tipo:tip
                 {:
-                System.err.println("Entra a nuevo_parametro 2");
+                MensajesEntrada.add("Entra a nuevo_parametro 2");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("nuevo_parametro");
@@ -662,9 +691,7 @@ nuevo_parametro ::=COMMA VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
 
 dec_general ::= dec_variable:dva dec_general:dg
                {:
-                System.out.println("ambito: "+contAmbito);
-                contAmbito++;
-                System.err.println("Entra a dec_general de vairable");
+                MensajesEntrada.add("Entra a dec_general de vairable");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("dec_general");
@@ -676,9 +703,7 @@ dec_general ::= dec_variable:dva dec_general:dg
 
                | dec_while:dw dec_general:dg
                {:
-                System.out.println("ambito: "+contAmbito);
-                contAmbito++;
-                System.err.println("Entra a dec_general de while");
+                MensajesEntrada.add("Entra a dec_general de while");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("dec_general");
@@ -689,9 +714,7 @@ dec_general ::= dec_variable:dva dec_general:dg
                 :}
                | dec_for:df dec_general:dg
                {:
-                System.out.println("ambito: "+contAmbito);
-                contAmbito++;
-                System.err.println("Entra a dec_general de for");
+                MensajesEntrada.add("Entra a dec_general de for");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("dec_general");
@@ -702,9 +725,7 @@ dec_general ::= dec_variable:dva dec_general:dg
                 :}
                | dec_switch:ds dec_general:dg
                 {:
-                System.out.println("ambito: "+contAmbito);
-                contAmbito++;
-                System.err.println("Entra a dec_general de switch");
+                MensajesEntrada.add("Entra a dec_general de switch");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("dec_general");
@@ -715,9 +736,7 @@ dec_general ::= dec_variable:dva dec_general:dg
                 :} 
                |dec_if:di dec_general:dg
                {:
-                System.out.println("ambito: "+contAmbito);
-                contAmbito++;
-                System.err.println("Entra a dec_general de if");
+                MensajesEntrada.add("Entra a dec_general de if");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("dec_general");
@@ -728,9 +747,7 @@ dec_general ::= dec_variable:dva dec_general:dg
                :}
                |dec_llamada_funcion:dlf SEMICOLON dec_general:dg
                {:
-                System.out.println("ambito: "+contAmbito);
-                contAmbito++;
-                System.err.println("Entra a dec_general de llamada_funcion");
+                MensajesEntrada.add("Entra a dec_general de llamada_funcion");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("dec_general");
@@ -741,9 +758,7 @@ dec_general ::= dec_variable:dva dec_general:dg
                :}
                |dec_var_inst:dvi dec_general:dg
                {:
-                System.out.println("ambito: "+contAmbito);
-                contAmbito++;
-                System.err.println("Entra a dec_general de dec_var_inst");
+                MensajesEntrada.add("Entra a dec_general de dec_var_inst");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("dec_general");
@@ -754,7 +769,7 @@ dec_general ::= dec_variable:dva dec_general:dg
                 :}
                /*|func_lenguaje:fl SEMICOLON dec_general:dg
                {:
-                System.err.println("Entra a dec_general de func_lenguaje");
+                MensajesEntrada.add("Entra a dec_general de func_lenguaje");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("dec_general");
@@ -765,9 +780,7 @@ dec_general ::= dec_variable:dva dec_general:dg
                 :}*/
                | dec_return:dr SEMICOLON dec_general:dg
                 {:
-                System.out.println("ambito: "+contAmbito);
-                contAmbito++;
-                System.err.println("Entra a dec_general de dec_return");
+                MensajesEntrada.add("Entra a dec_general de dec_return");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("dec_general");
@@ -778,19 +791,19 @@ dec_general ::= dec_variable:dva dec_general:dg
                 :}
                 |error 
                 {:
-                System.err.println("Entra a dec_general nos vamos para el error ");
+                MensajesEntrada.add("Entra a dec_general nos vamos para el error ");
                 Node node = new Node();
                 RESULT = node;
                 :}
                 |error SEMICOLON
                 {:
-                System.err.println("Entra a dec_general nos vamos para el error ");
+                MensajesEntrada.add("Entra a dec_general nos vamos para el error ");
                 Node node = new Node();
                 RESULT = node;
                 :}
                 | 
                 {:
-                System.err.println("Entra a dec_general a vacio");
+                MensajesEntrada.add("Entra a dec_general a vacio");
                 parser.cont++;
                 Node nodo = new Node();
 				nodo.setEtiqueta("vacio");
@@ -827,11 +840,12 @@ dec_variable ::= VARIABLE ID:id COLON tipo:tip dec_var:dv
                 String test=n_dv.getValor()+"";
                 
                 if(test.equals("")){
-                    System.out.println("no se hizo asignacion en "+id);
+                    //System.out.println("no se hizo asignacion en "+id);
                 }else{
                     if(n_tip.getValor().equals(n_dv.getValor())){
                         System.out.println("la asignacion es correcta en "+id);
                         new_var.setValue(n_dv.getValue());
+                        cuadruplos.add(new Cuadruplo("=",""+n_dv.getValue()," ",id));
                     }else{
                         System.out.println("la asignacion es incorrecta en "+ id);
                     }
@@ -869,7 +883,7 @@ dec_variable ::= VARIABLE ID:id COLON tipo:tip dec_var:dv
                 
 
                 if(test.equals("")){
-                    System.out.println("no se hizo asignacion en "+id);
+                    //System.out.println("no se hizo asignacion en "+id);
                 }else{
                     if(n_tip.getValor().equals(n_dv.getValor())){
                         ArrayList temp=(ArrayList)n_dv.getValue();
@@ -886,6 +900,7 @@ dec_variable ::= VARIABLE ID:id COLON tipo:tip dec_var:dv
                         System.out.println("la asignacion es incorrecta en "+ id);
                     }
                 }
+
                 variables.add(new_var);
                 RESULT = node;
                 :}
@@ -936,7 +951,7 @@ dec_variable ::= VARIABLE ID:id COLON tipo:tip dec_var:dv
 
                 */
                 if(test.equals("")){
-                    System.out.println("no se hizo asignacion en "+id);
+                    //System.out.println("no se hizo asignacion en "+id);
                 }else{
                     if(n_tip.getValor().equals(n_dv.getValor())){
                                                     
@@ -978,7 +993,11 @@ dec_var ::= dec_inst:di SEMICOLON
                 node.setID(parser.cont);
                 Node node_di = (Node) di;
                 node.addHijos(node_di);
+<<<<<<< HEAD
                 System.out.println("aqui "+ node_di.getValue() +" aqui");
+=======
+                //System.out.println("aqui "+ node_di.getValor() +" aqui");
+>>>>>>> 5c918f9c5ec836a98e108de3b44db6a49508f47f
                 node.setValor(node_di.getValor());
                 node.setValue(node_di.getValue());
                 /*if(node_di.getValor().equals("")){
@@ -1506,7 +1525,7 @@ dec_var_inst ::= ID:id OPASIGN valor:va SEMICOLON
                     for(Variable iter: variables ){
                         if(iter.getId().equals(identificador.getValor())){
                             iter.setValue(n_va.getValue());
-                            
+                            cuadruplos.add(new Cuadruplo("=",""+n_va.getValue()," ",id));
                         }
                     }
                 }else{
@@ -1549,7 +1568,7 @@ dec_var_inst ::= ID:id OPASIGN valor:va SEMICOLON
 
                 RESULT = node;
                 :}
-                | ID:id OPASIGNADD valor:va SEMICOLON
+                | ID:id OPASIGNADD:opas valor:va SEMICOLON
                 {:
                 parser.cont++;
                 Node node = new Node();
@@ -1561,11 +1580,35 @@ dec_var_inst ::= ID:id OPASIGN valor:va SEMICOLON
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
+                Node n_va=(Node) va;
                 node.addHijos(identificador);
-                node.addHijos((Node) va);
+                node.addHijos(n_va);
+
+                Variable compare = buscaTipo(identificador.getValor(),false);
+                String operadorAritmetico = ((String)opas).charAt(0) + " ";
+                if(compare.getTipo().equals(n_va.getValor())){
+                    System.out.println("incrementando o decrementando"+ id);
+                    //System.out.println( compare.getTipo() + " == "+ n_va.getValor());
+                    for(Variable iter: variables ){
+                        if(iter.getId().equals(identificador.getValor())){
+                            iter.setValue(n_va.getValue());
+                            
+                            String temp="T"+resultId;
+                            cuadruplos.add(new Cuadruplo(operadorAritmetico,id,""+n_va.getValue(),temp));
+                            cuadruplos.add(new Cuadruplo("=",temp," ",id));
+                        }
+                    }
+                }else{
+                    if(opas.equals("+=")){
+                        System.out.println("incremento incorrecto"+ id);
+                    }else{
+                        System.out.println("decremento incorrecto"+ id);
+                    }
+                    System.out.println(  compare.getTipo() + " =/= "+ n_va.getValor());
+                }
                 RESULT = node;
                 :}
-                | ID:id OPASIGNMULT NUM:nm SEMICOLON
+                | ID:id OPASIGNMULT:opas valor:va SEMICOLON
                 {:
                 parser.cont++;
                 Node node = new Node();
@@ -1578,15 +1621,39 @@ dec_var_inst ::= ID:id OPASIGN valor:va SEMICOLON
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
                 parser.cont++;
-                Node num =new Node();
-                num.setEtiqueta("num");
-                num.setID(parser.cont);
-                num.setValor(nm);
+                //Node num =new Node();
+                //num.setEtiqueta("num");
+                //num.setID(parser.cont);
+                Node n_va=(Node) va;
+                //num.setValor();
                 node.addHijos(identificador);
-                node.addHijos(num);
+                node.addHijos(n_va);
+
+                Variable compare = buscaTipo(identificador.getValor(),false);
+                String operadorAritmetico = ((String)opas).charAt(0) + " ";
+                if(compare.getTipo().equals(n_va.getValor())){
+                    System.out.println("multiplicando o dividiendo"+ id);
+                    //System.out.println( compare.getTipo() + " == "+ n_va.getValor());
+                    for(Variable iter: variables ){
+                        if(iter.getId().equals(identificador.getValor())){
+                            iter.setValue(n_va.getValue());
+                            
+                            String temp="T"+resultId;
+                            cuadruplos.add(new Cuadruplo(operadorAritmetico,id,""+n_va.getValue(),temp));
+                            cuadruplos.add(new Cuadruplo("=",temp," ",id));
+                        }
+                    }
+                }else{
+                    if(opas.equals("+=")){
+                        System.out.println("multiplicado incorrecto"+ id);
+                    }else{
+                        System.out.println("dividiendo incorrecto"+ id);
+                    }
+                    System.out.println(  compare.getTipo() + " =/= "+ n_va.getValor());
+                }
                 RESULT = node;
                 :}
-                | ID:id OPINC SEMICOLON
+                | ID:id OPINC:opas SEMICOLON
                 {:
                 parser.cont++;
                 Node node = new Node();
@@ -1599,6 +1666,26 @@ dec_var_inst ::= ID:id OPASIGN valor:va SEMICOLON
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
                 node.addHijos(identificador);
+                Variable compare = buscaTipo(identificador.getValor(),false);
+                String operadorAritmetico = ((String)opas).charAt(0) + " ";
+                if(compare.getTipo().equals("int")){
+                    System.out.println("incrementando o decrementando"+ id);
+                    //System.out.println( compare.getTipo() + " == "+ n_va.getValor());
+                    for(Variable iter: variables ){
+                        if(iter.getId().equals(identificador.getValor())){
+                            String temp="T"+resultId;
+                            cuadruplos.add(new Cuadruplo(operadorAritmetico,id,"1",temp));
+                            cuadruplos.add(new Cuadruplo("=",temp," ",id));
+                            iter.setValue(temp);
+                        }
+                    }
+                }else{
+                    if(opas.equals("+=")){
+                        System.out.println("incremento incorrecto"+ id);
+                    }else{
+                        System.out.println("decremento incorrecto"+ id);
+                    }
+                }
                 RESULT = node;
                 :}
                 | ID:id DOT AT L_PAR math_op:vp1 COMMA math_op:vp2 R_PAR OPASIGN valor:va SEMICOLON
@@ -1779,12 +1866,14 @@ math_op ::= m_op:mult sum_op:sum
                         String result="T"+resultId;
                         node.setValue(result);
                         resultId++;
-                        Cuadruplo temp= new Cuadruplo();
+                        /*Cuadruplo temp= new Cuadruplo();
                         temp.setOperator(n_sum.getOperador());
                         temp.setArgs1(n_mult.getValue()+"");
                         temp.setArgs2(n_sum.getValue()+ "");
                         temp.setResult(result); 
-                        cuadruplos.add(temp);
+                        cuadruplos.add(temp);*/
+                        cuadruplos.add(new Cuadruplo(n_mult.getOperador(),n_sum.getValue()+"",n_mult.getValue()+ "",result));
+
                     }
                     node.setIsInt("int");
                 }else if(  n_sum.getEtiqueta().equals("vacio") ){
@@ -1792,6 +1881,7 @@ math_op ::= m_op:mult sum_op:sum
                     node.setIsInt(n_mult.isIsInt());
                 }else {
                     System.err.println("OPERACIONES INCOMPATIBLES");
+                    // report_error("OPERACIONES INCOMPATIBLES",n_mult);
                     node.setIsInt("error");
                 }
                 node.addHijos(n_mult);
@@ -1814,12 +1904,14 @@ sum_op ::= OPSUM:operador m_op:mult sum_op:sum
                         String result="T"+resultId;
                         node.setValue(result);
                         resultId++;
-                        Cuadruplo temp= new Cuadruplo();
+                        /*Cuadruplo temp= new Cuadruplo();
                         temp.setOperator(n_sum.getOperador());
                         temp.setArgs1(n_mult.getValue()+"");
                         temp.setArgs2(n_sum.getValue()+ "");
                         temp.setResult(result); 
-                        cuadruplos.add(temp);
+                        cuadruplos.add(temp);*/
+                        cuadruplos.add(new Cuadruplo(n_mult.getOperador(),n_sum.getValue()+"",n_mult.getValue()+ "",result));
+
                     }
                     node.setOperador(operador);
                     node.setIsInt("int");
@@ -1864,12 +1956,13 @@ m_op ::= val:vl mult_op:mult
                         String result="T"+resultId;
                         node.setValue(result);
                         resultId++;
-                        Cuadruplo temp= new Cuadruplo();
+                        /*Cuadruplo temp= new Cuadruplo();
                         temp.setOperator(n_mult.getOperador());
                         temp.setArgs1(n_vl.getValue()+"");
                         temp.setArgs2(n_mult.getValue()+ "");
                         temp.setResult(result); 
-                        cuadruplos.add(temp);
+                        cuadruplos.add(temp);*/
+                        cuadruplos.add(new Cuadruplo(n_mult.getOperador(),n_vl.getValue()+"",n_mult.getValue()+ "",result));
                     }
                     node.setOperador(n_mult.getOperador());
                     node.setIsInt("int");
@@ -1903,12 +1996,14 @@ mult_op ::= OPMULT:operador val:vl mult_op:mult
                         String result="T"+resultId;
                         node.setValue(result);
                         resultId++;
-                        Cuadruplo temp= new Cuadruplo();
+                        /*Cuadruplo temp= new Cuadruplo();
                         temp.setOperator(n_mult.getOperador());
                         temp.setArgs1(n_vl.getValue()+"");
                         temp.setArgs2(n_mult.getValue()+ "");
                         temp.setResult(result); 
-                        cuadruplos.add(temp);
+                        cuadruplos.add(temp);*/
+                        cuadruplos.add(new Cuadruplo(n_mult.getOperador(),n_vl.getValue()+"",n_mult.getValue()+ "",result));
+
                     }
                     node.setOperador(operador);
                     node.setIsInt("int");
@@ -2151,7 +2246,7 @@ dec_while ::= WHILE L_PAR condicion:cond R_PAR L_KEY dec_general:dg R_KEY
 
 dec_for ::= FOR L_PAR ID:id COMMA math_op:nm1 UPTO math_op:nm2 COMMA STEP L_PAR math_op:nm3 R_PAR R_PAR L_KEY dec_general:dg R_KEY
             {:
-                System.err.println("Entra a dec_for 1");
+                MensajesEntrada.add("Entra a dec_for 1");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("dec_for");
@@ -2186,7 +2281,7 @@ dec_for ::= FOR L_PAR ID:id COMMA math_op:nm1 UPTO math_op:nm2 COMMA STEP L_PAR 
             :}
             | FOR L_PAR ID:id COMMA math_op:nm1 DOWNTO math_op:nm2 COMMA STEP L_PAR math_op:nm3 R_PAR R_PAR L_KEY dec_general:dg R_KEY
             {:
-                System.err.println("Entra a dec_for 2");
+                MensajesEntrada.add("Entra a dec_for 2");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("dec_for");
@@ -2221,7 +2316,7 @@ dec_for ::= FOR L_PAR ID:id COMMA math_op:nm1 UPTO math_op:nm2 COMMA STEP L_PAR 
             :}
             | FOR L_PAR VARIABLE ID:id COLON INTEGER COMMA math_op:nm1 UPTO math_op:nm2 COMMA STEP L_PAR math_op:nm3 R_PAR R_PAR L_KEY dec_general:dg R_KEY
             {:
-                System.err.println("Entra a dec_for 3");
+                MensajesEntrada.add("Entra a dec_for 3");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("dec_for");
@@ -2256,7 +2351,7 @@ dec_for ::= FOR L_PAR ID:id COMMA math_op:nm1 UPTO math_op:nm2 COMMA STEP L_PAR 
             :}
             | FOR L_PAR VARIABLE ID:id COLON INTEGER COMMA math_op:nm1 DOWNTO math_op:nm2 COMMA STEP L_PAR math_op:nm3 R_PAR R_PAR L_KEY dec_general:dg R_KEY
             {:
-                System.err.println("Entra a dec_for 4");
+                MensajesEntrada.add("Entra a dec_for 4");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("dec_for");
@@ -2294,7 +2389,7 @@ dec_for ::= FOR L_PAR ID:id COMMA math_op:nm1 UPTO math_op:nm2 COMMA STEP L_PAR 
 
 dec_switch ::= SWITCH L_PAR ID:id R_PAR L_KEY list_op:lo R_KEY 
             {:
-                System.err.println("Entra a dec_switch");
+                MensajesEntrada.add("Entra a dec_switch");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("dec_switch");
@@ -2313,7 +2408,7 @@ dec_switch ::= SWITCH L_PAR ID:id R_PAR L_KEY list_op:lo R_KEY
 
 list_op ::= OPTION valor:vl COLON dec_general:dg new_op:nwo 
             {:
-                System.err.println("Entra a list_op");
+                MensajesEntrada.add("Entra a list_op");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("list_op");
@@ -2327,7 +2422,7 @@ list_op ::= OPTION valor:vl COLON dec_general:dg new_op:nwo
 
 new_op ::= BREAK SEMICOLON list_op:lo
             {:
-                System.err.println("Entra a new_op 1");
+                MensajesEntrada.add("Entra a new_op 1");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("option");
@@ -2337,7 +2432,7 @@ new_op ::= BREAK SEMICOLON list_op:lo
             :}
             | BREAK SEMICOLON DEFAULT COLON dec_general:dg
             {:
-                System.err.println("Entra a new_op 2");
+                MensajesEntrada.add("Entra a new_op 2");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("default");
@@ -2347,7 +2442,7 @@ new_op ::= BREAK SEMICOLON list_op:lo
             :}
             | BREAK SEMICOLON 
             {:
-                System.err.println("Entra a new_op 3");
+                MensajesEntrada.add("Entra a new_op 3");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("new_op");
@@ -2358,7 +2453,7 @@ new_op ::= BREAK SEMICOLON list_op:lo
 
 dec_if ::= IF L_PAR condicion:cond R_PAR L_KEY dec_general:dg R_KEY dec_else:del
             {:
-                System.err.println("Entra a dec_if");
+                MensajesEntrada.add("Entra a dec_if");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("dec_if");
@@ -2371,7 +2466,7 @@ dec_if ::= IF L_PAR condicion:cond R_PAR L_KEY dec_general:dg R_KEY dec_else:del
             ;
 dec_else ::= ELIF L_PAR condicion:cond R_PAR L_KEY dec_general:dg R_KEY dec_else:del
             {:
-                System.err.println("Entra a dec_else elif");
+                MensajesEntrada.add("Entra a dec_else elif");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("dec_elif");
@@ -2383,7 +2478,7 @@ dec_else ::= ELIF L_PAR condicion:cond R_PAR L_KEY dec_general:dg R_KEY dec_else
             :}
             |ELSE L_KEY dec_general:dg R_KEY 
             {:
-                System.err.println("Entra a dec_else else");
+                MensajesEntrada.add("Entra a dec_else else");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("dec_else");
@@ -2403,7 +2498,7 @@ dec_else ::= ELIF L_PAR condicion:cond R_PAR L_KEY dec_general:dg R_KEY dec_else
 
 dec_llamada_funcion ::= ID:id L_PAR llamada_parametros:llp R_PAR
             {:
-                System.err.println("Entra a dec_llamada_funcion");
+                MensajesEntrada.add("Entra a dec_llamada_funcion");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("dec_llamada_funcion");
@@ -2437,7 +2532,7 @@ dec_llamada_funcion ::= ID:id L_PAR llamada_parametros:llp R_PAR
             :}
             | INPUT:in L_PAR ID:id COMMA tipo:tip R_PAR 
                {:
-                System.err.println("Entra a func_input");
+                MensajesEntrada.add("Entra a func_input");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("func_input");
@@ -2455,7 +2550,7 @@ dec_llamada_funcion ::= ID:id L_PAR llamada_parametros:llp R_PAR
 
                 |   OUTPUT:out L_PAR params_output:llp R_PAR  
                 {:
-                System.err.println("Entra a func_output ");
+                MensajesEntrada.add("Entra a func_output ");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("func_output");
@@ -2470,7 +2565,7 @@ dec_llamada_funcion ::= ID:id L_PAR llamada_parametros:llp R_PAR
 
 llamada_parametros ::= valor:vl lista_valores:lv
             {:
-                System.err.println("Entra a llamada_parametros 1");
+                MensajesEntrada.add("Entra a llamada_parametros 1");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("llamada_parametros");
@@ -2489,7 +2584,7 @@ llamada_parametros ::= valor:vl lista_valores:lv
             :}
             | valor:vl
             {:
-                System.err.println("Entra a llamada_parametros 2");
+                MensajesEntrada.add("Entra a llamada_parametros 2");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("llamada_parametros");
@@ -2506,7 +2601,7 @@ llamada_parametros ::= valor:vl lista_valores:lv
             :}
             |
             {:
-                System.err.println("Entra a vacio");
+                MensajesEntrada.add("Entra a vacio");
                 parser.cont++;
                 Node nodo = new Node();
 				nodo.setEtiqueta("vacio");
@@ -2520,7 +2615,7 @@ llamada_parametros ::= valor:vl lista_valores:lv
 
 params_output ::= valor:vl lista_valores:lv
             {:
-                System.err.println("Entra a llamada_parametros 1");
+                MensajesEntrada.add("Entra a llamada_parametros 1");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("params_output");
@@ -2531,7 +2626,7 @@ params_output ::= valor:vl lista_valores:lv
             :}
             | valor:vl
             {:
-                System.err.println("Entra a llamada_parametros 2");
+                MensajesEntrada.add("Entra a llamada_parametros 2");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("params_output");
@@ -2542,7 +2637,7 @@ params_output ::= valor:vl lista_valores:lv
 
 lista_valores ::= COMMA valor:vl lista_valores:lv
             {:
-                System.err.println("Entra a lista_valores 1");
+                MensajesEntrada.add("Entra a lista_valores 1");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("lista_valores");
@@ -2558,7 +2653,7 @@ lista_valores ::= COMMA valor:vl lista_valores:lv
             :}
             |COMMA valor:vl
             {:
-                System.err.println("Entra a lista_valores 2");
+                MensajesEntrada.add("Entra a lista_valores 2");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("lista_valores");
@@ -2630,7 +2725,7 @@ otra_condicion ::= OPLOG:oplg valor_cond:vc mas_condicion:masc otra_condicion:ot
                 ;
 valor_cond ::= TRUE:tru
             {:
-                System.err.println("Entra a valor_cond 3");
+                MensajesEntrada.add("Entra a valor_cond 3");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("valor_cond");
@@ -2647,7 +2742,7 @@ valor_cond ::= TRUE:tru
             :}
             | FALSE:fals
             {:
-                System.err.println("Entra a valor_cond 4");
+                MensajesEntrada.add("Entra a valor_cond 4");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("valor");
@@ -2675,7 +2770,7 @@ valor_cond ::= TRUE:tru
 
 dec_return ::= RETURN valor:vl
             {:
-                System.err.println("Entra a dec_return 1");
+                MensajesEntrada.add("Entra a dec_return 1");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("dec_return");
@@ -2685,7 +2780,7 @@ dec_return ::= RETURN valor:vl
             :}
             | RETURN 
             {:
-                System.err.println("Entra a dec_return 2");  
+                MensajesEntrada.add("Entra a dec_return 2");  
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("dec_return");
@@ -2697,7 +2792,7 @@ dec_return ::= RETURN valor:vl
 
 tipo ::= BOOLEAN
             {:
-                System.err.println("Entra a tipo 1");
+                MensajesEntrada.add("Entra a tipo 1");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("tipo");
@@ -2707,7 +2802,7 @@ tipo ::= BOOLEAN
             :}
             | CHARACTER
             {:
-                System.err.println("Entra a tipo 2");
+                MensajesEntrada.add("Entra a tipo 2");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("tipo");
@@ -2717,7 +2812,7 @@ tipo ::= BOOLEAN
             :}
             | INTEGER
             {:
-                System.err.println("Entra a tipo 3");
+                MensajesEntrada.add("Entra a tipo 3");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("tipo");
@@ -2727,7 +2822,7 @@ tipo ::= BOOLEAN
             :}
             | VOID
             {:
-                System.err.println("Entra a tipo 4");
+                MensajesEntrada.add("Entra a tipo 4");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("tipo");
@@ -2737,7 +2832,7 @@ tipo ::= BOOLEAN
             :}
             | STRING 
             {:  
-                System.err.println("Entra a tipo 5");
+                MensajesEntrada.add("Entra a tipo 5");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("tipo");
@@ -2747,7 +2842,7 @@ tipo ::= BOOLEAN
             :}
             | FLOAT 
             {:  
-                System.err.println("Entra a tipo 5");
+                MensajesEntrada.add("Entra a tipo 5");
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("tipo");
