@@ -16,9 +16,11 @@ parser code {:
    int resultId=1;
    boolean testCont = false;
    String tempTipo = "";
-   public static int errors = 0;
 
-   public static Lexer s;
+   public void semantic_errors(String message, int position_left, int position_right){
+       message += "Position: " + "linea: " + position_right + " columna: " + position_left;
+       errores.add(message);
+   }
    //public parser(java.io.reader input){
    //    super(s=new Lexer(input));
    //}
@@ -844,8 +846,11 @@ dec_variable ::= VARIABLE ID:id COLON tipo:tip dec_var:dv
                         cuadruplos.add(new Cuadruplo("=",""+n_dv.getValue()," ",id));
                     }else{
                         System.out.println("la asignacion es incorrecta en "+ id);
+                        semantic_errors("La asignacion es incorrecta en "+ id+" | ", dvleft, dvright);
+                        
                     }
                 }
+                System.out.println("Pucha casco:"+ dvleft + "," + dvright);
                 variables.add(new_var);
                 //System.out.println(n_tip.getValor());
                 
@@ -931,7 +936,7 @@ dec_variable ::= VARIABLE ID:id COLON tipo:tip dec_var:dv
                 }*/
                 new_var.setArray(true);
                 String test=n_dv.getValor()+"";
-                System.out.println("Maldita sea"+n_dv.getValue());
+                //System.out.println("Maldita sea"+n_dv.getValue());
                 /*
                 TODO > Hay que implementar una manera de detectar errores en la asignación de valores. 
                 En este momento no estamos validando tamaños de los arrays
@@ -946,8 +951,13 @@ dec_variable ::= VARIABLE ID:id COLON tipo:tip dec_var:dv
                 Esto debería de arrojar error.
 
                 */
+                //System.out.println("Pucha casco otra vez:"+n_dv.getValue());
+                
                 if(test.equals("")){
                     //System.out.println("no se hizo asignacion en "+id);
+                }else if( n_dv.getValue() == null ){
+                    System.out.println("Pucha casco otra vez!!!!!!!!!!!!!");
+                    semantic_errors("Asignacion Nula |", dvleft, dvright);
                 }else{
                     if(n_tip.getValor().equals(n_dv.getValor())){
                                                     
@@ -960,6 +970,7 @@ dec_variable ::= VARIABLE ID:id COLON tipo:tip dec_var:dv
                             for (int i = 1; i < temp.size() ; i++){
                                 if(temp_Compare.size() != ((ArrayList)temp.get(i)).size()){
                                     System.out.println("Tamaños incorrectos "+ id);
+                                    semantic_errors("Arreglo de tamaños incorrectos1 | ", dvleft, dvright);
                                     compare= false;
                                 }
                             }
@@ -969,9 +980,11 @@ dec_variable ::= VARIABLE ID:id COLON tipo:tip dec_var:dv
                             }
                         }else{
                             System.out.println("Tamaños incorrectos "+ id);
+                            semantic_errors("Arreglo de tamaños incorrectos2 | ", dvleft, dvright);
                         }
                     }else{
                         System.out.println("la asignacion es incorrecta en "+ id);
+                        semantic_errors("Asignación incorrecta id: "+ id +" | ", dvleft, dvright);
                         System.out.println( n_tip.getValor()+ " =/= "+ id);   
                     }
 
@@ -1212,6 +1225,7 @@ dec_inst ::= OPASIGN FLOAT_VAL:nm
                 node.setID(parser.cont);
                 node.setValor("chr");
                 parser.cont++;
+                System.out.print("PUCHA CASCO");
                 Node const_char =new Node();
                 const_char.setEtiqueta("const char");
                 const_char.setID(parser.cont);
@@ -1276,7 +1290,7 @@ dec_inst ::= OPASIGN FLOAT_VAL:nm
 
                 node.setValor(n_arr.getValor());
                 node.setValue(arr.getValue());
-               // System.out.println("Sera?"+arr.getValue().toString());
+                System.out.println("Sera?"+arr.getValue().toString());
                 RESULT = node;
              :}
              | OPASIGN math_op:mo
@@ -1749,7 +1763,7 @@ valor ::=  CONSTSTRING:cs
                 node.setID(parser.cont);
                 node.setValor("chr");
                 node.setValue(cc);
-
+                
                 parser.cont++;
                 Node const_char = new Node();
                 const_char.setEtiqueta("const char");
@@ -1873,7 +1887,6 @@ math_op ::= m_op:mult sum_op:sum
                     node.setIsInt(n_mult.isIsInt());
                 }else {
                     System.err.println("OPERACIONES INCOMPATIBLES");
-                    // report_error("OPERACIONES INCOMPATIBLES",n_mult);
                     node.setIsInt("error");
                 }
                 node.addHijos(n_mult);
@@ -1909,6 +1922,7 @@ sum_op ::= OPSUM:operador m_op:mult sum_op:sum
                     node.setIsInt("int");
                 }else {
                     System.err.println("OPERACIONES INCOMPATIBLES");
+                    semantic_errors("Operaciones Incompatibles | ", operadorleft, operadorright);
                     System.err.println( "posicion operador: (" +operadorleft +","+operadorright+")" );
                     System.err.println( "mult: (" +multleft +","+multright+")" );
                     System.err.println( "sum: (" +sumleft +","+sumright+")" );
@@ -2046,28 +2060,34 @@ val ::= ID:id
                 
 
                 if(temp.getTipo().equals("int")){
-                    if(temp.getValue().getClass() == Integer.class ){
+                   /* if(temp.getValue().getClass() == Integer.class ){
+                        
+                    }else*/ 
+                    if (temp.isEsArray()){
+                        System.out.println("a que es array prrin");
+                        node.setValue(temp.getValue());
+                        node.setIsInt("int");
+                    }else{
                         System.out.println("veamo si entra prrin");
                         int valor_temp = (int)temp.getValue();
                         node.setValue(valor_temp);
-                        node.setIsInt("int");
-                    }else if (temp.isEsArray()){
-                        System.out.println("a que es array prrin");
-                        node.setValue(temp.getValue());
                         node.setIsInt("int");
                     }
                 }else if(temp.getTipo().equals("string")){
                     //String valor_temp = (String)temp.getValue();
                     //node.setValue(valor_temp);
                     //node.setIsInt("string");
-                    if(temp.getValue().getClass() == String.class ){
+                    /*if(temp.getValue().getClass() == String.class ){
+                        
+                    }else */
+                    if (temp.isEsArray()){
+                        System.out.println("a que es array prrin");
+                        node.setValue(temp.getValue());
+                        node.setIsInt("string");
+                    }else{
                         System.out.println("veamo si entra prrin");
                         String valor_temp = (String)temp.getValue();
                         node.setValue(valor_temp);
-                        node.setIsInt("string");
-                    }else if (temp.isEsArray()){
-                        System.out.println("a que es array prrin");
-                        node.setValue(temp.getValue());
                         node.setIsInt("string");
                     }
 
@@ -2076,19 +2096,28 @@ val ::= ID:id
                     //char valor_temp = ((String)temp.getValue()).charAt(0);
                     //node.setValue(valor_temp);
                     //node.setIsInt("chr");
-                    if(temp.getValue().getClass() == Character.class ){
-                        System.out.println("veamo si entra prrin");
-                        char valor_temp = ((String)temp.getValue()).charAt(0);
-                        node.setValue(valor_temp);
-                        node.setIsInt("chr");
-                    }else if (temp.isEsArray()){
+                    /*if(temp.getValue().getClass() == Character.class ){   
+                    }*/
+                    if (temp.isEsArray()){
                         System.out.println("a que es array prrin:"+temp.getValue().toString());
                         node.setValue(temp.getValue());
                         node.setIsInt("chr");
+                    }else{
+                        System.out.println("veamo si entra prrin chr");
+                        char valor_temp = ((String)temp.getValue()).charAt(0);
+                        node.setValue(valor_temp);
+                        node.setIsInt("chr");
                     }
+                    System.out.println("NO entre"+temp.getValue().getClass());
                 }
                 else if(temp.getTipo().equals("bool")){
-                    if(temp.getValue().getClass() == Boolean.class ){
+                    /*if(temp.getValue().getClass() == Boolean.class ){
+                    }else */
+                    if (temp.isEsArray()){
+                        System.out.println("a que es array prrin");
+                        node.setValue(temp.getValue());
+                        node.setIsInt("bool");
+                    }else{
                         System.out.println("veamo si entra prrin");
                         boolean valor_temp;
                         if((boolean)temp.getValue()){
@@ -2097,12 +2126,6 @@ val ::= ID:id
                             valor_temp = false;
                         }
                         node.setValue(valor_temp);
-                        node.setIsInt("bool");
-                    
-
-                    }else if (temp.isEsArray()){
-                        System.out.println("a que es array prrin");
-                        node.setValue(temp.getValue());
                         node.setIsInt("bool");
                     }
                 }

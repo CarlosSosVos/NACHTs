@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Variable {
     
     String tipo, id,ambito = "0";
-    Object value;
+    Object value=null;
     boolean esArray = false;
     ArrayList<Integer> ambitos;
     int offset;
@@ -49,7 +49,7 @@ public class Variable {
     public Variable(String tipo, String id) {
         this.tipo = tipo;
         this.id = id;
-        this.value = new Object();
+        this.value = null;// new Object();
         this.ambitos = new ArrayList();
         this.ambitos.add(-1);            
         this.offset=0;

@@ -17,7 +17,7 @@ public class Node {
     public ArrayList<Node> hijos = new ArrayList<>();
     public Node padre;
     public String valor;
-    public Object value;
+    public Object value=null;
     public int id;
     public boolean ValueIsID = false;
     public String tipo;

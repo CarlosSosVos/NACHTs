@@ -648,9 +648,11 @@ public class parser extends java_cup.runtime.lr_parser {
    int resultId=1;
    boolean testCont = false;
    String tempTipo = "";
-   public static int errors = 0;
 
-   public static Lexer s;
+   public void semantic_errors(String message, int position_left, int position_right){
+       message += "Position: " + "linea: " + position_right + " columna: " + position_left;
+       errores.add(message);
+   }
    //public parser(java.io.reader input){
    //    super(s=new Lexer(input));
    //}
@@ -1854,8 +1856,11 @@ class CUP$parser$actions {
                         cuadruplos.add(new Cuadruplo("=",""+n_dv.getValue()," ",id));
                     }else{
                         System.out.println("la asignacion es incorrecta en "+ id);
+                        semantic_errors("La asignacion es incorrecta en "+ id+" | ", dvleft, dvright);
+                        
                     }
                 }
+                System.out.println("Pucha casco:"+ dvleft + "," + dvright);
                 variables.add(new_var);
                 //System.out.println(n_tip.getValor());
                 
@@ -1967,10 +1972,43 @@ class CUP$parser$actions {
                 Node n_tip = (Node)tip;
 
                 Node n_dv = (Node) dv;
-                System.out.println("Maldita sea"+n_dv.getValue());
+                Node ind1= (Node) vp1;
+                Node ind2=(Node) vp2;
 
+                node.addHijos(n_tip);
+                node.addHijos(n_dv);
+                node.addHijos(identificador);
+                node.addHijos(ind1);
+                node.addHijos(ind2);
+
+                Variable new_var = new Variable(n_tip.getValor(), id);
+                /*if(!n_di.getEtiqueta.equals("vacio")){
+                    new_var.setValue(n_di.getValue());
+                }*/
+                new_var.setArray(true);
+                String test=n_dv.getValor()+"";
+                //System.out.println("Maldita sea"+n_dv.getValue());
+                /*
+                TODO > Hay que implementar una manera de detectar errores en la asignación de valores. 
+                En este momento no estamos validando tamaños de los arrays
+                var a [4][2] = foo
+                var b [2][2] = a
+                Esto no está tirando error. 
+
+                TODO > no estamos validando cuando estamos asignado el valor de una variable nula a otra variable.
+
+                var a =  Null
+                var b = a
+                Esto debería de arrojar error.
+
+                */
+                //System.out.println("Pucha casco otra vez:"+n_dv.getValue());
+                
                 if(test.equals("")){
-                    System.out.println("no se hizo asignacion en "+id);
+                    //System.out.println("no se hizo asignacion en "+id);
+                }else if( n_dv.getValue() == null ){
+                    System.out.println("Pucha casco otra vez!!!!!!!!!!!!!");
+                    semantic_errors("Asignacion Nula |", dvleft, dvright);
                 }else{
                     if(n_tip.getValor().equals(n_dv.getValor())){
                                                     
@@ -1983,6 +2021,7 @@ class CUP$parser$actions {
                             for (int i = 1; i < temp.size() ; i++){
                                 if(temp_Compare.size() != ((ArrayList)temp.get(i)).size()){
                                     System.out.println("Tamaños incorrectos "+ id);
+                                    semantic_errors("Arreglo de tamaños incorrectos1 | ", dvleft, dvright);
                                     compare= false;
                                 }
                             }
@@ -1992,9 +2031,11 @@ class CUP$parser$actions {
                             }
                         }else{
                             System.out.println("Tamaños incorrectos "+ id);
+                            semantic_errors("Arreglo de tamaños incorrectos2 | ", dvleft, dvright);
                         }
                     }else{
                         System.out.println("la asignacion es incorrecta en "+ id);
+                        semantic_errors("Asignación incorrecta id: "+ id +" | ", dvleft, dvright);
                         System.out.println( n_tip.getValor()+ " =/= "+ id);   
                     }
 
@@ -2337,6 +2378,7 @@ class CUP$parser$actions {
                 node.setID(parser.cont);
                 node.setValor("chr");
                 parser.cont++;
+                System.out.print("PUCHA CASCO");
                 Node const_char =new Node();
                 const_char.setEtiqueta("const char");
                 const_char.setID(parser.cont);
@@ -2441,7 +2483,7 @@ class CUP$parser$actions {
 
                 node.setValor(n_arr.getValor());
                 node.setValue(arr.getValue());
-               // System.out.println("Sera?"+arr.getValue().toString());
+                System.out.println("Sera?"+arr.getValue().toString());
                 RESULT = node;
              
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_inst",9, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -2778,7 +2820,7 @@ class CUP$parser$actions {
                     for(Variable iter: variables ){
                         if(iter.getId().equals(identificador.getValor())){
                             iter.setValue(n_va.getValue());
-                            
+                            cuadruplos.add(new Cuadruplo("=",""+n_va.getValue()," ",id));
                         }
                     }
                 }else{
@@ -2848,6 +2890,9 @@ class CUP$parser$actions {
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
 		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
+		int opasleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
+		int opasright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
+		String opas = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int valeft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int varight = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Node va = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -2862,8 +2907,32 @@ class CUP$parser$actions {
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
+                Node n_va=(Node) va;
                 node.addHijos(identificador);
-                node.addHijos((Node) va);
+                node.addHijos(n_va);
+
+                Variable compare = buscaTipo(identificador.getValor(),false);
+                String operadorAritmetico = ((String)opas).charAt(0) + " ";
+                if(compare.getTipo().equals(n_va.getValor())){
+                    System.out.println("incrementando o decrementando"+ id);
+                    //System.out.println( compare.getTipo() + " == "+ n_va.getValor());
+                    for(Variable iter: variables ){
+                        if(iter.getId().equals(identificador.getValor())){
+                            iter.setValue(n_va.getValue());
+                            
+                            String temp="T"+resultId;
+                            cuadruplos.add(new Cuadruplo(operadorAritmetico,id,""+n_va.getValue(),temp));
+                            cuadruplos.add(new Cuadruplo("=",temp," ",id));
+                        }
+                    }
+                }else{
+                    if(opas.equals("+=")){
+                        System.out.println("incremento incorrecto"+ id);
+                    }else{
+                        System.out.println("decremento incorrecto"+ id);
+                    }
+                    System.out.println(  compare.getTipo() + " =/= "+ n_va.getValor());
+                }
                 RESULT = node;
                 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_var_inst",11, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -2871,15 +2940,18 @@ class CUP$parser$actions {
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 56: // dec_var_inst ::= ID OPASIGNMULT NUM SEMICOLON 
+          case 56: // dec_var_inst ::= ID OPASIGNMULT valor SEMICOLON 
             {
               Node RESULT =null;
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
 		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
-		int nmleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
-		int nmright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		String nm = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		int opasleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
+		int opasright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
+		String opas = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		int valeft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
+		int varight = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
+		Node va = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		
                 parser.cont++;
                 Node node = new Node();
@@ -2892,12 +2964,36 @@ class CUP$parser$actions {
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
                 parser.cont++;
-                Node num =new Node();
-                num.setEtiqueta("num");
-                num.setID(parser.cont);
-                num.setValor(nm);
+                //Node num =new Node();
+                //num.setEtiqueta("num");
+                //num.setID(parser.cont);
+                Node n_va=(Node) va;
+                //num.setValor();
                 node.addHijos(identificador);
-                node.addHijos(num);
+                node.addHijos(n_va);
+
+                Variable compare = buscaTipo(identificador.getValor(),false);
+                String operadorAritmetico = ((String)opas).charAt(0) + " ";
+                if(compare.getTipo().equals(n_va.getValor())){
+                    System.out.println("multiplicando o dividiendo"+ id);
+                    //System.out.println( compare.getTipo() + " == "+ n_va.getValor());
+                    for(Variable iter: variables ){
+                        if(iter.getId().equals(identificador.getValor())){
+                            iter.setValue(n_va.getValue());
+                            
+                            String temp="T"+resultId;
+                            cuadruplos.add(new Cuadruplo(operadorAritmetico,id,""+n_va.getValue(),temp));
+                            cuadruplos.add(new Cuadruplo("=",temp," ",id));
+                        }
+                    }
+                }else{
+                    if(opas.equals("+=")){
+                        System.out.println("multiplicado incorrecto"+ id);
+                    }else{
+                        System.out.println("dividiendo incorrecto"+ id);
+                    }
+                    System.out.println(  compare.getTipo() + " =/= "+ n_va.getValor());
+                }
                 RESULT = node;
                 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_var_inst",11, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -2911,6 +3007,9 @@ class CUP$parser$actions {
 		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		int opasleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
+		int opasright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
+		String opas = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		
                 parser.cont++;
                 Node node = new Node();
@@ -2923,6 +3022,26 @@ class CUP$parser$actions {
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
                 node.addHijos(identificador);
+                Variable compare = buscaTipo(identificador.getValor(),false);
+                String operadorAritmetico = ((String)opas).charAt(0) + " ";
+                if(compare.getTipo().equals("int")){
+                    System.out.println("incrementando o decrementando"+ id);
+                    //System.out.println( compare.getTipo() + " == "+ n_va.getValor());
+                    for(Variable iter: variables ){
+                        if(iter.getId().equals(identificador.getValor())){
+                            String temp="T"+resultId;
+                            cuadruplos.add(new Cuadruplo(operadorAritmetico,id,"1",temp));
+                            cuadruplos.add(new Cuadruplo("=",temp," ",id));
+                            iter.setValue(temp);
+                        }
+                    }
+                }else{
+                    if(opas.equals("+=")){
+                        System.out.println("incremento incorrecto"+ id);
+                    }else{
+                        System.out.println("decremento incorrecto"+ id);
+                    }
+                }
                 RESULT = node;
                 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_var_inst",11, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -3031,7 +3150,7 @@ class CUP$parser$actions {
                 node.setID(parser.cont);
                 node.setValor("chr");
                 node.setValue(cc);
-
+                
                 parser.cont++;
                 Node const_char = new Node();
                 const_char.setEtiqueta("const char");
@@ -3175,12 +3294,14 @@ class CUP$parser$actions {
                         String result="T"+resultId;
                         node.setValue(result);
                         resultId++;
-                        Cuadruplo temp= new Cuadruplo();
+                        /*Cuadruplo temp= new Cuadruplo();
                         temp.setOperator(n_sum.getOperador());
                         temp.setArgs1(n_mult.getValue()+"");
                         temp.setArgs2(n_sum.getValue()+ "");
                         temp.setResult(result); 
-                        cuadruplos.add(temp);
+                        cuadruplos.add(temp);*/
+                        cuadruplos.add(new Cuadruplo(n_mult.getOperador(),n_sum.getValue()+"",n_mult.getValue()+ "",result));
+
                     }
                     node.setIsInt("int");
                 }else if(  n_sum.getEtiqueta().equals("vacio") ){
@@ -3225,17 +3346,20 @@ class CUP$parser$actions {
                         String result="T"+resultId;
                         node.setValue(result);
                         resultId++;
-                        Cuadruplo temp= new Cuadruplo();
+                        /*Cuadruplo temp= new Cuadruplo();
                         temp.setOperator(n_sum.getOperador());
                         temp.setArgs1(n_mult.getValue()+"");
                         temp.setArgs2(n_sum.getValue()+ "");
                         temp.setResult(result); 
-                        cuadruplos.add(temp);
+                        cuadruplos.add(temp);*/
+                        cuadruplos.add(new Cuadruplo(n_mult.getOperador(),n_sum.getValue()+"",n_mult.getValue()+ "",result));
+
                     }
                     node.setOperador(operador);
                     node.setIsInt("int");
                 }else {
                     System.err.println("OPERACIONES INCOMPATIBLES");
+                    semantic_errors("Operaciones Incompatibles | ", operadorleft, operadorright);
                     System.err.println( "posicion operador: (" +operadorleft +","+operadorright+")" );
                     System.err.println( "mult: (" +multleft +","+multright+")" );
                     System.err.println( "sum: (" +sumleft +","+sumright+")" );
@@ -3294,12 +3418,13 @@ class CUP$parser$actions {
                         String result="T"+resultId;
                         node.setValue(result);
                         resultId++;
-                        Cuadruplo temp= new Cuadruplo();
+                        /*Cuadruplo temp= new Cuadruplo();
                         temp.setOperator(n_mult.getOperador());
                         temp.setArgs1(n_vl.getValue()+"");
                         temp.setArgs2(n_mult.getValue()+ "");
                         temp.setResult(result); 
-                        cuadruplos.add(temp);
+                        cuadruplos.add(temp);*/
+                        cuadruplos.add(new Cuadruplo(n_mult.getOperador(),n_vl.getValue()+"",n_mult.getValue()+ "",result));
                     }
                     node.setOperador(n_mult.getOperador());
                     node.setIsInt("int");
@@ -3343,119 +3468,6 @@ class CUP$parser$actions {
                 if(n_vl.isIsInt().equals("int") && n_mult.isIsInt().equals("int")){
                     //node.setValue((int)n_vl.getValue() * (int)n_mult.getValue());
                     if(n_mult.getEtiqueta().equals("vacio")){
-                        node.setValue(n_vl.getValue());
-                    }else{
-                        String result="T"+resultId;
-                        node.setValue(result);
-                        resultId++;
-                        Cuadruplo temp= new Cuadruplo();
-                        temp.setOperator(n_mult.getOperador());
-                        temp.setArgs1(n_vl.getValue()+"");
-                        temp.setArgs2(n_mult.getValue()+ "");
-                        temp.setResult(result); 
-                        cuadruplos.add(temp);
-                    }
-                    node.setOperador(operador);
-                    node.setIsInt("int");
-                }else {
-                    System.err.println("OPERACIONES INCOMPATIBLES");
-                    node.setIsInt("error");
-                }
-                node.addHijos(n_vl);
-                node.addHijos(n_mult);
-                RESULT = node;
-            
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("mult_op",16, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
-            }
-          return CUP$parser$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 70: // mult_op ::= 
-            {
-              Node RESULT =null;
-		
-                parser.cont++;
-                Node nodo = new Node();
-				nodo.setEtiqueta("vacio");
-                nodo.setValue(1);
-				nodo.setID(parser.cont);
-                nodo.setIsInt("int");
-                RESULT = nodo;
-            
-              CUP$parser$result = parser.getSymbolFactory().newSymbol("mult_op",16, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
-            }
-          return CUP$parser$result;
-
-          /*. . . . . . . . . . . . . . . . . . . .*/
-          case 71: // val ::= ID 
-            {
-              Node RESULT =null;
-		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
-		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-		
-                /*
-                *** !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                SE DEBE DISTINGUIR ENTRE STRINGS E 
-                INTEGERS, YA QUE PODEMOS CONCATENAR CADENAS
-                ***!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                */
-
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("val");
-                node.setID(parser.cont);
-                node.setValueIsID(true);
-                
-                //Para ver si es variable
-                Variable temp = buscaTipo(id,false);
-                //Para ver si es array
-                if( temp.getTipo().equals("-1")){
-                    temp = buscaTipo(id,true);
-                }
-                System.out.println(temp.toString());
-
-                
-
-                if(temp.getTipo().equals("int")){
-                    if(temp.getValue().getClass() == Integer.class ){
-                        System.out.println("veamo si entra prrin");
-                        int valor_temp = (int)temp.getValue();
-                        node.setValue(valor_temp);
-                        node.setIsInt("int");
-                    }else if (temp.isEsArray()){
-                        System.out.println("a que es array prrin");
-                        node.setValue(temp.getValue());
-                        node.setIsInt("int");
-                    }
-                }else if(temp.getTipo().equals("string")){
-                    //String valor_temp = (String)temp.getValue();
-                    //node.setValue(valor_temp);
-                    //node.setIsInt("string");
-                    if(temp.getValue().getClass() == String.class ){
-                        System.out.println("veamo si entra prrin");
-                        String valor_temp = (String)temp.getValue();
-                        node.setValue(valor_temp);
-                        node.setIsInt("string");
-                    }else if (temp.isEsArray()){
-                        System.out.println("a que es array prrin");
-                        node.setValue(temp.getValue());
-                        node.setIsInt("string");
-                    }
-
-                }
-                else if(temp.getTipo().equals("chr")){
-                    //char valor_temp = ((String)temp.getValue()).charAt(0);
-                    //node.setValue(valor_temp);
-                    //node.setIsInt("chr");
-                    if(temp.getValue().getClass() == Character.class ){
-                        System.out.println("veamo si entra prrin");
-                        char valor_temp = ((String)temp.getValue()).charAt(0);
-                        node.setValue(valor_temp);
-                        node.setIsInt("chr");
-                    }else if (temp.isEsArray()){
-                        System.out.println("a que es array prrin:"+temp.getValue().toString());
-
                         node.setValue(n_vl.getValue());
                     }else{
                         String result="T"+resultId;
@@ -3533,28 +3545,34 @@ class CUP$parser$actions {
                 
 
                 if(temp.getTipo().equals("int")){
-                    if(temp.getValue().getClass() == Integer.class ){
+                   /* if(temp.getValue().getClass() == Integer.class ){
+                        
+                    }else*/ 
+                    if (temp.isEsArray()){
+                        System.out.println("a que es array prrin");
+                        node.setValue(temp.getValue());
+                        node.setIsInt("int");
+                    }else{
                         System.out.println("veamo si entra prrin");
                         int valor_temp = (int)temp.getValue();
                         node.setValue(valor_temp);
-                        node.setIsInt("int");
-                    }else if (temp.isEsArray()){
-                        System.out.println("a que es array prrin");
-                        node.setValue(temp.getValue());
                         node.setIsInt("int");
                     }
                 }else if(temp.getTipo().equals("string")){
                     //String valor_temp = (String)temp.getValue();
                     //node.setValue(valor_temp);
                     //node.setIsInt("string");
-                    if(temp.getValue().getClass() == String.class ){
+                    /*if(temp.getValue().getClass() == String.class ){
+                        
+                    }else */
+                    if (temp.isEsArray()){
+                        System.out.println("a que es array prrin");
+                        node.setValue(temp.getValue());
+                        node.setIsInt("string");
+                    }else{
                         System.out.println("veamo si entra prrin");
                         String valor_temp = (String)temp.getValue();
                         node.setValue(valor_temp);
-                        node.setIsInt("string");
-                    }else if (temp.isEsArray()){
-                        System.out.println("a que es array prrin");
-                        node.setValue(temp.getValue());
                         node.setIsInt("string");
                     }
 
@@ -3563,20 +3581,28 @@ class CUP$parser$actions {
                     //char valor_temp = ((String)temp.getValue()).charAt(0);
                     //node.setValue(valor_temp);
                     //node.setIsInt("chr");
-                    if(temp.getValue().getClass() == Character.class ){
-                        System.out.println("veamo si entra prrin");
+                    /*if(temp.getValue().getClass() == Character.class ){   
+                    }*/
+                    if (temp.isEsArray()){
+                        System.out.println("a que es array prrin:"+temp.getValue().toString());
+                        node.setValue(temp.getValue());
+                        node.setIsInt("chr");
+                    }else{
+                        System.out.println("veamo si entra prrin chr");
                         char valor_temp = ((String)temp.getValue()).charAt(0);
                         node.setValue(valor_temp);
                         node.setIsInt("chr");
-                    }else if (temp.isEsArray()){
-                        System.out.println("a que es array prrin:"+temp.getValue().toString());
-
-                        node.setValue(temp.getValue());
-                        node.setIsInt("chr");
                     }
+                    System.out.println("NO entre"+temp.getValue().getClass());
                 }
                 else if(temp.getTipo().equals("bool")){
-                    if(temp.getValue().getClass() == Boolean.class ){
+                    /*if(temp.getValue().getClass() == Boolean.class ){
+                    }else */
+                    if (temp.isEsArray()){
+                        System.out.println("a que es array prrin");
+                        node.setValue(temp.getValue());
+                        node.setIsInt("bool");
+                    }else{
                         System.out.println("veamo si entra prrin");
                         boolean valor_temp;
                         if((boolean)temp.getValue()){
@@ -3585,12 +3611,6 @@ class CUP$parser$actions {
                             valor_temp = false;
                         }
                         node.setValue(valor_temp);
-                        node.setIsInt("bool");
-                    
-
-                    }else if (temp.isEsArray()){
-                        System.out.println("a que es array prrin");
-                        node.setValue(temp.getValue());
                         node.setIsInt("bool");
                     }
                 }
