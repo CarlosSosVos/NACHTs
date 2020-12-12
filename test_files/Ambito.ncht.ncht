@@ -1,8 +1,10 @@
 fnc noHayMain (): main {
-
-	if(2<4){
-		if(3<3){
-			var a:int=1;	
+	
+	if(4<4){
+		if(2<4){
+			var a:int;	
 		}
+	
 	}
+
 }

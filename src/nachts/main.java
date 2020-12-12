@@ -378,6 +378,8 @@ public class main extends javax.swing.JFrame {
                 parser p = new parser(lex2);
                 p.parse();
                 // this.txt_result.setEditable(true);
+                
+                errors="";
                 this.txt_result.setText("");
 
                 if (p.contMain == 0) {
@@ -403,8 +405,9 @@ public class main extends javax.swing.JFrame {
                 this.AmbitoActualR = new ArrayList();
                 this.AmbitoActualR.add(0);
                 this.offset =0;
-
-                ambito(miArbol);
+                if(errors.isEmpty()){
+                    ambito(miArbol);
+                }
 
                 for( int i = 0 ; i< variables.size() ; i++){
                     for( int j = i+1 ; j< variables.size() ; j++){
@@ -627,7 +630,7 @@ public class main extends javax.swing.JFrame {
         }
         for (Node hijo : arbol.getHijos()) {
             hijo.setPadre(arbol);
-
+            //System.out.println(hijo.getPadre().toString());
             if (hijo.getEtiqueta().equals("dec_funcion") || hijo.getEtiqueta().equals("dec_Funcion")) {
                 AmbitoActual = Ambito + 1;
                 Ambito = AmbitoActual;

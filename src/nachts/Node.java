@@ -13,15 +13,15 @@ import java.util.ArrayList;
  */
 public class Node {
 
-    public String etiqueta;
+    public String etiqueta="Nulo";
     public ArrayList<Node> hijos = new ArrayList<>();
-    public Node padre;
-    public String valor;
+    public Node padre=null;
+    public String valor="nulo";
     public Object value=null;
     public int id;
     public boolean ValueIsID = false;
-    public String tipo;
-    public String isInt;
+    public String tipo="tipo_aqui";
+    public String isInt="Nulo";
     public int ambito; //ambito de ubicacion
     public String operador="";
     public int line;
@@ -161,6 +161,11 @@ public class Node {
     public String toString() {
 
         String retval = "";
+        String padreEtiqueta ="";
+        
+        if(padre!= null){
+            padreEtiqueta+=padre.getEtiqueta() +" ";
+        }
         if(this.getTipo().equals("string")){
             retval = (String)this.getValue();
         }
@@ -176,7 +181,7 @@ public class Node {
             retval = (boolean)this.getValue()+ "";
         }
 
-        return "Node{" + "etiqueta=" + etiqueta + ", hijos=" + hijos + ", padre=" + padre.getEtiqueta() + ", valor=" + valor + ", value=" + retval + ", id=" + id + ", tipo=" + tipo + ", isInt=" + isInt + '}';
+        return "Node{" + "etiqueta=" + etiqueta + ", hijos=" + hijos + ", padre=" +padreEtiqueta + ", valor=" + valor + ", value=" + retval + ", id=" + id + ", tipo=" + tipo + ", isInt=" + isInt + '}';
     }
     
     

@@ -228,7 +228,9 @@ inicio ::= dec_funcion:dg dec_gen_fun:dgf
     parser.Tree = node;
     RESULT = node; 
     
-    :} ;
+    :}
+    |error inicio 
+    ;
 
 dec_gen_fun ::= dec_funcion:df dec_gen_fun:dgf
             {:
@@ -251,6 +253,7 @@ dec_gen_fun ::= dec_funcion:df dec_gen_fun:dgf
 				
                 RESULT = nodo;
             :}
+            |error dec_gen_fun
            
            
 ;
@@ -316,6 +319,8 @@ dec_funcion ::= FUNCTION ID:id L_PAR parametros:parts R_PAR COLON tipo:tip L_KEY
                 node.addHijos((Node) deG);
                 RESULT = node;
             :}
+            
+                 
             ;
 
 parametros ::= VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
@@ -836,7 +841,6 @@ dec_variable ::= VARIABLE ID:id COLON tipo:tip dec_var:dv
                 if(test.equals("")){
                     //System.out.println("no se hizo asignacion en "+id);
                 }else if( n_dv.getValue() == null ){
-                    System.out.println("Pucha casco otra vez!!!!!!!!!!!!!");
                     semantic_errors("Asignacion Nula |", dvleft, dvright);
                 }else{
                     if(n_tip.getValor().equals(n_dv.getValor())){
@@ -849,7 +853,6 @@ dec_variable ::= VARIABLE ID:id COLON tipo:tip dec_var:dv
                         
                     }
                 }
-                System.out.println("Pucha casco:"+ dvleft + "," + dvright);
                 variables.add(new_var);
                 //System.out.println(n_tip.getValor());
                 
@@ -996,6 +999,7 @@ dec_variable ::= VARIABLE ID:id COLON tipo:tip dec_var:dv
                 variables.add(new_var);
                 RESULT = node;
                 :}
+                
                 ;
 
 dec_var ::= dec_inst:di SEMICOLON
@@ -1009,11 +1013,16 @@ dec_var ::= dec_inst:di SEMICOLON
                 System.out.println("aqui "+ node_di.getValue() +" aqui");
                 node.setValor(node_di.getValor());
                 node.setValue(node_di.getValue());
-                /*if(node_di.getValor().equals("")){
-                    node
-                }else{
-                    
-                }*/
+                RESULT = node;
+            :}
+            | SEMICOLON
+            {:
+                parser.cont++;
+                Node node = new Node();
+				node.setEtiqueta("vacio");
+				node.setID(parser.cont);
+                node.setValor("");
+                node.setValue("vacio");
                 RESULT = node;
             :}
             | COMMA ID:id COLON tipo:tip dec_inst:di dec_var:dv
@@ -1201,7 +1210,13 @@ dec_var ::= dec_inst:di SEMICOLON
                 variables.add(new_var);
                 node.setValor("");
                 RESULT = node;
-            :}
+            :}|error math_op
+                {:
+                MensajesEntrada.add("Entra a dec_general nos vamos para el error ");
+                Node node = new Node();
+                RESULT = node;
+                :}
+            
 ;
 
 dec_inst ::= OPASIGN FLOAT_VAL:nm 
@@ -1324,7 +1339,7 @@ dec_inst ::= OPASIGN FLOAT_VAL:nm
                 node.setValor(n_mo.isIsInt());
                 RESULT = node;
              :}
-             |
+             /*|
              {:
                 parser.cont++;
                 Node node = new Node();
@@ -1333,8 +1348,14 @@ dec_inst ::= OPASIGN FLOAT_VAL:nm
                 node.setValor("");
                 node.setValue("vacio");
                 RESULT = node;
-             :}
-              ;
+             :}*/
+             |error dec_inst
+                {:
+                MensajesEntrada.add("Entra a dec_general nos vamos para el error ");
+                Node node = new Node();
+                RESULT = node;
+                :}
+            ;
 arreglo2d ::=L_KEY arreglo:arr arr2_cont:arc R_KEY
              {:
                 parser.cont++;
@@ -2133,8 +2154,7 @@ val ::= ID:id
                         node.setIsInt("chr");
                     }
                     System.out.println("NO entre"+temp.getValue().getClass());
-                }
-                else if(temp.getTipo().equals("bool")){
+                }else if(temp.getTipo().equals("bool")){
                     /*if(temp.getValue().getClass() == Boolean.class ){
                     }else */
                     if (temp.isEsArray()){
@@ -2155,6 +2175,8 @@ val ::= ID:id
                         }
                         node.setIsInt("bool");
                     }
+                }else{
+                    node.setIsInt("error");
                 }
                 
                 parser.cont++;
@@ -2505,6 +2527,14 @@ dec_if ::= IF L_PAR condicion:cond R_PAR L_KEY dec_general:dg R_KEY dec_else:del
                 node.addHijos((Node) del);
                 RESULT = node;
             :}
+            |error  dec_if
+                {:
+                MensajesEntrada.add("Entra a dec_general nos vamos para el error ");
+                Node node = new Node();
+                RESULT = node;
+            :}
+        
+            
             ;
 dec_else ::= ELIF L_PAR condicion:cond R_PAR L_KEY dec_general:dg R_KEY dec_else:del
             {:
@@ -2740,6 +2770,8 @@ condicion ::= valor_cond:vc mas_condicion:masc otra_condicion:otrac
                     RESULT = node;
                 
                 :}
+                |error condicion
+                 
                 ;
 mas_condicion ::= OPREL:opre valor_cond:vc mas_condicion:masc
                 {:
@@ -2781,6 +2813,7 @@ otra_condicion ::= OPLOG:oplg valor_cond:vc mas_condicion:masc otra_condicion:ot
 				    nodo.setID(parser.cont);
                     RESULT = nodo;
                 :}
+                |error otra_condicion
                 ;
 valor_cond ::= TRUE:tru
             {:
