@@ -775,7 +775,6 @@ public class parser extends java_cup.runtime.lr_parser {
         for (Function iter_list : funciones) {
 
             if(iter_list.getId().equals(id) && iter_list.isReturnsArray() == returnsArray){
-               
                 System.out.println(iter_list.toString());
                 tipo = iter_list.getTipo();
                 return iter_list;
@@ -973,6 +972,7 @@ class CUP$parser$actions {
                 Function nueva_funcion=new Function(n_tip.getValor(),id,false);
                 nueva_funcion.setParametros(params);
                 System.out.println(nueva_funcion.toString());
+                
                 funciones.add(nueva_funcion);
 
                 RESULT = node;
@@ -991,17 +991,16 @@ class CUP$parser$actions {
 		int partsleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)).left;
 		int partsright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)).right;
 		Node parts = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-6)).value;
+		int mnleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).left;
+		int mnright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)).right;
+		String mn = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-3)).value;
 		int deGleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int deGright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Node deG = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		
-               
-                System.err.println("Entra a dec_funcion");
-                System.err.println( "posicion id: (" +idleft +","+idright+")" );
-            
                 parser.contMain++;
                 if(parser.contMain>1){
-                    parser.errores.add("Error! Se ha encontrado otra declaracion de main.");
+                    semantic_errors("Solo puede declararse un main!",mnleft,mnright);
                 }
                
                 parser.cont++;
@@ -1340,7 +1339,7 @@ class CUP$parser$actions {
 		Node nuP = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
                 MensajesEntrada.add("Entra a nuevo_parametro 1");
-
+                
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("nuevo_parametro");
@@ -1849,6 +1848,9 @@ class CUP$parser$actions {
                 
                 if(test.equals("")){
                     //System.out.println("no se hizo asignacion en "+id);
+                }else if( n_dv.getValue() == null ){
+                    System.out.println("Pucha casco otra vez!!!!!!!!!!!!!");
+                    semantic_errors("Asignacion Nula |", dvleft, dvright);
                 }else{
                     if(n_tip.getValor().equals(n_dv.getValor())){
                         System.out.println("la asignacion es correcta en "+id);
@@ -1914,6 +1916,9 @@ class CUP$parser$actions {
 
                 if(test.equals("")){
                     //System.out.println("no se hizo asignacion en "+id);
+                }else if( n_dv.getValue() == null ){
+                    System.out.println("Pucha casco otra vez!!!!!!!!!!!!!");
+                    semantic_errors("Asignacion Nula |", dvleft, dvright);
                 }else{
                     if(n_tip.getValor().equals(n_dv.getValor())){
                         ArrayList temp=(ArrayList)n_dv.getValue();
@@ -1924,10 +1929,12 @@ class CUP$parser$actions {
                             new_var.setValue(temp);
                         }else{
                             System.out.println("la asignacion no corresponde con el tamaño");
-                            new_var.setValue("Error");
+                            //new_var.setValue("Error");
+                            semantic_errors("la asignacion no corresponde con el tamaño"+ id+" | ", dvleft, dvright);
                         }
                     }else{
                         System.out.println("la asignacion es incorrecta en "+ id);
+                        semantic_errors("La asignacion es incorrecta en "+ id+" | ", dvleft, dvright);
                     }
                 }
 
@@ -2122,6 +2129,9 @@ class CUP$parser$actions {
                 
                 if(test.equals("")){
                     System.out.println("no hubo asignacion en "+ id);
+                }else if( n_di.getValue() == null ){
+                    System.out.println("Pucha casco otra vez!!!!!!!!!!!!!");
+                    semantic_errors("Asignacion Nula |", dileft, diright);
                 }else{
                     if(n_tip.getValor().equals(n_di.getValor())){
                         System.out.println("la asignacion es correcta en "+ id);
@@ -2129,6 +2139,7 @@ class CUP$parser$actions {
                     }else{
                         System.out.println(" # la asignacion es incorrecta en "+ id);
                         System.out.println( n_tip.getValor()+ " =/= "+ id);
+                        semantic_errors("La asignacion es incorrecta en "+ id+" | ", dileft, diright);
 
                     }
                 }
@@ -2191,6 +2202,9 @@ class CUP$parser$actions {
                 
                 if(test.equals("")){
                     System.out.println("no hubo asignacion en "+ id);
+                }else if( n_di.getValue() == null ){
+                    System.out.println("Pucha casco otra vez!!!!!!!!!!!!!");
+                    semantic_errors("Asignacion Nula |", dileft, diright);
                 }else{
                     if(n_tip.getValor().equals(n_di.getValor())){
                         
@@ -2201,12 +2215,14 @@ class CUP$parser$actions {
                             new_var.setValue(n_di.getValue());
                         }else{
                             System.out.println("la asignacion no corresponde con el tamaño");
-                            new_var.setValue("Error");
+                            //new_var.setValue("Error");
+                            semantic_errors("la asignacion no corresponde con el tamaño"+ id+" | ", dileft, diright);
                         }
                         
                     }else{
                         System.out.println(" # la asignacion es incorrecta en "+ id);
                         System.out.println( n_tip.getValor()+ " =/= "+ id);
+                        semantic_errors("La asignacion es incorrecta en "+ id+" | ", dileft, diright);
 
                     }
                 }
@@ -2276,6 +2292,9 @@ class CUP$parser$actions {
                 if(test.equals("")){
                     System.out.println("no hubo asignacion en "+ id);
                     
+                }else if( n_di.getValue() == null ){
+                    System.out.println("Pucha casco otra vez!!!!!!!!!!!!!");
+                    semantic_errors("Asignacion Nula |", dileft, diright);
                 }else{
                     if(n_tip.getValor().equals(n_di.getValor())){
                         
@@ -2290,6 +2309,7 @@ class CUP$parser$actions {
                                 if(temp_Compare.size() != ((ArrayList)temp.get(i)).size()){
                                     System.out.println("Tamaños incorrectos "+ id);
                                     compare= false;
+                                    semantic_errors("Tamaños incorrectos1 |", dileft, diright);
                                 }
                             }
 
@@ -2299,6 +2319,7 @@ class CUP$parser$actions {
                             }
                         }else{
                             System.out.println("Tamaños incorrectos "+ id);
+                            semantic_errors("Tamaños incorrectos2 |", dileft, diright);
                         }
                     }else{
                         System.out.println(" # la asignacion es incorrecta en "+ id);
@@ -3436,6 +3457,8 @@ class CUP$parser$actions {
                     System.err.println("OPERACIONES INCOMPATIBLES");
                     node.setIsInt("error");
                 }
+                n_vl.setLine(vlright);
+                n_vl.setColummn(vlleft);
                 node.addHijos(n_vl);
                 node.addHijos(n_mult);
 
@@ -3488,6 +3511,8 @@ class CUP$parser$actions {
                     System.err.println("OPERACIONES INCOMPATIBLES");
                     node.setIsInt("error");
                 }
+                n_vl.setLine(vlright);
+                n_vl.setColummn(vlleft);
                 node.addHijos(n_vl);
                 node.addHijos(n_mult);
                 RESULT = node;
@@ -3527,13 +3552,12 @@ class CUP$parser$actions {
                 INTEGERS, YA QUE PODEMOS CONCATENAR CADENAS
                 ***!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 */
-
+                
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("val");
                 node.setID(parser.cont);
                 node.setValueIsID(true);
-                
                 //Para ver si es variable
                 Variable temp = buscaTipo(id,false);
                 //Para ver si es array
@@ -3554,8 +3578,9 @@ class CUP$parser$actions {
                         node.setIsInt("int");
                     }else{
                         System.out.println("veamo si entra prrin");
-                        int valor_temp = (int)temp.getValue();
-                        node.setValue(valor_temp);
+                        //int valor_temp = (int)temp.getValue();
+                        //node.setValue(valor_temp);
+                        node.setValue(temp.getValue());
                         node.setIsInt("int");
                     }
                 }else if(temp.getTipo().equals("string")){
@@ -3571,8 +3596,9 @@ class CUP$parser$actions {
                         node.setIsInt("string");
                     }else{
                         System.out.println("veamo si entra prrin");
-                        String valor_temp = (String)temp.getValue();
-                        node.setValue(valor_temp);
+                        //String valor_temp = (String)temp.getValue();
+                        //node.setValue(valor_temp);
+                        node.setValue(temp.getValue());
                         node.setIsInt("string");
                     }
 
@@ -3589,8 +3615,9 @@ class CUP$parser$actions {
                         node.setIsInt("chr");
                     }else{
                         System.out.println("veamo si entra prrin chr");
-                        char valor_temp = ((String)temp.getValue()).charAt(0);
-                        node.setValue(valor_temp);
+                        //char valor_temp = ((String)temp.getValue()).charAt(0);
+                        //node.setValue(valor_temp);
+                        node.setValue(temp.getValue());
                         node.setIsInt("chr");
                     }
                     System.out.println("NO entre"+temp.getValue().getClass());
@@ -3605,12 +3632,15 @@ class CUP$parser$actions {
                     }else{
                         System.out.println("veamo si entra prrin");
                         boolean valor_temp;
-                        if((boolean)temp.getValue()){
+                        if(temp.getValue()==null){
+                            node.setValue(temp.getValue());
+                        }else if((boolean)temp.getValue()){
                             valor_temp = true;
+                            node.setValue(valor_temp);
                         }else{
                             valor_temp = false;
+                            node.setValue(valor_temp);
                         }
-                        node.setValue(valor_temp);
                         node.setIsInt("bool");
                     }
                 }
@@ -4268,9 +4298,21 @@ class CUP$parser$actions {
                 node.addHijos(n_llp);
                 ArrayList<String> tipos =(ArrayList<String>)n_llp.getValue();
                 Function tempo=buscaTipo2(id,false);
+                String concat= "(";
+
+                System.out.println("veamo si me retorna el numero de parametros: "+tempo.getParametros().size());
+                
+                if(!tempo.getParametros().isEmpty()){
+                    for ( Variable parametro : tempo.getParametros()){
+                        concat+=parametro.getTipo()+"," ;
+                    }
+                }
+                concat = concat.substring(0,concat.length()-1); 
+                concat+=")";
+
                 ArrayList<Variable> var =(ArrayList<Variable>) tempo.getParametros();
                 boolean bandera=true;
-
+                System.out.println(tipos.size()+"=="+var.size());
                 if(tipos.size()==var.size() && !tempo.getId().equals("-1")){
                     for (int i = 0; i < var.size(); i++) {
                         if(!tipos.get(i).equals(var.get(i).getTipo())){
@@ -4280,10 +4322,15 @@ class CUP$parser$actions {
                     if(bandera){
                         System.out.println("LLAMADA CORRECTA");
                     }else{
+                        
                         System.out.println("INCOMPATIBILIDAD DE TIPOS");
+                        semantic_errors("Tipo de parametro erroneo, se espera lo siguiente: "+concat,idleft,idright);
                     }
                 }else{
                     System.out.println("diferente cantidad de parametros o no existe");
+                    semantic_errors("Numero erroneo de parametros, se espera lo siguiente: "+concat,idleft,idright);
+
+
                 }
                 
 

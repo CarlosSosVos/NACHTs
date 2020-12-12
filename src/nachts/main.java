@@ -379,7 +379,6 @@ public class main extends javax.swing.JFrame {
                 p.parse();
                 // this.txt_result.setEditable(true);
                 this.txt_result.setText("");
-                String errors = "";
 
                 if (p.contMain == 0) {
                     errors += "NO SE DEFINIO UNA FUNCION MAIN !\n";
@@ -394,11 +393,7 @@ public class main extends javax.swing.JFrame {
                     System.out.println(errors);
                     errors += error + "\n";
                }
-                if (!errors.isEmpty()) {
-                    this.txt_result.setText(errors);
-                } else {
-                    this.txt_result.setText("Su codigo esta libre de errores! :D");
-                }
+                
 
                 variables = p.variables;
                 miArbol = p.Tree;
@@ -426,7 +421,11 @@ public class main extends javax.swing.JFrame {
                         }
                     }
                 }
-
+                if (!errors.isEmpty()) {
+                    this.txt_result.setText(errors);
+                } else {
+                    this.txt_result.setText("Su codigo esta libre de errores! :D");
+                }
                 Graficar(recorrido(miArbol));
 
                 for (Variable variable : variables) {
@@ -691,6 +690,7 @@ public class main extends javax.swing.JFrame {
                         }
                     } else {
                         System.out.println("Acceso a variables erroneo, conflicto de ambito");
+                        errors+="\nAcceso a variables erroneo, conflicto de ambito | Position: " + "linea: " + hijo.getLine() + " columna: " + hijo.getColummn();
                     }
 
                 }
@@ -923,4 +923,5 @@ public class main extends javax.swing.JFrame {
     int AmbitoActual = 0;
     ArrayList<Integer> AmbitoActualR;
     int offset = 0;
+    String errors="";
 }
