@@ -27,7 +27,7 @@ import java.util.ArrayList;
     public String current_lexxeme(){
         int line = yyline+1;
         int column = yycolumn + 1;
-        return "(line: "+l+ ", column: " +column+")";
+        return "(line: "+line+ ", column: " +column+")";
     }
 
     

@@ -668,7 +668,14 @@ public class main extends javax.swing.JFrame {
                 hijo.setAmbito(hijo.getPadre().getAmbito());
                 hijo.setAmbitos(hijo.getPadre().getAmbitos());
             }
-
+            //esto se tendra que hacer en otro metodo, esto es solo para pruebas
+            if (hijo.getEtiqueta().equals("dec_var_inst")) {
+                if (hijo.getHijos().get(1).isAritmetica()) {
+                    String temp=(String)hijo.getHijos().get(1).getValue();
+                    String asignacion=aritmetica(temp);
+                }
+            }
+            //------------------------------------------------------------------
             if (hijo.getEtiqueta().equals("val")) {
 
                 if (hijo.isValueIsID()) {
@@ -888,7 +895,223 @@ public class main extends javax.swing.JFrame {
              */
         }
     }
-
+    private String aritmetica(String cadena){
+        String result="";
+        boolean flag1=true;
+        boolean flag2=true;
+        boolean flag3=true;
+        int control=0;
+        String envio="";
+        for (int i = 0; i < cadena.length(); i++) {
+            if (cadena.charAt(i)=='(') {
+                String temp=cadena.substring(i+1, cadena.length());
+                int t=0;
+                for (int j = 0; j < temp.length(); j++) {
+                    if(temp.charAt(j)=='('){
+                        control++;
+                        //System.out.println("A"+i);
+                    }else if (temp.charAt(j)==')' && control==0) {
+                        envio=temp.substring(0, j);
+                        t=j;
+                        j=temp.length();
+                        flag1=false;
+                        flag2=false;
+                        flag3=false;
+                       // System.out.println("C");
+                    }else if(temp.charAt(j)==')'){
+                        control--;
+                        //System.out.println("B");
+                    }
+                }
+                
+                String temp2=cadena.substring(0,i);
+                String temp3=temp.substring(t+1,temp.length());
+                String retorno=aritmetica(envio);
+                String temp4=temp2+retorno+temp3;
+                i=cadena.length();
+                cadena=temp4;
+                
+            }
+        }
+        if (flag1) {
+            //System.out.println("divi");
+            for (int i = 0; i < cadena.length(); i++) {
+                if (cadena.charAt(i)=='/') {
+                    int tempA=i-1;
+                    int p1=0,p2=0;
+                    String temp1="";
+                    if (tempA==0) {
+                        temp1=cadena.substring(0,i);
+                        p1=0;
+                    }
+                    while(tempA>-1){
+                        if (cadena.charAt(tempA)!='+' && cadena.charAt(tempA)!='*' && cadena.charAt(tempA)!='-' && cadena.charAt(tempA)!='/' && tempA!=0) {
+                            tempA--;
+                        }else{
+                            if (tempA==0) {
+                                temp1=cadena.substring(tempA, i);
+                                p1=tempA;
+                            }else{
+                                temp1=cadena.substring(tempA+1, i);
+                                p1=tempA+1;
+                            }
+                            
+                            tempA=-1;
+                        }
+                    }
+                    int tempB=i+1;
+                    String temp2="";
+                    if (tempB==cadena.length()-1) {
+                        temp2=cadena.substring(i+1,cadena.length());
+                        p2=cadena.length();
+                    }
+                    while(tempB<cadena.length()){
+                        if (cadena.charAt(tempB)!='+' && cadena.charAt(tempB)!='*' && cadena.charAt(tempB)!='-' && cadena.charAt(tempB)!='/'&& tempB!=cadena.length()-1) {
+                            tempB++;
+                        }else{
+                            if (tempB==cadena.length()-1) {
+                                temp2=cadena.substring(i+1,tempB+1);
+                                p2=tempB+1;
+                            }else{
+                                temp2=cadena.substring(i+1,tempB);
+                                p2=tempB;
+                            }
+                            
+                            
+                            tempB=cadena.length();
+                        }
+                    } 
+                    i=cadena.length();
+                    System.out.println(temp1+"/"+temp2);
+                    cadena=cadena.substring(0,p1)+"T1"+cadena.substring(p2, cadena.length());
+                    flag2=false;
+                    flag3=false;
+                }
+            } 
+        }
+        if (flag2) {
+            //System.out.println("multi");
+            for (int i = 0; i < cadena.length(); i++) {
+                if (cadena.charAt(i)=='*') {
+                    int tempA=i-1;
+                    int p1=0,p2=0;
+                    String temp1="";
+                    if (tempA==0) {
+                        temp1=cadena.substring(0,i);
+                        p1=0;
+                    }
+                    while(tempA>-1){
+                        if (cadena.charAt(tempA)!='+' && cadena.charAt(tempA)!='*' && cadena.charAt(tempA)!='-' && tempA!=0) {
+                            tempA--;
+                        }else{
+                            if (tempA==0) {
+                                temp1=cadena.substring(tempA, i);
+                                p1=tempA;
+                            }else{
+                                temp1=cadena.substring(tempA+1, i);
+                                p1=tempA+1;
+                            }
+                            
+                            tempA=-1;
+                        }
+                    }
+                    int tempB=i+1;
+                    String temp2="";
+                    if (tempB==cadena.length()-1) {
+                        temp2=cadena.substring(i+1,cadena.length());
+                        p2=cadena.length();
+                    }
+                    while(tempB<cadena.length()){
+                        if (cadena.charAt(tempB)!='+' && cadena.charAt(tempB)!='*' && cadena.charAt(tempB)!='-' && tempB!=cadena.length()-1) {
+                            tempB++;
+                        }else{
+                            if (tempB==cadena.length()-1) {
+                                temp2=cadena.substring(i+1,tempB+1);
+                                p2=tempB+1;
+                            }else{
+                                temp2=cadena.substring(i+1,tempB);
+                                p2=tempB;
+                            }
+                            
+                            
+                            tempB=cadena.length();
+                        }
+                    } 
+                    i=cadena.length();
+                    System.out.println(temp1+"*"+temp2);
+                    cadena=cadena.substring(0,p1)+"T2"+cadena.substring(p2, cadena.length());
+                    flag3=false;
+                }
+            } 
+           
+        }
+        if (flag3) {
+            //System.out.println("Suma resta");
+            for (int i = 0; i < cadena.length(); i++) {
+                if (cadena.charAt(i)=='+' || cadena.charAt(i)=='-') {
+                    String operador=""+cadena.charAt(i);
+                    int tempA=i-1;
+                    int p1=0,p2=0;
+                    String temp1="";
+                    if (tempA==0) {
+                        temp1=cadena.substring(0,i);
+                        p1=0;
+                    }
+                    while(tempA>-1){
+                        if (cadena.charAt(tempA)!='+' && cadena.charAt(tempA)!='-' && tempA!=0) {
+                            tempA--;
+                        }else{
+                            if (tempA==0) {
+                                temp1=cadena.substring(tempA, i);
+                                p1=tempA;
+                            }else{
+                                temp1=cadena.substring(tempA+1, i);
+                                p1=tempA+1;
+                            }
+                            
+                            tempA=-1;
+                        }
+                    }
+                    int tempB=i+1;
+                    String temp2="";
+                    if (tempB==cadena.length()-1) {
+                        temp2=cadena.substring(i+1,cadena.length());
+                        p2=cadena.length();
+                    }
+                    while(tempB<cadena.length()){
+                        if (cadena.charAt(tempB)!='+' && cadena.charAt(tempB)!='-' && tempB!=cadena.length()-1) {
+                            tempB++;
+                        }else{
+                            if (tempB==cadena.length()-1) {
+                                temp2=cadena.substring(i+1,tempB+1);
+                                p2=tempB+1;
+                            }else{
+                                temp2=cadena.substring(i+1,tempB);
+                                p2=tempB;
+                            }
+                            
+                            
+                            tempB=cadena.length();
+                        }
+                    } 
+                    i=cadena.length();
+                    System.out.println(temp1+operador+temp2);
+                    cadena=cadena.substring(0,p1)+"T3"+cadena.substring(p2, cadena.length());
+                    //flag3=false;
+                }
+            }
+            
+        }
+        
+        System.out.println("YO SOY:"+cadena);
+        if (cadena.length()==2) {
+            return cadena;
+        }else{
+            return aritmetica(cadena);
+            //return "";
+        }
+        
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

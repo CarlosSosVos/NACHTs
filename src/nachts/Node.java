@@ -23,7 +23,8 @@ public class Node {
     public String tipo="tipo_aqui";
     public String isInt="Nulo";
     public int ambito; //ambito de ubicacion
-    public String operador="";
+    //public String operador="";
+    public boolean aritmetica=false;
     public int line;
     public int colummn;
 
@@ -135,13 +136,23 @@ public class Node {
         this.isInt = isInt;
     }
 
-    public String getOperador() {
+    /*public String getOperador() {
         return operador;
     }
 
     public void setOperador(String operador) {
         this.operador = operador;
+    }*/
+
+    public boolean isAritmetica() {
+        return aritmetica;
     }
+
+    public void setAritmetica(boolean aritmetica) {
+        this.aritmetica = aritmetica;
+    }
+    
+    
     public int getLine() {
         return line;
     }

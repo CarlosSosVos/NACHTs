@@ -1,4 +1,7 @@
 fnc noHayMain (): main{
-	var d:chr;
+	wh(3<7){
+		
+	}
+
 }
 

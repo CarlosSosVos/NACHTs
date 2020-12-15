@@ -395,9 +395,39 @@ class Lexer implements java_cup.runtime.Scanner {
     public String accum = "";
     String error= "";
     ArrayList<String> errors = new ArrayList();
+    
     public String getAccum(){
         return this.accum;
-    }   
+    }
+    public String current_lexxeme(){
+        int line = yyline+1;
+        int column = yycolumn + 1;
+        return "(line: "+line+ ", column: " +column+")";
+    }
+
+    
+    private Symbol symbol(int sym) {
+		Symbol data = new Symbol(sym, yycolumn, yyline);
+		return data;
+	}
+
+	private Symbol symbol(int sym, Object val) {
+		Symbol data = new Symbol(sym, yycolumn, yyline);
+		data.value = new Symbol(sym, yycolumn, yyline, val);
+		return data;
+	}
+
+	private Symbol symbol(int sym, Object val,int buflength) {
+    return new Symbol(sym, yycolumn, yyline, val);
+	} 
+
+
+
+
+
+    
+
+
 
 
   /**
