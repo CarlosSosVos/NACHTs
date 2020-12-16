@@ -4429,10 +4429,11 @@ class CUP$parser$actions {
                 ArrayList<String> tipos =(ArrayList<String>)n_llp.getValue();
                 Function tempo=buscaTipo2(id,false);
                 String concat= "(";
-
-                System.out.println("veamo si me retorna el numero de parametros: "+tempo.getParametros().size());
+                node.setLine(idright);
+                node.setColummn(idleft);
+                //System.out.println("veamo si me retorna el numero de parametros: "+tempo.getParametros().size());
                 
-                if(!tempo.getParametros().isEmpty()){
+                /*if(!tempo.getParametros().isEmpty()){
                     for ( Variable parametro : tempo.getParametros()){
                         concat+=parametro.getTipo()+"," ;
                     }
@@ -4442,7 +4443,7 @@ class CUP$parser$actions {
 
                 ArrayList<Variable> var =(ArrayList<Variable>) tempo.getParametros();
                 boolean bandera=true;
-                System.out.println(tipos.size()+"=="+var.size());
+                /*System.out.println(tipos.size()+"=="+var.size());
                 if(tipos.size()==var.size() && !tempo.getId().equals("-1")){
                     for (int i = 0; i < var.size(); i++) {
                         if(!tipos.get(i).equals(var.get(i).getTipo())){
@@ -4461,7 +4462,7 @@ class CUP$parser$actions {
                     semantic_errors("Numero erroneo de parametros, se espera lo siguiente: "+concat,idleft,idright);
 
 
-                }
+                }*/
                 
 
 

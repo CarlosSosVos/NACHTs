@@ -668,6 +668,9 @@ public class main extends javax.swing.JFrame {
                 hijo.setAmbito(hijo.getPadre().getAmbito());
                 hijo.setAmbitos(hijo.getPadre().getAmbitos());
             }
+            if (hijo.getEtiqueta().equals("dec_llamada_funcion")) {
+                Comprobacion_Funciones(hijo.getValor(),(ArrayList<String>)hijo.getHijos().get(0).getValue(),hijo.getLine(),hijo.getColummn());
+            }
             //esto se tendra que hacer en otro metodo, esto es solo para pruebas
             if (hijo.getEtiqueta().equals("dec_var_inst")) {
                 if (hijo.getHijos().get(1).isAritmetica()) {
@@ -741,18 +744,9 @@ public class main extends javax.swing.JFrame {
                                 this.offset = this.offset + 4;
                             }
                         }
-
-                        // var.setAmbito(AmbitoActual + "");
-                        // var.setAmbitos(temp);
-                        // var.setAmbitos(new ArrayList());
-                        // var.addAmbito(0);
-                        // var.addAmbito(AmbitoActual);
-
-                        // System.out.println("test dentro " + this.AmbitoActualR.toString());
                        
                     }
                     if (hijo.getHijos().size() > 2) {
-                        //cont_e = 0;
 
                         if (hijo.getHijos().get(2).getEtiqueta().equals("ID")) {
                             if (var.getId().equals(hijo.getHijos().get(2).getValor())) {
@@ -784,32 +778,12 @@ public class main extends javax.swing.JFrame {
                                         this.offset = this.offset + 4;
                                     }
                                 }
-                                // var.setAmbitos(new ArrayList());
-                                // var.addAmbito(0);
-                                // var.addAmbito(AmbitoActual);
-                                //system.out.println("test dentro   " + this.AmbitoActualR.toString());
                             }
                         }
                     }
                 }
 
             }
-            /*
-             * if (hijo.getEtiqueta().equals("dec_if")) { Ambito = Ambito + 1; AmbitoActual
-             * = Ambito; hijo.setAmbito(hijo.getPadre().getAmbito()); } if
-             * (hijo.getEtiqueta().equals("dec_elif")) { Ambito = Ambito + 1; AmbitoActual =
-             * Ambito; hijo.setAmbito(hijo.getPadre().getAmbito()); }
-             * 
-             * if (hijo.getEtiqueta().equals("list_op")) { Ambito = Ambito + 1; AmbitoActual
-             * = Ambito; hijo.setAmbito(hijo.getPadre().getAmbito()); }
-             * 
-             * if (hijo.getEtiqueta().equals("dec_else")) { Ambito = Ambito + 1;
-             * AmbitoActual = Ambito; } if (hijo.getEtiqueta().equals("dec_while")) { Ambito
-             * = Ambito + 1; AmbitoActual = Ambito; } if
-             * (hijo.getEtiqueta().equals("dec_for")) { Ambito = Ambito + 1; AmbitoActual =
-             * Ambito; } if (hijo.getEtiqueta().equals("default")) { Ambito = Ambito + 1;
-             * AmbitoActual = Ambito; }
-             */
 
             String rgx = "dec_if dec_elif dec_else dec_while dec_for list_op default";
             Pattern p = Pattern.compile(hijo.getEtiqueta());
@@ -848,51 +822,6 @@ public class main extends javax.swing.JFrame {
                 }
                 this.AmbitoActualR = temp;
             }
-
-            /*
-             * if(hijo.getEtiqueta().equals("dec_if")){
-             * AmbitoActual=hijo.getPadre().getAmbito(); }
-             * if(hijo.getEtiqueta().equals("dec_elif")){
-             * AmbitoActual=hijo.getPadre().getAmbito(); }
-             * if(hijo.getEtiqueta().equals("dec_else")){
-             * AmbitoActual=hijo.getPadre().getAmbito(); }
-             * if(hijo.getEtiqueta().equals("dec_while")){
-             * AmbitoActual=hijo.getPadre().getAmbito(); }
-             * if(hijo.getEtiqueta().equals("dec_for")){
-             * AmbitoActual=hijo.getPadre().getAmbito(); }
-             * if(hijo.getEtiqueta().equals("list_op")){
-             * AmbitoActual=hijo.getPadre().getAmbito(); }
-             * if(hijo.getEtiqueta().equals("default")){
-             * AmbitoActual=hijo.getPadre().getAmbito(); }
-             * if(hijo.getEtiqueta().equals("list_op")){
-             * AmbitoActual=hijo.getPadre().getAmbito(); }
-             * if(hijo.getEtiqueta().equals("default")){
-             * AmbitoActual=hijo.getPadre().getAmbito(); }
-             * if(hijo.getEtiqueta().equals("list_op")){
-             * AmbitoActual=hijo.getPadre().getAmbito(); }
-             * if(hijo.getEtiqueta().equals("default")){
-             * AmbitoActual=hijo.getPadre().getAmbito(); }
-             * if(hijo.getEtiqueta().equals("list_op")){
-             * AmbitoActual=hijo.getPadre().getAmbito(); }
-             * if(hijo.getEtiqueta().equals("default")){
-             * AmbitoActual=hijo.getPadre().getAmbito(); }
-             * if(hijo.getEtiqueta().equals("list_op")){
-             * AmbitoActual=hijo.getPadre().getAmbito(); }
-             * if(hijo.getEtiqueta().equals("default")){
-             * AmbitoActual=hijo.getPadre().getAmbito(); }
-             * if(hijo.getEtiqueta().equals("list_op")){
-             * AmbitoActual=hijo.getPadre().getAmbito(); }
-             * if(hijo.getEtiqueta().equals("default")){
-             * AmbitoActual=hijo.getPadre().getAmbito(); }
-             * if(hijo.getEtiqueta().equals("list_op")){
-             * AmbitoActual=hijo.getPadre().getAmbito(); }
-             * if(hijo.getEtiqueta().equals("default")){
-             * AmbitoActual=hijo.getPadre().getAmbito(); }
-             * if(hijo.getEtiqueta().equals("list_op")){
-             * AmbitoActual=hijo.getPadre().getAmbito(); }
-             * if(hijo.getEtiqueta().equals("default")){
-             * AmbitoActual=hijo.getPadre().getAmbito(); }
-             */
         }
     }
     private String aritmetica(String cadena){
@@ -1112,8 +1041,48 @@ public class main extends javax.swing.JFrame {
         }
         
     }
-
-
+    public void Comprobacion_Funciones(String id, ArrayList<String> tipos, int line, int colummn){
+        System.out.println("SI, ingrese");
+        boolean name=false;
+        boolean total=false;
+        int veces=0;
+        for (Function iter: funciones) {
+            if (iter.getId().equals(id)) {
+                System.out.println("SI, ingreseA");
+                name=true;
+                boolean bandera=false;
+                if (tipos.size()==iter.getParametros().size()) {
+                    System.out.println("SI, ingreseB");
+                    for (int i = 0; i < tipos.size(); i++) {
+                        if (!tipos.get(i).equals(iter.getParametros().get(i).getTipo())){
+                            System.out.println("SI, ingreseC");
+                            bandera=true;
+                        }
+                    }
+                }else{
+                    bandera=true;
+                }
+                if (!bandera) {
+                    System.out.println("SI, ingreseD");
+                    total=true;
+                    veces++;
+                }
+            }
+        }
+        if (veces>1) {
+            System.out.println("error1");
+            this.errors+="\nAcceso Perdido, existen dos funciones iguales | Position: " + "linea: " + line + " columna: " + colummn;
+        }else if(!name && !total){
+            System.out.println("error2");
+            this.errors+="\nLa llamada se hace a una funcion que no existe | Position: " + "linea: " + line + " columna: " + colummn;
+        }else if (name && !total) {
+            System.out.println("error3");
+            this.errors+="\nError en el ingreso de parametros | Position: " + "linea: " + line + " columna: " + colummn;
+        }
+    }
+    public String relationalExpressions(String expression){
+        return "";
+    }
    /* public String bool_expression(String expression) {
         String temp = expression;
         //NOT
@@ -1141,7 +1110,7 @@ public class main extends javax.swing.JFrame {
 
 
 
-    // Variables declaration - do not modify //GEN-BEGIN:variables
+    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cancel_BT;
     private javax.swing.JFrame New_file_JF;
     private javax.swing.JButton Ok_BT;
