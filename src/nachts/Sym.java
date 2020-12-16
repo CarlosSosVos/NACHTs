@@ -11,7 +11,6 @@ public class Sym {
   public static final int FUNCTION = 2;
   public static final int L_KEY = 44;
   public static final int OPSUM = 39;
-  public static final int OPCOND = 35;
   public static final int OUTPUT = 28;
   public static final int INPUT = 27;
   public static final int CASE = 30;
@@ -33,8 +32,8 @@ public class Sym {
   public static final int ID = 33;
   public static final int CONSTSTRING = 12;
   public static final int R_BRACKET = 47;
-  public static final int EOF = 0;
   public static final int BOOLEAN = 16;
+  public static final int EOF = 0;
   public static final int RETURN = 21;
   public static final int TRUE = 23;
   public static final int error = 1;
@@ -61,6 +60,7 @@ public class Sym {
   public static final int AT = 53;
   public static final int FALSE = 24;
   public static final int L_BRACKET = 46;
+  public static final int OPNEG = 35;
   public static final int OPMULT = 38;
   public static final int ELIF = 9;
   public static final int STEP = 6;
@@ -100,7 +100,7 @@ public class Sym {
   "DEFAULT",
   "ID",
   "OPREL",
-  "OPCOND",
+  "OPNEG",
   "OPLOG",
   "OPMOD",
   "OPMULT",

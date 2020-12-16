@@ -1,5 +1,8 @@
 fnc noHayMain (): main{
-	wh(3<7){
+	var a:int:=1;
+	var b:int:=2;
+	var c:int:=3;
+	wh(1<5){
 		
 	}
 

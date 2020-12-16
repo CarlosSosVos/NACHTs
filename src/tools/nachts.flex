@@ -118,7 +118,7 @@ OPGREATEREQ= ">="
 OPLESS= "<"
 OPLESSEQ = "<="
 OPREL = {OPCOMP}|{OPDIF}|{OPGREATER}|{OPGREATEREQ}|{OPLESS}|{OPLESSEQ}
-OPCOND ="?"
+OPNEG="!"
 OPAND ="&&"
 OPOR="||"
 OPLOG = {OPAND}|{OPOR}
@@ -404,11 +404,11 @@ float_value = {numbers}{dot}{numbers}
         return new Symbol(Sym.OPREL, yycolumn, yyline, yytext());
     }
     
-    {OPCOND} {
+    {OPNEG} {
         String output= yytext() + " en ("+ yyline +","+ yycolumn+")";
         accum+= output +"\n";
         //System.out.println(output); 
-        return new Symbol(Sym.OPCOND, yycolumn, yyline, yytext());
+        return new Symbol(Sym.OPNEG, yycolumn, yyline, yytext());
     }
    
     {OPLOG} {

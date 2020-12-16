@@ -47,7 +47,7 @@ parser code {:
   case 2: return   "FUNCTION" ; 
   case 44: return  "L_KEY"   ;
   case 39: return  "OPSUM"   ;
-  case 35: return  "OPCOND"   ;
+  case 35: return  "OPNEG"   ;
   case 28: return  "OUTPUT"   ;
   case 27: return  "INPUT"   ;
   case 30: return  "CASE"   ;
@@ -196,7 +196,7 @@ terminal String FUNCTION,NUM,UPTO,DOWNTO,STEP,VARIABLE,STRING,ELIF,FLOAT, FLOAT_
                 CONSTSTRING,CONSTCHAR,INTEGER,CHARACTER,BOOLEAN,IF,ELSE,
                 WHILE,FOR,RETURN,VOID,TRUE,FALSE,BREAK,NULL,
                 INPUT,OUTPUT,SWITCH,CASE,OPTION,DEFAULT,ID,
-                OPREL,OPCOND,OPLOG,OPMOD,OPMULT,OPSUM,OPINC,OPASIGN,
+                OPREL,OPNEG,OPLOG,OPMOD,OPMULT,OPSUM,OPINC,OPASIGN,
                 OPASIGNADD,OPASIGNMULT,L_KEY,R_KEY,L_BRACKET,R_BRACKET,
                 L_PAR,R_PAR,COMMA,SEMICOLON,COLON,AT,DOT,MAIN;
 
@@ -206,7 +206,7 @@ non terminal Node inicio,dec_gen_fun,dec_funcion,parametros,
              val,dec_while,dec_for,dec_switch,list_op,new_op,dec_if,
              dec_else,dec_llamada_funcion,llamada_parametros,
              lista_valores,fin_llamada,condicion,valor_cond,dec_return,
-             tipo,arreglo,arreglo2d,arr2_cont,/*math_op,*/mas_condicion,otra_condicion;
+             tipo,arreglo,arreglo2d,arr2_cont,/*math_op,*/mas_condicion,otra_condicion,condicion2;
 
 precedence right OPASIGN;
 precedence left OPMULT;
@@ -2314,8 +2314,10 @@ dec_while ::= WHILE L_PAR condicion:cond R_PAR L_KEY dec_general:dg R_KEY
                 Node node = new Node();
                 node.setEtiqueta("dec_while");
                 node.setID(parser.cont);
-                node.addHijos((Node) cond);
+                Node n_cond=(Node) cond;
+                node.addHijos(n_cond);
                 node.addHijos((Node) dg);
+                System.out.println("Booleana:"+n_cond.getValue());
                 RESULT = node;
             :}
 ;
@@ -2770,22 +2772,49 @@ lista_valores ::= COMMA valor:vl lista_valores:lv
             :}
             |error COMMA
             ;
-
-condicion ::= valor_cond:vc mas_condicion:masc otra_condicion:otrac
+condicion  ::=OPNEG L_PAR condicion2:cond R_PAR otra_condicion:otrac
+            {:
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("inicio_condiciones");
+                //node.setValor(vc.getValor());
+                node.setID(parser.cont);
+                Node n_cond=(Node) cond;
+                Node n_otrac=(Node) otrac;
+                node.addHijos(n_cond);
+                node.addHijos(n_otrac);
+                node.setValue("!("+n_cond.getValue()+")"+n_otrac.getValue());
+                RESULT = node;
+            :} 
+            |condicion2:cond
+            {:
+                parser.cont++;
+                Node node = new Node();
+                node.setEtiqueta("inicio_condiciones");
+                node.setID(parser.cont);
+                Node n_cond=(Node) cond;
+                node.addHijos(n_cond);
+                node.setValue(n_cond.getValue());
+                RESULT = node;
+            :}
+            ;
+condicion2 ::= valor_cond:vc mas_condicion:masc otra_condicion:otrac
                 {:
                     parser.cont++;
                     Node node = new Node();
                     node.setEtiqueta("inicio_condiciones");
                     //node.setValor(vc.getValor());
                     node.setID(parser.cont);
-                    node.addHijos((Node) vc);
-                    node.addHijos((Node) masc);
-                    node.addHijos((Node) otrac);
+                    Node n_vc=(Node) vc;
+                    Node n_masc=(Node) masc;
+                    Node n_otrac=(Node) otrac;
+                    node.addHijos(n_vc);
+                    node.addHijos(n_masc);
+                    node.addHijos(n_otrac);
+                    node.setValue(""+n_vc.getValue()+n_masc.getValue()+n_otrac.getValue());
                     RESULT = node;
                 
-                :}
-                |error condicion
-                 
+                :} 
                 ;
 mas_condicion ::= OPREL:opre valor_cond:vc mas_condicion:masc
                 {:
@@ -2793,9 +2822,12 @@ mas_condicion ::= OPREL:opre valor_cond:vc mas_condicion:masc
                     Node node = new Node();
                     node.setEtiqueta("mas_condicion");
                     node.setID(parser.cont);
+                    Node n_vc=(Node) vc;
+                    Node n_masc=(Node) masc;
                     node.setValor(opre);
-                    node.addHijos((Node) vc);
-                    node.addHijos((Node) masc);
+                    node.addHijos(n_vc);
+                    node.addHijos(n_masc);
+                    node.setValue(""+opre+n_vc.getValue()+n_masc.getValue());
                     RESULT = node;
                 :}
                 |
@@ -2803,20 +2835,23 @@ mas_condicion ::= OPREL:opre valor_cond:vc mas_condicion:masc
                     parser.cont++;
                     Node nodo = new Node();
 				    nodo.setEtiqueta("vacio");
+                    nodo.setValue("");
 				    nodo.setID(parser.cont);
                     RESULT = nodo;
                 :}
                 ;
-otra_condicion ::= OPLOG:oplg valor_cond:vc mas_condicion:masc otra_condicion:otrac
+otra_condicion ::= OPLOG:oplg condicion:cond
                 {:
                     parser.cont++;
                     Node node = new Node();
                     node.setEtiqueta("otra_condicion");
                     node.setID(parser.cont);
+                    Node n_cond=(Node) cond;
                     node.setValor(oplg);
-                    node.addHijos((Node) vc);
-                    node.addHijos((Node) masc);
-                    node.addHijos((Node) otrac);
+                    node.addHijos(n_cond);
+                    node.setValue(""+oplg+n_cond.getValue());
+                    //node.addHijos((Node) masc);
+                    //node.addHijos((Node) otrac);
                     RESULT = node;
                 :}
                 |
@@ -2824,6 +2859,7 @@ otra_condicion ::= OPLOG:oplg valor_cond:vc mas_condicion:masc otra_condicion:ot
                     parser.cont++;
                     Node nodo = new Node();
 				    nodo.setEtiqueta("vacio");
+                    nodo.setValue("");
 				    nodo.setID(parser.cont);
                     RESULT = nodo;
                 :}
@@ -2842,7 +2878,7 @@ valor_cond ::= TRUE:tru
                 bool_true.setEtiqueta("true");
                 bool_true.setID(parser.cont);
                 bool_true.setValor(tru);
-
+                node.setValue("true");
                 node.setValor(bool_true.getValor());
                 RESULT = node;
             :}
@@ -2859,7 +2895,7 @@ valor_cond ::= TRUE:tru
                 bool_false.setEtiqueta("false");
                 bool_false.setID(parser.cont);
                 bool_false.setValor(fals);
-
+                node.setValue("false");
                 node.setValor(bool_false.getValor());
                 RESULT = node;
             :}
@@ -2869,9 +2905,12 @@ valor_cond ::= TRUE:tru
                 Node node = new Node();
                 node.setEtiqueta("valor");
                 node.setID(parser.cont);
-                node.addHijos((Node) mop);
+                Node n_mop=(Node) mop;
+                node.setValue(n_mop.getValue());
+                node.addHijos(n_mop);
                 RESULT = node;
            :}
+            
             ;
 
 dec_return ::= RETURN valor:vl
@@ -2957,16 +2996,3 @@ tipo ::= BOOLEAN
                 RESULT = node;
             :}
             ;
-
-/*math_op::=  math_op:mo
-        {:
-                parser.cont++;
-                Node node = new Node();
-                node.setEtiqueta("posicion");
-                node.setID(parser.cont);
-                node.addHijos((Node) mo);
-                node.setValue( ((Node)mo).getValue() );
-                RESULT = node;
-        :}
-        
-        ;*/

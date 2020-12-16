@@ -1114,7 +1114,34 @@ public class main extends javax.swing.JFrame {
     }
 
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+   /* public String bool_expression(String expression) {
+        String temp = expression;
+        //NOT
+        if (temp.contains("!")){
+            int pos_symbol = temp.indexOf("!");
+            String not_expression = "" ;
+            for(char value : temp.toCharArray()){
+                if(!(not_expresion.contains(")"))){
+                    not_expression+=value;
+                }
+            }
+            
+        }else if (temp.contains("&&")){
+            int pos_symbol = temp.indexOf("&&");
+        
+        }else if (temp.contains("||")){
+            int pos_symbol = temp.indexOf("||");
+        }else{
+            return "";
+        }
+        return bool_expression(temp);
+    }*/
+
+
+
+
+
+    // Variables declaration - do not modify //GEN-BEGIN:variables
     private javax.swing.JButton Cancel_BT;
     private javax.swing.JFrame New_file_JF;
     private javax.swing.JButton Ok_BT;
