@@ -1,8 +1,9 @@
 fnc noHayMain (): main{
 	var a:int:=1+2;
 	var b:int:=2;
-	var c:int:=3;
-	wh(true&&false&&true&&false&&true){
+	var c:int:=3 + 10;
+	var d:bool := true;
+	wh(d=true){
 		
 	}
 

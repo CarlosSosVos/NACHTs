@@ -1146,7 +1146,8 @@ public class main extends javax.swing.JFrame {
             }else if(temporal_string == '='){
                 if(expression.charAt(i-1)!= '>' && expression.charAt(i-1)!= '<' && expression.charAt(i-1)!= '!'){
                     symbols_substring += (expression.charAt(i) + ",");
-                } 
+                }
+                variables_substring += ";";
             }else{
                 variables_substring += expression.charAt(i);
             }
@@ -1157,28 +1158,28 @@ public class main extends javax.swing.JFrame {
  
         String quad = "";
         String new_temporal = "";
-        String arg1 = "";
-        // Process the Quads
+
+        // Process any arthimetic expressions
         for (int i = 0; i < list_variables.length; i++){
             String substring = list_variables[i];
+            if(substring.contains("+") || substring.contains("-") || substring.contains("/") || substring.contains("*")){
+                new_temporal = aritmetica(substring);
+                list_variables[i] = new_temporal;
+            }
+        }
+
+        // Process the Quads
+        for (int i = 0; i < list_variables.length; i++){
             if (i != list_variables.length - 1 ){
-                if(substring.contains("+") || substring.contains("-") || substring.contains("/") || substring.contains("*")){
-                    new_temporal = aritmetica(substring);
-                }
-                if (new_temporal != "") {
-                    arg1 = new_temporal;
-                }else{
-                    arg1 = list_variables[i];
-                }
                 String op = "if" + list_symbols[i];
+                String arg1 = list_variables[i];
                 String arg2 = list_variables[i+1];
-                temporals += 1;
-                String temporal_temp = "T" + Integer.toString(temporals);
+                temporales += 1;
+                String temporal_temp = "T" + Integer.toString(temporales);
                 System.out.println(op +", "+ arg1 +", " + arg2 +", " + temporal_temp);
             }
             new_temporal = "";
         }
-        System.out.println("Esto");
         return "";
     }
    
