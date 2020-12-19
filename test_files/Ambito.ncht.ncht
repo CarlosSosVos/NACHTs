@@ -1,4 +1,4 @@
 fnc noHayMain (): main {
-	var a:chr:='c';
-	a:='g';
+	var a:bool:=true;
+	a:=false;
 }

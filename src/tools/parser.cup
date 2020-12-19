@@ -1265,7 +1265,7 @@ dec_inst ::= OPASIGN FLOAT_VAL:nm
                 const_char.setValor(cc.replaceAll("\'",""));
                 node.addHijos(const_char);
                 node.setValue(cc);
-                System.out.println("que pedos CHAR:"+cc);
+                //System.out.println("que pedos CHAR:"+cc);
                 RESULT = node;
              :}
              | OPASIGN TRUE:tru
@@ -1324,7 +1324,7 @@ dec_inst ::= OPASIGN FLOAT_VAL:nm
 
                 node.setValor(n_arr.getValor());
                 node.setValue(arr.getValue());
-                System.out.println("Sera?"+arr.getValue().toString());
+                //System.out.println("Sera?"+arr.getValue().toString());
                 RESULT = node;
              :}
              | OPASIGN math_op:mo

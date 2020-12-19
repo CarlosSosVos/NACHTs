@@ -1302,7 +1302,7 @@ public class main extends javax.swing.JFrame {
                         String tem=(String)hijo.getHijos().get(1).getValue();
                         asignacion=aritmetica(tem);
                     }else{
-                        asignacion=""+hijo.getValue();
+                        asignacion=""+hijo.getHijos().get(1).getValue();;
                     }
                 }
                 if (!asignacion.isEmpty()) {
