@@ -1,8 +1,7 @@
-/dist/
-/build/*
-!/build/main.form
+dist/
+build/*
+!build/main.form
+
 
 *.dot
 fotoAST.png
-
-!.gitignore
