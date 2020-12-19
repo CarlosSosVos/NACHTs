@@ -2510,7 +2510,7 @@ class CUP$parser$actions {
                 const_char.setValor(cc.replaceAll("\'",""));
                 node.addHijos(const_char);
                 node.setValue(cc);
-                System.out.println("que pedos CHAR:"+cc);
+                //System.out.println("que pedos CHAR:"+cc);
                 RESULT = node;
              
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_inst",9, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -2609,7 +2609,7 @@ class CUP$parser$actions {
 
                 node.setValor(n_arr.getValor());
                 node.setValue(arr.getValue());
-                System.out.println("Sera?"+arr.getValue().toString());
+                //System.out.println("Sera?"+arr.getValue().toString());
                 RESULT = node;
              
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_inst",9, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -3162,11 +3162,12 @@ class CUP$parser$actions {
                         }
                     }
                 }else{
-                    if(opas.equals("+=")){
+                    semantic_errors("Operacion incompatible con Variable "+id+" |",opasleft,opasright);
+                    /*if(opas.equals("+=")){
                         System.out.println("incremento incorrecto"+ id);
                     }else{
                         System.out.println("decremento incorrecto"+ id);
-                    }
+                    }*/
                 }
                 RESULT = node;
                 

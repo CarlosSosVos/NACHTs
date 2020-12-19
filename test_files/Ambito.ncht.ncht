@@ -1,4 +1,5 @@
 fnc noHayMain (): main {
-	var a:chr:='c';
-	a:='g';
+	var a:int:=1;
+	a:=2;
+	a++;
 }
