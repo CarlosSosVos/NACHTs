@@ -1,4 +1,5 @@
 fnc noHayMain (): main {
-	var a:bool:=true;
-	a:=false;
+	var a:int:=1;
+	a:=2;
+	a++;
 }

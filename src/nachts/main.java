@@ -1365,10 +1365,14 @@ public class main extends javax.swing.JFrame {
                     }else{
                         asignacion=""+hijo.getHijos().get(1).getValue();;
                     }
+                }else{
+                    String t="T"+temporales;
+                    cuadruplos.add(new Cuadruplo("+",hijo.getHijos().get(0).getValor(),"1",t));
+                    asignacion=t;
                 }
                 if (!asignacion.isEmpty()) {
                     
-                    String t="T"+this.temporales;
+                    String t=hijo.getHijos().get(0).getValor();
                     cuadruplos.add(new Cuadruplo("=",asignacion,"",t));
                 }
                 
@@ -1386,7 +1390,7 @@ public class main extends javax.swing.JFrame {
                    asignacion=""+hijo.getValue();
                 }
                 if (!asignacion.isEmpty()) {
-                    String t="T"+this.temporales;
+                    String t=hijo.getPadre().getPadre().getHijos().get(0).getValor();
                     cuadruplos.add(new Cuadruplo("=",asignacion,"",t));
                 }
             }

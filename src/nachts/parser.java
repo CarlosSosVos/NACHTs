@@ -3162,11 +3162,12 @@ class CUP$parser$actions {
                         }
                     }
                 }else{
-                    if(opas.equals("+=")){
+                    semantic_errors("Operacion incompatible con Variable "+id+" |",opasleft,opasright);
+                    /*if(opas.equals("+=")){
                         System.out.println("incremento incorrecto"+ id);
                     }else{
                         System.out.println("decremento incorrecto"+ id);
-                    }
+                    }*/
                 }
                 RESULT = node;
                 
