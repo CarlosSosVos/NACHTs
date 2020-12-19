@@ -1265,6 +1265,7 @@ dec_inst ::= OPASIGN FLOAT_VAL:nm
                 const_char.setValor(cc.replaceAll("\'",""));
                 node.addHijos(const_char);
                 node.setValue(cc);
+                System.out.println("que pedos CHAR:"+cc);
                 RESULT = node;
              :}
              | OPASIGN TRUE:tru
@@ -1550,7 +1551,8 @@ dec_var_inst ::= ID:id OPASIGN valor:va SEMICOLON
                 Node node = new Node();
                 node.setEtiqueta("dec_var_inst");
                 node.setID(parser.cont);
-
+                node.setLine(idright);
+                node.setColummn(idleft);
                 parser.cont++;
                 Node identificador =new Node();
                 identificador.setEtiqueta("ID");
@@ -1619,7 +1621,8 @@ dec_var_inst ::= ID:id OPASIGN valor:va SEMICOLON
                 Node node = new Node();
                 node.setEtiqueta("dec_var_inst");
                 node.setID(parser.cont);
-
+                node.setLine(idright);
+                node.setColummn(idleft);
                 parser.cont++;
                 Node identificador =new Node();
                 identificador.setEtiqueta("ID");
@@ -1659,7 +1662,8 @@ dec_var_inst ::= ID:id OPASIGN valor:va SEMICOLON
                 Node node = new Node();
                 node.setEtiqueta("dec_var_inst");
                 node.setID(parser.cont);
-
+                node.setLine(idright);
+                node.setColummn(idleft);
                 parser.cont++;
                 Node identificador =new Node();
                 identificador.setEtiqueta("ID");
@@ -1704,7 +1708,8 @@ dec_var_inst ::= ID:id OPASIGN valor:va SEMICOLON
                 Node node = new Node();
                 node.setEtiqueta("dec_var_inst");
                 node.setID(parser.cont);
-
+                node.setLine(idright);
+                node.setColummn(idleft);
                 parser.cont++;
                 Node identificador =new Node();
                 identificador.setEtiqueta("ID");
@@ -1739,7 +1744,8 @@ dec_var_inst ::= ID:id OPASIGN valor:va SEMICOLON
                 Node node = new Node();
                 node.setEtiqueta("dec_var_inst");
                 node.setID(parser.cont);
-
+                node.setLine(idright);
+                node.setColummn(idleft);
                 parser.cont++;
                 Node identificador =new Node();
                 identificador.setEtiqueta("ID");
