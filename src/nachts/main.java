@@ -748,10 +748,6 @@ public class main extends javax.swing.JFrame {
             }
 
             // Agregando funcion para procesar relacionales
-            if (hijo.getEtiqueta().equals("dec_while")) {
-                String value = (String) hijo.getHijos().get(0).getValue();
-                String assignment = relationalExpressions(value);
-            }
 
             //------------------------------------------------------------------
             if (hijo.getEtiqueta().equals("val")) {
@@ -1199,23 +1195,25 @@ public class main extends javax.swing.JFrame {
                 list_variables[i] = new_temporal;
             }
         }
-
+         String temporal_temp="";
         // Process the Quads
         for (int i = 0; i < list_variables.length; i++) {
             if (i != list_variables.length - 1) {
                 String op = "if" + list_symbols[i];
                 String arg1 = list_variables[i];
                 String arg2 = list_variables[i + 1];
+                temporal_temp = "T" + Integer.toString(temporales);
                 temporales += 1;
-                String temporal_temp = "T" + Integer.toString(temporales);
                 System.out.println(op + ", " + arg1 + ", " + arg2 + ", " + temporal_temp);
+                cuadruplos.add(new Cuadruplo(op,arg1,arg2,temporal_temp));
+                cuadruplos.add(new Cuadruplo("GOTO","","",temporal_temp));
             }
             new_temporal = "";
         }
-        return "";
+        return  temporal_temp;
     }
 
-    public static String bool_expression(String expression) {
+    public String bool_expression(String expression) {
         String temp = expression;
         temp = temp.replace(" ", "");
         String retval = "";
@@ -1268,6 +1266,41 @@ public class main extends javax.swing.JFrame {
                 reverso.reverse();
                 expresion_izq = reverso.toString();
                 expresion_izq.replace(" ", "");
+                String anotador=expresion_izq;
+                if (!expresion_izq.contains("T")) {
+                    anotador=relationalExpressions(expresion_izq);
+                    String etiq="Etiq"+this.etiquetas;
+                    this.etiquetas++;
+                    cuadruplos.add(new Cuadruplo(etiq,"","",""));
+                    int veces=0;
+                    for (int j = 0; j < cuadruplos.size(); j++) {
+                        if (cuadruplos.get(j).getResult().equals(anotador)) {
+                            if (veces==0) {
+                                cuadruplos.get(j).setResult(etiq);
+                                veces++;
+                            }else{
+                                cuadruplos.get(j).setResult("Etiqueta de salida");
+                            }
+                        }
+                    }
+                }else{
+                    String etiq="Etiq"+this.etiquetas;
+                    this.etiquetas++;
+                    cuadruplos.add(new Cuadruplo(etiq,"","",""));
+                    int veces=0;
+                    for (int j = 0; j < cuadruplos.size(); j++) {
+                        if (cuadruplos.get(j).getResult().equals(anotador)) {
+                            if (veces==0) {
+                                cuadruplos.get(j).setResult(etiq);
+                                veces++;
+                            }else{
+                                cuadruplos.get(j).setResult("Etiqueta de salida");
+                            }
+                        }
+                    }
+                }
+                
+                
                 System.out.println("el substring joy yo: " + expresion_izq);
 
             }
@@ -1306,12 +1339,24 @@ public class main extends javax.swing.JFrame {
                 }
 
             }
+            
             System.out.println("no joy yo soy: " + expresion_der);
-
+            String anotador=relationalExpressions(expresion_der);
+            System.out.println("YO SOY EL ANOTADOR2:"+anotador);
+            int veces=0;
+            for (int i = 0; i < cuadruplos.size(); i++) {
+                if (cuadruplos.get(i).getResult().equals(anotador)) {
+                    if (veces==0) {
+                        veces++;
+                    }else{
+                        cuadruplos.get(i).setResult("Etiqueta de salida");
+                    }
+                }
+            }
             retval = expresion_izq + "&&" + expresion_der;
 
             System.out.println("antes de: " + retval);
-            retval = temp.replace(retval, "T1");
+            retval = temp.replace(retval, anotador);
             System.out.println("despues de: " + retval);
 
             return bool_expression(retval);
@@ -1512,9 +1557,18 @@ public class main extends javax.swing.JFrame {
                     cuadruplos.add(new Cuadruplo("=", asignacion, "", t));
                 }
             }
+            if (hijo.getEtiqueta().equals("dec_while")) {
+                cuadruplos.add(new Cuadruplo(("Etiq"+this.etiquetas),"","",""));
+                this.etiquetas++;
+                bool_expression((String)hijo.getHijos().get(0).getValue());
+            }
             generar_cuadruplos(hijo);
         }
     }
+    //public void transicion_rel_bool(String cadena){
+        //
+        
+    //}
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1557,4 +1611,5 @@ public class main extends javax.swing.JFrame {
     int offset = 0;
     String errors = "";
     int temporales = 0;
+    int etiquetas=0;
 }

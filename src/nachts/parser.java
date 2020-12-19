@@ -3701,7 +3701,7 @@ class CUP$parser$actions {
                         System.out.println("veamo si entra prrin");
                         //int valor_temp = (int)temp.getValue();
                         //node.setValue(valor_temp);
-                        node.setValue(temp.getValue());
+                        node.setValue(temp.getId());
                         node.setIsInt("int");
                     }
                 }else if(temp.getTipo().equals("string")){
@@ -3719,7 +3719,7 @@ class CUP$parser$actions {
                         System.out.println("veamo si entra prrin");
                         //String valor_temp = (String)temp.getValue();
                         //node.setValue(valor_temp);
-                        node.setValue(temp.getValue());
+                        node.setValue(temp.getId());
                         node.setIsInt("string");
                     }
 
@@ -3738,7 +3738,7 @@ class CUP$parser$actions {
                         System.out.println("veamo si entra prrin chr");
                         //char valor_temp = ((String)temp.getValue()).charAt(0);
                         //node.setValue(valor_temp);
-                        node.setValue(temp.getValue());
+                        node.setValue(temp.getId());
                         node.setIsInt("chr");
                     }
                     System.out.println("NO entre"+temp.getValue().getClass());
@@ -3753,13 +3753,13 @@ class CUP$parser$actions {
                         System.out.println("veamo si entra prrin");
                         boolean valor_temp;
                         if(temp.getValue()==null){
-                            node.setValue(temp.getValue());
+                            node.setValue(temp.getId());
                         }else if((boolean)temp.getValue()){
                             valor_temp = true;
-                            node.setValue(valor_temp);
+                            node.setValue(temp.getId());
                         }else{
                             valor_temp = false;
-                            node.setValue(valor_temp);
+                            node.setValue(temp.getId());
                         }
                         node.setIsInt("bool");
                     }
