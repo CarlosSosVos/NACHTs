@@ -1,8 +1,8 @@
 /dist/
-/build
+/build/*
+!/build/main.form
 
 *.dot
 fotoAST.png
 
 !.gitignore
-!/build/nachts/main.form
