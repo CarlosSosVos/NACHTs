@@ -1178,6 +1178,7 @@ public class main extends javax.swing.JFrame {
             }
             new_temporal = "";
         }
+        System.out.println("Esto");
         return "";
     }
    
