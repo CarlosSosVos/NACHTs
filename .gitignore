@@ -1,6 +1,6 @@
 dist/
 build/*
-!build/main.form
+! build/nachts/main.form
 
 
 *.dot
