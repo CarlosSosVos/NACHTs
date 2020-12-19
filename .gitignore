@@ -3,3 +3,6 @@
 
 *.dot
 fotoAST.png
+
+!.gitignore
+!/build/nachts/main.form
