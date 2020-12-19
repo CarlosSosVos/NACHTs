@@ -1,6 +1,10 @@
 dist/
+
+!build/
 build/*
-! build/nachts/main.form
+!build/nachts
+build/nachts/*
+!build/nachts/main.form
 
 
 *.dot
