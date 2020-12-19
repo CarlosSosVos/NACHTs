@@ -407,6 +407,10 @@ public class main extends javax.swing.JFrame {
                 this.offset =0;
                 if(errors.isEmpty()){
                     ambito(miArbol);
+                    if (errors.isEmpty()) {
+                        generar_cuadruplos(miArbol);
+                        this.temporales=0;
+                    }
                 }
 
                 for( int i = 0 ; i< variables.size() ; i++){
@@ -435,9 +439,10 @@ public class main extends javax.swing.JFrame {
                     System.out.println(variable.toString());
                 }
 
-                for (Cuadruplo iter : p.cuadruplos) {
+                for (Cuadruplo iter : cuadruplos) {
                     System.out.println(iter.toString());
                 }
+                cuadruplos=new ArrayList<Cuadruplo>();
 
                 int ver_arbol;
                 ver_arbol = JOptionPane.showOptionDialog(this, "Desea visualizar el arbol generado?",
@@ -673,12 +678,35 @@ public class main extends javax.swing.JFrame {
             }
             //esto se tendra que hacer en otro metodo, esto es solo para pruebas
             if (hijo.getEtiqueta().equals("dec_var_inst")) {
-                if (hijo.getHijos().get(1).isAritmetica()) {
-                    String temp=(String)hijo.getHijos().get(1).getValue();
-                    String asignacion=aritmetica(temp);
+                Variable temp = new Variable("-1", "-1");
+                for (Variable variable : variables) {
+                    if (hijo.getHijos().get(0).getValor().equals(variable.getId())) {
+                        temp = variable;
+                    }
                 }
+
+                boolean flag;
+                int temp_ambitos;
+                if (temp.getAmbitos().size() <= this.AmbitoActualR.size()) {
+                    for (int i = 0; i < temp.getAmbitos().size(); i++) {
+                        if (temp.getAmbitos().get(i) != this.AmbitoActualR.get(i)) {
+                            flag = false;
+                            System.out.println("Acceso a variables erroneo, conflicto de ambito");
+                            errors+="\nAcceso a variables erroneo, conflicto de ambito | Position: " + "linea: " + hijo.getLine() + " columna: " + hijo.getColummn();
+                        }
+                    }
+                } else {
+                    System.out.println("Acceso a variables erroneo, conflicto de ambito");
+                    errors+="\nAcceso a variables erroneo, conflicto de ambito | Position: " + "linea: " + hijo.getLine() + " columna: " + hijo.getColummn();
+                }
+                /*if (hijo.getHijos().size()>1) {
+                    if (hijo.getHijos().get(1).isAritmetica()) {
+                        String tem=(String)hijo.getHijos().get(1).getValue();
+                        String asignacion=aritmetica(tem);
+                    }
+                }*/
+                
             }
-            //------------------------------------------------------------------
             if (hijo.getEtiqueta().equals("val")) {
 
                 if (hijo.isValueIsID()) {
@@ -699,6 +727,7 @@ public class main extends javax.swing.JFrame {
                             if (temp.getAmbitos().get(i) != this.AmbitoActualR.get(i)) {
                                 flag = false;
                                 System.out.println("Acceso a variables erroneo, conflicto de ambito");
+                                errors+="\nAcceso a variables erroneo, conflicto de ambito | Position: " + "linea: " + hijo.getLine() + " columna: " + hijo.getColummn();
                             }
                         }
                     } else {
@@ -825,7 +854,6 @@ public class main extends javax.swing.JFrame {
         }
     }
     private String aritmetica(String cadena){
-        String result="";
         boolean flag1=true;
         boolean flag2=true;
         boolean flag3=true;
@@ -912,7 +940,10 @@ public class main extends javax.swing.JFrame {
                     } 
                     i=cadena.length();
                     System.out.println(temp1+"/"+temp2);
-                    cadena=cadena.substring(0,p1)+"T1"+cadena.substring(p2, cadena.length());
+                    String temporal="T"+temporales;
+                    temporales++;
+                    this.cuadruplos.add(new Cuadruplo("/",temp1,temp2,temporal));
+                    cadena=cadena.substring(0,p1)+temporal+cadena.substring(p2, cadena.length());
                     flag2=false;
                     flag3=false;
                 }
@@ -968,7 +999,10 @@ public class main extends javax.swing.JFrame {
                     } 
                     i=cadena.length();
                     System.out.println(temp1+"*"+temp2);
-                    cadena=cadena.substring(0,p1)+"T2"+cadena.substring(p2, cadena.length());
+                    String temporal="T"+temporales;
+                    temporales++;
+                    this.cuadruplos.add(new Cuadruplo("*",temp1,temp2,temporal));
+                    cadena=cadena.substring(0,p1)+temporal+cadena.substring(p2, cadena.length());
                     flag3=false;
                 }
             } 
@@ -1025,7 +1059,10 @@ public class main extends javax.swing.JFrame {
                     } 
                     i=cadena.length();
                     System.out.println(temp1+operador+temp2);
-                    cadena=cadena.substring(0,p1)+"T3"+cadena.substring(p2, cadena.length());
+                    String temporal="T"+temporales;
+                    temporales++;
+                    this.cuadruplos.add(new Cuadruplo(operador,temp1,temp2,temporal));
+                    cadena=cadena.substring(0,p1)+temporal+cadena.substring(p2, cadena.length());
                     //flag3=false;
                 }
             }
@@ -1033,7 +1070,7 @@ public class main extends javax.swing.JFrame {
         }
         
         System.out.println("YO SOY:"+cadena);
-        if (cadena.length()==2) {
+        if (cadena.equals("T"+(temporales-1))) {
             return cadena;
         }else{
             return aritmetica(cadena);
@@ -1083,29 +1120,218 @@ public class main extends javax.swing.JFrame {
     public String relationalExpressions(String expression){
         return "";
     }
-   /* public String bool_expression(String expression) {
+   
+    public static String boolExpresion(String expression) {
         String temp = expression;
-        //NOT
-        if (temp.contains("!")){
-            int pos_symbol = temp.indexOf("!");
-            String not_expression = "" ;
-            for(char value : temp.toCharArray()){
-                if(!(not_expresion.contains(")"))){
-                    not_expression+=value;
+        String retval = "";
+
+        if (temp.contains("!")) {
+            char validator = temp.charAt(temp.indexOf("!") + 1);
+
+            if (validator != '=') {
+                int pos_symbol = temp.indexOf("!");
+                int pos_open_par = temp.indexOf("(");
+                System.out.println(pos_open_par);
+                int pos_closing_par = findClosingParen(temp.toCharArray(), pos_open_par);
+                System.out.println(pos_closing_par);
+                retval = temp.substring(pos_open_par + 1, pos_closing_par);
+                System.out.println(retval);
+                System.out.println("SE ENCONTRO UN NOT");
+                boolExpresion(retval);
+            }
+
+            // AND
+        } else if (temp.contains("&&")) {
+            int pos_symbol = temp.indexOf("&&");
+            String symbol_izq = temp.charAt(pos_symbol - 1) + "";
+            String expresion_izq = "";
+            String symbol_der = temp.charAt(pos_symbol + 1) + "";
+            String expresion_der = "";
+            int last_index_left = 0;
+            int last_index_right = 0;
+            // primero encontramos los valores a la izquierda
+
+            if (symbol_izq.equals(")")) {
+                int pos_open_par = findOpeningParen(temp.toCharArray(), pos_symbol - 1);
+                expresion_izq = temp.substring(pos_open_par, pos_symbol - 1);
+            } else {
+                String expr_izq = temp.substring(0, pos_symbol);
+                int i = expr_izq.length() - 1;
+                while (i >= 0) {
+                    if (expr_izq.charAt(i) != '!' && expr_izq.charAt(i) != '|' && expr_izq.charAt(i) != '&') {
+                        expresion_izq += expr_izq.charAt(i);
+                    } else {
+                        last_index_left = i;
+                        break;
+                    }
+
+                    i--;
+                }
+
+                StringBuilder reverso = new StringBuilder(expresion_izq);
+                reverso.reverse();
+                expresion_izq = reverso.toString();
+            }
+
+            // luego los valores a la derecha
+            if (symbol_der.equals("(")) {
+                int pos_closing_par = findClosingParen(temp.toCharArray(), pos_symbol + 1);
+                expresion_der = temp.substring(pos_symbol + 1, pos_closing_par);
+
+            } else {
+                String expr_der = temp.substring(pos_symbol + 2, temp.length());
+                int i = 0;
+                while (i < expr_der.length()) {
+                    if (expr_der.charAt(i) != '!' && expr_der.charAt(i) != '|' && expr_der.charAt(i) != '&') {
+                        expresion_der += expr_der.charAt(i);
+                    } else {
+                        last_index_right = i;
+                        break;
+                    }
+                    i++;
+                    last_index_right = i;
                 }
             }
-            
-        }else if (temp.contains("&&")){
-            int pos_symbol = temp.indexOf("&&");
-        
-        }else if (temp.contains("||")){
+
+            retval = expresion_izq + "&&" + expresion_der;
+            retval = temp.replace(retval, "T1");
+
+            System.out.println("Yo soy: " + retval);
+
+            return boolExpresion(retval);
+
+            // OR
+        } else if (temp.contains("||")) {
+            System.out.println(temp + ": ENTRA EN OR");
             int pos_symbol = temp.indexOf("||");
-        }else{
+            String symbol_izq = temp.charAt(pos_symbol - 1) + "";
+            String expresion_izq = "";
+            String symbol_der = temp.charAt(pos_symbol + 1) + "";
+            String expresion_der = "";
+            // primero encontramos los valores a la izquierda
+            if (symbol_izq.equals(")")) {
+                int pos_open_par = findOpeningParen(temp.toCharArray(), pos_symbol - 1);
+                expresion_izq = temp.substring(pos_open_par, pos_symbol - 1);
+                //
+            } else {
+                String expr_izq = temp.substring(0, pos_symbol);
+                System.out.println(expr_izq);
+                int i = expr_izq.length() - 1;
+
+                while (i >= 0) {
+                    if (expr_izq.charAt(i) != '!' && expr_izq.charAt(i) != '|' && expr_izq.charAt(i) != '&') {
+                        expresion_izq += expr_izq.charAt(i);
+                    } else {
+                        break;
+                    }
+                    i--;
+
+                }
+                StringBuilder reverso = new StringBuilder(expresion_izq);
+                reverso.reverse();
+                expresion_izq = reverso.toString();
+            }
+            // derecha
+            if (symbol_der.equals("(")) {
+                int pos_closing_par = findClosingParen(temp.toCharArray(), pos_symbol + 1);
+                expresion_der = temp.substring(pos_symbol + 1, pos_closing_par);
+
+            } else {
+
+                String expr_der = temp.substring(pos_symbol + 2, temp.length());
+                System.out.println(expr_der);
+                int i = 0;
+                while (i < expr_der.length()) {
+                    if (expr_der.charAt(i) != '!' && expr_der.charAt(i) != '|' && expr_der.charAt(i) != '&') {
+                        expresion_der += expr_der.charAt(i);
+                    } else {
+                        break;
+                    }
+                    i++;
+                }
+            }
+            retval = expresion_izq + "||" + expresion_der;
+            retval = temp.replace(retval, "T2");
+
+            // System.out.println(temp);
+            /*
+             * if (retval.equals(temp)){ return retval; }
+             */
+            return boolExpresion(retval);
+
+        } else {
             return "";
         }
-        return bool_expression(temp);
-    }*/
+        return retval;
+    }
 
+    public static int findClosingParen(char[] text, int openPos) {
+        int closePos = openPos;
+        int counter = 1;
+        while (counter > 0) {
+            char c = text[++closePos];
+            if (c == '(') {
+                counter++;
+            } else if (c == ')') {
+                counter--;
+            }
+        }
+        return closePos;
+    }
+
+    public static int findOpeningParen(char[] text, int openPos) {
+        int closePos = openPos;
+        int counter = 1;
+        while (counter > 0) {
+            char c = text[++closePos];
+            if (c == '(') {
+                counter--;
+            } else if (c == ')') {
+                counter++;
+            }
+        }
+        return closePos;
+    }
+    public void generar_cuadruplos(Node arbol){
+        for (Node hijo: arbol.getHijos()) {
+            
+            if (hijo.getEtiqueta().equals("dec_var_inst")) {
+                String asignacion="";
+                if (hijo.getHijos().size()>1) {
+                    if (hijo.getHijos().get(1).isAritmetica()) {
+                        String tem=(String)hijo.getHijos().get(1).getValue();
+                        asignacion=aritmetica(tem);
+                    }else{
+                        asignacion=""+hijo.getValue();
+                    }
+                }
+                if (!asignacion.isEmpty()) {
+                    
+                    String t="T"+this.temporales;
+                    cuadruplos.add(new Cuadruplo("=",asignacion,"",t));
+                }
+                
+            }  
+            if (hijo.getEtiqueta().equals("dec_inst")) {
+                String asignacion="";
+                if (hijo.getValor().equals("int")) {
+                    if (hijo.getHijos().get(0).isAritmetica()) {
+                        String tem=(String)hijo.getHijos().get(0).getValue();
+                        asignacion=aritmetica(tem);
+                    }else{
+                        asignacion=""+hijo.getHijos().get(0).getValue();
+                    }
+                }else{
+                   asignacion=""+hijo.getValue();
+                }
+                if (!asignacion.isEmpty()) {
+                    String t="T"+this.temporales;
+                    cuadruplos.add(new Cuadruplo("=",asignacion,"",t));
+                }
+            }
+            generar_cuadruplos(hijo);
+        }
+    }
 
 
 
@@ -1140,10 +1366,12 @@ public class main extends javax.swing.JFrame {
     Node miArbol;
     ArrayList<Variable> variables = new ArrayList();
     ArrayList<Function> funciones = new ArrayList();
+    ArrayList<Cuadruplo> cuadruplos =new ArrayList();
     int profundidad = 0;
     int Ambito = -1;
     int AmbitoActual = 0;
     ArrayList<Integer> AmbitoActualR;
     int offset = 0;
     String errors="";
+    int temporales=0;
 }
