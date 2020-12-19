@@ -1183,60 +1183,170 @@ public class main extends javax.swing.JFrame {
         return "";
     }
    
-    public static String boolExpresion(String expression) {
+    public static String bool_expression(String expression) {
         String temp = expression;
+        temp = temp.replace(" ", "");
         String retval = "";
-
-        if (temp.contains("!")) {
-            char validator = temp.charAt(temp.indexOf("!") + 1);
-
-            if (validator != '=') {
-                int pos_symbol = temp.indexOf("!");
-                int pos_open_par = temp.indexOf("(");
-                System.out.println(pos_open_par);
-                int pos_closing_par = findClosingParen(temp.toCharArray(), pos_open_par);
-                System.out.println(pos_closing_par);
-                retval = temp.substring(pos_open_par + 1, pos_closing_par);
-                System.out.println(retval);
-                System.out.println("SE ENCONTRO UN NOT");
-                boolExpresion(retval);
-            }
-
-            // AND
-        } else if (temp.contains("&&")) {
+      
+        if (temp.contains("&&")) {
             int pos_symbol = temp.indexOf("&&");
             String symbol_izq = temp.charAt(pos_symbol - 1) + "";
             String expresion_izq = "";
-            String symbol_der = temp.charAt(pos_symbol + 1) + "";
+            String symbol_der = temp.charAt(pos_symbol + 2) + "";
+            System.out.println("valor a la derecha del symbol: " + temp);
+            System.out.println("valor a la derecha del symbol: " + symbol_der);
             String expresion_der = "";
             int last_index_left = 0;
             int last_index_right = 0;
             // primero encontramos los valores a la izquierda
 
             if (symbol_izq.equals(")")) {
+                System.out.println("entro aqui: " + temp);
                 int pos_open_par = findOpeningParen(temp.toCharArray(), pos_symbol - 1);
-                expresion_izq = temp.substring(pos_open_par, pos_symbol - 1);
+                expresion_izq = temp.substring(pos_open_par, pos_symbol - 2);
+                expresion_izq.replace(" ", "");
+
+                if (temp.charAt(pos_open_par - 1) == '!' && temp.charAt(pos_open_par + 1) == 'T') {
+                    String negacion = temp.substring(pos_open_par - 1, pos_symbol);
+                    System.out.println("la negacion: " + negacion);
+                    expresion_izq = bool_expression(negacion);
+
+                    System.out.println("despues de negarse: " + expresion_izq);
+                    temp = temp.replace(negacion, expresion_izq);
+                    System.out.println("asi queda temp: " + temp);
+
+                    // System.exit(0);
+                }
+
+                //
             } else {
                 String expr_izq = temp.substring(0, pos_symbol);
                 int i = expr_izq.length() - 1;
                 while (i >= 0) {
-                    if (expr_izq.charAt(i) != '!' && expr_izq.charAt(i) != '|' && expr_izq.charAt(i) != '&') {
+
+                    if (expr_izq.charAt(i) != '!' && expr_izq.charAt(i) != '|' && expr_izq.charAt(i) != '&'
+                            && expr_izq.charAt(i) != '(') {
                         expresion_izq += expr_izq.charAt(i);
                     } else {
                         last_index_left = i;
                         break;
                     }
-
                     i--;
                 }
-
                 StringBuilder reverso = new StringBuilder(expresion_izq);
                 reverso.reverse();
                 expresion_izq = reverso.toString();
+                expresion_izq.replace(" ", "");
+                System.out.println("el substring joy yo: " + expresion_izq);
+
             }
 
             // luego los valores a la derecha
-            if (symbol_der.equals("(")) {
+            if (symbol_der.equals("!")) {
+                int pos_closing_par = findClosingParen(temp.toCharArray(), pos_symbol + 3);
+                String negacion = temp.substring(pos_symbol + 2, pos_closing_par + 1);
+                System.out.println("negacion derecha: " + negacion);
+
+                expresion_der = bool_expression(negacion);
+                temp = temp.replace(negacion, expresion_der);
+
+            } else if (symbol_der.equals("(")) {
+                int pos_closing_par = findClosingParen(temp.toCharArray(), pos_symbol + 1);
+                expresion_der = temp.substring(pos_symbol + 2, pos_closing_par);
+
+            } else {
+                pos_symbol = temp.indexOf("&&");
+
+                System.out.println("asi llega: " + temp);
+                String expr_der = temp.substring(pos_symbol + 2, temp.length());
+
+                System.out.println("asi comienza: " + expr_der);
+                int i = 0;
+                while (i < expr_der.length()) {
+                    if (expr_der.charAt(i) != '!' && expr_der.charAt(i) != '|' && expr_der.charAt(i) != '&'
+                            && expr_der.charAt(i) != ')') {
+                        expresion_der += expr_der.charAt(i);
+                    } else {
+                        last_index_right = i;
+                        break;
+                    }
+                    i++;
+                    last_index_right = i;
+                }
+
+            }
+            System.out.println("no joy yo soy: " + expresion_der);
+
+            retval = expresion_izq + "&&" + expresion_der;
+
+            System.out.println("antes de: " + retval);
+            retval = temp.replace(retval, "T1");
+            System.out.println("despues de: " + retval);
+
+            return bool_expression(retval);
+
+            // OR
+        } else if (temp.contains("||")) {
+            int pos_symbol = temp.indexOf("||");
+            String symbol_izq = temp.charAt(pos_symbol - 1) + "";
+            String expresion_izq = "";
+            String symbol_der = temp.charAt(pos_symbol + 2) + "";
+            String expresion_der = "";
+            int last_index_left = 0;
+            int last_index_right = 0;
+            // primero encontramos los valores a la izquierda
+
+            if (symbol_izq.equals(")")) {
+                System.out.println("entro aqui: " + temp);
+                int pos_open_par = findOpeningParen(temp.toCharArray(), pos_symbol - 1);
+                expresion_izq = temp.substring(pos_open_par, pos_symbol - 2);
+                expresion_izq.replace(" ", "");
+
+                if (temp.charAt(pos_open_par - 1) == '!' && temp.charAt(pos_open_par + 1) == 'T') {
+                    String negacion = temp.substring(pos_open_par - 1, pos_symbol);
+                    System.out.println("la negacion: " + negacion);
+                    expresion_izq = bool_expression(negacion);
+
+                    System.out.println("despues de negarse: " + expresion_izq);
+                    temp = temp.replace(negacion, expresion_izq);
+                    System.out.println("asi queda temp: " + temp);
+
+                    // System.exit(0);
+                }
+
+                //
+            } else {
+                String expr_izq = temp.substring(0, pos_symbol);
+                int i = expr_izq.length() - 1;
+                while (i >= 0) {
+
+                    if (expr_izq.charAt(i) != '!' && expr_izq.charAt(i) != '|' && expr_izq.charAt(i) != '&'
+                            && expr_izq.charAt(i) != '(') {
+                        expresion_izq += expr_izq.charAt(i);
+                    } else {
+                        last_index_left = i;
+                        break;
+                    }
+                    i--;
+                }
+                StringBuilder reverso = new StringBuilder(expresion_izq);
+                reverso.reverse();
+                expresion_izq = reverso.toString();
+                expresion_izq.replace(" ", "");
+                System.out.println("el substring joy yo: " + expresion_izq);
+
+            }
+
+            // luego los valores a la derecha
+            if (symbol_der.equals("!")) {
+                int pos_closing_par = findClosingParen(temp.toCharArray(), pos_symbol + 3);
+                String negacion = temp.substring(pos_symbol + 2, pos_closing_par + 1);
+                System.out.println("negacion derecha: " + negacion);
+
+                expresion_der = bool_expression(negacion);
+                temp = temp.replace(negacion, expresion_der);
+
+            } else if (symbol_der.equals("(")) {
                 int pos_closing_par = findClosingParen(temp.toCharArray(), pos_symbol + 1);
                 expresion_der = temp.substring(pos_symbol + 1, pos_closing_par);
 
@@ -1244,7 +1354,8 @@ public class main extends javax.swing.JFrame {
                 String expr_der = temp.substring(pos_symbol + 2, temp.length());
                 int i = 0;
                 while (i < expr_der.length()) {
-                    if (expr_der.charAt(i) != '!' && expr_der.charAt(i) != '|' && expr_der.charAt(i) != '&') {
+                    if (expr_der.charAt(i) != '!' && expr_der.charAt(i) != '|' && expr_der.charAt(i) != '&'
+                            && expr_der.charAt(i) != ')') {
                         expresion_der += expr_der.charAt(i);
                     } else {
                         last_index_right = i;
@@ -1254,75 +1365,52 @@ public class main extends javax.swing.JFrame {
                     last_index_right = i;
                 }
             }
+            System.out.println("no joy yo soy: " + expresion_der);
 
-            retval = expresion_izq + "&&" + expresion_der;
-            retval = temp.replace(retval, "T1");
-
-            System.out.println("Yo soy: " + retval);
-
-            return boolExpresion(retval);
-
-            // OR
-        } else if (temp.contains("||")) {
-            System.out.println(temp + ": ENTRA EN OR");
-            int pos_symbol = temp.indexOf("||");
-            String symbol_izq = temp.charAt(pos_symbol - 1) + "";
-            String expresion_izq = "";
-            String symbol_der = temp.charAt(pos_symbol + 1) + "";
-            String expresion_der = "";
-            // primero encontramos los valores a la izquierda
-            if (symbol_izq.equals(")")) {
-                int pos_open_par = findOpeningParen(temp.toCharArray(), pos_symbol - 1);
-                expresion_izq = temp.substring(pos_open_par, pos_symbol - 1);
-                //
-            } else {
-                String expr_izq = temp.substring(0, pos_symbol);
-                System.out.println(expr_izq);
-                int i = expr_izq.length() - 1;
-
-                while (i >= 0) {
-                    if (expr_izq.charAt(i) != '!' && expr_izq.charAt(i) != '|' && expr_izq.charAt(i) != '&') {
-                        expresion_izq += expr_izq.charAt(i);
-                    } else {
-                        break;
-                    }
-                    i--;
-
-                }
-                StringBuilder reverso = new StringBuilder(expresion_izq);
-                reverso.reverse();
-                expresion_izq = reverso.toString();
-            }
-            // derecha
-            if (symbol_der.equals("(")) {
-                int pos_closing_par = findClosingParen(temp.toCharArray(), pos_symbol + 1);
-                expresion_der = temp.substring(pos_symbol + 1, pos_closing_par);
-
-            } else {
-
-                String expr_der = temp.substring(pos_symbol + 2, temp.length());
-                System.out.println(expr_der);
-                int i = 0;
-                while (i < expr_der.length()) {
-                    if (expr_der.charAt(i) != '!' && expr_der.charAt(i) != '|' && expr_der.charAt(i) != '&') {
-                        expresion_der += expr_der.charAt(i);
-                    } else {
-                        break;
-                    }
-                    i++;
-                }
-            }
             retval = expresion_izq + "||" + expresion_der;
-            retval = temp.replace(retval, "T2");
 
-            // System.out.println(temp);
-            /*
-             * if (retval.equals(temp)){ return retval; }
-             */
-            return boolExpresion(retval);
+            System.out.println("antes de: " + retval);
+            retval = temp.replace(retval, "T2");
+            System.out.println("despues de: " + retval);
+
+            return bool_expression(retval);
+
+        } else if (temp.contains("!")) {
+            int pos_closing_par = -1;
+            int pos_symbol = temp.lastIndexOf("!");
+            char validator = temp.charAt(pos_symbol + 1);
+
+            if (validator != '=') {
+
+                int pos_open_par = pos_symbol + 1;
+                if (validator == '(') {
+                    System.out.println("entra al validator");
+                    pos_open_par = temp.lastIndexOf("!") + 1;
+                }
+
+                System.out.println("que pedos: " + pos_symbol);
+                System.out.println("que pedos con la string lol: " + temp);
+
+                if (pos_open_par >= 0) {
+                    pos_closing_par = findClosingParen(temp.toCharArray(), pos_open_par);
+                }
+                System.out.println(pos_closing_par);
+
+                if (pos_closing_par >= 0) {
+                    retval = temp.substring(pos_symbol, pos_closing_par + 1);
+                } else {
+                    retval = temp.substring(pos_symbol, pos_symbol + 2);
+                }
+                System.out.println("antes de reemplazar la negada: " + retval);
+                retval = temp.replace(retval, "T3");
+                System.out.println(retval);
+                System.out.println("SE ENCONTRO UN NOT");
+                System.out.println("retorno negacion: " + retval);
+                bool_expression(retval);
+            }
 
         } else {
-            return "";
+            return temp;
         }
         return retval;
     }
@@ -1341,19 +1429,21 @@ public class main extends javax.swing.JFrame {
         return closePos;
     }
 
-    public static int findOpeningParen(char[] text, int openPos) {
-        int closePos = openPos;
+    public static int findOpeningParen(char[] text, int closePos) {
+        int openPos = closePos;
         int counter = 1;
         while (counter > 0) {
-            char c = text[++closePos];
+            char c = text[--openPos];
             if (c == '(') {
                 counter--;
             } else if (c == ')') {
                 counter++;
             }
         }
-        return closePos;
+        return openPos;
     }
+
+
     public void generar_cuadruplos(Node arbol){
         for (Node hijo: arbol.getHijos()) {
             
