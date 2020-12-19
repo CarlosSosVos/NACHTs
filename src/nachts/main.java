@@ -26,6 +26,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import java.util.*;
+
 /**
  *
  * @author k_k_r
@@ -678,6 +680,13 @@ public class main extends javax.swing.JFrame {
                     String asignacion=aritmetica(temp);
                 }
             }
+
+            // Agregando funcion para procesar relacionales
+            if (hijo.getEtiqueta().equals("dec_while")){
+                String value=(String)hijo.getHijos().get(0).getValue();
+                String assignment = relationalExpressions(value);
+            }
+
             //------------------------------------------------------------------
             if (hijo.getEtiqueta().equals("val")) {
 
@@ -824,6 +833,7 @@ public class main extends javax.swing.JFrame {
             }
         }
     }
+
     private String aritmetica(String cadena){
         String result="";
         boolean flag1=true;
@@ -1080,9 +1090,60 @@ public class main extends javax.swing.JFrame {
             this.errors+="\nError en el ingreso de parametros | Position: " + "linea: " + line + " columna: " + colummn;
         }
     }
+
+
     public String relationalExpressions(String expression){
+        int temporals = 0;
+        String variables_substring = "";
+        String symbols_substring = "";
+        for (int i = 0; i < expression.length(); i++) {
+            char temporal_string = expression.charAt(i);
+            if (temporal_string == '>' || temporal_string == '<' || temporal_string == '!'){
+                if (expression.charAt(i+1) == '='){
+                    symbols_substring += (expression.charAt(i) + "=,");
+                }else{
+                    symbols_substring += (expression.charAt(i) + ",");
+                }
+                variables_substring += ";";
+            }else if(temporal_string == '='){
+                if(expression.charAt(i-1)!= '>' && expression.charAt(i-1)!= '<' && expression.charAt(i-1)!= '!'){
+                    symbols_substring += (expression.charAt(i) + ",");
+                } 
+            }else{
+                variables_substring += expression.charAt(i);
+            }
+        }
+
+        String [] list_symbols = symbols_substring.split(",");
+        String [] list_variables = variables_substring.split(";");
+ 
+        String quad = "";
+        String new_temporal = "";
+        String arg1 = "";
+        // Process the Quads
+        for (int i = 0; i < list_variables.length; i++){
+            String substring = list_variables[i];
+            if (i != list_variables.length - 1 ){
+                if(substring.contains("+") || substring.contains("-") || substring.contains("/") || substring.contains("*")){
+                    new_temporal = aritmetica(substring);
+                }
+                if (new_temporal != "") {
+                    arg1 = new_temporal;
+                }else{
+                    arg1 = list_variables[i];
+                }
+                String op = "if" + list_symbols[i];
+                String arg2 = list_variables[i+1];
+                temporals += 1;
+                String temporal_temp = "T" + Integer.toString(temporals);
+                System.out.println(op +", "+ arg1 +", " + arg2 +", " + temporal_temp);
+            }
+            new_temporal = "";
+        }
         return "";
     }
+
+
    /* public String bool_expression(String expression) {
         String temp = expression;
         //NOT
