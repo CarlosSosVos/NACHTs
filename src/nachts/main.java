@@ -48,7 +48,7 @@ public class main extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         New_file_JF = new javax.swing.JFrame();
@@ -68,6 +68,8 @@ public class main extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         Save_BT = new javax.swing.JButton();
+        btn_show_mips = new javax.swing.JButton();
+        btn_show_tree = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         menu_new = new javax.swing.JMenuItem();
@@ -114,43 +116,48 @@ public class main extends javax.swing.JFrame {
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup().addGap(29, 29, 29).addGroup(jPanel2Layout
-                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel2Layout.createSequentialGroup().addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(name_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 157,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(Cancel_BT)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(Ok_BT)
-                                .addGap(30, 30, 30))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 578,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(27, Short.MAX_VALUE)))));
-        jPanel2Layout.setVerticalGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup().addGap(27, 27, 27)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 419,
-                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(Ok_BT).addComponent(Cancel_BT)
-                                .addComponent(name_tf, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel3))
-                        .addContainerGap(17, Short.MAX_VALUE)));
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(name_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Cancel_BT)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Ok_BT)
+                        .addGap(30, 30, 30))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(27, Short.MAX_VALUE))))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Ok_BT)
+                    .addComponent(Cancel_BT)
+                    .addComponent(name_tf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout New_file_JFLayout = new javax.swing.GroupLayout(New_file_JF.getContentPane());
         New_file_JF.getContentPane().setLayout(New_file_JFLayout);
         New_file_JFLayout.setHorizontalGroup(
-                New_file_JFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(jPanel2,
-                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+            New_file_JFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
         New_file_JFLayout.setVerticalGroup(
-                New_file_JFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(jPanel2,
-                        javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
-                        javax.swing.GroupLayout.PREFERRED_SIZE));
+            New_file_JFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -186,46 +193,66 @@ public class main extends javax.swing.JFrame {
             }
         });
 
+        btn_show_mips.setText("Ver MIPS");
+        btn_show_mips.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_show_mipsActionPerformed(evt);
+            }
+        });
+
+        btn_show_tree.setText("Ver Arbol");
+        btn_show_tree.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_show_treeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup().addGap(29, 29, 29).addGroup(jPanel1Layout
-                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 664,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(30, Short.MAX_VALUE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout
-                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 62,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(Save_BT)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(btn_run))
-                                        .addGroup(jPanel1Layout
-                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel1).addComponent(jScrollPane1,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 664,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE)))));
-        jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup().addGap(14, 14, 14).addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 446,
-                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(Save_BT).addComponent(btn_run).addComponent(jLabel2,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE, 16,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 243,
-                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(22, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Save_BT)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btn_run)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btn_show_tree)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btn_show_mips)
+                                .addGap(10, 10, 10))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Save_BT)
+                    .addComponent(btn_run)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_show_mips)
+                    .addComponent(btn_show_tree))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         jMenu1.setText("OPCIONES");
         jMenu1.addActionListener(new java.awt.event.ActionListener() {
@@ -234,8 +261,7 @@ public class main extends javax.swing.JFrame {
             }
         });
 
-        menu_new.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N,
-                java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menu_new.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         menu_new.setText("Nuevo Archivo");
         menu_new.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -244,8 +270,7 @@ public class main extends javax.swing.JFrame {
         });
         jMenu1.add(menu_new);
 
-        menu_openFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O,
-                java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menu_openFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         menu_openFile.setText("Abrir archivo");
         menu_openFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -254,8 +279,7 @@ public class main extends javax.swing.JFrame {
         });
         jMenu1.add(menu_openFile);
 
-        menu_genFlex.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J,
-                java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menu_genFlex.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.CTRL_MASK));
         menu_genFlex.setText("Generar Flex");
         menu_genFlex.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -264,8 +288,7 @@ public class main extends javax.swing.JFrame {
         });
         jMenu1.add(menu_genFlex);
 
-        menu_genCup.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P,
-                java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menu_genCup.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
         menu_genCup.setText("Generar Cup");
         menu_genCup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -274,8 +297,7 @@ public class main extends javax.swing.JFrame {
         });
         jMenu1.add(menu_genCup);
 
-        menu_lenguaje.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H,
-                java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menu_lenguaje.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_MASK));
         menu_lenguaje.setText("Manual NACHTs");
         menu_lenguaje.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -290,13 +312,41 @@ public class main extends javax.swing.JFrame {
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
-        layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-                jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_show_treeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_show_treeActionPerformed
+        int ver_arbol;
+        ver_arbol = JOptionPane.showOptionDialog(this, "Desea visualizar el arbol generado?",
+                "Visualizar Arbol", 1, 2, null, null, null);
+
+        if (ver_arbol == JOptionPane.OK_OPTION) {
+            try {
+                File imagen = new File("fotoAST.png");
+                if (imagen.exists()) {
+                    Desktop.getDesktop().open(imagen);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se ha generado ningun archivo!");
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btn_show_treeActionPerformed
+
+    private void btn_show_mipsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_show_mipsActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(this, "Esto aun no funciona , que te pasa!? ");
+    }//GEN-LAST:event_btn_show_mipsActionPerformed
 
     private String getText(File file) throws FileNotFoundException, IOException {
         String out = "";
@@ -323,7 +373,7 @@ public class main extends javax.swing.JFrame {
 
     public void generateLexer() {
 
-        String parametros[] = { "-d", "./src/nachts/", "./src/tools/nachts.flex" };
+        String parametros[] = {"-d", "./src/nachts/", "./src/tools/nachts.flex"};
         try {
             jflex.Main.generate(parametros);
         } catch (Exception e) {
@@ -333,8 +383,8 @@ public class main extends javax.swing.JFrame {
 
     public void generateCup() {
 
-        String parametros[] = { "-destdir", "src/nachts/", "-parser", "parser", "-symbols", "Sym",
-                "src/tools/parser.cup" };
+        String parametros[] = {"-destdir", "src/nachts/", "-parser", "parser", "-symbols", "Sym",
+            "src/tools/parser.cup"};
 
         try {
             java_cup.Main.main(parametros);
@@ -380,8 +430,8 @@ public class main extends javax.swing.JFrame {
                 parser p = new parser(lex2);
                 p.parse();
                 // this.txt_result.setEditable(true);
-                
-                errors="";
+
+                errors = "";
                 this.txt_result.setText("");
 
                 if (p.contMain == 0) {
@@ -396,8 +446,7 @@ public class main extends javax.swing.JFrame {
                 for (String error : p.errores) {
                     System.out.println(errors);
                     errors += error + "\n";
-               }
-                
+                }
 
                 variables = p.variables;
                 miArbol = p.Tree;
@@ -406,26 +455,26 @@ public class main extends javax.swing.JFrame {
                 AmbitoActual = 0;
                 this.AmbitoActualR = new ArrayList();
                 this.AmbitoActualR.add(0);
-                this.offset =0;
-                if(errors.isEmpty()){
+                this.offset = 0;
+                if (errors.isEmpty()) {
                     ambito(miArbol);
                     if (errors.isEmpty()) {
                         generar_cuadruplos(miArbol);
-                        this.temporales=0;
+                        this.temporales = 0;
                     }
                 }
 
-                for( int i = 0 ; i< variables.size() ; i++){
-                    for( int j = i+1 ; j< variables.size() ; j++){
-                        int iguales=0;
-                        if(variables.get(i).getId().equals(variables.get(j).getId()) && variables.get(i).getAmbitos().size()==variables.get(j).getAmbitos().size()){
-                            for( int k =0  ; k< variables.get(i).getAmbitos().size() ; k++){
-                                if(variables.get(i).getAmbitos().get(k)==variables.get(j).getAmbitos().get(k)){
+                for (int i = 0; i < variables.size(); i++) {
+                    for (int j = i + 1; j < variables.size(); j++) {
+                        int iguales = 0;
+                        if (variables.get(i).getId().equals(variables.get(j).getId()) && variables.get(i).getAmbitos().size() == variables.get(j).getAmbitos().size()) {
+                            for (int k = 0; k < variables.get(i).getAmbitos().size(); k++) {
+                                if (variables.get(i).getAmbitos().get(k) == variables.get(j).getAmbitos().get(k)) {
                                     iguales++;
                                 }
                             }
-                            if(iguales== variables.get(i).getAmbitos().size()){
-                                System.out.println("ERROR,variable "+variables.get(i).getId()+" ya declarada");
+                            if (iguales == variables.get(i).getAmbitos().size()) {
+                                System.out.println("ERROR,variable " + variables.get(i).getId() + " ya declarada");
                             }
                         }
                     }
@@ -444,16 +493,7 @@ public class main extends javax.swing.JFrame {
                 for (Cuadruplo iter : cuadruplos) {
                     System.out.println(iter.toString());
                 }
-                cuadruplos=new ArrayList<Cuadruplo>();
-
-                int ver_arbol;
-                ver_arbol = JOptionPane.showOptionDialog(this, "Desea visualizar el arbol generado?",
-                        "Visualizar Arbol", 1, 2, null, null, null);
-
-                if (ver_arbol == JOptionPane.OK_OPTION) {
-                    File imagen = new File("fotoAST.png");
-                    Desktop.getDesktop().open(imagen);
-                }
+                cuadruplos = new ArrayList<Cuadruplo>();
 
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
@@ -546,9 +586,6 @@ public class main extends javax.swing.JFrame {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }// GEN-LAST:event_menu_lenguajeActionPerformed
-
-
-
 
     /**
      * @param args the command line arguments
@@ -676,7 +713,7 @@ public class main extends javax.swing.JFrame {
                 hijo.setAmbitos(hijo.getPadre().getAmbitos());
             }
             if (hijo.getEtiqueta().equals("dec_llamada_funcion")) {
-                Comprobacion_Funciones(hijo.getValor(),(ArrayList<String>)hijo.getHijos().get(0).getValue(),hijo.getLine(),hijo.getColummn());
+                Comprobacion_Funciones(hijo.getValor(), (ArrayList<String>) hijo.getHijos().get(0).getValue(), hijo.getLine(), hijo.getColummn());
             }
             //esto se tendra que hacer en otro metodo, esto es solo para pruebas
             if (hijo.getEtiqueta().equals("dec_var_inst")) {
@@ -694,12 +731,12 @@ public class main extends javax.swing.JFrame {
                         if (temp.getAmbitos().get(i) != this.AmbitoActualR.get(i)) {
                             flag = false;
                             System.out.println("Acceso a variables erroneo, conflicto de ambito");
-                            errors+="\nAcceso a variables erroneo, conflicto de ambito | Position: " + "linea: " + hijo.getLine() + " columna: " + hijo.getColummn();
+                            errors += "\nAcceso a variables erroneo, conflicto de ambito | Position: " + "linea: " + hijo.getLine() + " columna: " + hijo.getColummn();
                         }
                     }
                 } else {
                     System.out.println("Acceso a variables erroneo, conflicto de ambito");
-                    errors+="\nAcceso a variables erroneo, conflicto de ambito | Position: " + "linea: " + hijo.getLine() + " columna: " + hijo.getColummn();
+                    errors += "\nAcceso a variables erroneo, conflicto de ambito | Position: " + "linea: " + hijo.getLine() + " columna: " + hijo.getColummn();
                 }
                 /*if (hijo.getHijos().size()>1) {
                     if (hijo.getHijos().get(1).isAritmetica()) {
@@ -707,12 +744,12 @@ public class main extends javax.swing.JFrame {
                         String asignacion=aritmetica(tem);
                     }
                 }*/
-                
+
             }
 
             // Agregando funcion para procesar relacionales
-            if (hijo.getEtiqueta().equals("dec_while")){
-                String value=(String)hijo.getHijos().get(0).getValue();
+            if (hijo.getEtiqueta().equals("dec_while")) {
+                String value = (String) hijo.getHijos().get(0).getValue();
                 String assignment = relationalExpressions(value);
             }
 
@@ -737,12 +774,12 @@ public class main extends javax.swing.JFrame {
                             if (temp.getAmbitos().get(i) != this.AmbitoActualR.get(i)) {
                                 flag = false;
                                 System.out.println("Acceso a variables erroneo, conflicto de ambito");
-                                errors+="\nAcceso a variables erroneo, conflicto de ambito | Position: " + "linea: " + hijo.getLine() + " columna: " + hijo.getColummn();
+                                errors += "\nAcceso a variables erroneo, conflicto de ambito | Position: " + "linea: " + hijo.getLine() + " columna: " + hijo.getColummn();
                             }
                         }
                     } else {
                         System.out.println("Acceso a variables erroneo, conflicto de ambito");
-                        errors+="\nAcceso a variables erroneo, conflicto de ambito | Position: " + "linea: " + hijo.getLine() + " columna: " + hijo.getColummn();
+                        errors += "\nAcceso a variables erroneo, conflicto de ambito | Position: " + "linea: " + hijo.getLine() + " columna: " + hijo.getColummn();
                     }
 
                 }
@@ -783,7 +820,7 @@ public class main extends javax.swing.JFrame {
                                 this.offset = this.offset + 4;
                             }
                         }
-                       
+
                     }
                     if (hijo.getHijos().size() > 2) {
 
@@ -797,7 +834,7 @@ public class main extends javax.swing.JFrame {
                                 }
 
                                 if (var.getAmbitos().get(0) == -1 && cont_e == 0) {
-                                   // System.out.println(temp);
+                                    // System.out.println(temp);
                                     var.setAmbito(AmbitoActual + "");
                                     var.setAmbitos(temp);
                                     cont_e = 1;
@@ -832,22 +869,20 @@ public class main extends javax.swing.JFrame {
                 Ambito = Ambito + 1;
                 AmbitoActual = Ambito;
                 hijo.setAmbito(hijo.getPadre().getAmbito());
-                if(hijo.getEtiqueta().equals("dec_else")||hijo.getEtiqueta().equals("dec_elif")||hijo.getEtiqueta().equals("list_op")||hijo.getEtiqueta().equals("default")){
+                if (hijo.getEtiqueta().equals("dec_else") || hijo.getEtiqueta().equals("dec_elif") || hijo.getEtiqueta().equals("list_op") || hijo.getEtiqueta().equals("default")) {
                     ArrayList<Integer> temp = new ArrayList();
                     for (Integer index : hijo.getPadre().getAmbitos()) {
                         temp.add(index);
                     }
                     temp.add(Ambito);
-                    this.AmbitoActualR=temp;
-                }else{
+                    this.AmbitoActualR = temp;
+                } else {
                     this.AmbitoActualR.add(Ambito);
                 }
                 hijo.setAmbitos(hijo.getPadre().getAmbitos());
             }
 
-            
             ambito(hijo);// apartir de aqui se cierra el bloque actual y vuelve al bloque anterior
-
 
             p = Pattern.compile(hijo.getEtiqueta());
             m = p.matcher(rgx);
@@ -864,330 +899,327 @@ public class main extends javax.swing.JFrame {
         }
     }
 
-    private String aritmetica(String cadena){
-        boolean flag1=true;
-        boolean flag2=true;
-        boolean flag3=true;
-        int control=0;
-        String envio="";
+    private String aritmetica(String cadena) {
+        boolean flag1 = true;
+        boolean flag2 = true;
+        boolean flag3 = true;
+        int control = 0;
+        String envio = "";
         for (int i = 0; i < cadena.length(); i++) {
-            if (cadena.charAt(i)=='(') {
-                String temp=cadena.substring(i+1, cadena.length());
-                int t=0;
+            if (cadena.charAt(i) == '(') {
+                String temp = cadena.substring(i + 1, cadena.length());
+                int t = 0;
                 for (int j = 0; j < temp.length(); j++) {
-                    if(temp.charAt(j)=='('){
+                    if (temp.charAt(j) == '(') {
                         control++;
                         //System.out.println("A"+i);
-                    }else if (temp.charAt(j)==')' && control==0) {
-                        envio=temp.substring(0, j);
-                        t=j;
-                        j=temp.length();
-                        flag1=false;
-                        flag2=false;
-                        flag3=false;
-                       // System.out.println("C");
-                    }else if(temp.charAt(j)==')'){
+                    } else if (temp.charAt(j) == ')' && control == 0) {
+                        envio = temp.substring(0, j);
+                        t = j;
+                        j = temp.length();
+                        flag1 = false;
+                        flag2 = false;
+                        flag3 = false;
+                        // System.out.println("C");
+                    } else if (temp.charAt(j) == ')') {
                         control--;
                         //System.out.println("B");
                     }
                 }
-                
-                String temp2=cadena.substring(0,i);
-                String temp3=temp.substring(t+1,temp.length());
-                String retorno=aritmetica(envio);
-                String temp4=temp2+retorno+temp3;
-                i=cadena.length();
-                cadena=temp4;
-                
+
+                String temp2 = cadena.substring(0, i);
+                String temp3 = temp.substring(t + 1, temp.length());
+                String retorno = aritmetica(envio);
+                String temp4 = temp2 + retorno + temp3;
+                i = cadena.length();
+                cadena = temp4;
+
             }
         }
         if (flag1) {
             //System.out.println("divi");
             for (int i = 0; i < cadena.length(); i++) {
-                if (cadena.charAt(i)=='/') {
-                    int tempA=i-1;
-                    int p1=0,p2=0;
-                    String temp1="";
-                    if (tempA==0) {
-                        temp1=cadena.substring(0,i);
-                        p1=0;
+                if (cadena.charAt(i) == '/') {
+                    int tempA = i - 1;
+                    int p1 = 0, p2 = 0;
+                    String temp1 = "";
+                    if (tempA == 0) {
+                        temp1 = cadena.substring(0, i);
+                        p1 = 0;
                     }
-                    while(tempA>-1){
-                        if (cadena.charAt(tempA)!='+' && cadena.charAt(tempA)!='*' && cadena.charAt(tempA)!='-' && cadena.charAt(tempA)!='/' && tempA!=0) {
+                    while (tempA > -1) {
+                        if (cadena.charAt(tempA) != '+' && cadena.charAt(tempA) != '*' && cadena.charAt(tempA) != '-' && cadena.charAt(tempA) != '/' && tempA != 0) {
                             tempA--;
-                        }else{
-                            if (tempA==0) {
-                                temp1=cadena.substring(tempA, i);
-                                p1=tempA;
-                            }else{
-                                temp1=cadena.substring(tempA+1, i);
-                                p1=tempA+1;
+                        } else {
+                            if (tempA == 0) {
+                                temp1 = cadena.substring(tempA, i);
+                                p1 = tempA;
+                            } else {
+                                temp1 = cadena.substring(tempA + 1, i);
+                                p1 = tempA + 1;
                             }
-                            
-                            tempA=-1;
+
+                            tempA = -1;
                         }
                     }
-                    int tempB=i+1;
-                    String temp2="";
-                    if (tempB==cadena.length()-1) {
-                        temp2=cadena.substring(i+1,cadena.length());
-                        p2=cadena.length();
+                    int tempB = i + 1;
+                    String temp2 = "";
+                    if (tempB == cadena.length() - 1) {
+                        temp2 = cadena.substring(i + 1, cadena.length());
+                        p2 = cadena.length();
                     }
-                    while(tempB<cadena.length()){
-                        if (cadena.charAt(tempB)!='+' && cadena.charAt(tempB)!='*' && cadena.charAt(tempB)!='-' && cadena.charAt(tempB)!='/'&& tempB!=cadena.length()-1) {
+                    while (tempB < cadena.length()) {
+                        if (cadena.charAt(tempB) != '+' && cadena.charAt(tempB) != '*' && cadena.charAt(tempB) != '-' && cadena.charAt(tempB) != '/' && tempB != cadena.length() - 1) {
                             tempB++;
-                        }else{
-                            if (tempB==cadena.length()-1) {
-                                temp2=cadena.substring(i+1,tempB+1);
-                                p2=tempB+1;
-                            }else{
-                                temp2=cadena.substring(i+1,tempB);
-                                p2=tempB;
+                        } else {
+                            if (tempB == cadena.length() - 1) {
+                                temp2 = cadena.substring(i + 1, tempB + 1);
+                                p2 = tempB + 1;
+                            } else {
+                                temp2 = cadena.substring(i + 1, tempB);
+                                p2 = tempB;
                             }
-                            
-                            
-                            tempB=cadena.length();
+
+                            tempB = cadena.length();
                         }
-                    } 
-                    i=cadena.length();
-                    System.out.println(temp1+"/"+temp2);
-                    String temporal="T"+temporales;
+                    }
+                    i = cadena.length();
+                    System.out.println(temp1 + "/" + temp2);
+                    String temporal = "T" + temporales;
                     temporales++;
-                    this.cuadruplos.add(new Cuadruplo("/",temp1,temp2,temporal));
-                    cadena=cadena.substring(0,p1)+temporal+cadena.substring(p2, cadena.length());
-                    flag2=false;
-                    flag3=false;
+                    this.cuadruplos.add(new Cuadruplo("/", temp1, temp2, temporal));
+                    cadena = cadena.substring(0, p1) + temporal + cadena.substring(p2, cadena.length());
+                    flag2 = false;
+                    flag3 = false;
                 }
-            } 
+            }
         }
         if (flag2) {
             //System.out.println("multi");
             for (int i = 0; i < cadena.length(); i++) {
-                if (cadena.charAt(i)=='*') {
-                    int tempA=i-1;
-                    int p1=0,p2=0;
-                    String temp1="";
-                    if (tempA==0) {
-                        temp1=cadena.substring(0,i);
-                        p1=0;
+                if (cadena.charAt(i) == '*') {
+                    int tempA = i - 1;
+                    int p1 = 0, p2 = 0;
+                    String temp1 = "";
+                    if (tempA == 0) {
+                        temp1 = cadena.substring(0, i);
+                        p1 = 0;
                     }
-                    while(tempA>-1){
-                        if (cadena.charAt(tempA)!='+' && cadena.charAt(tempA)!='*' && cadena.charAt(tempA)!='-' && tempA!=0) {
+                    while (tempA > -1) {
+                        if (cadena.charAt(tempA) != '+' && cadena.charAt(tempA) != '*' && cadena.charAt(tempA) != '-' && tempA != 0) {
                             tempA--;
-                        }else{
-                            if (tempA==0) {
-                                temp1=cadena.substring(tempA, i);
-                                p1=tempA;
-                            }else{
-                                temp1=cadena.substring(tempA+1, i);
-                                p1=tempA+1;
+                        } else {
+                            if (tempA == 0) {
+                                temp1 = cadena.substring(tempA, i);
+                                p1 = tempA;
+                            } else {
+                                temp1 = cadena.substring(tempA + 1, i);
+                                p1 = tempA + 1;
                             }
-                            
-                            tempA=-1;
+
+                            tempA = -1;
                         }
                     }
-                    int tempB=i+1;
-                    String temp2="";
-                    if (tempB==cadena.length()-1) {
-                        temp2=cadena.substring(i+1,cadena.length());
-                        p2=cadena.length();
+                    int tempB = i + 1;
+                    String temp2 = "";
+                    if (tempB == cadena.length() - 1) {
+                        temp2 = cadena.substring(i + 1, cadena.length());
+                        p2 = cadena.length();
                     }
-                    while(tempB<cadena.length()){
-                        if (cadena.charAt(tempB)!='+' && cadena.charAt(tempB)!='*' && cadena.charAt(tempB)!='-' && tempB!=cadena.length()-1) {
+                    while (tempB < cadena.length()) {
+                        if (cadena.charAt(tempB) != '+' && cadena.charAt(tempB) != '*' && cadena.charAt(tempB) != '-' && tempB != cadena.length() - 1) {
                             tempB++;
-                        }else{
-                            if (tempB==cadena.length()-1) {
-                                temp2=cadena.substring(i+1,tempB+1);
-                                p2=tempB+1;
-                            }else{
-                                temp2=cadena.substring(i+1,tempB);
-                                p2=tempB;
+                        } else {
+                            if (tempB == cadena.length() - 1) {
+                                temp2 = cadena.substring(i + 1, tempB + 1);
+                                p2 = tempB + 1;
+                            } else {
+                                temp2 = cadena.substring(i + 1, tempB);
+                                p2 = tempB;
                             }
-                            
-                            
-                            tempB=cadena.length();
+
+                            tempB = cadena.length();
                         }
-                    } 
-                    i=cadena.length();
-                    System.out.println(temp1+"*"+temp2);
-                    String temporal="T"+temporales;
+                    }
+                    i = cadena.length();
+                    System.out.println(temp1 + "*" + temp2);
+                    String temporal = "T" + temporales;
                     temporales++;
-                    this.cuadruplos.add(new Cuadruplo("*",temp1,temp2,temporal));
-                    cadena=cadena.substring(0,p1)+temporal+cadena.substring(p2, cadena.length());
-                    flag3=false;
+                    this.cuadruplos.add(new Cuadruplo("*", temp1, temp2, temporal));
+                    cadena = cadena.substring(0, p1) + temporal + cadena.substring(p2, cadena.length());
+                    flag3 = false;
                 }
-            } 
-           
+            }
+
         }
         if (flag3) {
             //System.out.println("Suma resta");
             for (int i = 0; i < cadena.length(); i++) {
-                if (cadena.charAt(i)=='+' || cadena.charAt(i)=='-') {
-                    String operador=""+cadena.charAt(i);
-                    int tempA=i-1;
-                    int p1=0,p2=0;
-                    String temp1="";
-                    if (tempA==0) {
-                        temp1=cadena.substring(0,i);
-                        p1=0;
+                if (cadena.charAt(i) == '+' || cadena.charAt(i) == '-') {
+                    String operador = "" + cadena.charAt(i);
+                    int tempA = i - 1;
+                    int p1 = 0, p2 = 0;
+                    String temp1 = "";
+                    if (tempA == 0) {
+                        temp1 = cadena.substring(0, i);
+                        p1 = 0;
                     }
-                    while(tempA>-1){
-                        if (cadena.charAt(tempA)!='+' && cadena.charAt(tempA)!='-' && tempA!=0) {
+                    while (tempA > -1) {
+                        if (cadena.charAt(tempA) != '+' && cadena.charAt(tempA) != '-' && tempA != 0) {
                             tempA--;
-                        }else{
-                            if (tempA==0) {
-                                temp1=cadena.substring(tempA, i);
-                                p1=tempA;
-                            }else{
-                                temp1=cadena.substring(tempA+1, i);
-                                p1=tempA+1;
+                        } else {
+                            if (tempA == 0) {
+                                temp1 = cadena.substring(tempA, i);
+                                p1 = tempA;
+                            } else {
+                                temp1 = cadena.substring(tempA + 1, i);
+                                p1 = tempA + 1;
                             }
-                            
-                            tempA=-1;
+
+                            tempA = -1;
                         }
                     }
-                    int tempB=i+1;
-                    String temp2="";
-                    if (tempB==cadena.length()-1) {
-                        temp2=cadena.substring(i+1,cadena.length());
-                        p2=cadena.length();
+                    int tempB = i + 1;
+                    String temp2 = "";
+                    if (tempB == cadena.length() - 1) {
+                        temp2 = cadena.substring(i + 1, cadena.length());
+                        p2 = cadena.length();
                     }
-                    while(tempB<cadena.length()){
-                        if (cadena.charAt(tempB)!='+' && cadena.charAt(tempB)!='-' && tempB!=cadena.length()-1) {
+                    while (tempB < cadena.length()) {
+                        if (cadena.charAt(tempB) != '+' && cadena.charAt(tempB) != '-' && tempB != cadena.length() - 1) {
                             tempB++;
-                        }else{
-                            if (tempB==cadena.length()-1) {
-                                temp2=cadena.substring(i+1,tempB+1);
-                                p2=tempB+1;
-                            }else{
-                                temp2=cadena.substring(i+1,tempB);
-                                p2=tempB;
+                        } else {
+                            if (tempB == cadena.length() - 1) {
+                                temp2 = cadena.substring(i + 1, tempB + 1);
+                                p2 = tempB + 1;
+                            } else {
+                                temp2 = cadena.substring(i + 1, tempB);
+                                p2 = tempB;
                             }
-                            
-                            
-                            tempB=cadena.length();
+
+                            tempB = cadena.length();
                         }
-                    } 
-                    i=cadena.length();
-                    System.out.println(temp1+operador+temp2);
-                    String temporal="T"+temporales;
+                    }
+                    i = cadena.length();
+                    System.out.println(temp1 + operador + temp2);
+                    String temporal = "T" + temporales;
                     temporales++;
-                    this.cuadruplos.add(new Cuadruplo(operador,temp1,temp2,temporal));
-                    cadena=cadena.substring(0,p1)+temporal+cadena.substring(p2, cadena.length());
+                    this.cuadruplos.add(new Cuadruplo(operador, temp1, temp2, temporal));
+                    cadena = cadena.substring(0, p1) + temporal + cadena.substring(p2, cadena.length());
                     //flag3=false;
                 }
             }
-            
+
         }
-        
-        System.out.println("YO SOY:"+cadena);
-        if (cadena.equals("T"+(temporales-1))) {
+
+        System.out.println("YO SOY:" + cadena);
+        if (cadena.equals("T" + (temporales - 1))) {
             return cadena;
-        }else{
+        } else {
             return aritmetica(cadena);
             //return "";
         }
-        
+
     }
-    public void Comprobacion_Funciones(String id, ArrayList<String> tipos, int line, int colummn){
+
+    public void Comprobacion_Funciones(String id, ArrayList<String> tipos, int line, int colummn) {
         System.out.println("SI, ingrese");
-        boolean name=false;
-        boolean total=false;
-        int veces=0;
-        for (Function iter: funciones) {
+        boolean name = false;
+        boolean total = false;
+        int veces = 0;
+        for (Function iter : funciones) {
             if (iter.getId().equals(id)) {
                 System.out.println("SI, ingreseA");
-                name=true;
-                boolean bandera=false;
-                if (tipos.size()==iter.getParametros().size()) {
+                name = true;
+                boolean bandera = false;
+                if (tipos.size() == iter.getParametros().size()) {
                     System.out.println("SI, ingreseB");
                     for (int i = 0; i < tipos.size(); i++) {
-                        if (!tipos.get(i).equals(iter.getParametros().get(i).getTipo())){
+                        if (!tipos.get(i).equals(iter.getParametros().get(i).getTipo())) {
                             System.out.println("SI, ingreseC");
-                            bandera=true;
+                            bandera = true;
                         }
                     }
-                }else{
-                    bandera=true;
+                } else {
+                    bandera = true;
                 }
                 if (!bandera) {
                     System.out.println("SI, ingreseD");
-                    total=true;
+                    total = true;
                     veces++;
                 }
             }
         }
-        if (veces>1) {
+        if (veces > 1) {
             System.out.println("error1");
-            this.errors+="\nAcceso Perdido, existen dos funciones iguales | Position: " + "linea: " + line + " columna: " + colummn;
-        }else if(!name && !total){
+            this.errors += "\nAcceso Perdido, existen dos funciones iguales | Position: " + "linea: " + line + " columna: " + colummn;
+        } else if (!name && !total) {
             System.out.println("error2");
-            this.errors+="\nLa llamada se hace a una funcion que no existe | Position: " + "linea: " + line + " columna: " + colummn;
-        }else if (name && !total) {
+            this.errors += "\nLa llamada se hace a una funcion que no existe | Position: " + "linea: " + line + " columna: " + colummn;
+        } else if (name && !total) {
             System.out.println("error3");
-            this.errors+="\nError en el ingreso de parametros | Position: " + "linea: " + line + " columna: " + colummn;
+            this.errors += "\nError en el ingreso de parametros | Position: " + "linea: " + line + " columna: " + colummn;
         }
     }
 
-
-    public String relationalExpressions(String expression){
+    public String relationalExpressions(String expression) {
         int temporals = 0;
         String variables_substring = "";
         String symbols_substring = "";
         for (int i = 0; i < expression.length(); i++) {
             char temporal_string = expression.charAt(i);
-            if (temporal_string == '>' || temporal_string == '<' || temporal_string == '!'){
-                if (expression.charAt(i+1) == '='){
+            if (temporal_string == '>' || temporal_string == '<' || temporal_string == '!') {
+                if (expression.charAt(i + 1) == '=') {
                     symbols_substring += (expression.charAt(i) + "=,");
-                }else{
+                } else {
                     symbols_substring += (expression.charAt(i) + ",");
                 }
                 variables_substring += ";";
-            }else if(temporal_string == '='){
-                if(expression.charAt(i-1)!= '>' && expression.charAt(i-1)!= '<' && expression.charAt(i-1)!= '!'){
+            } else if (temporal_string == '=') {
+                if (expression.charAt(i - 1) != '>' && expression.charAt(i - 1) != '<' && expression.charAt(i - 1) != '!') {
                     symbols_substring += (expression.charAt(i) + ",");
                 }
                 variables_substring += ";";
-            }else{
+            } else {
                 variables_substring += expression.charAt(i);
             }
         }
 
-        String [] list_symbols = symbols_substring.split(",");
-        String [] list_variables = variables_substring.split(";");
- 
+        String[] list_symbols = symbols_substring.split(",");
+        String[] list_variables = variables_substring.split(";");
+
         String quad = "";
         String new_temporal = "";
 
         // Process any arthimetic expressions
-        for (int i = 0; i < list_variables.length; i++){
+        for (int i = 0; i < list_variables.length; i++) {
             String substring = list_variables[i];
-            if(substring.contains("+") || substring.contains("-") || substring.contains("/") || substring.contains("*")){
+            if (substring.contains("+") || substring.contains("-") || substring.contains("/") || substring.contains("*")) {
                 new_temporal = aritmetica(substring);
                 list_variables[i] = new_temporal;
             }
         }
 
         // Process the Quads
-        for (int i = 0; i < list_variables.length; i++){
-            if (i != list_variables.length - 1 ){
+        for (int i = 0; i < list_variables.length; i++) {
+            if (i != list_variables.length - 1) {
                 String op = "if" + list_symbols[i];
                 String arg1 = list_variables[i];
-                String arg2 = list_variables[i+1];
+                String arg2 = list_variables[i + 1];
                 temporales += 1;
                 String temporal_temp = "T" + Integer.toString(temporales);
-                System.out.println(op +", "+ arg1 +", " + arg2 +", " + temporal_temp);
+                System.out.println(op + ", " + arg1 + ", " + arg2 + ", " + temporal_temp);
             }
             new_temporal = "";
         }
         return "";
     }
-   
+
     public static String bool_expression(String expression) {
         String temp = expression;
         temp = temp.replace(" ", "");
         String retval = "";
-      
+
         if (temp.contains("&&")) {
             int pos_symbol = temp.indexOf("&&");
             String symbol_izq = temp.charAt(pos_symbol - 1) + "";
@@ -1214,7 +1246,6 @@ public class main extends javax.swing.JFrame {
                     System.out.println("despues de negarse: " + expresion_izq);
                     temp = temp.replace(negacion, expresion_izq);
                     System.out.println("asi queda temp: " + temp);
-
                     // System.exit(0);
                 }
 
@@ -1294,8 +1325,8 @@ public class main extends javax.swing.JFrame {
             String expresion_der = "";
             int last_index_left = 0;
             int last_index_right = 0;
-            // primero encontramos los valores a la izquierda
 
+            // primero encontramos los valores a la izquierda
             if (symbol_izq.equals(")")) {
                 System.out.println("entro aqui: " + temp);
                 int pos_open_par = findOpeningParen(temp.toCharArray(), pos_symbol - 1);
@@ -1310,11 +1341,8 @@ public class main extends javax.swing.JFrame {
                     System.out.println("despues de negarse: " + expresion_izq);
                     temp = temp.replace(negacion, expresion_izq);
                     System.out.println("asi queda temp: " + temp);
-
-                    // System.exit(0);
                 }
 
-                //
             } else {
                 String expr_izq = temp.substring(0, pos_symbol);
                 int i = expr_izq.length() - 1;
@@ -1443,53 +1471,50 @@ public class main extends javax.swing.JFrame {
         return openPos;
     }
 
+    public void generar_cuadruplos(Node arbol) {
+        for (Node hijo : arbol.getHijos()) {
 
-    public void generar_cuadruplos(Node arbol){
-        for (Node hijo: arbol.getHijos()) {
-            
             if (hijo.getEtiqueta().equals("dec_var_inst")) {
-                String asignacion="";
-                if (hijo.getHijos().size()>1) {
+                String asignacion = "";
+                if (hijo.getHijos().size() > 1) {
                     if (hijo.getHijos().get(1).isAritmetica()) {
-                        String tem=(String)hijo.getHijos().get(1).getValue();
-                        asignacion=aritmetica(tem);
-                    }else{
-                        asignacion=""+hijo.getHijos().get(1).getValue();;
+                        String tem = (String) hijo.getHijos().get(1).getValue();
+                        asignacion = aritmetica(tem);
+                    } else {
+                        asignacion = "" + hijo.getHijos().get(1).getValue();;
                     }
-                }else{
-                    String t="T"+temporales;
-                    cuadruplos.add(new Cuadruplo("+",hijo.getHijos().get(0).getValor(),"1",t));
-                    asignacion=t;
+                } else {
+                    String t = "T" + temporales;
+                    cuadruplos.add(new Cuadruplo("+", hijo.getHijos().get(0).getValor(), "1", t));
+                    asignacion = t;
                 }
                 if (!asignacion.isEmpty()) {
-                    
-                    String t=hijo.getHijos().get(0).getValor();
-                    cuadruplos.add(new Cuadruplo("=",asignacion,"",t));
+
+                    String t = hijo.getHijos().get(0).getValor();
+                    cuadruplos.add(new Cuadruplo("=", asignacion, "", t));
                 }
-                
-            }  
+
+            }
             if (hijo.getEtiqueta().equals("dec_inst")) {
-                String asignacion="";
+                String asignacion = "";
                 if (hijo.getValor().equals("int")) {
                     if (hijo.getHijos().get(0).isAritmetica()) {
-                        String tem=(String)hijo.getHijos().get(0).getValue();
-                        asignacion=aritmetica(tem);
-                    }else{
-                        asignacion=""+hijo.getHijos().get(0).getValue();
+                        String tem = (String) hijo.getHijos().get(0).getValue();
+                        asignacion = aritmetica(tem);
+                    } else {
+                        asignacion = "" + hijo.getHijos().get(0).getValue();
                     }
-                }else{
-                   asignacion=""+hijo.getValue();
+                } else {
+                    asignacion = "" + hijo.getValue();
                 }
                 if (!asignacion.isEmpty()) {
-                    String t=hijo.getPadre().getPadre().getHijos().get(0).getValor();
-                    cuadruplos.add(new Cuadruplo("=",asignacion,"",t));
+                    String t = hijo.getPadre().getPadre().getHijos().get(0).getValor();
+                    cuadruplos.add(new Cuadruplo("=", asignacion, "", t));
                 }
             }
             generar_cuadruplos(hijo);
         }
     }
-
-
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1498,6 +1523,8 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JButton Ok_BT;
     private javax.swing.JButton Save_BT;
     private javax.swing.JButton btn_run;
+    private javax.swing.JButton btn_show_mips;
+    private javax.swing.JButton btn_show_tree;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -1522,12 +1549,12 @@ public class main extends javax.swing.JFrame {
     Node miArbol;
     ArrayList<Variable> variables = new ArrayList();
     ArrayList<Function> funciones = new ArrayList();
-    ArrayList<Cuadruplo> cuadruplos =new ArrayList();
+    ArrayList<Cuadruplo> cuadruplos = new ArrayList();
     int profundidad = 0;
     int Ambito = -1;
     int AmbitoActual = 0;
     ArrayList<Integer> AmbitoActualR;
     int offset = 0;
-    String errors="";
-    int temporales=0;
+    String errors = "";
+    int temporales = 0;
 }
