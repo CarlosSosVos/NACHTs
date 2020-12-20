@@ -3921,7 +3921,7 @@ class CUP$parser$actions {
                 if(ftemp.getTipo()=="-1"){
                     semantic_errors("La funcion que uste llamo no existe |",dlfleft,dlfright);
                 }
-                node.setValue("Ret");
+                node.setValue("RET");
                 node.setIsInt(ftemp.getTipo());
                 RESULT = node;
         

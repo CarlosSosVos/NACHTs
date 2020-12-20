@@ -11,9 +11,9 @@ import java.util.ArrayList;
  *
  * @author k_k_r
  */
-public class Variable  {
+public class Variable extends Record {
     
-    String tipo, id,ambito = "0";
+    String ambito = "0";
     Object value=null;
     boolean esArray = false;
     ArrayList<Integer> ambitos;
@@ -47,8 +47,7 @@ public class Variable  {
     
     
     public Variable(String tipo, String id) {
-        this.tipo = tipo;
-        this.id = id;
+        super(tipo,id);
         this.value = null;// new Object();
         this.ambitos = new ArrayList();
         this.ambitos.add(-1);            
@@ -75,22 +74,6 @@ public class Variable  {
     }
     
 
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public int getOffset() {
         return offset;
     }
@@ -99,6 +82,7 @@ public class Variable  {
         this.offset = offset;
     }
 
+    @Override
     public String toString() {
         String StringValor;
         if(esArray){
@@ -106,7 +90,7 @@ public class Variable  {
         
         }
         
-        return "Variable{" + "tipo=" + tipo + ", id=" + id + ", value=" + value + ", ambitos=" + ambitos + ", offset=" + offset + '}';
+        return "Variable{" + "tipo=" + super.getTipo() + ", id=" + super.getId() + ", value=" + value + ", ambitos=" + ambitos + ", offset=" + offset + '}';
     }
     
     

@@ -457,7 +457,6 @@ public class main extends javax.swing.JFrame {
                     if (errors.isEmpty()) {
                         this.bool_splitting=new ArrayList();
                         generar_cuadruplos(miArbol);
-                        System.out.println(this.bool_splitting.toString());
                         this.temporales = 0;
                     }
                 }
@@ -1629,44 +1628,44 @@ public class main extends javax.swing.JFrame {
                 }
                 
             }
-
+            String asig = "";
             if (hijo.getEtiqueta().equals("dec_var_inst")) {
-                String asignacion = "";
                 if (hijo.getHijos().size() > 1) {
                     if (hijo.getHijos().get(1).isAritmetica()) {
                         String tem = (String) hijo.getHijos().get(1).getValue();
-                        asignacion = aritmetica(tem);
+                        asig = aritmetica(tem);
                     } else {
-                        asignacion = "" + hijo.getHijos().get(1).getValue();
+                        asig = "" + hijo.getHijos().get(1).getValue();
                         ;
                     }
                 } else {
                     String t = "T" + temporales;
                     cuadruplos.add(new Cuadruplo("+", hijo.getHijos().get(0).getValor(), "1", t));
-                    asignacion = t;
+                    asig = t;
                 }
-                if (!asignacion.isEmpty()) {
-
-                    String t = hijo.getHijos().get(0).getValor();
-                    cuadruplos.add(new Cuadruplo("=", asignacion, "", t));
+                if (!asig.isEmpty()) {
+                    if (!asig.equals("RET")) {
+                        String t = hijo.getHijos().get(0).getValor();
+                        cuadruplos.add(new Cuadruplo("=", asig, "", t));
+                    }
                 }
-
             }
             if (hijo.getEtiqueta().equals("dec_inst")) {
-                String asignacion = "";
                 if (hijo.getValor().equals("int")) {
                     if (hijo.getHijos().get(0).isAritmetica()) {
                         String tem = (String) hijo.getHijos().get(0).getValue();
-                        asignacion = aritmetica(tem);
+                        asig = aritmetica(tem);
                     } else {
-                        asignacion = "" + hijo.getHijos().get(0).getValue();
+                        asig = "" + hijo.getHijos().get(0).getValue();
                     }
                 } else {
-                    asignacion = "" + hijo.getValue();
+                    asig = "" + hijo.getValue();
                 }
-                if (!asignacion.isEmpty()) {
-                    String t = hijo.getPadre().getPadre().getHijos().get(0).getValor();
-                    cuadruplos.add(new Cuadruplo("=", asignacion, "", t));
+                if (!asig.isEmpty()) {
+                    if (!asig.equals("RET")) {
+                        String t = hijo.getPadre().getPadre().getHijos().get(0).getValor();
+                        cuadruplos.add(new Cuadruplo("=", asig, "", t));
+                    }
                 }
             }
             if (hijo.getEtiqueta().equals("dec_while")) {
@@ -1687,6 +1686,20 @@ public class main extends javax.swing.JFrame {
                 this.cuadruplos.add(new Cuadruplo("FINFUN","","",""));
             }
             generar_cuadruplos(hijo);
+            
+            if (hijo.getEtiqueta().equals("dec_var_inst")) {
+                if (!asig.equals("RET")) {
+                    String t = hijo.getHijos().get(0).getValor();
+                    cuadruplos.add(new Cuadruplo("=", asig, "", t));
+                }
+            }
+            if (hijo.getEtiqueta().equals("dec_inst")) {
+                if (asig.equals("RET")) {
+                    String t = hijo.getPadre().getPadre().getHijos().get(0).getValor();
+                    cuadruplos.add(new Cuadruplo("=", asig, "", t));
+                }
+            }
+            
         }
     }
     // public void transicion_rel_bool(String cadena){
