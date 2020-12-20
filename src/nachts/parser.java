@@ -3914,7 +3914,15 @@ class CUP$parser$actions {
                 Node node = new Node();
                 node.setEtiqueta("val");
                 node.setID(parser.cont);
-                node.addHijos((Node) dlf);
+                Node n_dlf=(Node) dlf;
+                node.addHijos(n_dlf);
+
+                Function ftemp=buscaTipo2(n_dlf.getValor(),false);
+                if(ftemp.getTipo()=="-1"){
+                    semantic_errors("La funcion que uste llamo no existe |",dlfleft,dlfright);
+                }
+                node.setValue("Ret");
+                node.setIsInt(ftemp.getTipo());
                 RESULT = node;
         
               CUP$parser$result = parser.getSymbolFactory().newSymbol("val",17, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);

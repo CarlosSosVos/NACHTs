@@ -48,7 +48,8 @@ public class main extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         New_file_JF = new javax.swing.JFrame();
@@ -116,48 +117,43 @@ public class main extends javax.swing.JFrame {
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(name_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Cancel_BT)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Ok_BT)
-                        .addGap(30, 30, 30))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(27, Short.MAX_VALUE))))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Ok_BT)
-                    .addComponent(Cancel_BT)
-                    .addComponent(name_tf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addContainerGap(17, Short.MAX_VALUE))
-        );
+        jPanel2Layout.setHorizontalGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup().addGap(29, 29, 29).addGroup(jPanel2Layout
+                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup().addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(name_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 157,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Cancel_BT)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(Ok_BT)
+                                .addGap(30, 30, 30))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 578,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(27, Short.MAX_VALUE)))));
+        jPanel2Layout.setVerticalGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup().addGap(27, 27, 27)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 419,
+                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(Ok_BT).addComponent(Cancel_BT)
+                                .addComponent(name_tf, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel3))
+                        .addContainerGap(17, Short.MAX_VALUE)));
 
         javax.swing.GroupLayout New_file_JFLayout = new javax.swing.GroupLayout(New_file_JF.getContentPane());
         New_file_JF.getContentPane().setLayout(New_file_JFLayout);
         New_file_JFLayout.setHorizontalGroup(
-            New_file_JFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+                New_file_JFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(jPanel2,
+                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
         New_file_JFLayout.setVerticalGroup(
-            New_file_JFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+                New_file_JFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(jPanel2,
+                        javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE,
+                        javax.swing.GroupLayout.PREFERRED_SIZE));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -209,50 +205,49 @@ public class main extends javax.swing.JFrame {
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(22, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(Save_BT)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btn_run)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btn_show_tree)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btn_show_mips)
-                                .addGap(10, 10, 10))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Save_BT)
-                    .addComponent(btn_run)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_show_mips)
-                    .addComponent(btn_show_tree))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup().addGap(29, 29, 29).addGroup(jPanel1Layout
+                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 664,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(22, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout
+                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 62,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(Save_BT)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(btn_run)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(btn_show_tree)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(btn_show_mips).addGap(10, 10, 10))
+                                        .addGroup(jPanel1Layout
+                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel1).addComponent(jScrollPane1,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 664,
+                                                        javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))));
+        jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup().addGap(14, 14, 14).addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 446,
+                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(Save_BT).addComponent(btn_run)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 16,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btn_show_mips).addComponent(btn_show_tree))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 243,
+                                javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
         jMenu1.setText("OPCIONES");
         jMenu1.addActionListener(new java.awt.event.ActionListener() {
@@ -261,7 +256,8 @@ public class main extends javax.swing.JFrame {
             }
         });
 
-        menu_new.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        menu_new.setAccelerator(
+                javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         menu_new.setText("Nuevo Archivo");
         menu_new.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -270,7 +266,8 @@ public class main extends javax.swing.JFrame {
         });
         jMenu1.add(menu_new);
 
-        menu_openFile.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        menu_openFile.setAccelerator(
+                javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         menu_openFile.setText("Abrir archivo");
         menu_openFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -279,7 +276,8 @@ public class main extends javax.swing.JFrame {
         });
         jMenu1.add(menu_openFile);
 
-        menu_genFlex.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.CTRL_MASK));
+        menu_genFlex.setAccelerator(
+                javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.CTRL_MASK));
         menu_genFlex.setText("Generar Flex");
         menu_genFlex.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -288,7 +286,8 @@ public class main extends javax.swing.JFrame {
         });
         jMenu1.add(menu_genFlex);
 
-        menu_genCup.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
+        menu_genCup.setAccelerator(
+                javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
         menu_genCup.setText("Generar Cup");
         menu_genCup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -297,7 +296,8 @@ public class main extends javax.swing.JFrame {
         });
         jMenu1.add(menu_genCup);
 
-        menu_lenguaje.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_MASK));
+        menu_lenguaje.setAccelerator(
+                javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_MASK));
         menu_lenguaje.setText("Manual NACHTs");
         menu_lenguaje.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -312,22 +312,18 @@ public class main extends javax.swing.JFrame {
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(
+                jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
+        layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addComponent(
+                jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_show_treeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_show_treeActionPerformed
+    private void btn_show_treeActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_show_treeActionPerformed
         int ver_arbol;
-        ver_arbol = JOptionPane.showOptionDialog(this, "Desea visualizar el arbol generado?",
-                "Visualizar Arbol", 1, 2, null, null, null);
+        ver_arbol = JOptionPane.showOptionDialog(this, "Desea visualizar el arbol generado?", "Visualizar Arbol", 1, 2,
+                null, null, null);
 
         if (ver_arbol == JOptionPane.OK_OPTION) {
             try {
@@ -341,12 +337,12 @@ public class main extends javax.swing.JFrame {
                 Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    }//GEN-LAST:event_btn_show_treeActionPerformed
+    }// GEN-LAST:event_btn_show_treeActionPerformed
 
-    private void btn_show_mipsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_show_mipsActionPerformed
+    private void btn_show_mipsActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_show_mipsActionPerformed
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(this, "Esto aun no funciona , que te pasa!? ");
-    }//GEN-LAST:event_btn_show_mipsActionPerformed
+    }// GEN-LAST:event_btn_show_mipsActionPerformed
 
     private String getText(File file) throws FileNotFoundException, IOException {
         String out = "";
@@ -373,7 +369,7 @@ public class main extends javax.swing.JFrame {
 
     public void generateLexer() {
 
-        String parametros[] = {"-d", "./src/nachts/", "./src/tools/nachts.flex"};
+        String parametros[] = { "-d", "./src/nachts/", "./src/tools/nachts.flex" };
         try {
             jflex.Main.generate(parametros);
         } catch (Exception e) {
@@ -383,8 +379,8 @@ public class main extends javax.swing.JFrame {
 
     public void generateCup() {
 
-        String parametros[] = {"-destdir", "src/nachts/", "-parser", "parser", "-symbols", "Sym",
-            "src/tools/parser.cup"};
+        String parametros[] = { "-destdir", "src/nachts/", "-parser", "parser", "-symbols", "Sym",
+                "src/tools/parser.cup" };
 
         try {
             java_cup.Main.main(parametros);
@@ -459,7 +455,9 @@ public class main extends javax.swing.JFrame {
                 if (errors.isEmpty()) {
                     ambito(miArbol);
                     if (errors.isEmpty()) {
+                        this.bool_splitting=new ArrayList();
                         generar_cuadruplos(miArbol);
+                        System.out.println(this.bool_splitting.toString());
                         this.temporales = 0;
                     }
                 }
@@ -674,7 +672,7 @@ public class main extends javax.swing.JFrame {
         }
         for (Node hijo : arbol.getHijos()) {
             hijo.setPadre(arbol);
-            //System.out.println(hijo.getPadre().toString());
+            // System.out.println(hijo.getPadre().toString());
             if (hijo.getEtiqueta().equals("dec_funcion") || hijo.getEtiqueta().equals("dec_Funcion")) {
                 AmbitoActual = Ambito + 1;
                 Ambito = AmbitoActual;
@@ -713,9 +711,10 @@ public class main extends javax.swing.JFrame {
                 hijo.setAmbitos(hijo.getPadre().getAmbitos());
             }
             if (hijo.getEtiqueta().equals("dec_llamada_funcion")) {
-                Comprobacion_Funciones(hijo.getValor(), (ArrayList<String>) hijo.getHijos().get(0).getValue(), hijo.getLine(), hijo.getColummn());
+                Comprobacion_Funciones(hijo.getValor(), (ArrayList<String>) hijo.getHijos().get(0).getValue(),
+                        hijo.getLine(), hijo.getColummn());
             }
-            //esto se tendra que hacer en otro metodo, esto es solo para pruebas
+            // esto se tendra que hacer en otro metodo, esto es solo para pruebas
             if (hijo.getEtiqueta().equals("dec_var_inst")) {
                 Variable temp = new Variable("-1", "-1");
                 for (Variable variable : variables) {
@@ -731,28 +730,29 @@ public class main extends javax.swing.JFrame {
                         if (temp.getAmbitos().get(i) != this.AmbitoActualR.get(i)) {
                             flag = false;
                             System.out.println("Acceso a variables erroneo, conflicto de ambito");
-                            errors += "\nAcceso a variables erroneo, conflicto de ambito | Position: " + "linea: " + hijo.getLine() + " columna: " + hijo.getColummn();
+                            errors += "\nAcceso a variables erroneo, conflicto de ambito | Position: " + "linea: "
+                                    + hijo.getLine() + " columna: " + hijo.getColummn();
                         }
                     }
                 } else {
                     System.out.println("Acceso a variables erroneo, conflicto de ambito");
-                    errors += "\nAcceso a variables erroneo, conflicto de ambito | Position: " + "linea: " + hijo.getLine() + " columna: " + hijo.getColummn();
+                    errors += "\nAcceso a variables erroneo, conflicto de ambito | Position: " + "linea: "
+                            + hijo.getLine() + " columna: " + hijo.getColummn();
                 }
-                /*if (hijo.getHijos().size()>1) {
-                    if (hijo.getHijos().get(1).isAritmetica()) {
-                        String tem=(String)hijo.getHijos().get(1).getValue();
-                        String asignacion=aritmetica(tem);
-                    }
-                }*/
+                /*
+                 * if (hijo.getHijos().size()>1) { if (hijo.getHijos().get(1).isAritmetica()) {
+                 * String tem=(String)hijo.getHijos().get(1).getValue(); String
+                 * asignacion=aritmetica(tem); } }
+                 */
 
             }
 
             // Agregando funcion para procesar relacionales
-            //------------------------------------------------------------------
+            // ------------------------------------------------------------------
             if (hijo.getEtiqueta().equals("val")) {
 
                 if (hijo.isValueIsID()) {
-                    //System.out.println("Entra a val " + hijo.getValor());
+                    // System.out.println("Entra a val " + hijo.getValor());
                     Variable temp = new Variable("-1", "-1");
                     for (Variable variable : variables) {
                         if (hijo.getValor().equals(variable.getId())) {
@@ -762,19 +762,21 @@ public class main extends javax.swing.JFrame {
 
                     boolean flag;
                     int temp_ambitos;
-                    //System.out.println(temp.toString());
+                    // System.out.println(temp.toString());
                     if (temp.getAmbitos().size() <= this.AmbitoActualR.size()) {
 
                         for (int i = 0; i < temp.getAmbitos().size(); i++) {
                             if (temp.getAmbitos().get(i) != this.AmbitoActualR.get(i)) {
                                 flag = false;
                                 System.out.println("Acceso a variables erroneo, conflicto de ambito");
-                                errors += "\nAcceso a variables erroneo, conflicto de ambito | Position: " + "linea: " + hijo.getLine() + " columna: " + hijo.getColummn();
+                                errors += "\nAcceso a variables erroneo, conflicto de ambito | Position: " + "linea: "
+                                        + hijo.getLine() + " columna: " + hijo.getColummn();
                             }
                         }
                     } else {
                         System.out.println("Acceso a variables erroneo, conflicto de ambito");
-                        errors += "\nAcceso a variables erroneo, conflicto de ambito | Position: " + "linea: " + hijo.getLine() + " columna: " + hijo.getColummn();
+                        errors += "\nAcceso a variables erroneo, conflicto de ambito | Position: " + "linea: "
+                                + hijo.getLine() + " columna: " + hijo.getColummn();
                     }
 
                 }
@@ -795,14 +797,14 @@ public class main extends javax.swing.JFrame {
                         }
 
                         if (var.getAmbitos().get(0) == -1 && cont_e == 0) {
-                            //System.out.println(temp);
+                            // System.out.println(temp);
                             var.setAmbito(AmbitoActual + "");
                             var.setAmbitos(temp);
                             cont_e = 1;
                             if (var.getTipo().equals("int")) {
                                 var.setOffset(this.offset);
                                 this.offset = this.offset + 4;
-                                //System.out.println("entra comparacion int: " + this.offset);
+                                // System.out.println("entra comparacion int: " + this.offset);
 
                             } else if (var.getTipo().equals("chr")) {
                                 var.setOffset(this.offset);
@@ -836,7 +838,7 @@ public class main extends javax.swing.JFrame {
                                     if (var.getTipo().equals("int")) {
                                         var.setOffset(this.offset);
                                         this.offset = this.offset + 4;
-                                        //System.out.println("entra comparacion int: " + this.offset);
+                                        // System.out.println("entra comparacion int: " + this.offset);
 
                                     } else if (var.getTipo().equals("chr")) {
                                         var.setOffset(this.offset);
@@ -864,7 +866,8 @@ public class main extends javax.swing.JFrame {
                 Ambito = Ambito + 1;
                 AmbitoActual = Ambito;
                 hijo.setAmbito(hijo.getPadre().getAmbito());
-                if (hijo.getEtiqueta().equals("dec_else") || hijo.getEtiqueta().equals("dec_elif") || hijo.getEtiqueta().equals("list_op") || hijo.getEtiqueta().equals("default")) {
+                if (hijo.getEtiqueta().equals("dec_else") || hijo.getEtiqueta().equals("dec_elif")
+                        || hijo.getEtiqueta().equals("list_op") || hijo.getEtiqueta().equals("default")) {
                     ArrayList<Integer> temp = new ArrayList();
                     for (Integer index : hijo.getPadre().getAmbitos()) {
                         temp.add(index);
@@ -875,6 +878,9 @@ public class main extends javax.swing.JFrame {
                     this.AmbitoActualR.add(Ambito);
                 }
                 hijo.setAmbitos(hijo.getPadre().getAmbitos());
+            }
+            if (hijo.getEtiqueta().equals("dec_return")) {
+                retornos.add(hijo.getHijos().get(0).getValor());
             }
 
             ambito(hijo);// apartir de aqui se cierra el bloque actual y vuelve al bloque anterior
@@ -890,6 +896,22 @@ public class main extends javax.swing.JFrame {
                     temp.add(index);
                 }
                 this.AmbitoActualR = temp;
+            }
+            if (hijo.getEtiqueta().equals("dec_funcion") || hijo.getEtiqueta().equals("dec_Funcion")) {
+                boolean esMain=false;
+                for (Node iter : hijo.getHijos()) {
+                    if (iter.getEtiqueta().equals("Main")) {
+                        esMain=true;
+                    }
+                }
+                if (!esMain) {
+                    for (String ret : retornos) {
+                        if (!hijo.getHijos().get(2).getValor().equals(ret)) {
+                            errors+="\nRetorno erroneo de la funcion "+hijo.getHijos().get(0).getValor();
+                            retornos=new ArrayList<String>();
+                        }
+                    }
+                }
             }
         }
     }
@@ -907,7 +929,7 @@ public class main extends javax.swing.JFrame {
                 for (int j = 0; j < temp.length(); j++) {
                     if (temp.charAt(j) == '(') {
                         control++;
-                        //System.out.println("A"+i);
+                        // System.out.println("A"+i);
                     } else if (temp.charAt(j) == ')' && control == 0) {
                         envio = temp.substring(0, j);
                         t = j;
@@ -918,7 +940,7 @@ public class main extends javax.swing.JFrame {
                         // System.out.println("C");
                     } else if (temp.charAt(j) == ')') {
                         control--;
-                        //System.out.println("B");
+                        // System.out.println("B");
                     }
                 }
 
@@ -932,7 +954,7 @@ public class main extends javax.swing.JFrame {
             }
         }
         if (flag1) {
-            //System.out.println("divi");
+            // System.out.println("divi");
             for (int i = 0; i < cadena.length(); i++) {
                 if (cadena.charAt(i) == '/') {
                     int tempA = i - 1;
@@ -943,7 +965,8 @@ public class main extends javax.swing.JFrame {
                         p1 = 0;
                     }
                     while (tempA > -1) {
-                        if (cadena.charAt(tempA) != '+' && cadena.charAt(tempA) != '*' && cadena.charAt(tempA) != '-' && cadena.charAt(tempA) != '/' && tempA != 0) {
+                        if (cadena.charAt(tempA) != '+' && cadena.charAt(tempA) != '*' && cadena.charAt(tempA) != '-'
+                                && cadena.charAt(tempA) != '/' && tempA != 0) {
                             tempA--;
                         } else {
                             if (tempA == 0) {
@@ -964,7 +987,8 @@ public class main extends javax.swing.JFrame {
                         p2 = cadena.length();
                     }
                     while (tempB < cadena.length()) {
-                        if (cadena.charAt(tempB) != '+' && cadena.charAt(tempB) != '*' && cadena.charAt(tempB) != '-' && cadena.charAt(tempB) != '/' && tempB != cadena.length() - 1) {
+                        if (cadena.charAt(tempB) != '+' && cadena.charAt(tempB) != '*' && cadena.charAt(tempB) != '-'
+                                && cadena.charAt(tempB) != '/' && tempB != cadena.length() - 1) {
                             tempB++;
                         } else {
                             if (tempB == cadena.length() - 1) {
@@ -990,7 +1014,7 @@ public class main extends javax.swing.JFrame {
             }
         }
         if (flag2) {
-            //System.out.println("multi");
+            // System.out.println("multi");
             for (int i = 0; i < cadena.length(); i++) {
                 if (cadena.charAt(i) == '*') {
                     int tempA = i - 1;
@@ -1001,7 +1025,8 @@ public class main extends javax.swing.JFrame {
                         p1 = 0;
                     }
                     while (tempA > -1) {
-                        if (cadena.charAt(tempA) != '+' && cadena.charAt(tempA) != '*' && cadena.charAt(tempA) != '-' && tempA != 0) {
+                        if (cadena.charAt(tempA) != '+' && cadena.charAt(tempA) != '*' && cadena.charAt(tempA) != '-'
+                                && tempA != 0) {
                             tempA--;
                         } else {
                             if (tempA == 0) {
@@ -1022,7 +1047,8 @@ public class main extends javax.swing.JFrame {
                         p2 = cadena.length();
                     }
                     while (tempB < cadena.length()) {
-                        if (cadena.charAt(tempB) != '+' && cadena.charAt(tempB) != '*' && cadena.charAt(tempB) != '-' && tempB != cadena.length() - 1) {
+                        if (cadena.charAt(tempB) != '+' && cadena.charAt(tempB) != '*' && cadena.charAt(tempB) != '-'
+                                && tempB != cadena.length() - 1) {
                             tempB++;
                         } else {
                             if (tempB == cadena.length() - 1) {
@@ -1048,7 +1074,7 @@ public class main extends javax.swing.JFrame {
 
         }
         if (flag3) {
-            //System.out.println("Suma resta");
+            // System.out.println("Suma resta");
             for (int i = 0; i < cadena.length(); i++) {
                 if (cadena.charAt(i) == '+' || cadena.charAt(i) == '-') {
                     String operador = "" + cadena.charAt(i);
@@ -1081,7 +1107,8 @@ public class main extends javax.swing.JFrame {
                         p2 = cadena.length();
                     }
                     while (tempB < cadena.length()) {
-                        if (cadena.charAt(tempB) != '+' && cadena.charAt(tempB) != '-' && tempB != cadena.length() - 1) {
+                        if (cadena.charAt(tempB) != '+' && cadena.charAt(tempB) != '-'
+                                && tempB != cadena.length() - 1) {
                             tempB++;
                         } else {
                             if (tempB == cadena.length() - 1) {
@@ -1101,7 +1128,7 @@ public class main extends javax.swing.JFrame {
                     temporales++;
                     this.cuadruplos.add(new Cuadruplo(operador, temp1, temp2, temporal));
                     cadena = cadena.substring(0, p1) + temporal + cadena.substring(p2, cadena.length());
-                    //flag3=false;
+                    // flag3=false;
                 }
             }
 
@@ -1112,7 +1139,7 @@ public class main extends javax.swing.JFrame {
             return cadena;
         } else {
             return aritmetica(cadena);
-            //return "";
+            // return "";
         }
 
     }
@@ -1147,13 +1174,16 @@ public class main extends javax.swing.JFrame {
         }
         if (veces > 1) {
             System.out.println("error1");
-            this.errors += "\nAcceso Perdido, existen dos funciones iguales | Position: " + "linea: " + line + " columna: " + colummn;
+            this.errors += "\nAcceso Perdido, existen dos funciones iguales | Position: " + "linea: " + line
+                    + " columna: " + colummn;
         } else if (!name && !total) {
             System.out.println("error2");
-            this.errors += "\nLa llamada se hace a una funcion que no existe | Position: " + "linea: " + line + " columna: " + colummn;
+            this.errors += "\nLa llamada se hace a una funcion que no existe | Position: " + "linea: " + line
+                    + " columna: " + colummn;
         } else if (name && !total) {
             System.out.println("error3");
-            this.errors += "\nError en el ingreso de parametros | Position: " + "linea: " + line + " columna: " + colummn;
+            this.errors += "\nError en el ingreso de parametros | Position: " + "linea: " + line + " columna: "
+                    + colummn;
         }
     }
 
@@ -1171,7 +1201,8 @@ public class main extends javax.swing.JFrame {
                 }
                 variables_substring += ";";
             } else if (temporal_string == '=') {
-                if (expression.charAt(i - 1) != '>' && expression.charAt(i - 1) != '<' && expression.charAt(i - 1) != '!') {
+                if (expression.charAt(i - 1) != '>' && expression.charAt(i - 1) != '<'
+                        && expression.charAt(i - 1) != '!') {
                     symbols_substring += (expression.charAt(i) + ",");
                 }
                 variables_substring += ";";
@@ -1189,7 +1220,8 @@ public class main extends javax.swing.JFrame {
         // Process any arthimetic expressions
         for (int i = 0; i < list_variables.length; i++) {
             String substring = list_variables[i];
-            if (substring.contains("+") || substring.contains("-") || substring.contains("/") || substring.contains("*")) {
+            if (substring.contains("+") || substring.contains("-") || substring.contains("/")
+                    || substring.contains("*")) {
                 new_temporal = aritmetica(substring);
                 list_variables[i] = new_temporal;
             }
@@ -1215,29 +1247,62 @@ public class main extends javax.swing.JFrame {
     public String bool_expression(String expression) {
         String temp = expression;
         temp = temp.replace(" ", "");
+        this.bool_splitting.add(temp);
+
         String retval = "";
         if (temp.contains("&&") && temp.contains("||")) {
-            if (temp.lastIndexOf("&&")>temp.lastIndexOf("||")) {
+            if (temp.indexOf("&&") > temp.indexOf("||")) {
                 String etiq = "Etiq" + this.etiquetas;
-                
-                boolean revision=false;
+
+                boolean revision = false;
                 for (Cuadruplo iter : cuadruplos) {
                     if (iter.getResult().contains("espera")) {
                         iter.setResult(etiq);
-                        revision=true;
+                        revision = true;
                     }
                 }
                 if (revision) {
                     this.etiquetas++;
                     cuadruplos.add(new Cuadruplo(etiq, "", "", ""));
                 }
-            }else{
+            } else {
+                System.out.println("que pedos de que u");
+                System.out.println(cuadruplos.get(cuadruplos.size()-1).toString());
+                System.out.println(etiquetas);
                 
             }
+        }else{
+            boolean or = false;
+            int check_symbol = temp.indexOf("&&");
+            
+            if(check_symbol == -1){
+                or = true;
+                check_symbol = temp.indexOf("||");
+            }else if(check_symbol == -1){
+                return temp;
+            }
+            
+            if(or){
+                System.out.println("ON HOLD");
+                for( Cuadruplo item : cuadruplos){
+                    if(item.getResult().contains("espera")){
+                        System.out.println(item.toString());
+                        System.out.println(cuadruplos.indexOf(item));
+                    }
+                }
+                System.out.println("ON HOLD");
+
+            }
+            
+
+            
+            System.out.println("que pedos de que u");
+            System.out.println(cuadruplos.get(cuadruplos.size()-1).toString());
+            System.out.println(etiquetas);
         }
-        
+
         if (temp.contains("&&")) {
-            int pos_symbol = temp.lastIndexOf("&&");
+            int pos_symbol = temp.indexOf("&&");
             String symbol_izq = temp.charAt(pos_symbol - 1) + "";
             String expresion_izq = "";
             String symbol_der = temp.charAt(pos_symbol + 2) + "";
@@ -1298,7 +1363,7 @@ public class main extends javax.swing.JFrame {
                             cuadruplos.get(j).setResult(etiq);
                             veces++;
                         } else {
-                            cuadruplos.get(j).setResult(anotador+"espera");
+                            cuadruplos.get(j).setResult(anotador + "espera");
                         }
                     }
                 }
@@ -1351,7 +1416,7 @@ public class main extends javax.swing.JFrame {
                     if (veces == 0) {
                         veces++;
                     } else {
-                        cuadruplos.get(i).setResult(anotador+"espera");
+                        cuadruplos.get(i).setResult(anotador + "espera");
                     }
                 }
             }
@@ -1365,7 +1430,7 @@ public class main extends javax.swing.JFrame {
 
             // OR
         } else if (temp.contains("||")) {
-            int pos_symbol = temp.lastIndexOf("||");
+            int pos_symbol = temp.indexOf("||");
             String symbol_izq = temp.charAt(pos_symbol - 1) + "";
             String expresion_izq = "";
             String symbol_der = temp.charAt(pos_symbol + 2) + "";
@@ -1560,7 +1625,8 @@ public class main extends javax.swing.JFrame {
                         String tem = (String) hijo.getHijos().get(1).getValue();
                         asignacion = aritmetica(tem);
                     } else {
-                        asignacion = "" + hijo.getHijos().get(1).getValue();;
+                        asignacion = "" + hijo.getHijos().get(1).getValue();
+                        ;
                     }
                 } else {
                     String t = "T" + temporales;
@@ -1599,10 +1665,10 @@ public class main extends javax.swing.JFrame {
             generar_cuadruplos(hijo);
         }
     }
-    //public void transicion_rel_bool(String cadena){
+    // public void transicion_rel_bool(String cadena){
     //
 
-    //}
+    // }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cancel_BT;
@@ -1637,10 +1703,13 @@ public class main extends javax.swing.JFrame {
     ArrayList<Variable> variables = new ArrayList();
     ArrayList<Function> funciones = new ArrayList();
     ArrayList<Cuadruplo> cuadruplos = new ArrayList();
+    ArrayList<String> bool_splitting = new ArrayList();
+
     int profundidad = 0;
     int Ambito = -1;
     int AmbitoActual = 0;
     ArrayList<Integer> AmbitoActualR;
+    ArrayList<String> retornos=new  ArrayList<String>();
     int offset = 0;
     String errors = "";
     int temporales = 0;

@@ -2298,7 +2298,15 @@ val ::= ID:id
                 Node node = new Node();
                 node.setEtiqueta("val");
                 node.setID(parser.cont);
-                node.addHijos((Node) dlf);
+                Node n_dlf=(Node) dlf;
+                node.addHijos(n_dlf);
+
+                Function ftemp=buscaTipo2(n_dlf.getValor(),false);
+                if(ftemp.getTipo()=="-1"){
+                    semantic_errors("La funcion que uste llamo no existe |",dlfleft,dlfright);
+                }
+                node.setValue("Ret");
+                node.setIsInt(ftemp.getTipo());
                 RESULT = node;
         :}
         | L_PAR math_op:mo R_PAR 
