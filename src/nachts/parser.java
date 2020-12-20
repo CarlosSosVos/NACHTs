@@ -1083,7 +1083,7 @@ class CUP$parser$actions {
                 if(parser.contMain>1){
                     semantic_errors("Solo puede declararse un main!",mnleft,mnright);
                 }
-               
+                
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("dec_Funcion");
@@ -1099,8 +1099,11 @@ class CUP$parser$actions {
                 main.setEtiqueta("Main");
                 main.setID(parser.cont);
                 main.setValor("Main");
-
                 
+                Function nueva_funcion = new Function(main.getValor(),id,false);
+                
+                funciones.add(nueva_funcion);
+
                 node.addHijos(identificador);
                 node.addHijos((Node) parts);
                 node.addHijos(main);

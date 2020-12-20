@@ -369,7 +369,7 @@ public class main extends javax.swing.JFrame {
 
     public void generateLexer() {
 
-        String parametros[] = { "-d", "./src/nachts/", "./src/tools/nachts.flex" };
+        String parametros[] = {"-d", "./src/nachts/", "./src/tools/nachts.flex"};
         try {
             jflex.Main.generate(parametros);
         } catch (Exception e) {
@@ -379,8 +379,8 @@ public class main extends javax.swing.JFrame {
 
     public void generateCup() {
 
-        String parametros[] = { "-destdir", "src/nachts/", "-parser", "parser", "-symbols", "Sym",
-                "src/tools/parser.cup" };
+        String parametros[] = {"-destdir", "src/nachts/", "-parser", "parser", "-symbols", "Sym",
+            "src/tools/parser.cup"};
 
         try {
             java_cup.Main.main(parametros);
@@ -455,7 +455,7 @@ public class main extends javax.swing.JFrame {
                 if (errors.isEmpty()) {
                     ambito(miArbol);
                     if (errors.isEmpty()) {
-                        this.bool_splitting=new ArrayList();
+                        this.bool_splitting = new ArrayList();
                         generar_cuadruplos(miArbol);
                         this.temporales = 0;
                     }
@@ -673,11 +673,20 @@ public class main extends javax.swing.JFrame {
             hijo.setPadre(arbol);
             // System.out.println(hijo.getPadre().toString());
             if (hijo.getEtiqueta().equals("dec_funcion") || hijo.getEtiqueta().equals("dec_Funcion")) {
+                
                 AmbitoActual = Ambito + 1;
+                
                 Ambito = AmbitoActual;
+                
+                System.out.println(funciones.size());
+                this.funciones.get(this.cont_funciones).setAmbito(Ambito+"");
+                
+                this.cont_funciones++;
+                
+                
                 hijo.setAmbito(AmbitoActual);
                 ArrayList<Integer> temp = new ArrayList();
-
+                
                 temp.add(AmbitoActual);
 
                 // hijo.setAmbitos(AmbitoActualR);
@@ -901,17 +910,18 @@ public class main extends javax.swing.JFrame {
                 this.AmbitoActualR = temp;
             }
             if (hijo.getEtiqueta().equals("dec_funcion") || hijo.getEtiqueta().equals("dec_Funcion")) {
-                boolean esMain=false;
+                boolean esMain = false;
                 for (Node iter : hijo.getHijos()) {
                     if (iter.getEtiqueta().equals("Main")) {
-                        esMain=true;
+                        esMain = true;
                     }
                 }
+                
                 if (!esMain) {
                     for (String ret : retornos) {
                         if (!hijo.getHijos().get(2).getValor().equals(ret)) {
-                            errors+="\nRetorno erroneo de la funcion "+hijo.getHijos().get(0).getValor();
-                            retornos=new ArrayList<String>();
+                            errors += "\nRetorno erroneo de la funcion " + hijo.getHijos().get(0).getValor();
+                            retornos = new ArrayList<String>();
                         }
                     }
                 }
@@ -1270,25 +1280,25 @@ public class main extends javax.swing.JFrame {
                 }
             } else {
                 System.out.println("que pedos de que u");
-                System.out.println(cuadruplos.get(cuadruplos.size()-1).toString());
+                System.out.println(cuadruplos.get(cuadruplos.size() - 1).toString());
                 System.out.println(etiquetas);
-                
+
             }
-        }else{
+        } else {
             boolean or = false;
             int check_symbol = temp.indexOf("&&");
-            
-            if(check_symbol == -1){
+
+            if (check_symbol == -1) {
                 or = true;
                 check_symbol = temp.indexOf("||");
-            }else if(check_symbol == -1){
+            } else if (check_symbol == -1) {
                 return temp;
             }
-            
-            if(or){
+
+            if (or) {
                 System.out.println("ON HOLD");
-                for( Cuadruplo item : cuadruplos){
-                    if(item.getResult().contains("espera")){
+                for (Cuadruplo item : cuadruplos) {
+                    if (item.getResult().contains("espera")) {
                         System.out.println(item.toString());
                         System.out.println(cuadruplos.indexOf(item));
                     }
@@ -1296,11 +1306,9 @@ public class main extends javax.swing.JFrame {
                 System.out.println("ON HOLD");
 
             }
-            
 
-            
             System.out.println("que pedos de que u");
-            System.out.println(cuadruplos.get(cuadruplos.size()-1).toString());
+            System.out.println(cuadruplos.get(cuadruplos.size() - 1).toString());
             System.out.println(etiquetas);
         }
 
@@ -1622,11 +1630,11 @@ public class main extends javax.swing.JFrame {
         for (Node hijo : arbol.getHijos()) {
             if (hijo.getEtiqueta().equals("dec_funcion") || hijo.getEtiqueta().equals("dec_Funcion")) {
                 if (hijo.getHijos().get(2).getEtiqueta().equals("Main")) {
-                    this.cuadruplos.add(new Cuadruplo("Main","","",""));
-                }else{
-                    this.cuadruplos.add(new Cuadruplo("EtiqS_"+hijo.getHijos().get(0).getValor(),"","",""));
+                    this.cuadruplos.add(new Cuadruplo("FUN", "MAIN", "", ""));
+                } else {
+                    this.cuadruplos.add(new Cuadruplo("FUN" , hijo.getHijos().get(0).getValor()+ "","", ""));
                 }
-                
+
             }
             String asig = "";
             if (hijo.getEtiqueta().equals("dec_var_inst")) {
@@ -1676,28 +1684,27 @@ public class main extends javax.swing.JFrame {
             if (hijo.getEtiqueta().equals("dec_return")) {
                 //String t="T"+temporales;
                 //temporales++;
-                String retorno=""+hijo.getValue();
+                String retorno = "" + hijo.getValue();
                 if (hijo.isAritmetica()) {
-                    retorno=aritmetica(retorno);
+                    retorno = aritmetica(retorno);
                 }
-                        
                 //this.cuadruplos.add(new Cuadruplo("=",""+hijo.getValue(),"",t));
-                this.cuadruplos.add(new Cuadruplo("RET","","",retorno));
-                this.cuadruplos.add(new Cuadruplo("FINFUN","","",""));
+                this.cuadruplos.add(new Cuadruplo("RET", "", "", retorno));
+                this.cuadruplos.add(new Cuadruplo("FINFUN", "", "", ""));
             }
-            if (hijo.getEtiqueta().equals("llamada_parametros") || hijo.getEtiqueta().equals("lista_valores") ) {
-                String param=""+hijo.getHijos().get(0).getValue();
+            if (hijo.getEtiqueta().equals("llamada_parametros") || hijo.getEtiqueta().equals("lista_valores")) {
+                String param = "" + hijo.getHijos().get(0).getValue();
                 if (hijo.getHijos().get(0).isAritmetica()) {
-                    param=aritmetica(param);
+                    param = aritmetica(param);
                 }
-                cuadruplos.add(new Cuadruplo("param","","",param));
-                
+                cuadruplos.add(new Cuadruplo("param", "", "", param));
+
             }
             generar_cuadruplos(hijo);
             if (hijo.getEtiqueta().equals("dec_llamada_funcion")) {
-                cuadruplos.add(new Cuadruplo("CALL","","","EtiqS_"+hijo.getValor()));
+                cuadruplos.add(new Cuadruplo("CALL", "", "", hijo.getValor()+""));
             }
-            
+
             if (hijo.getEtiqueta().equals("dec_var_inst")) {
                 if (!asig.equals("RET")) {
                     String t = hijo.getHijos().get(0).getValor();
@@ -1710,13 +1717,62 @@ public class main extends javax.swing.JFrame {
                     cuadruplos.add(new Cuadruplo("=", asig, "", t));
                 }
             }
-            
+
         }
     }
     // public void transicion_rel_bool(String cadena){
     //
 
     // }
+    public String generar_mips() {
+        int cont = 0;
+        int func_cont= 0;
+        boolean entro_funcion = false;
+        String funcion_actual= "";
+        boolean sale_funcion = false;
+        
+        String codigo = ".text"
+                        +"\n.globl main";
+        
+        for (Cuadruplo cuad : cuadruplos) {
+                   
+            //FUNCIONES
+            if(cuad.getOperator().equals("FUN")){
+                funcion_actual = cuad.getArgs1();
+                
+                if(cuad.getArgs1().equals("MAIN")){
+                    codigo += "\nmain:"
+                            +"\n\t move $fp, $sp";
+                }else{
+                    Function temp = SearchFunc(cuad.getArgs1(),func_cont);
+                    int num_params = temp.getParametros().size();
+                    
+                
+                
+                }
+                func_cont++;
+            }
+        }
+        
+        
+        
+                            
+        return codigo;
+    }
+    
+    
+    public Function SearchFunc(String id, int ambito){
+        
+        for (Function function : funciones) {
+            if(function.getId().equals(id)){
+                if (function.getAmbito().equals(ambito+"")){
+                    return function;
+                }
+            }
+        }
+        return null;
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cancel_BT;
@@ -1756,8 +1812,13 @@ public class main extends javax.swing.JFrame {
     int profundidad = 0;
     int Ambito = -1;
     int AmbitoActual = 0;
+    int cont_funciones = 0;
+    
+    
     ArrayList<Integer> AmbitoActualR;
-    ArrayList<String> retornos=new  ArrayList<String>();
+    ArrayList<String> retornos = new ArrayList<String>();
+    
+    TablaSimbolos simbolos = new TablaSimbolos();
     int offset = 0;
     String errors = "";
     int temporales = 0;

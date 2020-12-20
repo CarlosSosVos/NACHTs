@@ -37,6 +37,14 @@ public class TablaSimbolos {
         return null;
     }
     
+     public int getOffsetAmbito(String ambito){
+        int retVal = 0;
+         for (Record simbolo : simbolos) {
+             
+         }
+        return retVal;
+    }
+    
     public void newVar(Variable var){
         simbolos.add(var);
     }

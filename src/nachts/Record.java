@@ -10,12 +10,21 @@ package nachts;
  * @author k_k_r
  */
 public class Record {
-     String tipo, id;
+     String tipo, id,ambito;
 
     public Record(String tipo, String id) {
         this.tipo = tipo;
         this.id = id;
     }
+
+    public String getAmbito() {
+        return ambito;
+    }
+
+    public void setAmbito(String ambito) {
+        this.ambito = ambito;
+    }
+    
 
     public String getTipo() {
         return tipo;

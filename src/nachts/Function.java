@@ -15,7 +15,7 @@ public class Function extends Record {
 
     public ArrayList<Variable> parametros;
     public boolean returnsArray = false;
-
+    public String ambito = "-1";
     public boolean isReturnsArray() {
         return returnsArray;
     }

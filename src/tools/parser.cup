@@ -295,7 +295,7 @@ dec_funcion ::= FUNCTION ID:id L_PAR parametros:parts R_PAR COLON tipo:tip L_KEY
                 if(parser.contMain>1){
                     semantic_errors("Solo puede declararse un main!",mnleft,mnright);
                 }
-               
+                
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("dec_Funcion");
@@ -311,8 +311,11 @@ dec_funcion ::= FUNCTION ID:id L_PAR parametros:parts R_PAR COLON tipo:tip L_KEY
                 main.setEtiqueta("Main");
                 main.setID(parser.cont);
                 main.setValor("Main");
-
                 
+                Function nueva_funcion = new Function(main.getValor(),id,false);
+                
+                funciones.add(nueva_funcion);
+
                 node.addHijos(identificador);
                 node.addHijos((Node) parts);
                 node.addHijos(main);
