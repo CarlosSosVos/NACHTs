@@ -1682,10 +1682,21 @@ public class main extends javax.swing.JFrame {
                 }
                         
                 //this.cuadruplos.add(new Cuadruplo("=",""+hijo.getValue(),"",t));
-                this.cuadruplos.add(new Cuadruplo("RET",retorno,"",""));
+                this.cuadruplos.add(new Cuadruplo("RET","","",retorno));
                 this.cuadruplos.add(new Cuadruplo("FINFUN","","",""));
             }
+            if (hijo.getEtiqueta().equals("llamada_parametros") || hijo.getEtiqueta().equals("lista_valores") ) {
+                String param=""+hijo.getHijos().get(0).getValue();
+                if (hijo.getHijos().get(0).isAritmetica()) {
+                    param=aritmetica(param);
+                }
+                cuadruplos.add(new Cuadruplo("param","","",param));
+                
+            }
             generar_cuadruplos(hijo);
+            if (hijo.getEtiqueta().equals("dec_llamada_funcion")) {
+                cuadruplos.add(new Cuadruplo("CALL","","","EtiqS_"+hijo.getValor()));
+            }
             
             if (hijo.getEtiqueta().equals("dec_var_inst")) {
                 if (!asig.equals("RET")) {
