@@ -801,7 +801,9 @@ public class main extends javax.swing.JFrame {
                             var.setAmbito(AmbitoActual + "");
                             var.setAmbitos(temp);
                             cont_e = 1;
-                            if (var.getTipo().equals("int")) {
+                            var.setOffset(this.offset);
+                            this.offset = this.offset + 4;
+                            /*if (var.getTipo().equals("int")) {
                                 var.setOffset(this.offset);
                                 this.offset = this.offset + 4;
                                 // System.out.println("entra comparacion int: " + this.offset);
@@ -815,7 +817,7 @@ public class main extends javax.swing.JFrame {
                             } else if (var.getTipo().equals("string")) {
                                 var.setOffset(this.offset);
                                 this.offset = this.offset + 4;
-                            }
+                            }*/
                         }
 
                     }
@@ -835,7 +837,9 @@ public class main extends javax.swing.JFrame {
                                     var.setAmbito(AmbitoActual + "");
                                     var.setAmbitos(temp);
                                     cont_e = 1;
-                                    if (var.getTipo().equals("int")) {
+                                    var.setOffset(this.offset);
+                                    this.offset = this.offset + 4;
+                                    /*if (var.getTipo().equals("int")) {
                                         var.setOffset(this.offset);
                                         this.offset = this.offset + 4;
                                         // System.out.println("entra comparacion int: " + this.offset);
@@ -849,7 +853,7 @@ public class main extends javax.swing.JFrame {
                                     } else if (var.getTipo().equals("string")) {
                                         var.setOffset(this.offset);
                                         this.offset = this.offset + 4;
-                                    }
+                                    }*/
                                 }
                             }
                         }
@@ -1617,6 +1621,14 @@ public class main extends javax.swing.JFrame {
 
     public void generar_cuadruplos(Node arbol) {
         for (Node hijo : arbol.getHijos()) {
+            if (hijo.getEtiqueta().equals("dec_funcion") || hijo.getEtiqueta().equals("dec_Funcion")) {
+                if (hijo.getHijos().get(2).getEtiqueta().equals("Main")) {
+                    this.cuadruplos.add(new Cuadruplo("Main","","",""));
+                }else{
+                    this.cuadruplos.add(new Cuadruplo("EtiqS_"+hijo.getHijos().get(0).getValor(),"","",""));
+                }
+                
+            }
 
             if (hijo.getEtiqueta().equals("dec_var_inst")) {
                 String asignacion = "";
@@ -1661,6 +1673,18 @@ public class main extends javax.swing.JFrame {
                 cuadruplos.add(new Cuadruplo(("Etiq" + this.etiquetas), "", "", ""));
                 this.etiquetas++;
                 bool_expression((String) hijo.getHijos().get(0).getValue());
+            }
+            if (hijo.getEtiqueta().equals("dec_return")) {
+                //String t="T"+temporales;
+                //temporales++;
+                String retorno=""+hijo.getValue();
+                if (hijo.isAritmetica()) {
+                    retorno=aritmetica(retorno);
+                }
+                        
+                //this.cuadruplos.add(new Cuadruplo("=",""+hijo.getValue(),"",t));
+                this.cuadruplos.add(new Cuadruplo("RET",retorno,"",""));
+                this.cuadruplos.add(new Cuadruplo("FINFUN","","",""));
             }
             generar_cuadruplos(hijo);
         }

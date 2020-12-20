@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author k_k_r
  */
-public class Function {
+public class Function  {
 
     public String tipo, id;
     public ArrayList<Variable> parametros;

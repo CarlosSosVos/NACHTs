@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author k_k_r
  */
-public class Variable {
+public class Variable  {
     
     String tipo, id,ambito = "0";
     Object value=null;
@@ -99,7 +99,6 @@ public class Variable {
         this.offset = offset;
     }
 
-    @Override
     public String toString() {
         String StringValor;
         if(esArray){

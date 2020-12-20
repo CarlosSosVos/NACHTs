@@ -5003,7 +5003,10 @@ class CUP$parser$actions {
                 Node node = new Node();
                 node.setEtiqueta("dec_return");
                 node.setID(parser.cont);
-                node.addHijos(vl);
+                Node n_vl =(Node)vl;
+                node.setValue(n_vl.getValue());
+                node.setAritmetica(n_vl.isAritmetica());
+                node.addHijos(n_vl);
                 RESULT = node;
             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_return",31, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);

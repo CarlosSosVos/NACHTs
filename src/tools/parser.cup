@@ -2936,7 +2936,10 @@ dec_return ::= RETURN valor:vl
                 Node node = new Node();
                 node.setEtiqueta("dec_return");
                 node.setID(parser.cont);
-                node.addHijos(vl);
+                Node n_vl =(Node)vl;
+                node.setValue(n_vl.getValue());
+                node.setAritmetica(n_vl.isAritmetica());
+                node.addHijos(n_vl);
                 RESULT = node;
             :}
             | RETURN 
