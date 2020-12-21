@@ -11,12 +11,11 @@ import java.util.ArrayList;
  *
  * @author k_k_r
  */
-public class Function {
+public class Function extends Record {
 
-    public String tipo, id;
     public ArrayList<Variable> parametros;
     public boolean returnsArray = false;
-
+    public String ambito = "-1";
     public boolean isReturnsArray() {
         return returnsArray;
     }
@@ -26,8 +25,7 @@ public class Function {
     }
 
     public Function(String tipo, String id, boolean returnsArray) {
-        this.tipo = tipo;
-        this.id = id;
+        super(tipo,id);
         this.returnsArray = returnsArray;
         this.parametros = new ArrayList();
     }
@@ -38,22 +36,7 @@ public class Function {
         }
     }
 
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
+   
     public ArrayList<Variable> getParametros() {
         return parametros;
     }
@@ -64,7 +47,7 @@ public class Function {
 
     @Override
     public String toString() {
-        String ret_val = "Funcion: " + id + "\n" + "tipo: " + tipo + "\n";
+        String ret_val = "Funcion: " + super.getId() + "\n" + "tipo: " + super.getTipo() + "\n";
         if (this.parametros.size() > 0) {
             for (int i = 0; i < parametros.size(); i++) {
                 ret_val += "parametro no: " + i + " | id: " + parametros.get(i).getId() + " | tipo: " + parametros.get(i).getTipo() +"\n";

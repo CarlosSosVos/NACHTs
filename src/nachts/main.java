@@ -341,6 +341,7 @@ public class main extends javax.swing.JFrame {
 
     private void btn_show_mipsActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_show_mipsActionPerformed
         // TODO add your handling code here:
+        System.out.println(generar_mips());
         JOptionPane.showMessageDialog(this, "Esto aun no funciona , que te pasa!? ");
     }// GEN-LAST:event_btn_show_mipsActionPerformed
 
@@ -369,7 +370,7 @@ public class main extends javax.swing.JFrame {
 
     public void generateLexer() {
 
-        String parametros[] = { "-d", "./src/nachts/", "./src/tools/nachts.flex" };
+        String parametros[] = {"-d", "./src/nachts/", "./src/tools/nachts.flex"};
         try {
             jflex.Main.generate(parametros);
         } catch (Exception e) {
@@ -379,8 +380,8 @@ public class main extends javax.swing.JFrame {
 
     public void generateCup() {
 
-        String parametros[] = { "-destdir", "src/nachts/", "-parser", "parser", "-symbols", "Sym",
-                "src/tools/parser.cup" };
+        String parametros[] = {"-destdir", "src/nachts/", "-parser", "parser", "-symbols", "Sym",
+            "src/tools/parser.cup"};
 
         try {
             java_cup.Main.main(parametros);
@@ -418,6 +419,8 @@ public class main extends javax.swing.JFrame {
     }// GEN-LAST:event_jMenu1ActionPerformed
 
     private void btn_runActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_runActionPerformed
+        cuadruplos = new ArrayList<Cuadruplo>();
+        this.cont_funciones=0;
         if (this.input_file != null) {
             BufferedReader br;
             try {
@@ -455,9 +458,8 @@ public class main extends javax.swing.JFrame {
                 if (errors.isEmpty()) {
                     ambito(miArbol);
                     if (errors.isEmpty()) {
-                        this.bool_splitting=new ArrayList();
+                        this.bool_splitting = new ArrayList();
                         generar_cuadruplos(miArbol);
-                        System.out.println(this.bool_splitting.toString());
                         this.temporales = 0;
                     }
                 }
@@ -491,7 +493,9 @@ public class main extends javax.swing.JFrame {
                 for (Cuadruplo iter : cuadruplos) {
                     System.out.println(iter.toString());
                 }
-                cuadruplos = new ArrayList<Cuadruplo>();
+                String salida = generar_mips();
+                System.out.println(salida);
+                
 
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
@@ -675,8 +679,17 @@ public class main extends javax.swing.JFrame {
             hijo.setPadre(arbol);
             // System.out.println(hijo.getPadre().toString());
             if (hijo.getEtiqueta().equals("dec_funcion") || hijo.getEtiqueta().equals("dec_Funcion")) {
+
                 AmbitoActual = Ambito + 1;
+
                 Ambito = AmbitoActual;
+
+                //Esto nos sirve para saber a donde comienza la funcion!
+                System.out.println(funciones.size());
+                this.funciones.get(this.cont_funciones).setAmbito(Ambito + "");
+
+                this.cont_funciones++;
+
                 hijo.setAmbito(AmbitoActual);
                 ArrayList<Integer> temp = new ArrayList();
 
@@ -802,7 +815,9 @@ public class main extends javax.swing.JFrame {
                             var.setAmbito(AmbitoActual + "");
                             var.setAmbitos(temp);
                             cont_e = 1;
-                            if (var.getTipo().equals("int")) {
+                            var.setOffset(this.offset);
+                            this.offset = this.offset + 4;
+                            /*if (var.getTipo().equals("int")) {
                                 var.setOffset(this.offset);
                                 this.offset = this.offset + 4;
                                 // System.out.println("entra comparacion int: " + this.offset);
@@ -816,7 +831,7 @@ public class main extends javax.swing.JFrame {
                             } else if (var.getTipo().equals("string")) {
                                 var.setOffset(this.offset);
                                 this.offset = this.offset + 4;
-                            }
+                            }*/
                         }
 
                     }
@@ -836,7 +851,9 @@ public class main extends javax.swing.JFrame {
                                     var.setAmbito(AmbitoActual + "");
                                     var.setAmbitos(temp);
                                     cont_e = 1;
-                                    if (var.getTipo().equals("int")) {
+                                    var.setOffset(this.offset);
+                                    this.offset = this.offset + 4;
+                                    /*if (var.getTipo().equals("int")) {
                                         var.setOffset(this.offset);
                                         this.offset = this.offset + 4;
                                         // System.out.println("entra comparacion int: " + this.offset);
@@ -850,7 +867,7 @@ public class main extends javax.swing.JFrame {
                                     } else if (var.getTipo().equals("string")) {
                                         var.setOffset(this.offset);
                                         this.offset = this.offset + 4;
-                                    }
+                                    }*/
                                 }
                             }
                         }
@@ -899,17 +916,18 @@ public class main extends javax.swing.JFrame {
                 this.AmbitoActualR = temp;
             }
             if (hijo.getEtiqueta().equals("dec_funcion") || hijo.getEtiqueta().equals("dec_Funcion")) {
-                boolean esMain=false;
+                boolean esMain = false;
                 for (Node iter : hijo.getHijos()) {
                     if (iter.getEtiqueta().equals("Main")) {
-                        esMain=true;
+                        esMain = true;
                     }
                 }
+
                 if (!esMain) {
                     for (String ret : retornos) {
                         if (!hijo.getHijos().get(2).getValor().equals(ret)) {
-                            errors+="\nRetorno erroneo de la funcion "+hijo.getHijos().get(0).getValor();
-                            retornos=new ArrayList<String>();
+                            errors += "\nRetorno erroneo de la funcion " + hijo.getHijos().get(0).getValor();
+                            retornos = new ArrayList<String>();
                         }
                     }
                 }
@@ -1349,25 +1367,25 @@ public class main extends javax.swing.JFrame {
                 }
             } else {
                 System.out.println("que pedos de que u");
-                System.out.println(cuadruplos.get(cuadruplos.size()-1).toString());
+                System.out.println(cuadruplos.get(cuadruplos.size() - 1).toString());
                 System.out.println(etiquetas);
-                
+
             }
-        }else{
+        } else {
             boolean or = false;
             int check_symbol = temp.indexOf("&&");
-            
-            if(check_symbol == -1){
+
+            if (check_symbol == -1) {
                 or = true;
                 check_symbol = temp.indexOf("||");
-            }else if(check_symbol == -1){
+            } else if (check_symbol == -1) {
                 return temp;
             }
-            
-            if(or){
+
+            if (or) {
                 System.out.println("ON HOLD");
-                for( Cuadruplo item : cuadruplos){
-                    if(item.getResult().contains("espera")){
+                for (Cuadruplo item : cuadruplos) {
+                    if (item.getResult().contains("espera")) {
                         System.out.println(item.toString());
                         System.out.println(cuadruplos.indexOf(item));
                     }
@@ -1375,11 +1393,9 @@ public class main extends javax.swing.JFrame {
                 System.out.println("ON HOLD");
 
             }
-            
 
-            
             System.out.println("que pedos de que u");
-            System.out.println(cuadruplos.get(cuadruplos.size()-1).toString());
+            System.out.println(cuadruplos.get(cuadruplos.size() - 1).toString());
             System.out.println(etiquetas);
         }
 
@@ -1699,44 +1715,52 @@ public class main extends javax.swing.JFrame {
 
     public void generar_cuadruplos(Node arbol) {
         for (Node hijo : arbol.getHijos()) {
+            if (hijo.getEtiqueta().equals("dec_funcion") || hijo.getEtiqueta().equals("dec_Funcion")) {
+                if (hijo.getHijos().get(2).getEtiqueta().equals("Main")) {
+                    this.cuadruplos.add(new Cuadruplo("FUN", "MAIN", "", ""));
+                } else {
+                    this.cuadruplos.add(new Cuadruplo("FUN", hijo.getHijos().get(0).getValor() + "", "", ""));
+                }
 
+            }
+            String asig = "";
             if (hijo.getEtiqueta().equals("dec_var_inst")) {
-                String asignacion = "";
                 if (hijo.getHijos().size() > 1) {
                     if (hijo.getHijos().get(1).isAritmetica()) {
                         String tem = (String) hijo.getHijos().get(1).getValue();
-                        asignacion = aritmetica(tem);
+                        asig = aritmetica(tem);
                     } else {
-                        asignacion = "" + hijo.getHijos().get(1).getValue();
+                        asig = "" + hijo.getHijos().get(1).getValue();
                         ;
                     }
                 } else {
                     String t = "T" + temporales;
                     cuadruplos.add(new Cuadruplo("+", hijo.getHijos().get(0).getValor(), "1", t));
-                    asignacion = t;
+                    asig = t;
                 }
-                if (!asignacion.isEmpty()) {
-
-                    String t = hijo.getHijos().get(0).getValor();
-                    cuadruplos.add(new Cuadruplo("=", asignacion, "", t));
+                if (!asig.isEmpty()) {
+                    if (!asig.equals("RET")) {
+                        String t = hijo.getHijos().get(0).getValor();
+                        cuadruplos.add(new Cuadruplo("=", asig, "", t));
+                    }
                 }
-
             }
             if (hijo.getEtiqueta().equals("dec_inst")) {
-                String asignacion = "";
                 if (hijo.getValor().equals("int")) {
                     if (hijo.getHijos().get(0).isAritmetica()) {
                         String tem = (String) hijo.getHijos().get(0).getValue();
-                        asignacion = aritmetica(tem);
+                        asig = aritmetica(tem);
                     } else {
-                        asignacion = "" + hijo.getHijos().get(0).getValue();
+                        asig = "" + hijo.getHijos().get(0).getValue();
                     }
                 } else {
-                    asignacion = "" + hijo.getValue();
+                    asig = "" + hijo.getValue();
                 }
-                if (!asignacion.isEmpty()) {
-                    String t = hijo.getPadre().getPadre().getHijos().get(0).getValor();
-                    cuadruplos.add(new Cuadruplo("=", asignacion, "", t));
+                if (!asig.isEmpty()) {
+                    if (!asig.equals("RET")) {
+                        String t = hijo.getPadre().getPadre().getHijos().get(0).getValor();
+                        cuadruplos.add(new Cuadruplo("=", asig, "", t));
+                    }
                 }
             }
             if (hijo.getEtiqueta().equals("dec_while")) {
@@ -1744,13 +1768,214 @@ public class main extends javax.swing.JFrame {
                 this.etiquetas++;
                 bool_expression((String) hijo.getHijos().get(0).getValue());
             }
+            if (hijo.getEtiqueta().equals("dec_return")) {
+                //String t="T"+temporales;
+                //temporales++;
+                String retorno = "" + hijo.getValue();
+                if (hijo.isAritmetica()) {
+                    retorno = aritmetica(retorno);
+                }
+                //this.cuadruplos.add(new Cuadruplo("=",""+hijo.getValue(),"",t));
+                this.cuadruplos.add(new Cuadruplo("RET", "", "", retorno));
+                this.cuadruplos.add(new Cuadruplo("FINFUN", "", "", ""));
+            }
+            if (hijo.getEtiqueta().equals("llamada_parametros") || hijo.getEtiqueta().equals("lista_valores")) {
+                String param = "" + hijo.getHijos().get(0).getValue();
+                if (hijo.getHijos().get(0).isAritmetica()) {
+                    param = aritmetica(param);
+                }
+                cuadruplos.add(new Cuadruplo("param", "", "", param));
+
+            }
             generar_cuadruplos(hijo);
+            if (hijo.getEtiqueta().equals("dec_llamada_funcion")) {
+                cuadruplos.add(new Cuadruplo("CALL", "", "", hijo.getValor() + ""));
+            }
+
+            if (hijo.getEtiqueta().equals("dec_var_inst")) {
+                if (!asig.equals("RET")) {
+                    String t = hijo.getHijos().get(0).getValor();
+                    cuadruplos.add(new Cuadruplo("=", asig, "", t));
+                }
+            }
+            if (hijo.getEtiqueta().equals("dec_inst")) {
+                if (asig.equals("RET")) {
+                    String t = hijo.getPadre().getPadre().getHijos().get(0).getValor();
+                    cuadruplos.add(new Cuadruplo("=", asig, "", t));
+                }
+            }
+
         }
     }
     // public void transicion_rel_bool(String cadena){
     //
 
     // }
+    public String generar_mips() {
+        boolean[] t_en_uso = {false, false, false, false, false, false, false, false};
+        boolean[] a_en_uso = {false, false, false, false};
+        boolean[] s_en_uso = {false, false, false, false, false, false, false, false};
+
+        int cont = 0;
+        int contA = 0;
+        int contP = 0;
+        int contS = 0;
+
+        int func_cont = 0;
+        boolean entro_funcion = false;
+        String funcion_actual = "";
+        boolean sale_funcion = false;
+        String codigo = ".text"
+                + "\n.globl main";
+        int control_temp = 0;
+        for (Cuadruplo cuad : cuadruplos) {
+
+            //FUNCIONES
+            if (cuad.getOperator().equals("FUN")) {
+                funcion_actual = cuad.getArgs1();
+                entro_funcion = true;
+                if (cuad.getArgs1().equals("MAIN")) {
+                    codigo += "\nmain:"
+                            + "\n\tmove $fp, $sp";
+                } else {
+                    //creo el bloque con el nombre de la funcion
+                    codigo += "\n_" + cuad.getArgs1() + ":"
+                            + "\n\tsw $fp, -4($sp)";
+                    codigo += "\n\tsw $ra, -8($sp)";
+
+                    int sumaOffset = 8;
+
+                    Function temp = SearchFunc(cuad.getArgs1(), func_cont);
+
+                    if (temp != null) {
+                        for (int i = 0; i < temp.getParametros().size(); i++) {
+                            sumaOffset += temp.getParametros().get(i).getOffset();
+                            s_en_uso[i] = true;
+                            codigo += "\n\tsw $s" + i + " -" + sumaOffset + "($sp)";
+                        }
+
+                        codigo += "\n\tmove $fp, $sp";
+
+                        for (int j = 0; j < temp.getParametros().size(); j++) {
+                            a_en_uso[j] = true;
+                            codigo += "\n\tmove $s" + j + ",$a" + j;
+                        }
+
+                        int cont_offset_vars_funcion = 0;
+
+                        for (Variable variable : variables) {
+                            if (variable.getAmbitos().contains(temp.getAmbito())) {
+                                cont_offset_vars_funcion += variable.getOffset();
+                            }
+                        }
+
+                        codigo += "\n\tsub $sp,$sp," + cont_offset_vars_funcion;
+                    } else {
+                        codigo += "\n\tsub $sp,$sp," + 0;
+                    }
+                    if (temp != null) {
+                        int ambito_funcion_actual = Integer.parseInt(temp.ambito);
+                    }
+                }
+
+                func_cont++;
+            }
+
+            if (cuad.getOperator().equals("+")
+                    || cuad.getOperator().equals("-")
+                    || cuad.getOperator().equals("*")
+                    || cuad.getOperator().equals("/")) {
+
+                codigo += "\n\t";
+                if (check_free_temp(t_en_uso) > -1) {
+                    t_en_uso[control_temp] = true;
+                }
+                if (control_temp > -1) {
+                    switch (cuad.getOperator()) {
+                        case "+":
+                            codigo += "add $t" + control_temp + "," + cuad.args1 + "," + cuad.args2;
+                            control_temp = check_free_temp(t_en_uso);
+                            break;
+                        case "-":
+                            codigo += "sub $t" + control_temp + "," + cuad.args1 + "," + cuad.args2;
+                            control_temp = check_free_temp(t_en_uso);
+
+                            break;
+                        case "*":
+                            codigo += "mult $t" + control_temp + "," + cuad.args1 + "," + cuad.args2;
+                            control_temp = check_free_temp(t_en_uso);
+
+                            break;
+                        case "/":
+                            codigo += "div $t" + control_temp + "," + cuad.args1 + "," + cuad.args2;
+                            control_temp = check_free_temp(t_en_uso);
+                            break;
+                        default:
+
+                    }
+                }
+
+            }
+
+            if (cuad.getOperator().equals("if=")) {
+
+            }
+            
+            if(cuad.getOperator().equals("if>=")){
+            
+            }
+            
+            if(cuad.getOperator().equals("if>")){
+            
+            }
+            
+            if(cuad.getOperator().equals("if<")){
+            
+            }
+            
+            if(cuad.getOperator().equals("if<=")){
+            
+            }
+            
+            if(cuad.getOperator().equals("if!=")){
+                
+            }
+            
+            if(cuad.getOperator().contains("etiq")){
+                codigo += "\n_"+cuad.getOperator()+":";
+            }
+            
+            if(cuad.getOperator().equals("GOTO")){
+                codigo += "\n\t\tb _" + cuad.getResult() + "\n";
+            }
+            
+
+        }
+
+        return codigo;
+    }
+
+    public Function SearchFunc(String id, int ambito) {
+
+        for (Function function : funciones) {
+            if (function.getId().equals(id)) {
+                if (function.getAmbito().equals(ambito + "")) {
+                    return function;
+                }
+            }
+        }
+        return null;
+
+    }
+    
+    public int check_free_temp(boolean[] temp_status){
+        for (int i = 0; i < temp_status.length; i++) {
+            if(temp_status[i] ==false){
+                return i;
+            } 
+        }
+        return -1;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cancel_BT;
@@ -1790,8 +2015,12 @@ public class main extends javax.swing.JFrame {
     int profundidad = 0;
     int Ambito = -1;
     int AmbitoActual = 0;
+    int cont_funciones = 0;
+
     ArrayList<Integer> AmbitoActualR;
-    ArrayList<String> retornos=new  ArrayList<String>();
+    ArrayList<String> retornos = new ArrayList<String>();
+
+    TablaSimbolos simbolos = new TablaSimbolos();
     int offset = 0;
     String errors = "";
     int temporales = 0;
