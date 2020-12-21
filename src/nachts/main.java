@@ -673,20 +673,20 @@ public class main extends javax.swing.JFrame {
             hijo.setPadre(arbol);
             // System.out.println(hijo.getPadre().toString());
             if (hijo.getEtiqueta().equals("dec_funcion") || hijo.getEtiqueta().equals("dec_Funcion")) {
-                
+
                 AmbitoActual = Ambito + 1;
-                
+
                 Ambito = AmbitoActual;
-                
+
+                //Esto nos sirve para saber a donde comienza la funcion!
                 System.out.println(funciones.size());
-                this.funciones.get(this.cont_funciones).setAmbito(Ambito+"");
-                
+                this.funciones.get(this.cont_funciones).setAmbito(Ambito + "");
+
                 this.cont_funciones++;
-                
-                
+
                 hijo.setAmbito(AmbitoActual);
                 ArrayList<Integer> temp = new ArrayList();
-                
+
                 temp.add(AmbitoActual);
 
                 // hijo.setAmbitos(AmbitoActualR);
@@ -916,7 +916,7 @@ public class main extends javax.swing.JFrame {
                         esMain = true;
                     }
                 }
-                
+
                 if (!esMain) {
                     for (String ret : retornos) {
                         if (!hijo.getHijos().get(2).getValor().equals(ret)) {
@@ -1632,7 +1632,7 @@ public class main extends javax.swing.JFrame {
                 if (hijo.getHijos().get(2).getEtiqueta().equals("Main")) {
                     this.cuadruplos.add(new Cuadruplo("FUN", "MAIN", "", ""));
                 } else {
-                    this.cuadruplos.add(new Cuadruplo("FUN" , hijo.getHijos().get(0).getValor()+ "","", ""));
+                    this.cuadruplos.add(new Cuadruplo("FUN", hijo.getHijos().get(0).getValor() + "", "", ""));
                 }
 
             }
@@ -1702,7 +1702,7 @@ public class main extends javax.swing.JFrame {
             }
             generar_cuadruplos(hijo);
             if (hijo.getEtiqueta().equals("dec_llamada_funcion")) {
-                cuadruplos.add(new Cuadruplo("CALL", "", "", hijo.getValor()+""));
+                cuadruplos.add(new Cuadruplo("CALL", "", "", hijo.getValor() + ""));
             }
 
             if (hijo.getEtiqueta().equals("dec_var_inst")) {
@@ -1726,52 +1726,98 @@ public class main extends javax.swing.JFrame {
     // }
     public String generar_mips() {
         int cont = 0;
-        int func_cont= 0;
+        int func_cont = 0;
         boolean entro_funcion = false;
-        String funcion_actual= "";
+        String funcion_actual = "";
         boolean sale_funcion = false;
-        
         String codigo = ".text"
-                        +"\n.globl main";
-        
+                + "\n.globl main";
+        int control_temp = 0;
         for (Cuadruplo cuad : cuadruplos) {
-                   
+            String rgx = "+ - * /";
+            Pattern p = Pattern.compile(cuad.getOperator());
+            Matcher m = p.matcher(rgx);
+            
             //FUNCIONES
-            if(cuad.getOperator().equals("FUN")){
+            if (cuad.getOperator().equals("FUN")) {
                 funcion_actual = cuad.getArgs1();
-                
-                if(cuad.getArgs1().equals("MAIN")){
+                entro_funcion = true;
+                if (cuad.getArgs1().equals("MAIN")) {
                     codigo += "\nmain:"
-                            +"\n\t move $fp, $sp";
-                }else{
-                    Function temp = SearchFunc(cuad.getArgs1(),func_cont);
-                    int num_params = temp.getParametros().size();
-                    
-                
-                
+                            + "\n\t move $fp, $sp";
+                } else {
+                    //creo el bloque con el nombre de la funcion
+                    codigo += "\n_" + cuad.getArgs1() + ":"
+                            + "\n\tsw $fp, -4($sp)";
+                    codigo += "\n\tsw $ra , -8(sp)";
+
+                    int sumaOffset = 8;
+
+                    Function temp = SearchFunc(cuad.getArgs1(), func_cont);
+
+                    for (int i = 0; i < temp.getParametros().size(); i++) {
+                        sumaOffset += temp.getParametros().get(i).getOffset();
+                        codigo += "\n\tsw $s" + i + " -" + sumaOffset + "($sp)";
+                    }
+
+                    codigo += "\n\tmove $fp, $sp";
+
+                    for (int j = 0; j < temp.getParametros().size(); j++) {
+                        codigo += "\n\tmove $s" + j + ",$a" + j;
+                    }
+
+                    int cont_offset_vars_funcion = 0;
+
+                    for (Variable variable : variables) {
+                        if (variable.getAmbitos().contains(temp.getAmbito())) {
+                            cont_offset_vars_funcion += variable.getOffset();
+                        }
+                    }
+
+                    codigo += "\n\tsub $sp,$sp,"+cont_offset_vars_funcion;
+
+                    int ambito_funcion_actual = Integer.parseInt(temp.ambito);
+
                 }
                 func_cont++;
             }
+
+            if (m.find()) {
+              
+                codigo += "\n\t";
+                
+                switch (cuad.getOperator()) {
+                    case "+":
+                            codigo+="add $t"+control_temp+","+cuad.args1+","+cuad.args2;
+                        break;
+                    case "-":
+                            codigo+="sub $t"+control_temp+","+cuad.args1+","+cuad.args2;
+                        break;
+                    case "*":
+                            codigo+="mult $t"+control_temp+","+cuad.args1+","+cuad.args2;
+                        break;
+                    case "/":
+                            codigo+="div $t"+control_temp+","+cuad.args1+","+cuad.args2;
+                        break;
+
+                }
+            }
         }
-        
-        
-        
-                            
+
         return codigo;
     }
-    
-    
-    public Function SearchFunc(String id, int ambito){
-        
+
+    public Function SearchFunc(String id, int ambito) {
+
         for (Function function : funciones) {
-            if(function.getId().equals(id)){
-                if (function.getAmbito().equals(ambito+"")){
+            if (function.getId().equals(id)) {
+                if (function.getAmbito().equals(ambito + "")) {
                     return function;
                 }
             }
         }
         return null;
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1813,11 +1859,10 @@ public class main extends javax.swing.JFrame {
     int Ambito = -1;
     int AmbitoActual = 0;
     int cont_funciones = 0;
-    
-    
+
     ArrayList<Integer> AmbitoActualR;
     ArrayList<String> retornos = new ArrayList<String>();
-    
+
     TablaSimbolos simbolos = new TablaSimbolos();
     int offset = 0;
     String errors = "";
