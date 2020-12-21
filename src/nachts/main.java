@@ -899,7 +899,10 @@ public class main extends javax.swing.JFrame {
             if (hijo.getEtiqueta().equals("dec_return")) {
                 retornos.add(hijo.getHijos().get(0).getValor());
             }
-
+            
+            if (hijo.getEtiqueta().equals("list_op")||hijo.getEtiqueta().equals("option")||hijo.getEtiqueta().equals("default")) {
+                hijo.setValor(hijo.getPadre().getValor());
+            }
             ambito(hijo);// apartir de aqui se cierra el bloque actual y vuelve al bloque anterior
 
             p = Pattern.compile(hijo.getEtiqueta());
@@ -926,10 +929,11 @@ public class main extends javax.swing.JFrame {
                     for (String ret : retornos) {
                         if (!hijo.getHijos().get(2).getValor().equals(ret)) {
                             errors += "\nRetorno erroneo de la funcion " + hijo.getHijos().get(0).getValor();
-                            retornos = new ArrayList<String>();
                         }
                     }
+                    
                 }
+                retornos = new ArrayList<String>();
             }
         }
     }
@@ -1705,7 +1709,52 @@ public class main extends javax.swing.JFrame {
                 cuadruplos.add(new Cuadruplo("param", "", "", param));
 
             }
+            if (hijo.getEtiqueta().equals("list_op")) {
+                String eti="Etiq" + this.etiquetas;
+                cuadruplos.add(new Cuadruplo("if=",""+hijo.getValor(),""+hijo.getHijos().get(0).getValue(),eti));
+                this.etiquetas++;
+                cuadruplos.add(new Cuadruplo(hijo.getValor(),"","","opcion"));
+                cuadruplos.add(new Cuadruplo(eti,"","",""));
+            }
+            if (hijo.getEtiqueta().equals("option")) {
+                String eti="Etiq" + this.etiquetas;
+                this.etiquetas++;
+                for (Cuadruplo iter: cuadruplos) {
+                    if (hijo.getValor().equals(iter.getOperator())&& iter.getResult().equals("opcion")) {
+                        iter.setOperator("GOTO");
+                        iter.setResult(eti);
+                    }
+                }
+                cuadruplos.add(new Cuadruplo(hijo.getValor(),"","","salida"));
+                cuadruplos.add(new Cuadruplo(eti,"","",""));
+            }
+            if (hijo.getEtiqueta().equals("default")) {
+                String eti="Etiq" + this.etiquetas;
+                this.etiquetas++;
+                for (Cuadruplo iter: cuadruplos) {
+                    if (hijo.getValor().equals(iter.getOperator())&& iter.getResult().equals("opcion")) {
+                        iter.setOperator("GOTO");
+                        iter.setResult(eti);
+                    }
+                }
+                cuadruplos.add(new Cuadruplo(hijo.getValor(),"","","salida"));
+                cuadruplos.add(new Cuadruplo(eti,"","",""));
+            }
+
             generar_cuadruplos(hijo);
+            
+            if (hijo.getEtiqueta().equals("dec_switch")) {
+                String eti="Etiq" + this.etiquetas;
+                this.etiquetas++;
+                for (Cuadruplo iter: cuadruplos) {
+                    if (hijo.getValor().equals(iter.getOperator())&& iter.getResult().equals("opcion")||hijo.getValor().equals(iter.getOperator())&& iter.getResult().equals("salida")) {
+                        iter.setOperator("GOTO");
+                        iter.setResult(eti);
+                    }
+                }
+                cuadruplos.add(new Cuadruplo(eti,"","",""));
+            }
+            
             if (hijo.getEtiqueta().equals("dec_llamada_funcion")) {
                 cuadruplos.add(new Cuadruplo("CALL", "", "", hijo.getValor() + ""));
             }
@@ -1871,6 +1920,7 @@ public class main extends javax.swing.JFrame {
         }
 
         return codigo;
+        //return "";
     }
 
     public Function SearchFunc(String id, int ambito) {

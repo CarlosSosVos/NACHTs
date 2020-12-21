@@ -434,46 +434,48 @@ public class parser extends java_cup.runtime.lr_parser {
     "\000\012\003\u0100\053\375\064\374\065\377\001\002\000" +
     "\032\003\uffdf\011\uffdf\023\uffdf\025\uffdf\026\uffdf\027\uffdf" +
     "\033\uffdf\035\uffdf\036\uffdf\037\uffdf\043\uffdf\057\uffdf\001" +
-    "\002\000\004\043\u013d\001\002\000\004\063\u013e\001\002" +
-    "\000\004\056\u013f\001\002\000\004\041\u0140\001\002\000" +
-    "\030\003\124\005\112\015\114\016\126\017\116\031\120" +
-    "\032\121\035\067\036\110\043\122\062\127\001\002\000" +
-    "\004\057\u0142\001\002\000\032\003\uffab\011\uffab\023\uffab" +
-    "\025\uffab\026\uffab\027\uffab\033\uffab\035\uffab\036\uffab\037" +
-    "\uffab\043\uffab\057\uffab\001\002\000\004\066\u0144\001\002" +
-    "\000\030\003\105\011\075\023\076\025\071\026\107\027" +
-    "\072\033\uffe2\035\067\036\110\037\074\043\100\001\002" +
-    "\000\004\033\u0147\001\002\000\004\057\uffaa\001\002\000" +
-    "\004\065\u0148\001\002\000\010\041\u0140\042\u0149\057\uffa7" +
-    "\001\002\000\004\066\u014b\001\002\000\004\057\uffa9\001" +
-    "\002\000\030\003\105\011\075\023\076\025\071\026\107" +
-    "\027\072\035\067\036\110\037\074\043\100\057\uffe2\001" +
-    "\002\000\004\057\uffa8\001\002\000\006\033\uffeb\057\uffeb" +
-    "\001\002\000\004\065\uff8a\001\002\000\024\003\124\005" +
-    "\112\031\324\032\325\035\067\036\110\043\122\045\323" +
-    "\062\127\001\002\000\004\063\u0151\001\002\000\004\056" +
-    "\u0152\001\002\000\030\003\105\011\075\023\076\025\071" +
-    "\026\107\027\072\035\067\036\110\037\074\043\100\057" +
-    "\uffe2\001\002\000\004\057\u0154\001\002\000\032\003\uffb0" +
-    "\011\uffb0\023\uffb0\025\uffb0\026\uffb0\027\uffb0\033\uffb0\035" +
-    "\uffb0\036\uffb0\037\uffb0\043\uffb0\057\uffb0\001\002\000\006" +
-    "\033\uffec\057\uffec\001\002\000\004\043\u0157\001\002\000" +
-    "\004\064\u0158\001\002\000\016\012\021\014\026\020\020" +
-    "\021\023\022\024\030\025\001\002\000\004\063\u015a\001" +
-    "\002\000\062\003\uffa0\006\uffa0\007\uffa0\011\uffa0\023\uffa0" +
-    "\025\uffa0\026\uffa0\027\uffa0\033\uffa0\035\uffa0\036\uffa0\037" +
-    "\uffa0\043\uffa0\044\uffa0\046\uffa0\050\uffa0\051\uffa0\053\uffa0" +
-    "\057\uffa0\061\uffa0\063\uffa0\064\uffa0\065\uffa0\066\uffa0\001" +
-    "\002\000\032\003\105\011\075\023\076\025\071\026\107" +
-    "\027\072\033\uffe2\035\067\036\110\037\074\043\100\057" +
-    "\uffe2\001\002\000\006\033\uffe7\057\uffe7\001\002\000\030" +
-    "\003\105\011\075\023\076\025\071\026\107\027\072\035" +
-    "\067\036\110\037\074\043\100\057\uffe2\001\002\000\004" +
-    "\057\u015f\001\002\000\010\002\ufffb\003\ufffb\004\ufffb\001" +
-    "\002\000\004\002\uffff\001\002\000\010\002\ufffd\003\u0162" +
-    "\004\006\001\002\000\010\002\ufffd\003\u0162\004\006\001" +
-    "\002\000\004\002\000\001\002\000\004\002\ufffc\001\002" +
-    "\000\004\002\ufffe\001\002" });
+    "\002\000\030\003\124\005\112\015\114\016\126\017\116" +
+    "\031\120\032\121\035\067\036\110\043\122\062\127\001" +
+    "\002\000\004\063\u013e\001\002\000\004\056\u013f\001\002" +
+    "\000\004\041\u0140\001\002\000\030\003\124\005\112\015" +
+    "\114\016\126\017\116\031\120\032\121\035\067\036\110" +
+    "\043\122\062\127\001\002\000\004\057\u0142\001\002\000" +
+    "\032\003\uffab\011\uffab\023\uffab\025\uffab\026\uffab\027\uffab" +
+    "\033\uffab\035\uffab\036\uffab\037\uffab\043\uffab\057\uffab\001" +
+    "\002\000\004\066\u0144\001\002\000\030\003\105\011\075" +
+    "\023\076\025\071\026\107\027\072\033\uffe2\035\067\036" +
+    "\110\037\074\043\100\001\002\000\004\033\u0147\001\002" +
+    "\000\004\057\uffaa\001\002\000\004\065\u0148\001\002\000" +
+    "\010\041\u0140\042\u0149\057\uffa7\001\002\000\004\066\u014b" +
+    "\001\002\000\004\057\uffa9\001\002\000\030\003\105\011" +
+    "\075\023\076\025\071\026\107\027\072\035\067\036\110" +
+    "\037\074\043\100\057\uffe2\001\002\000\004\057\uffa8\001" +
+    "\002\000\006\033\uffeb\057\uffeb\001\002\000\004\065\uff8a" +
+    "\001\002\000\024\003\124\005\112\031\324\032\325\035" +
+    "\067\036\110\043\122\045\323\062\127\001\002\000\004" +
+    "\063\u0151\001\002\000\004\056\u0152\001\002\000\030\003" +
+    "\105\011\075\023\076\025\071\026\107\027\072\035\067" +
+    "\036\110\037\074\043\100\057\uffe2\001\002\000\004\057" +
+    "\u0154\001\002\000\032\003\uffb0\011\uffb0\023\uffb0\025\uffb0" +
+    "\026\uffb0\027\uffb0\033\uffb0\035\uffb0\036\uffb0\037\uffb0\043" +
+    "\uffb0\057\uffb0\001\002\000\006\033\uffec\057\uffec\001\002" +
+    "\000\004\043\u0157\001\002\000\004\064\u0158\001\002\000" +
+    "\016\012\021\014\026\020\020\021\023\022\024\030\025" +
+    "\001\002\000\004\063\u015a\001\002\000\062\003\uffa0\006" +
+    "\uffa0\007\uffa0\011\uffa0\023\uffa0\025\uffa0\026\uffa0\027\uffa0" +
+    "\033\uffa0\035\uffa0\036\uffa0\037\uffa0\043\uffa0\044\uffa0\046" +
+    "\uffa0\050\uffa0\051\uffa0\053\uffa0\057\uffa0\061\uffa0\063\uffa0" +
+    "\064\uffa0\065\uffa0\066\uffa0\001\002\000\032\003\105\011" +
+    "\075\023\076\025\071\026\107\027\072\033\uffe2\035\067" +
+    "\036\110\037\074\043\100\057\uffe2\001\002\000\006\033" +
+    "\uffe7\057\uffe7\001\002\000\030\003\105\011\075\023\076" +
+    "\025\071\026\107\027\072\035\067\036\110\037\074\043" +
+    "\100\057\uffe2\001\002\000\004\057\u015f\001\002\000\010" +
+    "\002\ufffb\003\ufffb\004\ufffb\001\002\000\004\002\uffff\001" +
+    "\002\000\010\002\ufffd\003\u0162\004\006\001\002\000\010" +
+    "\002\ufffd\003\u0162\004\006\001\002\000\004\002\000\001" +
+    "\002\000\004\002\ufffc\001\002\000\004\002\ufffe\001\002" +
+    "" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -636,30 +638,31 @@ public class parser extends java_cup.runtime.lr_parser {
     "\023\114\033\112\001\001\000\004\042\u0134\001\001\000" +
     "\006\012\u0135\013\375\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\004\042\u0139\001\001\000" +
-    "\006\012\u013a\013\375\001\001\000\002\001\001\000\002" +
+    "\006\012\u013a\013\375\001\001\000\002\001\001\000\014" +
+    "\016\u013c\017\127\021\124\023\114\033\112\001\001\000" +
+    "\002\001\001\000\002\001\001\000\004\027\u0140\001\001" +
+    "\000\014\016\u0142\017\127\021\124\023\114\033\112\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\024\010\u0144\011\067\015\105\024\072\025\100\026" +
+    "\103\031\076\033\065\041\101\001\001\000\004\030\u0145" +
     "\001\001\000\002\001\001\000\002\001\001\000\004\027" +
-    "\u0140\001\001\000\014\016\u0142\017\127\021\124\023\114" +
-    "\033\112\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\024\010\u0144\011\067\015\105\024\072" +
-    "\025\100\026\103\031\076\033\065\041\101\001\001\000" +
-    "\004\030\u0145\001\001\000\002\001\001\000\002\001\001" +
-    "\000\004\027\u0149\001\001\000\002\001\001\000\002\001" +
-    "\001\000\024\010\u014b\011\067\015\105\024\072\025\100" +
-    "\026\103\031\076\033\065\041\101\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001\000\020\017\327" +
-    "\021\124\023\114\033\112\037\u014f\040\325\050\321\001" +
-    "\001\000\002\001\001\000\002\001\001\000\024\010\u0152" +
-    "\011\067\015\105\024\072\025\100\026\103\031\076\033" +
-    "\065\041\101\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\004\042\u0158\001\001\000\002\001\001\000\002\001\001" +
-    "\000\024\010\u015b\011\067\015\105\024\072\025\100\026" +
-    "\103\031\076\033\065\041\101\001\001\000\002\001\001" +
-    "\000\024\010\u015d\011\067\015\105\024\072\025\100\026" +
-    "\103\031\076\033\065\041\101\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\006\003\u0164\004" +
-    "\u0160\001\001\000\006\003\u0163\004\u0160\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001" });
+    "\u0149\001\001\000\002\001\001\000\002\001\001\000\024" +
+    "\010\u014b\011\067\015\105\024\072\025\100\026\103\031" +
+    "\076\033\065\041\101\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\020\017\327\021\124\023" +
+    "\114\033\112\037\u014f\040\325\050\321\001\001\000\002" +
+    "\001\001\000\002\001\001\000\024\010\u0152\011\067\015" +
+    "\105\024\072\025\100\026\103\031\076\033\065\041\101" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\004\042\u0158" +
+    "\001\001\000\002\001\001\000\002\001\001\000\024\010" +
+    "\u015b\011\067\015\105\024\072\025\100\026\103\031\076" +
+    "\033\065\041\101\001\001\000\002\001\001\000\024\010" +
+    "\u015d\011\067\015\105\024\072\025\100\026\103\031\076" +
+    "\033\065\041\101\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\006\003\u0164\004\u0160\001\001" +
+    "\000\006\003\u0163\004\u0160\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -700,6 +703,7 @@ public class parser extends java_cup.runtime.lr_parser {
 
    ArrayList<String> errores = new ArrayList();
    ArrayList<Variable> variables = new ArrayList();
+   ArrayList<Variable> parametros = new ArrayList();
    ArrayList<Function> funciones = new ArrayList();
    ArrayList<Cuadruplo> cuadruplos = new ArrayList();
    ArrayList<String> MensajesEntrada =new ArrayList();
@@ -849,16 +853,27 @@ public class parser extends java_cup.runtime.lr_parser {
         return new Function("-1","-1",false);
     }
 
-    public Variable buscaTipo(String id, boolean esArray){
+    public Variable buscaTipo(String id, boolean esArray, boolean parFunc){
         //boolean isFound = false;
-        String tipo = "";
+        //String tipo = "";
         for (Variable iter_list : variables) {
             if(iter_list.getId().equals(id) && iter_list.isArray() == esArray){
-                System.out.println("El tipo de la variable es: ");
-                System.out.println(iter_list.getTipo());
-                tipo= iter_list.getTipo();
+                //System.out.println("El tipo de la variable es: ");
+                //System.out.println(iter_list.getTipo());
+                //tipo= iter_list.getTipo();
                 return iter_list;
                 //isFound= true;
+            }
+        }
+        if(parFunc){
+            for (Variable iter_list : parametros) {
+                if(iter_list.getId().equals(id) && iter_list.isArray() == esArray){
+                    //System.out.println("El tipo de la variable es: ");
+                    //System.out.println(iter_list.getTipo());
+                    //tipo= iter_list.getTipo();
+                    return iter_list;
+                    //isFound= true;
+                }
             }
         }
        
@@ -1083,7 +1098,6 @@ class CUP$parser$actions {
                 if(parser.contMain>1){
                     semantic_errors("Solo puede declararse un main!",mnleft,mnright);
                 }
-                
                 parser.cont++;
                 Node node = new Node();
                 node.setEtiqueta("dec_Funcion");
@@ -1146,7 +1160,9 @@ class CUP$parser$actions {
                 node.addHijos(identificador);
                 node.addHijos(n_tip);
                 node.addHijos(n_nuP);
-
+                Variable temp=new Variable(n_tip.getValor(),id);
+                temp.setValue(id);
+                parametros.add(temp);
                 ArrayList<Variable> var = (ArrayList<Variable>) n_nuP.getValue();
                 Variable tempo=new Variable(n_tip.getValor(),id);
                 tempo.setArray(false);
@@ -1187,7 +1203,9 @@ class CUP$parser$actions {
                 Node n_tip=(Node) tip;
                 node.addHijos(identificador);
                 node.addHijos(n_tip);
-
+                Variable temp=new Variable(n_tip.getValor(),id);
+                temp.setValue(id);
+                parametros.add(temp);
                 ArrayList<Variable> var = new ArrayList();
                 Variable tempo=new Variable(n_tip.getValor(),id);
                 tempo.setArray(false);
@@ -1236,7 +1254,10 @@ class CUP$parser$actions {
                 node.addHijos(identificador);
                 node.addHijos(n_tip);
                 node.addHijos(n_nuP);
-
+                Variable temp=new Variable(n_tip.getValor(),id);
+                temp.setValue(id);
+                temp.setArray(true);
+                parametros.add(temp);
                 ArrayList<Variable> var = (ArrayList<Variable>) n_nuP.getValue();
                 Variable tempo=new Variable(n_tip.getValor(),id);
                 tempo.setArray(true);
@@ -1279,7 +1300,10 @@ class CUP$parser$actions {
                 Node n_tip=(Node) tip;
                 node.addHijos(identificador);
                 node.addHijos(n_tip);
-
+                Variable temp=new Variable(n_tip.getValor(),id);
+                temp.setValue(id);
+                temp.setArray(true);
+                parametros.add(temp);
                 ArrayList<Variable> var = new ArrayList();
                 Variable tempo=new Variable(n_tip.getValor(),id);
                 tempo.setArray(true);
@@ -1328,7 +1352,10 @@ class CUP$parser$actions {
                 node.addHijos(identificador);
                 node.addHijos(n_tip);
                 node.addHijos(n_nuP);
-
+                Variable temp=new Variable(n_tip.getValor(),id);
+                temp.setValue(id);
+                temp.setArray(true);
+                parametros.add(temp);
                 ArrayList<Variable> var = (ArrayList<Variable>) n_nuP.getValue();
                 Variable tempo=new Variable(n_tip.getValor(),id);
                 tempo.setArray(true);
@@ -1371,7 +1398,10 @@ class CUP$parser$actions {
                 Node n_tip=(Node) tip;
                 node.addHijos(identificador);
                 node.addHijos(n_tip);
-
+                Variable temp=new Variable(n_tip.getValor(),id);
+                temp.setValue(id);
+                temp.setArray(true);
+                parametros.add(temp);
                 ArrayList<Variable> var = new ArrayList();
                 Variable tempo=new Variable(n_tip.getValor(),id);
                 tempo.setArray(true);
@@ -1440,7 +1470,9 @@ class CUP$parser$actions {
                 node.addHijos(identificador);
                 node.addHijos(n_tip);
                 node.addHijos(n_nuP);
-
+                Variable temp=new Variable(n_tip.getValor(),id);
+                temp.setValue(id);
+                parametros.add(temp);
                 ArrayList<Variable> var = (ArrayList<Variable>) n_nuP.getValue();
                 Variable tempo=new Variable(n_tip.getValor(),id);
                 tempo.setArray(false);
@@ -1478,7 +1510,9 @@ class CUP$parser$actions {
                 Node n_tip=(Node) tip;
                 node.addHijos(identificador);
                 node.addHijos(n_tip);
-
+                Variable temp=new Variable(n_tip.getValor(),id);
+                temp.setValue(id);
+                parametros.add(temp);
                 ArrayList<Variable> var = new ArrayList();
                 Variable tempo=new Variable(n_tip.getValor(),id);
                 tempo.setArray(false);
@@ -1522,7 +1556,10 @@ class CUP$parser$actions {
                 node.addHijos(identificador);
                 node.addHijos(n_tip);
                 node.addHijos(n_nuP);
-
+                Variable temp=new Variable(n_tip.getValor(),id);
+                temp.setValue(id);
+                temp.setArray(true);
+                parametros.add(temp);
                 ArrayList<Variable> var = (ArrayList<Variable>) n_nuP.getValue();
                 Variable tempo=new Variable(n_tip.getValor(),id);
                 tempo.setArray(true);
@@ -1561,7 +1598,10 @@ class CUP$parser$actions {
                 Node n_tip=(Node) tip;
                 node.addHijos(identificador);
                 node.addHijos(n_tip);
-
+                Variable temp=new Variable(n_tip.getValor(),id);
+                temp.setValue(id);
+                temp.setArray(true);
+                parametros.add(temp);
                 ArrayList<Variable> var = new ArrayList();
                 Variable tempo=new Variable(n_tip.getValor(),id);
                 tempo.setArray(true);
@@ -1606,7 +1646,10 @@ class CUP$parser$actions {
                 node.addHijos(identificador);
                 node.addHijos(n_tip);
                 node.addHijos(n_nuP);
-
+                Variable temp=new Variable(n_tip.getValor(),id);
+                temp.setValue(id);
+                temp.setArray(true);
+                parametros.add(temp);
                 ArrayList<Variable> var = (ArrayList<Variable>) n_nuP.getValue();
                 Variable tempo=new Variable(n_tip.getValor(),id);
                 tempo.setArray(true);
@@ -1644,7 +1687,10 @@ class CUP$parser$actions {
                 Node n_tip=(Node) tip;
                 node.addHijos(identificador);
                 node.addHijos(n_tip);
-
+                Variable temp=new Variable(n_tip.getValor(),id);
+                temp.setValue(id);
+                temp.setArray(true);
+                parametros.add(temp);
                 ArrayList<Variable> var = new ArrayList();
                 Variable tempo=new Variable(n_tip.getValor(),id);
                 tempo.setArray(true);
@@ -2937,7 +2983,10 @@ class CUP$parser$actions {
                 node.addHijos(identificador);
                 node.addHijos(n_va);
                 
-                Variable compare = buscaTipo(identificador.getValor(),false);
+                Variable compare = buscaTipo(identificador.getValor(),false,false);
+                if(compare.getTipo().equals("-1")){
+                    compare = buscaTipo(identificador.getValor(),false,true);
+                }
                 System.out.println("La variable tiene asignado un: "+n_va.getValor());
                 
                 if(compare.getTipo().equals(n_va.getValor())){
@@ -2991,7 +3040,10 @@ class CUP$parser$actions {
                 node.addHijos(n_va);
                 
 
-                Variable compare = buscaTipo(identificador.getValor(),true);
+                Variable compare = buscaTipo(identificador.getValor(),true,false);
+                if(compare.getTipo().equals("-1")){
+                    compare = buscaTipo(identificador.getValor(),true,true);
+                }
                 System.out.println("La variable tiene asignado un: "+n_va.getValor());
                 
                 if(compare.getTipo().equals(n_va.getValor())){
@@ -3038,7 +3090,10 @@ class CUP$parser$actions {
                 node.addHijos(identificador);
                 node.addHijos(n_va);
 
-                Variable compare = buscaTipo(identificador.getValor(),false);
+                Variable compare = buscaTipo(identificador.getValor(),false,false);
+                if(compare.getTipo().equals("-1")){
+                    compare = buscaTipo(identificador.getValor(),false,true);
+                }
                 String operadorAritmetico = ((String)opas).charAt(0) + " ";
                 if(compare.getTipo().equals(n_va.getValor())){
                     System.out.println("incrementando o decrementando"+ id);
@@ -3100,7 +3155,10 @@ class CUP$parser$actions {
                 node.addHijos(identificador);
                 node.addHijos(n_va);
 
-                Variable compare = buscaTipo(identificador.getValor(),false);
+                Variable compare = buscaTipo(identificador.getValor(),false,false);
+                if(compare.getTipo().equals("-1")){
+                    compare = buscaTipo(identificador.getValor(),false,true);
+                }
                 String operadorAritmetico = ((String)opas).charAt(0) + " ";
                 if(compare.getTipo().equals(n_va.getValor())){
                     System.out.println("multiplicando o dividiendo"+ id);
@@ -3151,7 +3209,10 @@ class CUP$parser$actions {
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
                 node.addHijos(identificador);
-                Variable compare = buscaTipo(identificador.getValor(),false);
+                Variable compare = buscaTipo(identificador.getValor(),false,false);
+                if(compare.getTipo().equals("-1")){
+                    compare = buscaTipo(identificador.getValor(),false,true);
+                }
                 String operadorAritmetico = ((String)opas).charAt(0) + " ";
                 if(compare.getTipo().equals("int")){
                     System.out.println("incrementando o decrementando"+ id);
@@ -3214,7 +3275,10 @@ class CUP$parser$actions {
                 node.addHijos(n_va);
                 
 
-                Variable compare = buscaTipo(identificador.getValor(),true);
+                Variable compare = buscaTipo(identificador.getValor(),true,false);
+                if(compare.getTipo().equals("-1")){
+                    compare = buscaTipo(identificador.getValor(),true,true);
+                }
                 System.out.println("La variable tiene asignado un: "+n_va.getValor());
                 
                 if(compare.getTipo().equals(n_va.getValor())){
@@ -3683,11 +3747,15 @@ class CUP$parser$actions {
                 node.setID(parser.cont);
                 node.setValueIsID(true);
                 //Para ver si es variable
-                Variable temp = buscaTipo(id,false);
+                Variable temp = buscaTipo(id,false,false);
                 //Para ver si es array
                 if( temp.getTipo().equals("-1")){
-                    temp = buscaTipo(id,true);
+                    temp = buscaTipo(id,true,false);
                 }
+                if( temp.getTipo().equals("-1")){
+                    temp = buscaTipo(id,true,true);
+                }
+
                 System.out.println(temp.toString());
 
                 
@@ -3800,7 +3868,10 @@ class CUP$parser$actions {
                 node.setEtiqueta("val");
                 node.setID(parser.cont);
                 
-                Variable temp = buscaTipo(id,true);
+                Variable temp = buscaTipo(id,true,false);
+                if( temp.getTipo().equals("-1")){
+                    temp = buscaTipo(id,true,true);
+                }
                 Node n_vp = (Node)vp;
 
                 if(temp.getTipo().equals("int")){
@@ -4208,12 +4279,12 @@ class CUP$parser$actions {
           return CUP$parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 86: // dec_switch ::= SWITCH L_PAR ID R_PAR L_KEY list_op R_KEY 
+          case 86: // dec_switch ::= SWITCH L_PAR valor R_PAR L_KEY list_op R_KEY 
             {
               Node RESULT =null;
-		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).left;
-		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).right;
-		String id = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-4)).value;
+		int vlleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).left;
+		int vlright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).right;
+		Node vl = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-4)).value;
 		int loleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int loright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Node lo = (Node)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -4223,13 +4294,17 @@ class CUP$parser$actions {
                 Node node = new Node();
                 node.setEtiqueta("dec_switch");
                 node.setID(parser.cont);
+                Node id=(Node) vl;
                 Node n_lo=(Node) lo;
-                Variable temp=buscaTipo(id,false); 
+                Variable temp=buscaTipo((String)id.getValue(),false,false); 
+                if( temp.getTipo().equals("-1")){
+                    temp = buscaTipo((String)id.getValue(),false,true);
+                }
                 
                 if(temp.getTipo().equals("-1")){
-                    semantic_errors("La variable "+id+" no existe |",idleft,idright);
+                    semantic_errors("La variable "+id.getValue()+" no existe |",vlleft,vlright);
                 }else if(!temp.getTipo().equals("int") && !temp.getTipo().equals("chr") ) {
-                    semantic_errors("La variable "+id+" tiene que ser de tipo integer o character |",idleft,idright);
+                    semantic_errors("La variable "+id.getValue()+" tiene que ser de tipo integer o character para el switch|",vlleft,vlright);
                 }else{
                     ArrayList<String> opciones=(ArrayList<String>)n_lo.getValue();
                     boolean flag=false;
@@ -4242,14 +4317,16 @@ class CUP$parser$actions {
                         errores.add("Error de tipo, una de las opciones no corresponde con el tipo de la variable "+id);
                     }
                 }
+                node.setValor((String)id.getValue());
                 parser.cont++;
                 Node identificador = new Node();
 
-                identificador.setEtiqueta("ID");
+                /*identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
-                node.addHijos(identificador);
+                node.addHijos(identificador);*/
                 node.addHijos(n_lo);
+                node.addHijos(id);
                 RESULT = node;
             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_switch",20, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
