@@ -1730,11 +1730,15 @@ public class main extends javax.swing.JFrame {
 
     // }
     public String generar_mips() {
+        boolean[] t_en_uso = {false, false, false, false, false, false, false, false};
+        boolean[] a_en_uso = {false, false, false, false};
+        boolean[] s_en_uso = {false, false, false, false, false, false, false, false};
+
         int cont = 0;
         int contA = 0;
         int contP = 0;
         int contS = 0;
-        
+
         int func_cont = 0;
         boolean entro_funcion = false;
         String funcion_actual = "";
@@ -1750,8 +1754,8 @@ public class main extends javax.swing.JFrame {
                 entro_funcion = true;
                 if (cuad.getArgs1().equals("MAIN")) {
                     codigo += "\nmain:"
-                            + "\n\t move $fp, $sp";
-                } else { 
+                            + "\n\tmove $fp, $sp";
+                } else {
                     //creo el bloque con el nombre de la funcion
                     codigo += "\n_" + cuad.getArgs1() + ":"
                             + "\n\tsw $fp, -4($sp)";
@@ -1761,30 +1765,37 @@ public class main extends javax.swing.JFrame {
 
                     Function temp = SearchFunc(cuad.getArgs1(), func_cont);
 
-                    for (int i = 0; i < temp.getParametros().size(); i++) {
-                        sumaOffset += temp.getParametros().get(i).getOffset();
-                        codigo += "\n\tsw $s" + i + " -" + sumaOffset + "($sp)";
-                    }
-
-                    codigo += "\n\tmove $fp, $sp";
-
-                    for (int j = 0; j < temp.getParametros().size(); j++) {
-                        codigo += "\n\tmove $s" + j + ",$a" + j;
-                    }
-
-                    int cont_offset_vars_funcion = 0;
-
-                    for (Variable variable : variables) {
-                        if (variable.getAmbitos().contains(temp.getAmbito())) {
-                            cont_offset_vars_funcion += variable.getOffset();
+                    if (temp != null) {
+                        for (int i = 0; i < temp.getParametros().size(); i++) {
+                            sumaOffset += temp.getParametros().get(i).getOffset();
+                            s_en_uso[i] = true;
+                            codigo += "\n\tsw $s" + i + " -" + sumaOffset + "($sp)";
                         }
+
+                        codigo += "\n\tmove $fp, $sp";
+
+                        for (int j = 0; j < temp.getParametros().size(); j++) {
+                            a_en_uso[j] = true;
+                            codigo += "\n\tmove $s" + j + ",$a" + j;
+                        }
+
+                        int cont_offset_vars_funcion = 0;
+
+                        for (Variable variable : variables) {
+                            if (variable.getAmbitos().contains(temp.getAmbito())) {
+                                cont_offset_vars_funcion += variable.getOffset();
+                            }
+                        }
+
+                        codigo += "\n\tsub $sp,$sp," + cont_offset_vars_funcion;
+                    } else {
+                        codigo += "\n\tsub $sp,$sp," + 0;
                     }
-
-                    codigo += "\n\tsub $sp,$sp," + cont_offset_vars_funcion;
-
-                    int ambito_funcion_actual = Integer.parseInt(temp.ambito);
-
+                    if (temp != null) {
+                        int ambito_funcion_actual = Integer.parseInt(temp.ambito);
+                    }
                 }
+
                 func_cont++;
             }
 
@@ -1794,24 +1805,69 @@ public class main extends javax.swing.JFrame {
                     || cuad.getOperator().equals("/")) {
 
                 codigo += "\n\t";
-
-                switch (cuad.getOperator()) {
-                    case "+":
-                        codigo += "add $t" + control_temp + "," + cuad.args1 + "," + cuad.args2;
-                        break;
-                    case "-":
-                        codigo += "sub $t" + control_temp + "," + cuad.args1 + "," + cuad.args2;
-                        break;
-                    case "*":
-                        codigo += "mult $t" + control_temp + "," + cuad.args1 + "," + cuad.args2;
-                        break;
-                    case "/":
-                        codigo += "div $t" + control_temp + "," + cuad.args1 + "," + cuad.args2;
-                        break;
+                if (check_free_temp(t_en_uso) > -1) {
+                    t_en_uso[control_temp] = true;
                 }
+                if (control_temp > -1) {
+                    switch (cuad.getOperator()) {
+                        case "+":
+                            codigo += "add $t" + control_temp + "," + cuad.args1 + "," + cuad.args2;
+                            control_temp = check_free_temp(t_en_uso);
+                            break;
+                        case "-":
+                            codigo += "sub $t" + control_temp + "," + cuad.args1 + "," + cuad.args2;
+                            control_temp = check_free_temp(t_en_uso);
+
+                            break;
+                        case "*":
+                            codigo += "mult $t" + control_temp + "," + cuad.args1 + "," + cuad.args2;
+                            control_temp = check_free_temp(t_en_uso);
+
+                            break;
+                        case "/":
+                            codigo += "div $t" + control_temp + "," + cuad.args1 + "," + cuad.args2;
+                            control_temp = check_free_temp(t_en_uso);
+                            break;
+                        default:
+
+                    }
+                }
+
             }
-                        
+
+            if (cuad.getOperator().equals("if=")) {
+
+            }
             
+            if(cuad.getOperator().equals("if>=")){
+            
+            }
+            
+            if(cuad.getOperator().equals("if>")){
+            
+            }
+            
+            if(cuad.getOperator().equals("if<")){
+            
+            }
+            
+            if(cuad.getOperator().equals("if<=")){
+            
+            }
+            
+            if(cuad.getOperator().equals("if!=")){
+                
+            }
+            
+            if(cuad.getOperator().contains("etiq")){
+                codigo += "\n_"+cuad.getOperator()+":";
+            }
+            
+            if(cuad.getOperator().equals("GOTO")){
+                codigo += "\n\t\tb _" + cuad.getResult() + "\n";
+            }
+            
+
         }
 
         return codigo;
