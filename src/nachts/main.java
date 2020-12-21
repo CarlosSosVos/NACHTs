@@ -419,6 +419,8 @@ public class main extends javax.swing.JFrame {
     }// GEN-LAST:event_jMenu1ActionPerformed
 
     private void btn_runActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_runActionPerformed
+        cuadruplos = new ArrayList<Cuadruplo>();
+        this.cont_funciones=0;
         if (this.input_file != null) {
             BufferedReader br;
             try {
@@ -493,7 +495,7 @@ public class main extends javax.swing.JFrame {
                 }
                 String salida = generar_mips();
                 System.out.println(salida);
-                cuadruplos = new ArrayList<Cuadruplo>();
+                
 
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);

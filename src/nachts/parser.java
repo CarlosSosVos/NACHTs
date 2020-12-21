@@ -4223,14 +4223,33 @@ class CUP$parser$actions {
                 Node node = new Node();
                 node.setEtiqueta("dec_switch");
                 node.setID(parser.cont);
-
+                Node n_lo=(Node) lo;
+                Variable temp=buscaTipo(id,false); 
+                
+                if(temp.getTipo().equals("-1")){
+                    semantic_errors("La variable "+id+" no existe |",idleft,idright);
+                }else if(!temp.getTipo().equals("int") && !temp.getTipo().equals("chr") ) {
+                    semantic_errors("La variable "+id+" tiene que ser de tipo integer o character |",idleft,idright);
+                }else{
+                    ArrayList<String> opciones=(ArrayList<String>)n_lo.getValue();
+                    boolean flag=false;
+                    for(int i=0;i<opciones.size();i++){
+                        if(!opciones.get(i).equals(temp.getTipo())){
+                            flag=true;
+                        }
+                    }   
+                    if(flag){
+                        errores.add("Error de tipo, una de las opciones no corresponde con el tipo de la variable "+id);
+                    }
+                }
                 parser.cont++;
                 Node identificador = new Node();
+
                 identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
                 identificador.setValor(id);
                 node.addHijos(identificador);
-                node.addHijos((Node) lo);
+                node.addHijos(n_lo);
                 RESULT = node;
             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("dec_switch",20, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-6)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -4256,9 +4275,18 @@ class CUP$parser$actions {
                 Node node = new Node();
                 node.setEtiqueta("list_op");
                 node.setID(parser.cont);
-                node.addHijos((Node) vl);
+                Node n_nwo=(Node) nwo;
+                Node n_vl=(Node) vl;
+                ArrayList<String> temp=new  ArrayList<String>();
+                ArrayList<String> temp2=(ArrayList<String>)n_nwo.getValue();
+                for(int i=0;i<temp2.size();i++){
+                    temp.add(temp2.get(i));
+                }   
+                temp.add(n_vl.getValor());
+                node.setValue(temp);
+                node.addHijos(n_vl);
                 node.addHijos((Node) dg);
-                node.addHijos((Node) nwo);
+                node.addHijos(n_nwo);
                 RESULT = node;
             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("list_op",21, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
@@ -4278,6 +4306,9 @@ class CUP$parser$actions {
                 Node node = new Node();
                 node.setEtiqueta("option");
                 node.setID(parser.cont);
+                Node n_lo=(Node) lo;
+                node.setValue(n_lo.getValue());
+
                 node.addHijos((Node) lo);
                 RESULT = node;
             
@@ -4298,6 +4329,7 @@ class CUP$parser$actions {
                 Node node = new Node();
                 node.setEtiqueta("default");
                 node.setID(parser.cont);
+                node.setValue(new ArrayList<String>());
                 node.addHijos((Node) dg);
                 RESULT = node;
             
@@ -4315,6 +4347,7 @@ class CUP$parser$actions {
                 Node node = new Node();
                 node.setEtiqueta("new_op");
                 node.setID(parser.cont);
+                node.setValue(new ArrayList<String>());
                 RESULT = node;
             
               CUP$parser$result = parser.getSymbolFactory().newSymbol("new_op",22, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
