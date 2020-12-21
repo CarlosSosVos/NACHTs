@@ -1759,7 +1759,7 @@ public class main extends javax.swing.JFrame {
                     //creo el bloque con el nombre de la funcion
                     codigo += "\n_" + cuad.getArgs1() + ":"
                             + "\n\tsw $fp, -4($sp)";
-                    codigo += "\n\tsw $ra , -8(sp)";
+                    codigo += "\n\tsw $ra, -8($sp)";
 
                     int sumaOffset = 8;
 
@@ -1884,6 +1884,15 @@ public class main extends javax.swing.JFrame {
         }
         return null;
 
+    }
+    
+    public int check_free_temp(boolean[] temp_status){
+        for (int i = 0; i < temp_status.length; i++) {
+            if(temp_status[i] ==false){
+                return i;
+            } 
+        }
+        return -1;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
