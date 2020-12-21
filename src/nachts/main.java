@@ -341,6 +341,7 @@ public class main extends javax.swing.JFrame {
 
     private void btn_show_mipsActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_show_mipsActionPerformed
         // TODO add your handling code here:
+        System.out.println(generar_mips());
         JOptionPane.showMessageDialog(this, "Esto aun no funciona , que te pasa!? ");
     }// GEN-LAST:event_btn_show_mipsActionPerformed
 
@@ -490,6 +491,8 @@ public class main extends javax.swing.JFrame {
                 for (Cuadruplo iter : cuadruplos) {
                     System.out.println(iter.toString());
                 }
+                String salida = generar_mips();
+                System.out.println(salida);
                 cuadruplos = new ArrayList<Cuadruplo>();
 
             } catch (FileNotFoundException ex) {
@@ -1726,6 +1729,10 @@ public class main extends javax.swing.JFrame {
     // }
     public String generar_mips() {
         int cont = 0;
+        int contA = 0;
+        int contP = 0;
+        int contS = 0;
+        
         int func_cont = 0;
         boolean entro_funcion = false;
         String funcion_actual = "";
@@ -1734,10 +1741,7 @@ public class main extends javax.swing.JFrame {
                 + "\n.globl main";
         int control_temp = 0;
         for (Cuadruplo cuad : cuadruplos) {
-            String rgx = "+ - * /";
-            Pattern p = Pattern.compile(cuad.getOperator());
-            Matcher m = p.matcher(rgx);
-            
+
             //FUNCIONES
             if (cuad.getOperator().equals("FUN")) {
                 funcion_actual = cuad.getArgs1();
@@ -1745,7 +1749,7 @@ public class main extends javax.swing.JFrame {
                 if (cuad.getArgs1().equals("MAIN")) {
                     codigo += "\nmain:"
                             + "\n\t move $fp, $sp";
-                } else {
+                } else { 
                     //creo el bloque con el nombre de la funcion
                     codigo += "\n_" + cuad.getArgs1() + ":"
                             + "\n\tsw $fp, -4($sp)";
@@ -1774,7 +1778,7 @@ public class main extends javax.swing.JFrame {
                         }
                     }
 
-                    codigo += "\n\tsub $sp,$sp,"+cont_offset_vars_funcion;
+                    codigo += "\n\tsub $sp,$sp," + cont_offset_vars_funcion;
 
                     int ambito_funcion_actual = Integer.parseInt(temp.ambito);
 
@@ -1782,26 +1786,30 @@ public class main extends javax.swing.JFrame {
                 func_cont++;
             }
 
-            if (m.find()) {
-              
+            if (cuad.getOperator().equals("+")
+                    || cuad.getOperator().equals("-")
+                    || cuad.getOperator().equals("*")
+                    || cuad.getOperator().equals("/")) {
+
                 codigo += "\n\t";
-                
+
                 switch (cuad.getOperator()) {
                     case "+":
-                            codigo+="add $t"+control_temp+","+cuad.args1+","+cuad.args2;
+                        codigo += "add $t" + control_temp + "," + cuad.args1 + "," + cuad.args2;
                         break;
                     case "-":
-                            codigo+="sub $t"+control_temp+","+cuad.args1+","+cuad.args2;
+                        codigo += "sub $t" + control_temp + "," + cuad.args1 + "," + cuad.args2;
                         break;
                     case "*":
-                            codigo+="mult $t"+control_temp+","+cuad.args1+","+cuad.args2;
+                        codigo += "mult $t" + control_temp + "," + cuad.args1 + "," + cuad.args2;
                         break;
                     case "/":
-                            codigo+="div $t"+control_temp+","+cuad.args1+","+cuad.args2;
+                        codigo += "div $t" + control_temp + "," + cuad.args1 + "," + cuad.args2;
                         break;
-
                 }
             }
+                        
+            
         }
 
         return codigo;
