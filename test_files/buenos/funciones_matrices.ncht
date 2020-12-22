@@ -1,10 +1,10 @@
 
 fnc puchaDouglas (var a:int,var b:int,var c:int):chr{
-	var a:int:=1+2;
+	var h:int:=a+b;
 	rtn 'c';
 }
 
 fnc alo (): main{
-	var a:chr:=puchaDouglas(1,1,1);
+	var k:chr:=puchaDouglas(1,1,1);
 	rtn 0;
 }

@@ -16,6 +16,7 @@ public class Variable extends Record {
     String ambito = "0";
     Object value=null;
     boolean esArray = false;
+    boolean parametro=false;
     ArrayList<Integer> ambitos;
     int offset;
     
@@ -72,8 +73,15 @@ public class Variable extends Record {
     public void setArray(boolean esArray) {
         this.esArray = esArray;
     }
-    
 
+    public boolean isParametro() {
+        return parametro;
+    }
+
+    public void setParametro(boolean parametro) {
+        this.parametro = parametro;
+    }
+    
     public int getOffset() {
         return offset;
     }

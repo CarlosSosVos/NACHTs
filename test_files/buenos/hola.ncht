@@ -2,22 +2,16 @@ fnc hola():main {
 	var a:int:=1;
 	sw(a){
 		option 1 :
-
+			var b:int:=1;
 		brk;
 		option 2 :
-		
+			var c:int:=1;
 		brk;
-	}
-	sw(a){
-		option 1 :
-
-		brk;
-		option 2 :
-		
+		option 3 :
+			var z:int:=1;
 		brk;
 		dft:
-
-		
+			var x:int:=1;
 	}
-
+	var d:int:=1;
 }

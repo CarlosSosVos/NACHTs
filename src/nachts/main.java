@@ -796,7 +796,27 @@ public class main extends javax.swing.JFrame {
                 }
 
             }
+            if (hijo.getEtiqueta().equals("parametros")||hijo.getEtiqueta().equals("nuevo_parametro")){
+                int cont_e = 0;
+                for (Variable var : variables) {
+                    if (var.getId().equals(hijo.getHijos().get(0).getValor())) {
 
+                        ArrayList<Integer> temp = new ArrayList();
+                        for (Integer index : AmbitoActualR) {
+                            temp.add(index);
+                        }
+                        if (var.getAmbitos().get(0) == -1 && cont_e == 0) {
+                            var.setAmbito(AmbitoActual + "");
+                            var.setAmbitos(temp);
+                            cont_e = 1;
+                            var.setOffset(this.offset);
+                            this.offset = this.offset + 4;
+                        }
+
+                    }
+
+                }
+            }
             if (hijo.getEtiqueta().equals("dec_variable") || hijo.getEtiqueta().equals("dec_var")) {
 
                 // System.out.println("test " + this.AmbitoActualR.toString());
@@ -817,21 +837,6 @@ public class main extends javax.swing.JFrame {
                             cont_e = 1;
                             var.setOffset(this.offset);
                             this.offset = this.offset + 4;
-                            /*if (var.getTipo().equals("int")) {
-                                var.setOffset(this.offset);
-                                this.offset = this.offset + 4;
-                                // System.out.println("entra comparacion int: " + this.offset);
-
-                            } else if (var.getTipo().equals("chr")) {
-                                var.setOffset(this.offset);
-                                this.offset = this.offset + 1;
-                            } else if (var.getTipo().equals("bool")) {
-                                var.setOffset(this.offset);
-                                this.offset = this.offset + 4;
-                            } else if (var.getTipo().equals("string")) {
-                                var.setOffset(this.offset);
-                                this.offset = this.offset + 4;
-                            }*/
                         }
 
                     }
@@ -840,34 +845,17 @@ public class main extends javax.swing.JFrame {
                         if (hijo.getHijos().get(2).getEtiqueta().equals("ID")) {
                             if (var.getId().equals(hijo.getHijos().get(2).getValor())) {
 
-                                // System.out.println(AmbitoActual+":"+var.getId()+":"+Ambito);
                                 ArrayList<Integer> temp = new ArrayList();
                                 for (Integer index : AmbitoActualR) {
                                     temp.add(index);
                                 }
 
                                 if (var.getAmbitos().get(0) == -1 && cont_e == 0) {
-                                    // System.out.println(temp);
                                     var.setAmbito(AmbitoActual + "");
                                     var.setAmbitos(temp);
                                     cont_e = 1;
                                     var.setOffset(this.offset);
                                     this.offset = this.offset + 4;
-                                    /*if (var.getTipo().equals("int")) {
-                                        var.setOffset(this.offset);
-                                        this.offset = this.offset + 4;
-                                        // System.out.println("entra comparacion int: " + this.offset);
-
-                                    } else if (var.getTipo().equals("chr")) {
-                                        var.setOffset(this.offset);
-                                        this.offset = this.offset + 1;
-                                    } else if (var.getTipo().equals("bool")) {
-                                        var.setOffset(this.offset);
-                                        this.offset = this.offset + 4;
-                                    } else if (var.getTipo().equals("string")) {
-                                        var.setOffset(this.offset);
-                                        this.offset = this.offset + 4;
-                                    }*/
                                 }
                             }
                         }
@@ -900,7 +888,10 @@ public class main extends javax.swing.JFrame {
             if (hijo.getEtiqueta().equals("dec_return")) {
                 retornos.add(hijo.getHijos().get(0).getValor());
             }
-
+            
+            if (hijo.getEtiqueta().equals("list_op")||hijo.getEtiqueta().equals("option")||hijo.getEtiqueta().equals("default")) {
+                hijo.setValor(hijo.getPadre().getValor());
+            }
             ambito(hijo);// apartir de aqui se cierra el bloque actual y vuelve al bloque anterior
 
             p = Pattern.compile(hijo.getEtiqueta());
@@ -927,10 +918,11 @@ public class main extends javax.swing.JFrame {
                     for (String ret : retornos) {
                         if (!hijo.getHijos().get(2).getValor().equals(ret)) {
                             errors += "\nRetorno erroneo de la funcion " + hijo.getHijos().get(0).getValor();
-                            retornos = new ArrayList<String>();
                         }
                     }
+                    
                 }
+                retornos = new ArrayList<String>();
             }
         }
     }
@@ -1787,7 +1779,52 @@ public class main extends javax.swing.JFrame {
                 cuadruplos.add(new Cuadruplo("param", "", "", param));
 
             }
+            if (hijo.getEtiqueta().equals("list_op")) {
+                String eti="Etiq" + this.etiquetas;
+                cuadruplos.add(new Cuadruplo("if=",""+hijo.getValor(),""+hijo.getHijos().get(0).getValue(),eti));
+                this.etiquetas++;
+                cuadruplos.add(new Cuadruplo(hijo.getValor(),"","","opcion"));
+                cuadruplos.add(new Cuadruplo(eti,"","",""));
+            }
+            if (hijo.getEtiqueta().equals("option")) {
+                String eti="Etiq" + this.etiquetas;
+                this.etiquetas++;
+                for (Cuadruplo iter: cuadruplos) {
+                    if (hijo.getValor().equals(iter.getOperator())&& iter.getResult().equals("opcion")) {
+                        iter.setOperator("GOTO");
+                        iter.setResult(eti);
+                    }
+                }
+                cuadruplos.add(new Cuadruplo(hijo.getValor(),"","","salida"));
+                cuadruplos.add(new Cuadruplo(eti,"","",""));
+            }
+            if (hijo.getEtiqueta().equals("default")) {
+                String eti="Etiq" + this.etiquetas;
+                this.etiquetas++;
+                for (Cuadruplo iter: cuadruplos) {
+                    if (hijo.getValor().equals(iter.getOperator())&& iter.getResult().equals("opcion")) {
+                        iter.setOperator("GOTO");
+                        iter.setResult(eti);
+                    }
+                }
+                cuadruplos.add(new Cuadruplo(hijo.getValor(),"","","salida"));
+                cuadruplos.add(new Cuadruplo(eti,"","",""));
+            }
+
             generar_cuadruplos(hijo);
+            
+            if (hijo.getEtiqueta().equals("dec_switch")) {
+                String eti="Etiq" + this.etiquetas;
+                this.etiquetas++;
+                for (Cuadruplo iter: cuadruplos) {
+                    if (hijo.getValor().equals(iter.getOperator())&& iter.getResult().equals("opcion")||hijo.getValor().equals(iter.getOperator())&& iter.getResult().equals("salida")) {
+                        iter.setOperator("GOTO");
+                        iter.setResult(eti);
+                    }
+                }
+                cuadruplos.add(new Cuadruplo(eti,"","",""));
+            }
+            
             if (hijo.getEtiqueta().equals("dec_llamada_funcion")) {
                 cuadruplos.add(new Cuadruplo("CALL", "", "", hijo.getValor() + ""));
             }
@@ -1918,41 +1955,52 @@ public class main extends javax.swing.JFrame {
             }
 
             if (cuad.getOperator().equals("if=")) {
-
+                codigo+="\n\tbeq "+ cuad.getArgs1() +","+cuad.getArgs2() +" "+cuad.getResult();
             }
             
             if(cuad.getOperator().equals("if>=")){
-            
+                codigo+="\n\tbge "+ cuad.getArgs1() +","+cuad.getArgs2()+" "+cuad.getResult();
+
             }
             
             if(cuad.getOperator().equals("if>")){
-            
+                codigo+="\n\tbg "+ cuad.getArgs1() +","+cuad.getArgs2()+" "+cuad.getResult();
+
             }
             
             if(cuad.getOperator().equals("if<")){
+                codigo+="\n\tbl "+ cuad.getArgs1() +","+cuad.getArgs2()+" "+cuad.getResult();
             
             }
             
             if(cuad.getOperator().equals("if<=")){
-            
+                codigo+="\n\tble "+ cuad.getArgs1() +","+cuad.getArgs2()+" "+cuad.getResult();
+
             }
             
             if(cuad.getOperator().equals("if!=")){
-                
+                codigo+="\n\tbne "+ cuad.getArgs1() +","+cuad.getArgs2()+" "+cuad.getResult();
+
             }
             
             if(cuad.getOperator().contains("etiq")){
-                codigo += "\n_"+cuad.getOperator()+":";
+                System.err.println("Etiqueta actual: "+cuad.getOperator().replace("etiq",""));
+                codigo+="\nb "+ cuad.getOperator();
+
             }
             
             if(cuad.getOperator().equals("GOTO")){
                 codigo += "\n\t\tb _" + cuad.getResult() + "\n";
+            }
+            if (cuad.getOperator().equals("param")){
+                //codigo += "\n\t\"+"test+cuad.getOperator();
             }
             
 
         }
 
         return codigo;
+        //return "";
     }
 
     public Function SearchFunc(String id, int ambito) {
@@ -2005,6 +2053,8 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JTextArea txt_code;
     private javax.swing.JTextArea txt_result;
     // End of variables declaration//GEN-END:variables
+
+    
     private File input_file;
     Node miArbol;
     ArrayList<Variable> variables = new ArrayList();
