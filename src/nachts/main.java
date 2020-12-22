@@ -743,7 +743,7 @@ public class main extends javax.swing.JFrame {
     private void ambito(Node arbol) {
 
         if (arbol.getPadre() == null) {
-            System.out.println(":'v");
+           // System.out.println(":'v");
             arbol.setAmbito(-1);
         }
 
