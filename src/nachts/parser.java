@@ -857,7 +857,7 @@ public class parser extends java_cup.runtime.lr_parser {
         //boolean isFound = false;
         //String tipo = "";
         for (Variable iter_list : variables) {
-            if(iter_list.getId().equals(id) && iter_list.isArray() == esArray){
+            if(iter_list.getId().equals(id) && iter_list.isArray() == esArray && iter_list.isParametro()==parFunc){
                 //System.out.println("El tipo de la variable es: ");
                 //System.out.println(iter_list.getTipo());
                 //tipo= iter_list.getTipo();
@@ -865,19 +865,7 @@ public class parser extends java_cup.runtime.lr_parser {
                 //isFound= true;
             }
         }
-        if(parFunc){
-            for (Variable iter_list : parametros) {
-                if(iter_list.getId().equals(id) && iter_list.isArray() == esArray){
-                    //System.out.println("El tipo de la variable es: ");
-                    //System.out.println(iter_list.getTipo());
-                    //tipo= iter_list.getTipo();
-                    return iter_list;
-                    //isFound= true;
-                }
-            }
-        }
-       
-        System.err.println("NO EXISTE ESTA VARIABLE");
+        System.err.println("NO EXISTE ESTA VARIABLE"+id);
         return new Variable("-1","-1");
     }
 
@@ -1162,7 +1150,8 @@ class CUP$parser$actions {
                 node.addHijos(n_nuP);
                 Variable temp=new Variable(n_tip.getValor(),id);
                 temp.setValue(id);
-                parametros.add(temp);
+                temp.setParametro(true);
+                variables.add(temp);
                 ArrayList<Variable> var = (ArrayList<Variable>) n_nuP.getValue();
                 Variable tempo=new Variable(n_tip.getValor(),id);
                 tempo.setArray(false);
@@ -1205,7 +1194,8 @@ class CUP$parser$actions {
                 node.addHijos(n_tip);
                 Variable temp=new Variable(n_tip.getValor(),id);
                 temp.setValue(id);
-                parametros.add(temp);
+                temp.setParametro(true);
+                variables.add(temp);
                 ArrayList<Variable> var = new ArrayList();
                 Variable tempo=new Variable(n_tip.getValor(),id);
                 tempo.setArray(false);
@@ -1257,7 +1247,8 @@ class CUP$parser$actions {
                 Variable temp=new Variable(n_tip.getValor(),id);
                 temp.setValue(id);
                 temp.setArray(true);
-                parametros.add(temp);
+                temp.setParametro(true);
+                variables.add(temp);
                 ArrayList<Variable> var = (ArrayList<Variable>) n_nuP.getValue();
                 Variable tempo=new Variable(n_tip.getValor(),id);
                 tempo.setArray(true);
@@ -1303,7 +1294,8 @@ class CUP$parser$actions {
                 Variable temp=new Variable(n_tip.getValor(),id);
                 temp.setValue(id);
                 temp.setArray(true);
-                parametros.add(temp);
+                temp.setParametro(true);
+                variables.add(temp);
                 ArrayList<Variable> var = new ArrayList();
                 Variable tempo=new Variable(n_tip.getValor(),id);
                 tempo.setArray(true);
@@ -1355,7 +1347,8 @@ class CUP$parser$actions {
                 Variable temp=new Variable(n_tip.getValor(),id);
                 temp.setValue(id);
                 temp.setArray(true);
-                parametros.add(temp);
+                temp.setParametro(true);
+                variables.add(temp);
                 ArrayList<Variable> var = (ArrayList<Variable>) n_nuP.getValue();
                 Variable tempo=new Variable(n_tip.getValor(),id);
                 tempo.setArray(true);
@@ -1401,7 +1394,8 @@ class CUP$parser$actions {
                 Variable temp=new Variable(n_tip.getValor(),id);
                 temp.setValue(id);
                 temp.setArray(true);
-                parametros.add(temp);
+                temp.setParametro(true);
+                variables.add(temp);
                 ArrayList<Variable> var = new ArrayList();
                 Variable tempo=new Variable(n_tip.getValor(),id);
                 tempo.setArray(true);
@@ -1472,7 +1466,8 @@ class CUP$parser$actions {
                 node.addHijos(n_nuP);
                 Variable temp=new Variable(n_tip.getValor(),id);
                 temp.setValue(id);
-                parametros.add(temp);
+                temp.setParametro(true);
+                variables.add(temp);
                 ArrayList<Variable> var = (ArrayList<Variable>) n_nuP.getValue();
                 Variable tempo=new Variable(n_tip.getValor(),id);
                 tempo.setArray(false);
@@ -1512,7 +1507,8 @@ class CUP$parser$actions {
                 node.addHijos(n_tip);
                 Variable temp=new Variable(n_tip.getValor(),id);
                 temp.setValue(id);
-                parametros.add(temp);
+                temp.setParametro(true);
+                variables.add(temp);
                 ArrayList<Variable> var = new ArrayList();
                 Variable tempo=new Variable(n_tip.getValor(),id);
                 tempo.setArray(false);
@@ -1559,7 +1555,8 @@ class CUP$parser$actions {
                 Variable temp=new Variable(n_tip.getValor(),id);
                 temp.setValue(id);
                 temp.setArray(true);
-                parametros.add(temp);
+                temp.setParametro(true);
+                variables.add(temp);
                 ArrayList<Variable> var = (ArrayList<Variable>) n_nuP.getValue();
                 Variable tempo=new Variable(n_tip.getValor(),id);
                 tempo.setArray(true);
@@ -1601,7 +1598,8 @@ class CUP$parser$actions {
                 Variable temp=new Variable(n_tip.getValor(),id);
                 temp.setValue(id);
                 temp.setArray(true);
-                parametros.add(temp);
+                temp.setParametro(true);
+                variables.add(temp);
                 ArrayList<Variable> var = new ArrayList();
                 Variable tempo=new Variable(n_tip.getValor(),id);
                 tempo.setArray(true);
@@ -1649,7 +1647,8 @@ class CUP$parser$actions {
                 Variable temp=new Variable(n_tip.getValor(),id);
                 temp.setValue(id);
                 temp.setArray(true);
-                parametros.add(temp);
+                temp.setParametro(true);
+                variables.add(temp);
                 ArrayList<Variable> var = (ArrayList<Variable>) n_nuP.getValue();
                 Variable tempo=new Variable(n_tip.getValor(),id);
                 tempo.setArray(true);
@@ -1690,7 +1689,8 @@ class CUP$parser$actions {
                 Variable temp=new Variable(n_tip.getValor(),id);
                 temp.setValue(id);
                 temp.setArray(true);
-                parametros.add(temp);
+                temp.setParametro(true);
+                variables.add(temp);
                 ArrayList<Variable> var = new ArrayList();
                 Variable tempo=new Variable(n_tip.getValor(),id);
                 tempo.setArray(true);
@@ -1973,6 +1973,7 @@ class CUP$parser$actions {
 
                 Variable new_var = new Variable(n_tip.getValor(), id);
                 new_var.setArray(false);
+                new_var.setParametro(false);
 
                 String test=n_dv.getValor()+"";
                 
@@ -2039,6 +2040,7 @@ class CUP$parser$actions {
 
                 Variable new_var = new Variable(n_tip.getValor(), id);
                 new_var.setArray(true);
+                new_var.setParametro(false);
                 String test=n_dv.getValor()+"";
                 
 
@@ -2121,6 +2123,7 @@ class CUP$parser$actions {
                     new_var.setValue(n_di.getValue());
                 }*/
                 new_var.setArray(true);
+                new_var.setParametro(false);
                 String test=n_dv.getValor()+"";
                 //System.out.println("Maldita sea"+n_dv.getValue());
                 /*
@@ -2264,7 +2267,7 @@ class CUP$parser$actions {
                     new_var.setValue(n_di.getValue());
                 }*/
                 new_var.setArray(false);
-                
+                new_var.setParametro(false);
                 String test=n_di.getValor()+"";
                 
                 if(test.equals("")){
@@ -2337,6 +2340,7 @@ class CUP$parser$actions {
                     new_var.setValue(n_di.getValue());
                 }*/
                 new_var.setArray(true);
+                new_var.setParametro(false);
                 variables.add(new_var);
                 String test=n_di.getValor()+"";
                 
@@ -2426,7 +2430,7 @@ class CUP$parser$actions {
                     new_var.setValue(n_di.getValue());
                 }*/
                 new_var.setArray(true);
-                
+                new_var.setParametro(false);
                 String test=n_di.getValor()+"";
                 
                 if(test.equals("")){
@@ -3750,7 +3754,7 @@ class CUP$parser$actions {
                 Variable temp = buscaTipo(id,false,false);
                 //Para ver si es array
                 if( temp.getTipo().equals("-1")){
-                    temp = buscaTipo(id,true,false);
+                    temp = buscaTipo(id,false,true);
                 }
                 if( temp.getTipo().equals("-1")){
                     temp = buscaTipo(id,true,true);

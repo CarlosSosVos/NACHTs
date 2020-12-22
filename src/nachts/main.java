@@ -795,7 +795,27 @@ public class main extends javax.swing.JFrame {
                 }
 
             }
+            if (hijo.getEtiqueta().equals("parametros")||hijo.getEtiqueta().equals("nuevo_parametro")){
+                int cont_e = 0;
+                for (Variable var : variables) {
+                    if (var.getId().equals(hijo.getHijos().get(0).getValor())) {
 
+                        ArrayList<Integer> temp = new ArrayList();
+                        for (Integer index : AmbitoActualR) {
+                            temp.add(index);
+                        }
+                        if (var.getAmbitos().get(0) == -1 && cont_e == 0) {
+                            var.setAmbito(AmbitoActual + "");
+                            var.setAmbitos(temp);
+                            cont_e = 1;
+                            var.setOffset(this.offset);
+                            this.offset = this.offset + 4;
+                        }
+
+                    }
+
+                }
+            }
             if (hijo.getEtiqueta().equals("dec_variable") || hijo.getEtiqueta().equals("dec_var")) {
 
                 // System.out.println("test " + this.AmbitoActualR.toString());
@@ -816,21 +836,6 @@ public class main extends javax.swing.JFrame {
                             cont_e = 1;
                             var.setOffset(this.offset);
                             this.offset = this.offset + 4;
-                            /*if (var.getTipo().equals("int")) {
-                                var.setOffset(this.offset);
-                                this.offset = this.offset + 4;
-                                // System.out.println("entra comparacion int: " + this.offset);
-
-                            } else if (var.getTipo().equals("chr")) {
-                                var.setOffset(this.offset);
-                                this.offset = this.offset + 1;
-                            } else if (var.getTipo().equals("bool")) {
-                                var.setOffset(this.offset);
-                                this.offset = this.offset + 4;
-                            } else if (var.getTipo().equals("string")) {
-                                var.setOffset(this.offset);
-                                this.offset = this.offset + 4;
-                            }*/
                         }
 
                     }
@@ -839,34 +844,17 @@ public class main extends javax.swing.JFrame {
                         if (hijo.getHijos().get(2).getEtiqueta().equals("ID")) {
                             if (var.getId().equals(hijo.getHijos().get(2).getValor())) {
 
-                                // System.out.println(AmbitoActual+":"+var.getId()+":"+Ambito);
                                 ArrayList<Integer> temp = new ArrayList();
                                 for (Integer index : AmbitoActualR) {
                                     temp.add(index);
                                 }
 
                                 if (var.getAmbitos().get(0) == -1 && cont_e == 0) {
-                                    // System.out.println(temp);
                                     var.setAmbito(AmbitoActual + "");
                                     var.setAmbitos(temp);
                                     cont_e = 1;
                                     var.setOffset(this.offset);
                                     this.offset = this.offset + 4;
-                                    /*if (var.getTipo().equals("int")) {
-                                        var.setOffset(this.offset);
-                                        this.offset = this.offset + 4;
-                                        // System.out.println("entra comparacion int: " + this.offset);
-
-                                    } else if (var.getTipo().equals("chr")) {
-                                        var.setOffset(this.offset);
-                                        this.offset = this.offset + 1;
-                                    } else if (var.getTipo().equals("bool")) {
-                                        var.setOffset(this.offset);
-                                        this.offset = this.offset + 4;
-                                    } else if (var.getTipo().equals("string")) {
-                                        var.setOffset(this.offset);
-                                        this.offset = this.offset + 4;
-                                    }*/
                                 }
                             }
                         }
@@ -1885,35 +1873,45 @@ public class main extends javax.swing.JFrame {
             }
 
             if (cuad.getOperator().equals("if=")) {
-
+                codigo+="\n\tbeq "+ cuad.getArgs1() +","+cuad.getArgs2() +" "+cuad.getResult();
             }
             
             if(cuad.getOperator().equals("if>=")){
-            
+                codigo+="\n\tbge "+ cuad.getArgs1() +","+cuad.getArgs2()+" "+cuad.getResult();
+
             }
             
             if(cuad.getOperator().equals("if>")){
-            
+                codigo+="\n\tbg "+ cuad.getArgs1() +","+cuad.getArgs2()+" "+cuad.getResult();
+
             }
             
             if(cuad.getOperator().equals("if<")){
+                codigo+="\n\tbl "+ cuad.getArgs1() +","+cuad.getArgs2()+" "+cuad.getResult();
             
             }
             
             if(cuad.getOperator().equals("if<=")){
-            
+                codigo+="\n\tble "+ cuad.getArgs1() +","+cuad.getArgs2()+" "+cuad.getResult();
+
             }
             
             if(cuad.getOperator().equals("if!=")){
-                
+                codigo+="\n\tbne "+ cuad.getArgs1() +","+cuad.getArgs2()+" "+cuad.getResult();
+
             }
             
             if(cuad.getOperator().contains("etiq")){
-                codigo += "\n_"+cuad.getOperator()+":";
+                System.err.println("Etiqueta actual: "+cuad.getOperator().replace("etiq",""));
+                codigo+="\nb "+ cuad.getOperator();
+
             }
             
             if(cuad.getOperator().equals("GOTO")){
                 codigo += "\n\t\tb _" + cuad.getResult() + "\n";
+            }
+            if (cuad.getOperator().equals("param")){
+                //codigo += "\n\t\"+"test+cuad.getOperator();
             }
             
 
@@ -1973,6 +1971,8 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JTextArea txt_code;
     private javax.swing.JTextArea txt_result;
     // End of variables declaration//GEN-END:variables
+
+    
     private File input_file;
     Node miArbol;
     ArrayList<Variable> variables = new ArrayList();

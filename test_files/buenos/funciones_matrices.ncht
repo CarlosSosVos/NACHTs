@@ -1,7 +1,7 @@
 
 fnc puchaDouglas (var a:int,var b:int,var c:int):chr{
-	var h:int:=1;
-	rtn 1;
+	var h:int:=a+b;
+	rtn 'c';
 }
 
 fnc alo (): main{
