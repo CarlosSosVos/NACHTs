@@ -1998,6 +1998,7 @@ public class main extends javax.swing.JFrame {
         boolean sale_funcion = false;
         String codigo = ".text" + "\n.globl main";
         int control_temp = 0;
+
         for (Cuadruplo cuad : cuadruplos) {
 
             // FUNCIONES
@@ -2154,6 +2155,7 @@ public class main extends javax.swing.JFrame {
                         break;
                     }    
                 }
+
                 int sumaOffset = 8;
 
                 codigo +="\n\tmove $sp, $fp";
@@ -2169,11 +2171,10 @@ public class main extends javax.swing.JFrame {
                     }
                 }
                 codigo+= "\n\tJr $ra";
-
-
-
-
-
+                
+                clearRegistries(t_en_uso);
+                clearRegistries(a_en_uso);
+                clearRegistries(s_en_uso);
 
             }
 
