@@ -1,0 +1,11 @@
+fnc sumar(var a:int, var b:int):int {
+      var c:int;
+      c :=  a+b ;
+      rtn c;
+}
+
+
+fnc principal():main {
+	var x:int:= sumar(2,3);
+
+} 

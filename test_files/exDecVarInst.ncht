@@ -3,9 +3,9 @@ fnc noHayMain (): main{
 	if( d > 2){
 		var b:int:=0;
 	}
-	var x:int;
+	var x:int:=2;
 	x:=d + 2 + 3;
 }
-fnc noHayMain (var x:int,var y:int): int{
+fnc noHayMain (var z:int,var y:int): int{
 	var h:int:=1;
 }
