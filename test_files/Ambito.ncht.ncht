@@ -1,5 +1,5 @@
 fnc noHayMain (): main {
 	var a:int:=1;
-	a:=2;
-	a++;
+	output(a);
+	input(a);
 }

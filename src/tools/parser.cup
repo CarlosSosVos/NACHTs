@@ -144,14 +144,14 @@ parser code {:
         for (Function iter_list : funciones) {
 
             if(iter_list.getId().equals(id) && iter_list.isReturnsArray() == returnsArray){
-                System.out.println(iter_list.toString());
+                //System.out.println(iter_list.toString());
                 tipo = iter_list.getTipo();
                 return iter_list;
                 //isFound= true;
             }
         }
        
-        System.err.println("NO EXISTE ESTA FUNCION");
+        //System.err.println("NO EXISTE ESTA FUNCION");
         return new Function("-1","-1",false);
     }
 
@@ -167,7 +167,7 @@ parser code {:
                 //isFound= true;
             }
         }
-        System.err.println("NO EXISTE ESTA VARIABLE"+id);
+        //System.err.println("NO EXISTE ESTA VARIABLE"+id);
         return new Variable("-1","-1");
     }
 
@@ -283,7 +283,7 @@ dec_funcion ::= FUNCTION ID:id L_PAR parametros:parts R_PAR COLON tipo:tip L_KEY
                 ArrayList<Variable> params = (ArrayList<Variable>) n_parts.getValue();
                 Function nueva_funcion=new Function(n_tip.getValor(),id,false);
                 nueva_funcion.setParametros(params);
-                System.out.println(nueva_funcion.toString());
+                //System.out.println(nueva_funcion.toString());
                 
                 funciones.add(nueva_funcion);
 
@@ -354,9 +354,9 @@ parametros ::= VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 tempo.setArray(false);
                 var.add(tempo);
                 node.setValue(var);
-                for(Variable lista: var){
+                /*for(Variable lista: var){
                     System.out.println("Parametro: "+lista.getId());
-                }
+                }*/
                 RESULT = node;
                 :}
                |VARIABLE ID:id COLON tipo:tip
@@ -386,9 +386,9 @@ parametros ::= VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 var.add(tempo);
                 node.setValue(var);
 
-                for(Variable lista: var){
+                /*for(Variable lista: var){
                     System.out.println("Parametro solo: "+lista.getId());
-                }
+                }*/
 
                 RESULT = node;
                :}
@@ -423,9 +423,9 @@ parametros ::= VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 var.add(tempo);
                 node.setValue(var);
 
-                for(Variable lista: var){
+                /*for(Variable lista: var){
                     System.out.println("Parametro: "+lista.getId());
-                }
+                }*/
                 
                 RESULT = node;
                 :}
@@ -457,9 +457,9 @@ parametros ::= VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 var.add(tempo);
                 node.setValue(var);
 
-                for(Variable lista: var){
+                /*for(Variable lista: var){
                     System.out.println("Parametro solo: "+lista.getId());
-                }
+                }*/
 
                 RESULT = node;
                :}
@@ -494,9 +494,9 @@ parametros ::= VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 var.add(tempo);
                 node.setValue(var);
 
-                for(Variable lista: var){
+                /*for(Variable lista: var){
                     System.out.println("Parametro: "+lista.getId());
-                }
+                }*/
 
                 RESULT = node;
                 :}
@@ -528,9 +528,9 @@ parametros ::= VARIABLE ID:id COLON tipo:tip nuevo_parametro:nuP
                 var.add(tempo);
                 node.setValue(var);
 
-                for(Variable lista: var){
+                /*for(Variable lista: var){
                     System.out.println("Parametro solo: "+lista.getId());
-                }
+                }*/
 
                 RESULT = node;
                :} 
@@ -891,11 +891,11 @@ dec_variable ::= VARIABLE ID:id COLON tipo:tip dec_var:dv
                     semantic_errors("Asignacion Nula |", dvleft, dvright);
                 }else{
                     if(n_tip.getValor().equals(n_dv.getValor())){
-                        System.out.println("la asignacion es correcta en "+id);
+                        //System.out.println("la asignacion es correcta en "+id);
                         new_var.setValue(n_dv.getValue());
                         cuadruplos.add(new Cuadruplo("=",""+n_dv.getValue()," ",id));
                     }else{
-                        System.out.println("la asignacion es incorrecta en "+ id);
+                        //System.out.println("la asignacion es incorrecta en "+ id);
                         semantic_errors("La asignacion es incorrecta en "+ id+" | ", dvleft, dvright);
                         
                     }
@@ -936,7 +936,7 @@ dec_variable ::= VARIABLE ID:id COLON tipo:tip dec_var:dv
                 if(test.equals("")){
                     //System.out.println("no se hizo asignacion en "+id);
                 }else if( n_dv.getValue() == null ){
-                    System.out.println("Pucha casco otra vez!!!!!!!!!!!!!");
+                    //System.out.println("Pucha casco otra vez!!!!!!!!!!!!!");
                     semantic_errors("Asignacion Nula |", dvleft, dvright);
                 }else{
                     if(n_tip.getValor().equals(n_dv.getValor())){
@@ -944,15 +944,15 @@ dec_variable ::= VARIABLE ID:id COLON tipo:tip dec_var:dv
 
                         int size=(int)n_vp.getValue();
                         if(size==temp.size()){
-                            System.out.println("la asignacion es correcta en "+ id);
+                            //System.out.println("la asignacion es correcta en "+ id);
                             new_var.setValue(temp);
                         }else{
-                            System.out.println("la asignacion no corresponde con el tamaño");
+                            //System.out.println("la asignacion no corresponde con el tamaño");
                             //new_var.setValue("Error");
                             semantic_errors("la asignacion no corresponde con el tamaño"+ id+" | ", dvleft, dvright);
                         }
                     }else{
-                        System.out.println("la asignacion es incorrecta en "+ id);
+                        //System.out.println("la asignacion es incorrecta en "+ id);
                         semantic_errors("La asignacion es incorrecta en "+ id+" | ", dvleft, dvright);
                     }
                 }
@@ -1012,7 +1012,7 @@ dec_variable ::= VARIABLE ID:id COLON tipo:tip dec_var:dv
                 if(test.equals("")){
                     //System.out.println("no se hizo asignacion en "+id);
                 }else if( n_dv.getValue() == null ){
-                    System.out.println("Pucha casco otra vez!!!!!!!!!!!!!");
+                    //System.out.println("Pucha casco otra vez!!!!!!!!!!!!!");
                     semantic_errors("Asignacion Nula |", dvleft, dvright);
                 }else{
                     if(n_tip.getValor().equals(n_dv.getValor())){
@@ -1025,23 +1025,23 @@ dec_variable ::= VARIABLE ID:id COLON tipo:tip dec_var:dv
                             
                             for (int i = 1; i < temp.size() ; i++){
                                 if(temp_Compare.size() != ((ArrayList)temp.get(i)).size()){
-                                    System.out.println("Tamaños incorrectos "+ id);
+                                    //System.out.println("Tamaños incorrectos "+ id);
                                     semantic_errors("Arreglo de tamaños incorrectos1 | ", dvleft, dvright);
                                     compare= false;
                                 }
                             }
                             if(compare){
-                                System.out.println("la asignacion es correcta en "+ id);
+                                //System.out.println("la asignacion es correcta en "+ id);
                                 new_var.setValue(n_dv.getValue());
                             }
                         }else{
-                            System.out.println("Tamaños incorrectos "+ id);
+                            //System.out.println("Tamaños incorrectos "+ id);
                             semantic_errors("Arreglo de tamaños incorrectos2 | ", dvleft, dvright);
                         }
                     }else{
-                        System.out.println("la asignacion es incorrecta en "+ id);
+                        //System.out.println("la asignacion es incorrecta en "+ id);
                         semantic_errors("Asignación incorrecta id: "+ id +" | ", dvleft, dvright);
-                        System.out.println( n_tip.getValor()+ " =/= "+ id);   
+                        //System.out.println( n_tip.getValor()+ " =/= "+ id);   
                     }
 
                 }
@@ -1059,7 +1059,7 @@ dec_var ::= dec_inst:di SEMICOLON
                 node.setID(parser.cont);
                 Node node_di = (Node) di;
                 node.addHijos(node_di);
-                System.out.println("aqui "+ node_di.getValue() +" aqui");
+                //System.out.println("aqui "+ node_di.getValue() +" aqui");
                 node.setValor(node_di.getValor());
                 node.setValue(node_di.getValue());
                 RESULT = node;
@@ -1105,17 +1105,17 @@ dec_var ::= dec_inst:di SEMICOLON
                 String test=n_di.getValor()+"";
                 
                 if(test.equals("")){
-                    System.out.println("no hubo asignacion en "+ id);
+                    //System.out.println("no hubo asignacion en "+ id);
                 }else if( n_di.getValue() == null ){
-                    System.out.println("Pucha casco otra vez!!!!!!!!!!!!!");
+                    //System.out.println("Pucha casco otra vez!!!!!!!!!!!!!");
                     semantic_errors("Asignacion Nula |", dileft, diright);
                 }else{
                     if(n_tip.getValor().equals(n_di.getValor())){
-                        System.out.println("la asignacion es correcta en "+ id);
+                        //System.out.println("la asignacion es correcta en "+ id);
                         new_var.setValue(n_di.getValue());
                     }else{
-                        System.out.println(" # la asignacion es incorrecta en "+ id);
-                        System.out.println( n_tip.getValor()+ " =/= "+ id);
+                        //System.out.println(" # la asignacion es incorrecta en "+ id);
+                        //System.out.println( n_tip.getValor()+ " =/= "+ id);
                         semantic_errors("La asignacion es incorrecta en "+ id+" | ", dileft, diright);
 
                     }
@@ -1157,9 +1157,9 @@ dec_var ::= dec_inst:di SEMICOLON
                 String test=n_di.getValor()+"";
                 
                 if(test.equals("")){
-                    System.out.println("no hubo asignacion en "+ id);
+                    //System.out.println("no hubo asignacion en "+ id);
                 }else if( n_di.getValue() == null ){
-                    System.out.println("Pucha casco otra vez!!!!!!!!!!!!!");
+                    //System.out.println("Pucha casco otra vez!!!!!!!!!!!!!");
                     semantic_errors("Asignacion Nula |", dileft, diright);
                 }else{
                     if(n_tip.getValor().equals(n_di.getValor())){
@@ -1167,17 +1167,17 @@ dec_var ::= dec_inst:di SEMICOLON
                         ArrayList temp=(ArrayList)n_di.getValue();
                         int size=(int)n_vp.getValue();
                         if(size==temp.size()){
-                            System.out.println("la asignacion es correcta en "+ id);
+                            //System.out.println("la asignacion es correcta en "+ id);
                             new_var.setValue(n_di.getValue());
                         }else{
-                            System.out.println("la asignacion no corresponde con el tamaño");
+                            //System.out.println("la asignacion no corresponde con el tamaño");
                             //new_var.setValue("Error");
                             semantic_errors("la asignacion no corresponde con el tamaño"+ id+" | ", dileft, diright);
                         }
                         
                     }else{
-                        System.out.println(" # la asignacion es incorrecta en "+ id);
-                        System.out.println( n_tip.getValor()+ " =/= "+ id);
+                        //System.out.println(" # la asignacion es incorrecta en "+ id);
+                        //System.out.println( n_tip.getValor()+ " =/= "+ id);
                         semantic_errors("La asignacion es incorrecta en "+ id+" | ", dileft, diright);
 
                     }
@@ -1221,10 +1221,10 @@ dec_var ::= dec_inst:di SEMICOLON
                 String test=n_di.getValor()+"";
                 
                 if(test.equals("")){
-                    System.out.println("no hubo asignacion en "+ id);
+                    //System.out.println("no hubo asignacion en "+ id);
                     
                 }else if( n_di.getValue() == null ){
-                    System.out.println("Pucha casco otra vez!!!!!!!!!!!!!");
+                    //System.out.println("Pucha casco otra vez!!!!!!!!!!!!!");
                     semantic_errors("Asignacion Nula |", dileft, diright);
                 }else{
                     if(n_tip.getValor().equals(n_di.getValor())){
@@ -1238,23 +1238,23 @@ dec_var ::= dec_inst:di SEMICOLON
                             for (int i = 1; i < temp.size() ; i++){
                                 
                                 if(temp_Compare.size() != ((ArrayList)temp.get(i)).size()){
-                                    System.out.println("Tamaños incorrectos "+ id);
+                                    //System.out.println("Tamaños incorrectos "+ id);
                                     compare= false;
                                     semantic_errors("Tamaños incorrectos1 |", dileft, diright);
                                 }
                             }
 
                             if(compare){
-                                System.out.println("la asignacion es correcta en "+ id);
+                                //System.out.println("la asignacion es correcta en "+ id);
                                 new_var.setValue(n_di.getValue());
                             }
                         }else{
-                            System.out.println("Tamaños incorrectos "+ id);
+                            //System.out.println("Tamaños incorrectos "+ id);
                             semantic_errors("Tamaños incorrectos2 |", dileft, diright);
                         }
                     }else{
-                        System.out.println(" # la asignacion es incorrecta en "+ id);
-                        System.out.println( n_tip.getValor()+ " =/= "+ id);
+                        //System.out.println(" # la asignacion es incorrecta en "+ id);
+                        //System.out.println( n_tip.getValor()+ " =/= "+ id);
                     }
                 }
                 variables.add(new_var);
@@ -1308,7 +1308,7 @@ dec_inst ::= OPASIGN FLOAT_VAL:nm
                 node.setID(parser.cont);
                 node.setValor("chr");
                 parser.cont++;
-                System.out.print("PUCHA CASCO");
+                //System.out.print("PUCHA CASCO");
                 Node const_char =new Node();
                 const_char.setEtiqueta("const char");
                 const_char.setID(parser.cont);
@@ -1449,7 +1449,7 @@ arreglo2d ::=L_KEY arreglo:arr arr2_cont:arc R_KEY
              :}
              |error R_KEY
                 {:
-                System.err.println("arreglo2d error ");
+                //System.err.println("arreglo2d error ");
                 Node node = new Node();
                 RESULT = node;
                 :}
@@ -1617,11 +1617,11 @@ dec_var_inst ::= ID:id OPASIGN valor:va SEMICOLON
                 if(compare.getTipo().equals("-1")){
                     compare = buscaTipo(identificador.getValor(),false,true);
                 }
-                System.out.println("La variable tiene asignado un: "+n_va.getValor());
+                //System.out.println("La variable tiene asignado un: "+n_va.getValor());
                 
                 if(compare.getTipo().equals(n_va.getValor())){
-                    System.out.println(" :) la asignacion es correcta en "+ id);
-                    System.out.println( compare.getTipo() + " == "+ n_va.getValor());
+                    //System.out.println(" :) la asignacion es correcta en "+ id);
+                    //System.out.println( compare.getTipo() + " == "+ n_va.getValor());
                     for(Variable iter: variables ){
                         if(iter.getId().equals(identificador.getValor())){
                             iter.setValue(n_va.getValue());
@@ -1629,8 +1629,8 @@ dec_var_inst ::= ID:id OPASIGN valor:va SEMICOLON
                         }
                     }
                 }else{
-                    System.out.println(" :( la asignacion es incorrecta en "+ id);
-                    System.out.println(  compare.getTipo() + " =/= "+ n_va.getValor());
+                    //System.out.println(" :( la asignacion es incorrecta en "+ id);
+                    //System.out.println(  compare.getTipo() + " =/= "+ n_va.getValor());
                 }
 
                 RESULT = node;
@@ -1658,14 +1658,14 @@ dec_var_inst ::= ID:id OPASIGN valor:va SEMICOLON
                 if(compare.getTipo().equals("-1")){
                     compare = buscaTipo(identificador.getValor(),true,true);
                 }
-                System.out.println("La variable tiene asignado un: "+n_va.getValor());
+                //System.out.println("La variable tiene asignado un: "+n_va.getValor());
                 
                 if(compare.getTipo().equals(n_va.getValor())){
-                    System.out.println(" :) la asignacion es correcta en "+ id);
-                    System.out.println( compare.getTipo() + " == "+ n_va.getValor());
+                    //System.out.println(" :) la asignacion es correcta en "+ id);
+                    //System.out.println( compare.getTipo() + " == "+ n_va.getValor());
                 }else{
-                    System.out.println(" :( la asignacion es incorrecta en "+ id);
-                    System.out.println(  compare.getTipo() + " =/= "+ n_va.getValor());
+                    //System.out.println(" :( la asignacion es incorrecta en "+ id);
+                    //System.out.println(  compare.getTipo() + " =/= "+ n_va.getValor());
                 }
 
 
@@ -1694,7 +1694,7 @@ dec_var_inst ::= ID:id OPASIGN valor:va SEMICOLON
                 }
                 String operadorAritmetico = ((String)opas).charAt(0) + " ";
                 if(compare.getTipo().equals(n_va.getValor())){
-                    System.out.println("incrementando o decrementando"+ id);
+                    //System.out.println("incrementando o decrementando"+ id);
                     //System.out.println( compare.getTipo() + " == "+ n_va.getValor());
                     for(Variable iter: variables ){
                         if(iter.getId().equals(identificador.getValor())){
@@ -1707,11 +1707,11 @@ dec_var_inst ::= ID:id OPASIGN valor:va SEMICOLON
                     }
                 }else{
                     if(opas.equals("+=")){
-                        System.out.println("incremento incorrecto"+ id);
+                        //System.out.println("incremento incorrecto"+ id);
                     }else{
-                        System.out.println("decremento incorrecto"+ id);
+                        //System.out.println("decremento incorrecto"+ id);
                     }
-                    System.out.println(  compare.getTipo() + " =/= "+ n_va.getValor());
+                    //System.out.println(  compare.getTipo() + " =/= "+ n_va.getValor());
                 }
                 RESULT = node;
                 :}
@@ -1743,7 +1743,7 @@ dec_var_inst ::= ID:id OPASIGN valor:va SEMICOLON
                 }
                 String operadorAritmetico = ((String)opas).charAt(0) + " ";
                 if(compare.getTipo().equals(n_va.getValor())){
-                    System.out.println("multiplicando o dividiendo"+ id);
+                    //System.out.println("multiplicando o dividiendo"+ id);
                     //System.out.println( compare.getTipo() + " == "+ n_va.getValor());
                     for(Variable iter: variables ){
                         if(iter.getId().equals(identificador.getValor())){
@@ -1756,11 +1756,11 @@ dec_var_inst ::= ID:id OPASIGN valor:va SEMICOLON
                     }
                 }else{
                     if(opas.equals("+=")){
-                        System.out.println("multiplicado incorrecto"+ id);
+                        //System.out.println("multiplicado incorrecto"+ id);
                     }else{
-                        System.out.println("dividiendo incorrecto"+ id);
+                        //System.out.println("dividiendo incorrecto"+ id);
                     }
-                    System.out.println(  compare.getTipo() + " =/= "+ n_va.getValor());
+                    //System.out.println(  compare.getTipo() + " =/= "+ n_va.getValor());
                 }
                 RESULT = node;
                 :}
@@ -1784,7 +1784,7 @@ dec_var_inst ::= ID:id OPASIGN valor:va SEMICOLON
                 }
                 String operadorAritmetico = ((String)opas).charAt(0) + " ";
                 if(compare.getTipo().equals("int")){
-                    System.out.println("incrementando o decrementando"+ id);
+                    //System.out.println("incrementando o decrementando"+ id);
                     //System.out.println( compare.getTipo() + " == "+ n_va.getValor());
                     for(Variable iter: variables ){
                         if(iter.getId().equals(identificador.getValor())){
@@ -1829,14 +1829,14 @@ dec_var_inst ::= ID:id OPASIGN valor:va SEMICOLON
                 if(compare.getTipo().equals("-1")){
                     compare = buscaTipo(identificador.getValor(),true,true);
                 }
-                System.out.println("La variable tiene asignado un: "+n_va.getValor());
+                //System.out.println("La variable tiene asignado un: "+n_va.getValor());
                 
                 if(compare.getTipo().equals(n_va.getValor())){
-                    System.out.println(" :) la asignacion es correcta en "+ id);
-                    System.out.println( compare.getTipo() + " == "+ n_va.getValor());
+                    //System.out.println(" :) la asignacion es correcta en "+ id);
+                    //System.out.println( compare.getTipo() + " == "+ n_va.getValor());
                 }else{
-                    System.out.println(" :( la asignacion es incorrecta en "+ id);
-                    System.out.println(  compare.getTipo() + " =/= "+ n_va.getValor());
+                    //System.out.println(" :( la asignacion es incorrecta en "+ id);
+                    //System.out.println(  compare.getTipo() + " =/= "+ n_va.getValor());
                 }
 
                 RESULT = node;
@@ -1963,7 +1963,7 @@ valor ::=  CONSTSTRING:cs
                 Node n_mop=(Node) mop;
                 node.addHijos(n_mop);
                 node.setValor(n_mop.isIsInt());
-                System.out.println("Aritmetica:"+n_mop.getValue()+":"+n_mop.isAritmetica());
+                //System.out.println("Aritmetica:"+n_mop.getValue()+":"+n_mop.isAritmetica());
                 node.setAritmetica(n_mop.isAritmetica());
                 node.setValue(n_mop.getValue());
                 RESULT = node;
@@ -2008,7 +2008,7 @@ math_op ::= m_op:mult sum_op:sum
                     node.setValue(n_mult.getValue());
                     node.setIsInt(n_mult.isIsInt());
                 }else {
-                    System.err.println("OPERACIONES INCOMPATIBLES");
+                    //System.err.println("OPERACIONES INCOMPATIBLES");
                     node.setIsInt("error");
                 }
                 node.addHijos(n_mult);
@@ -2045,11 +2045,11 @@ sum_op ::= OPSUM:operador m_op:mult sum_op:sum
                     node.setAritmetica(true);
                     node.setIsInt("int");
                 }else {
-                    System.err.println("OPERACIONES INCOMPATIBLES");
+                    //System.err.println("OPERACIONES INCOMPATIBLES");
                     semantic_errors("Operaciones Incompatibles | ", operadorleft, operadorright);
-                    System.err.println( "posicion operador: (" +operadorleft +","+operadorright+")" );
-                    System.err.println( "mult: (" +multleft +","+multright+")" );
-                    System.err.println( "sum: (" +sumleft +","+sumright+")" );
+                    //System.err.println( "posicion operador: (" +operadorleft +","+operadorright+")" );
+                    //System.err.println( "mult: (" +multleft +","+multright+")" );
+                    //System.err.println( "sum: (" +sumleft +","+sumright+")" );
 
                     node.setIsInt("error");
                 }
@@ -2103,7 +2103,7 @@ m_op ::= val:vl mult_op:mult
                     node.setIsInt(n_vl.isIsInt());
 
                 }else {
-                    System.err.println("OPERACIONES INCOMPATIBLES");
+                    //System.err.println("OPERACIONES INCOMPATIBLES");
                     node.setIsInt("error");
                 }
                 n_vl.setLine(vlright);
@@ -2144,7 +2144,7 @@ mult_op ::= OPMULT:operador val:vl mult_op:mult
                     //node.setOperador(operador);
                     node.setIsInt("int");
                 }else {
-                    System.err.println("OPERACIONES INCOMPATIBLES");
+                    //System.err.println("OPERACIONES INCOMPATIBLES");
                     node.setIsInt("error");
                 }
                 n_vl.setLine(vlright);
@@ -2190,7 +2190,7 @@ val ::= ID:id
                     temp = buscaTipo(id,true,true);
                 }
 
-                System.out.println(temp.toString());
+                //System.out.println(temp.toString());
 
                 
 
@@ -2199,11 +2199,11 @@ val ::= ID:id
                         
                     }else*/ 
                     if (temp.isEsArray()){
-                        System.out.println("a que es array prrin");
+                        //System.out.println("a que es array prrin");
                         node.setValue(temp.getValue());
                         node.setIsInt("int");
                     }else{
-                        System.out.println("veamo si entra prrin");
+                        //System.out.println("veamo si entra prrin");
                         //int valor_temp = (int)temp.getValue();
                         //node.setValue(valor_temp);
                         node.setValue(temp.getId());
@@ -2217,11 +2217,11 @@ val ::= ID:id
                         
                     }else */
                     if (temp.isEsArray()){
-                        System.out.println("a que es array prrin");
+                        //System.out.println("a que es array prrin");
                         node.setValue(temp.getValue());
                         node.setIsInt("string");
                     }else{
-                        System.out.println("veamo si entra prrin");
+                        //System.out.println("veamo si entra prrin");
                         //String valor_temp = (String)temp.getValue();
                         //node.setValue(valor_temp);
                         node.setValue(temp.getId());
@@ -2236,26 +2236,26 @@ val ::= ID:id
                     /*if(temp.getValue().getClass() == Character.class ){   
                     }*/
                     if (temp.isEsArray()){
-                        System.out.println("a que es array prrin:"+temp.getValue().toString());
+                        //System.out.println("a que es array prrin:"+temp.getValue().toString());
                         node.setValue(temp.getValue());
                         node.setIsInt("chr");
                     }else{
-                        System.out.println("veamo si entra prrin chr");
+                        //System.out.println("veamo si entra prrin chr");
                         //char valor_temp = ((String)temp.getValue()).charAt(0);
                         //node.setValue(valor_temp);
                         node.setValue(temp.getId());
                         node.setIsInt("chr");
                     }
-                    System.out.println("NO entre"+temp.getValue().getClass());
+                    //System.out.println("NO entre"+temp.getValue().getClass());
                 }else if(temp.getTipo().equals("bool")){
                     /*if(temp.getValue().getClass() == Boolean.class ){
                     }else */
                     if (temp.isEsArray()){
-                        System.out.println("a que es array prrin");
+                        //System.out.println("a que es array prrin");
                         node.setValue(temp.getValue());
                         node.setIsInt("bool");
                     }else{
-                        System.out.println("veamo si entra prrin");
+                        //System.out.println("veamo si entra prrin");
                         boolean valor_temp;
                         if(temp.getValue()==null){
                             node.setValue(temp.getId());
@@ -2405,9 +2405,10 @@ dec_while ::= WHILE L_PAR condicion:cond R_PAR L_KEY dec_general:dg R_KEY
                 node.setEtiqueta("dec_while");
                 node.setID(parser.cont);
                 Node n_cond=(Node) cond;
+                node.setValue(n_cond.getValue());
                 node.addHijos(n_cond);
                 node.addHijos((Node) dg);
-                System.out.println("Booleana:"+n_cond.getValue());
+                //System.out.println("Booleana:"+n_cond.getValue());
                 RESULT = node;
             :}
 ;
@@ -2665,9 +2666,11 @@ dec_if ::= IF L_PAR condicion:cond R_PAR L_KEY dec_general:dg R_KEY dec_else:del
                 MensajesEntrada.add("Entra a dec_if");
                 parser.cont++;
                 Node node = new Node();
+                Node n_cond=(Node) cond;
                 node.setEtiqueta("dec_if");
                 node.setID(parser.cont);
-                node.addHijos((Node) cond);
+                node.setValue(n_cond.getValue());
+                node.addHijos(n_cond);
                 node.addHijos((Node) dg);
                 node.addHijos((Node) del);
                 RESULT = node;
@@ -2686,9 +2689,11 @@ dec_else ::= ELIF L_PAR condicion:cond R_PAR L_KEY dec_general:dg R_KEY dec_else
                 MensajesEntrada.add("Entra a dec_else elif");
                 parser.cont++;
                 Node node = new Node();
+                Node n_cond=(Node) cond;
                 node.setEtiqueta("dec_elif");
                 node.setID(parser.cont);
-                node.addHijos((Node) cond);
+                node.setValue(n_cond.getValue());
+                node.addHijos(n_cond);
                 node.addHijos((Node) dg);
                 node.addHijos((Node) del);
                 RESULT = node;
@@ -2765,7 +2770,7 @@ dec_llamada_funcion ::= ID:id L_PAR llamada_parametros:llp R_PAR
 
                 RESULT = node;
             :}
-            | INPUT:in L_PAR ID:id COMMA tipo:tip R_PAR 
+            | INPUT:in L_PAR valor: vl R_PAR 
                {:
                 MensajesEntrada.add("Entra a func_input");
                 parser.cont++;
@@ -2773,25 +2778,25 @@ dec_llamada_funcion ::= ID:id L_PAR llamada_parametros:llp R_PAR
                 node.setEtiqueta("func_input");
                 node.setID(parser.cont);
                 parser.cont++;
-                Node identificador =new Node();
-                identificador.setEtiqueta("ID");
+                Node n_vl =(Node) vl;
+                /*identificador.setEtiqueta("ID");
                 identificador.setID(parser.cont);
-                identificador.setValor(id);
-                node.addHijos(identificador);
-                node.addHijos((Node) tip);
+                identificador.setValor(id);*/
+                node.addHijos(n_vl);
                 RESULT = node;
                 :}
                 
 
-                |   OUTPUT:out L_PAR params_output:llp R_PAR  
+                |   OUTPUT:out L_PAR valor:vl R_PAR  
                 {:
                 MensajesEntrada.add("Entra a func_output ");
                 parser.cont++;
                 Node node = new Node();
+                Node n_vl =(Node) vl;
                 node.setEtiqueta("func_output");
                 node.setValor(out);
                 node.setID(parser.cont);
-                node.addHijos((Node) llp);
+                node.addHijos(n_vl);
                 RESULT = node;
                 :}
                    
@@ -2811,9 +2816,9 @@ llamada_parametros ::= valor:vl lista_valores:lv
                 node.addHijos(n_lv);
                 ArrayList<String> tipos=(ArrayList<String>) n_lv.getValue();
                 tipos.add(n_vl.getValor());
-                for(String tips: tipos){
+                /*for(String tips: tipos){
                     System.out.println(tips);
-                }
+                }*/
                 node.setValue(tipos);
                 RESULT = node;
             :}
@@ -2828,9 +2833,9 @@ llamada_parametros ::= valor:vl lista_valores:lv
                 node.addHijos(n_vl);
                 ArrayList<String> tipos=new ArrayList();
                 tipos.add(n_vl.getValor());
-                for(String tips: tipos){
+                /*for(String tips: tipos){
                     System.out.println("solo: "+tips);
-                }
+                }*/
                 node.setValue(tipos);
                 RESULT = node;
             :}
@@ -2843,7 +2848,7 @@ llamada_parametros ::= valor:vl lista_valores:lv
 				nodo.setID(parser.cont);
                 ArrayList<String> tipos=new ArrayList();
                 nodo.setValue(tipos);
-                System.out.println("no llama nada");
+                //System.out.println("no llama nada");
                 RESULT = nodo;
             :}
             ;

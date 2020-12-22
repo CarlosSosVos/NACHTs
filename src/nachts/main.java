@@ -370,7 +370,7 @@ public class main extends javax.swing.JFrame {
 
     public void generateLexer() {
 
-        String parametros[] = {"-d", "./src/nachts/", "./src/tools/nachts.flex"};
+        String parametros[] = { "-d", "./src/nachts/", "./src/tools/nachts.flex" };
         try {
             jflex.Main.generate(parametros);
         } catch (Exception e) {
@@ -380,8 +380,8 @@ public class main extends javax.swing.JFrame {
 
     public void generateCup() {
 
-        String parametros[] = {"-destdir", "src/nachts/", "-parser", "parser", "-symbols", "Sym",
-            "src/tools/parser.cup"};
+        String parametros[] = { "-destdir", "src/nachts/", "-parser", "parser", "-symbols", "Sym",
+                "src/tools/parser.cup" };
 
         try {
             java_cup.Main.main(parametros);
@@ -420,7 +420,7 @@ public class main extends javax.swing.JFrame {
 
     private void btn_runActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_runActionPerformed
         cuadruplos = new ArrayList<Cuadruplo>();
-        this.cont_funciones=0;
+        this.cont_funciones = 0;
         if (this.input_file != null) {
             BufferedReader br;
             try {
@@ -461,13 +461,15 @@ public class main extends javax.swing.JFrame {
                         this.bool_splitting = new ArrayList();
                         generar_cuadruplos(miArbol);
                         this.temporales = 0;
+                        etiquetas = 0;
                     }
                 }
 
                 for (int i = 0; i < variables.size(); i++) {
                     for (int j = i + 1; j < variables.size(); j++) {
                         int iguales = 0;
-                        if (variables.get(i).getId().equals(variables.get(j).getId()) && variables.get(i).getAmbitos().size() == variables.get(j).getAmbitos().size()) {
+                        if (variables.get(i).getId().equals(variables.get(j).getId())
+                                && variables.get(i).getAmbitos().size() == variables.get(j).getAmbitos().size()) {
                             for (int k = 0; k < variables.get(i).getAmbitos().size(); k++) {
                                 if (variables.get(i).getAmbitos().get(k) == variables.get(j).getAmbitos().get(k)) {
                                     iguales++;
@@ -495,7 +497,6 @@ public class main extends javax.swing.JFrame {
                 }
                 String salida = generar_mips();
                 System.out.println(salida);
-                
 
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
@@ -684,7 +685,7 @@ public class main extends javax.swing.JFrame {
 
                 Ambito = AmbitoActual;
 
-                //Esto nos sirve para saber a donde comienza la funcion!
+                // Esto nos sirve para saber a donde comienza la funcion!
                 System.out.println(funciones.size());
                 this.funciones.get(this.cont_funciones).setAmbito(Ambito + "");
 
@@ -796,7 +797,7 @@ public class main extends javax.swing.JFrame {
                 }
 
             }
-            if (hijo.getEtiqueta().equals("parametros")||hijo.getEtiqueta().equals("nuevo_parametro")){
+            if (hijo.getEtiqueta().equals("parametros") || hijo.getEtiqueta().equals("nuevo_parametro")) {
                 int cont_e = 0;
                 for (Variable var : variables) {
                     if (var.getId().equals(hijo.getHijos().get(0).getValor())) {
@@ -888,8 +889,9 @@ public class main extends javax.swing.JFrame {
             if (hijo.getEtiqueta().equals("dec_return")) {
                 retornos.add(hijo.getHijos().get(0).getValor());
             }
-            
-            if (hijo.getEtiqueta().equals("list_op")||hijo.getEtiqueta().equals("option")||hijo.getEtiqueta().equals("default")) {
+
+            if (hijo.getEtiqueta().equals("list_op") || hijo.getEtiqueta().equals("option")
+                    || hijo.getEtiqueta().equals("default")) {
                 hijo.setValor(hijo.getPadre().getValor());
             }
             ambito(hijo);// apartir de aqui se cierra el bloque actual y vuelve al bloque anterior
@@ -920,7 +922,7 @@ public class main extends javax.swing.JFrame {
                             errors += "\nRetorno erroneo de la funcion " + hijo.getHijos().get(0).getValor();
                         }
                     }
-                    
+
                 }
                 retornos = new ArrayList<String>();
             }
@@ -1198,69 +1200,92 @@ public class main extends javax.swing.JFrame {
         }
     }
 
-    public String boolExpressions(String expression){
+    public String boolExpressions(String expression) {
         String variables_substring = "";
         String symbols_substring = "";
         int labels = 1;
         int or_counter = 0;
-        for (int i = 0; i< expression.length(); i++){
+        for (int i = 0; i < expression.length(); i++) {
             char temporal_string = expression.charAt(i);
-            if (temporal_string == '&' || temporal_string == '|'){
-                if(expression.charAt(i+1) == '&' || expression.charAt(i+1) == '|'){
-                    String temp_symbol =""+temporal_string + expression.charAt(i+1) + ",";
+            if (temporal_string == '&' || temporal_string == '|') {
+                if (expression.charAt(i + 1) == '&' || expression.charAt(i + 1) == '|') {
+                    String temp_symbol = "" + temporal_string + expression.charAt(i + 1) + ",";
                     symbols_substring += temp_symbol;
                     variables_substring += ";";
-                    if(temporal_string == '|'){
+                    if (temporal_string == '|') {
                         or_counter += 1;
                     }
                 }
-            }
-            else{
+            } else {
                 variables_substring += expression.charAt(i);
             }
         }
 
         String[] list_symbols = symbols_substring.split(",");
         String[] list_variables = variables_substring.split(";");
-        int or_positions [];
-        int or_temp = 0;
-        
-        for(int i = 0; i < list_variables.length; i++){
+        int or_positions[];
+        int or_temp = this.etiquetas;
+        int base = this.etiquetas;
+        // ArrayList<Cuadruplo> temporal=new ArrayList<Cuadruplo>();
+        for (int i = 0; i < list_variables.length; i++) {
 
-            if (i < list_variables.length -1 ){
-                if(list_symbols[i].equals("&&")){
+            if (i < list_variables.length - 1) {
+                if (list_symbols[i].equals("&&")) {
                     System.out.println("Etiqueta" + labels);
-                    System.out.println("If " + list_variables[i] + " GOTO: Etiqueta" + (labels+1));
-                    labels +=1;
-                    if (or_counter > 0){
-                        if(or_temp == 0){
-                            or_temp = getNextOR(list_symbols, i);
+                    this.cuadruplos.add(new Cuadruplo("Etiq" + this.etiquetas, "", "", ""));
+
+                    String parametros = this.relationalExpressions(list_variables[i]);
+                    String partes[] = parametros.split(",");
+
+                    System.out.println("If " + list_variables[i] + " GOTO: Etiqueta" + (labels + 1));
+                    this.cuadruplos.add(new Cuadruplo(partes[2], partes[0], partes[1], "Etiq" + (this.etiquetas + 1)));
+                    labels += 1;
+                    this.etiquetas++;
+                    if (or_counter > 0) {
+                        if (or_temp == base) {
+                            or_temp = base + getNextOR(list_symbols, i) - 1;
                         }
                         System.out.println("GOTO Etiqueta" + or_temp);
-                        or_temp = 0;
-                    }
-                    else{
+                        this.cuadruplos.add(new Cuadruplo("GOTO", "", "", "Etiq" + or_temp));
+                        or_temp = base;
+                    } else {
                         System.out.println("GOTO EtiquetaSalida");
+                        this.cuadruplos.add(new Cuadruplo("GOTO", "", "", "EtiquetaSalida"));
                     }
-                }else{
+                } else {
                     System.out.println("Etiqueta" + labels);
+                    this.cuadruplos.add(new Cuadruplo("Etiq" + this.etiquetas, "", "", ""));
+
+                    String parametros = this.relationalExpressions(list_variables[i]);
+                    String partes[] = parametros.split(",");
+
                     System.out.println("If " + list_variables[i] + " GOTO: EtiquetaCodigo");
-                    if (or_counter > 0){
-                        if(or_temp == 0){
-                            or_temp = labels + 1;
+                    this.cuadruplos.add(new Cuadruplo(partes[2], partes[0], partes[1], "EtiquetaCodigo"));
+                    if (or_counter > 0) {
+                        if (or_temp == base) {
+                            or_temp = this.etiquetas + 1;
                         }
                         System.out.println("GOTO Etiqueta" + or_temp);
-                        or_temp = 0;
-                    }else{
+                        this.cuadruplos.add(new Cuadruplo("GOTO", "", "", "Etiq" + or_temp));
+                        or_temp = base;
+                    } else {
                         System.out.println("GOTO EtiquetaSalida");
+                        this.cuadruplos.add(new Cuadruplo("GOTO", "", "", "EtiquetaSalida"));
                     }
-                    labels +=1;
+                    labels += 1;
+                    this.etiquetas++;
                     or_counter = or_counter - 1;
                 }
-            }else{
+            } else {
                 System.out.println("Etiqueta" + labels);
+                this.cuadruplos.add(new Cuadruplo("Etiq" + this.etiquetas, "", "", ""));
+
+                String parametros = this.relationalExpressions(list_variables[i]);
+                String partes[] = parametros.split(",");
                 System.out.println("If " + list_variables[i] + "GOTO: EtiquetaCodigo");
+                this.cuadruplos.add(new Cuadruplo(partes[2], partes[0], partes[1], "EtiquetaCodigo"));
                 System.out.println("GOTO EtiquetaSalida");
+                this.cuadruplos.add(new Cuadruplo("GOTO", "", "", "EtiquetaSalida"));
             }
 
         }
@@ -1268,10 +1293,10 @@ public class main extends javax.swing.JFrame {
         return "";
     }
 
-    public Integer getNextOR(String [] symbols, int current_position){
+    public Integer getNextOR(String[] symbols, int current_position) {
         int position = 1;
-        for (int i=current_position; i < symbols.length; i++ ){
-            if (symbols[i].equals("||")){
+        for (int i = current_position; i < symbols.length; i++) {
+            if (symbols[i].equals("||")) {
                 position = i + 2;
                 break;
             }
@@ -1319,21 +1344,25 @@ public class main extends javax.swing.JFrame {
             }
         }
         String temporal_temp = "";
+        String retorno = "";
+
         // Process the Quads
         for (int i = 0; i < list_variables.length; i++) {
             if (i != list_variables.length - 1) {
-                String op = "if" + list_symbols[i];
+                String op = "If" + list_symbols[i];
                 String arg1 = list_variables[i];
                 String arg2 = list_variables[i + 1];
                 temporal_temp = "T" + Integer.toString(temporales);
                 temporales += 1;
                 System.out.println(op + ", " + arg1 + ", " + arg2 + ", " + temporal_temp);
-                cuadruplos.add(new Cuadruplo(op, arg1, arg2, temporal_temp));
-                cuadruplos.add(new Cuadruplo("GOTO", "", "", temporal_temp));
+                // cuadruplos.add(new Cuadruplo(op, arg1, arg2, temporal_temp));
+                // cuadruplos.add(new Cuadruplo("GOTO", "", "", temporal_temp));
+                String algo = arg1 + "," + arg2 + "," + op;
+                retorno += algo;
             }
             new_temporal = "";
         }
-        return temporal_temp;
+        return retorno;
     }
 
     public String bool_expression(String expression) {
@@ -1755,21 +1784,16 @@ public class main extends javax.swing.JFrame {
                     }
                 }
             }
-            if (hijo.getEtiqueta().equals("dec_while")) {
-                cuadruplos.add(new Cuadruplo(("Etiq" + this.etiquetas), "", "", ""));
-                this.etiquetas++;
-                bool_expression((String) hijo.getHijos().get(0).getValue());
-            }
             if (hijo.getEtiqueta().equals("dec_return")) {
-                //String t="T"+temporales;
-                //temporales++;
+                // String t="T"+temporales;
+                // temporales++;
                 String retorno = "" + hijo.getValue();
                 if (hijo.isAritmetica()) {
                     retorno = aritmetica(retorno);
                 }
-                //this.cuadruplos.add(new Cuadruplo("=",""+hijo.getValue(),"",t));
+                // this.cuadruplos.add(new Cuadruplo("=",""+hijo.getValue(),"",t));
                 this.cuadruplos.add(new Cuadruplo("RET", "", "", retorno));
-                this.cuadruplos.add(new Cuadruplo("FINFUN", "", "", ""));
+                this.cuadruplos.add(new Cuadruplo("FINFUN", "", "", "YOLO"));
             }
             if (hijo.getEtiqueta().equals("llamada_parametros") || hijo.getEtiqueta().equals("lista_valores")) {
                 String param = "" + hijo.getHijos().get(0).getValue();
@@ -1780,51 +1804,154 @@ public class main extends javax.swing.JFrame {
 
             }
             if (hijo.getEtiqueta().equals("list_op")) {
-                String eti="Etiq" + this.etiquetas;
-                cuadruplos.add(new Cuadruplo("if=",""+hijo.getValor(),""+hijo.getHijos().get(0).getValue(),eti));
+                String eti = "Etiq" + this.etiquetas;
+                cuadruplos.add(new Cuadruplo("if=", "" + hijo.getValor(), "" + hijo.getHijos().get(0).getValue(), eti));
                 this.etiquetas++;
-                cuadruplos.add(new Cuadruplo(hijo.getValor(),"","","opcion"));
-                cuadruplos.add(new Cuadruplo(eti,"","",""));
+                cuadruplos.add(new Cuadruplo(hijo.getValor(), "", "", "opcion"));
+                cuadruplos.add(new Cuadruplo(eti, "", "", ""));
             }
             if (hijo.getEtiqueta().equals("option")) {
-                String eti="Etiq" + this.etiquetas;
+                String eti = "Etiq" + this.etiquetas;
                 this.etiquetas++;
-                for (Cuadruplo iter: cuadruplos) {
-                    if (hijo.getValor().equals(iter.getOperator())&& iter.getResult().equals("opcion")) {
+                for (Cuadruplo iter : cuadruplos) {
+                    if (hijo.getValor().equals(iter.getOperator()) && iter.getResult().equals("opcion")) {
                         iter.setOperator("GOTO");
                         iter.setResult(eti);
                     }
                 }
-                cuadruplos.add(new Cuadruplo(hijo.getValor(),"","","salida"));
-                cuadruplos.add(new Cuadruplo(eti,"","",""));
+                cuadruplos.add(new Cuadruplo(hijo.getValor(), "", "", "salida"));
+                cuadruplos.add(new Cuadruplo(eti, "", "", ""));
             }
             if (hijo.getEtiqueta().equals("default")) {
-                String eti="Etiq" + this.etiquetas;
+                String eti = "Etiq" + this.etiquetas;
                 this.etiquetas++;
-                for (Cuadruplo iter: cuadruplos) {
-                    if (hijo.getValor().equals(iter.getOperator())&& iter.getResult().equals("opcion")) {
+                for (Cuadruplo iter : cuadruplos) {
+                    if (hijo.getValor().equals(iter.getOperator()) && iter.getResult().equals("opcion")) {
                         iter.setOperator("GOTO");
                         iter.setResult(eti);
                     }
                 }
-                cuadruplos.add(new Cuadruplo(hijo.getValor(),"","","salida"));
-                cuadruplos.add(new Cuadruplo(eti,"","",""));
+                cuadruplos.add(new Cuadruplo(hijo.getValor(), "", "", "salida"));
+                cuadruplos.add(new Cuadruplo(eti, "", "", ""));
+            }
+            if (hijo.getEtiqueta().equals("dec_if")) {
+                String temp = (String) hijo.getValue();
+                String algo = this.boolExpressions(temp);
+                this.etiquetas++;
+                String etiq = "Etiq" + etiquetas;
+                etiquetas++;
+                cuadruplos.add(new Cuadruplo(etiq, "", "", ""));
+                this.controlBloques++;
+                for (Cuadruplo iter : cuadruplos) {
+                    if (iter.getResult().equals("EtiquetaCodigo")) {
+                        iter.setResult(etiq);
+                    }
+                    if (iter.getResult().equals("EtiquetaSalida")) {
+                        iter.setResult("S" + this.controlBloques);
+                    }
+                }
+            }
+            if (hijo.getEtiqueta().equals("dec_else")) {
+                String etiq = "Etiq" + etiquetas;
+                etiquetas++;
+                String algo = "S" + controlBloques;
+                cuadruplos.add(new Cuadruplo(etiq, "", "", ""));
+                for (Cuadruplo iter : cuadruplos) {
+                    if (iter.getResult().equals(algo)) {
+                        iter.setResult(etiq);
+                    }
+                }
+                this.controlBloques--;
+            }
+            if (hijo.getEtiqueta().equals("dec_elif")) {
+                String algo2 = "S" + controlBloques;
+                for (Cuadruplo iter : cuadruplos) {
+                    if (iter.getResult().equals(algo2)) {
+                        iter.setResult("Etiq" + etiquetas);
+                    }
+                }
+                this.controlBloques--;
+                String temp = (String) hijo.getValue();
+                String algo = this.boolExpressions(temp);
+                this.etiquetas++;
+                String etiq = "Etiq" + etiquetas;
+                etiquetas++;
+                cuadruplos.add(new Cuadruplo(etiq, "", "", ""));
+                this.controlBloques++;
+                for (Cuadruplo iter : cuadruplos) {
+                    if (iter.getResult().equals("EtiquetaCodigo")) {
+                        iter.setResult(etiq);
+                    }
+                    if (iter.getResult().equals("EtiquetaSalida")) {
+                        iter.setResult("S" + this.controlBloques);
+                    }
+                }
+            }
+            if (hijo.getEtiqueta().equals("dec_while")) {
+                hijo.setValor("Etiq" + etiquetas);
+                String temp = (String) hijo.getValue();
+                String algo = this.boolExpressions(temp);
+                this.etiquetas++;
+                String etiq = "Etiq" + etiquetas;
+                etiquetas++;
+                cuadruplos.add(new Cuadruplo(etiq, "", "", ""));
+                this.controlBloques++;
+                for (Cuadruplo iter : cuadruplos) {
+                    if (iter.getResult().equals("EtiquetaCodigo")) {
+                        iter.setResult(etiq);
+                    }
+                    if (iter.getResult().equals("EtiquetaSalida")) {
+                        iter.setResult("S" + this.controlBloques);
+                    }
+                }
+            }
+            
+            if (hijo.getEtiqueta().equals("func_input")) {
+                this.cuadruplos.add(new Cuadruplo("READ","","",(String)hijo.getHijos().get(0).getValue()));
+            }
+            if (hijo.getEtiqueta().equals("func_output")) {
+                this.cuadruplos.add(new Cuadruplo("WRITE","","",(String)hijo.getHijos().get(0).getValue()));
+            }
+            generar_cuadruplos(hijo);//////////////////////////
+
+            if (hijo.getEtiqueta().equals("dec_if")) {
+                String etiq = "Etiq" + etiquetas;
+                etiquetas++;
+                String algo = "S" + controlBloques;
+                cuadruplos.add(new Cuadruplo(etiq, "", "", ""));
+                for (Cuadruplo iter : cuadruplos) {
+                    if (iter.getResult().equals(algo)) {
+                        iter.setResult(etiq);
+                    }
+                }
+                this.controlBloques--;
+            }
+            if (hijo.getEtiqueta().equals("dec_if")) {
+                String etiq = "Etiq" + etiquetas;
+                etiquetas++;
+                String algo = "S" + controlBloques;
+                cuadruplos.add(new Cuadruplo(etiq, "", "", ""));
+                for (Cuadruplo iter : cuadruplos) {
+                    if (iter.getResult().equals(algo)) {
+                        iter.setResult(etiq);
+                    }
+                }
+                this.controlBloques--;
+            }
+            if (hijo.getEtiqueta().equals("dec_while")) {
+                cuadruplos.add(new Cuadruplo("GOTO", "", "", hijo.getValor()));
+                String etiq = "Etiq" + etiquetas;
+                etiquetas++;
+                String algo = "S" + controlBloques;
+                cuadruplos.add(new Cuadruplo(etiq, "", "", ""));
+                for (Cuadruplo iter : cuadruplos) {
+                    if (iter.getResult().equals(algo)) {
+                        iter.setResult(etiq);
+                    }
+                }
+                this.controlBloques--;
             }
 
-            generar_cuadruplos(hijo);
-            
-            if (hijo.getEtiqueta().equals("dec_switch")) {
-                String eti="Etiq" + this.etiquetas;
-                this.etiquetas++;
-                for (Cuadruplo iter: cuadruplos) {
-                    if (hijo.getValor().equals(iter.getOperator())&& iter.getResult().equals("opcion")||hijo.getValor().equals(iter.getOperator())&& iter.getResult().equals("salida")) {
-                        iter.setOperator("GOTO");
-                        iter.setResult(eti);
-                    }
-                }
-                cuadruplos.add(new Cuadruplo(eti,"","",""));
-            }
-            
             if (hijo.getEtiqueta().equals("dec_llamada_funcion")) {
                 cuadruplos.add(new Cuadruplo("CALL", "", "", hijo.getValor() + ""));
             }
@@ -1839,6 +1966,13 @@ public class main extends javax.swing.JFrame {
                 if (asig.equals("RET")) {
                     String t = hijo.getPadre().getPadre().getHijos().get(0).getValor();
                     cuadruplos.add(new Cuadruplo("=", asig, "", t));
+                }
+            }
+            if (hijo.getEtiqueta().equals("dec_funcion") || hijo.getEtiqueta().equals("dec_Funcion")) {
+                for (Cuadruplo iter : cuadruplos) {
+                    if (iter.getResult().equals("YOLO")) {
+                        iter.setResult(hijo.getHijos().get(0).getValor());
+                    }
                 }
             }
 
@@ -1862,22 +1996,24 @@ public class main extends javax.swing.JFrame {
         boolean entro_funcion = false;
         String funcion_actual = "";
         boolean sale_funcion = false;
-        String codigo = ".text"
-                + "\n.globl main";
+        String codigo = ".text" + "\n.globl main";
         int control_temp = 0;
         for (Cuadruplo cuad : cuadruplos) {
 
-            //FUNCIONES
+            // FUNCIONES
             if (cuad.getOperator().equals("FUN")) {
+                // this.clearRegistries(array);
+                // t_en_uso = null;
+                t_en_uso = new boolean[]{false, false, false, false, false, false, false, false};
+                a_en_uso = new boolean[]{false, false, false, false};
+                s_en_uso = new boolean[]{false, false, false, false, false, false, false, false};
                 funcion_actual = cuad.getArgs1();
                 entro_funcion = true;
                 if (cuad.getArgs1().equals("MAIN")) {
-                    codigo += "\nmain:"
-                            + "\n\tmove $fp, $sp";
+                    codigo += "\nmain:" + "\n\tmove $fp, $sp";
                 } else {
-                    //creo el bloque con el nombre de la funcion
-                    codigo += "\n_" + cuad.getArgs1() + ":"
-                            + "\n\tsw $fp, -4($sp)";
+                    // creo el bloque con el nombre de la funcion
+                    codigo += "\n_" + cuad.getArgs1() + ":" + "\n\tsw $fp, -4($sp)";
                     codigo += "\n\tsw $ra, -8($sp)";
 
                     int sumaOffset = 8;
@@ -1886,7 +2022,9 @@ public class main extends javax.swing.JFrame {
 
                     if (temp != null) {
                         for (int i = 0; i < temp.getParametros().size(); i++) {
-                            sumaOffset += temp.getParametros().get(i).getOffset();
+                            Variable var = temp.getParametros().get(i);
+                            int offset_var = typeOffset(var);
+                            sumaOffset += offset_var;
                             s_en_uso[i] = true;
                             codigo += "\n\tsw $s" + i + " -" + sumaOffset + "($sp)";
                         }
@@ -1918,9 +2056,7 @@ public class main extends javax.swing.JFrame {
                 func_cont++;
             }
 
-            if (cuad.getOperator().equals("+")
-                    || cuad.getOperator().equals("-")
-                    || cuad.getOperator().equals("*")
+            if (cuad.getOperator().equals("+") || cuad.getOperator().equals("-") || cuad.getOperator().equals("*")
                     || cuad.getOperator().equals("/")) {
 
                 codigo += "\n\t";
@@ -1954,53 +2090,140 @@ public class main extends javax.swing.JFrame {
 
             }
 
-            if (cuad.getOperator().equals("if=")) {
-                codigo+="\n\tbeq "+ cuad.getArgs1() +","+cuad.getArgs2() +" "+cuad.getResult();
+            if (cuad.getOperator().equals("If=")) {
+                codigo += "\n\tbeq " + cuad.getArgs1() + "," + cuad.getArgs2() + " " + cuad.getResult();
             }
-            
-            if(cuad.getOperator().equals("if>=")){
-                codigo+="\n\tbge "+ cuad.getArgs1() +","+cuad.getArgs2()+" "+cuad.getResult();
+
+            if (cuad.getOperator().equals("If>=")) {
+                codigo += "\n\tbge " + cuad.getArgs1() + "," + cuad.getArgs2() + " " + cuad.getResult();
 
             }
-            
-            if(cuad.getOperator().equals("if>")){
-                codigo+="\n\tbg "+ cuad.getArgs1() +","+cuad.getArgs2()+" "+cuad.getResult();
+
+            if (cuad.getOperator().equals("If>")) {
+                codigo += "\n\tbgt " + cuad.getArgs1() + "," + cuad.getArgs2() + " " + cuad.getResult();
 
             }
-            
-            if(cuad.getOperator().equals("if<")){
-                codigo+="\n\tbl "+ cuad.getArgs1() +","+cuad.getArgs2()+" "+cuad.getResult();
-            
-            }
-            
-            if(cuad.getOperator().equals("if<=")){
-                codigo+="\n\tble "+ cuad.getArgs1() +","+cuad.getArgs2()+" "+cuad.getResult();
+
+            if (cuad.getOperator().equals("If<")) {
+                codigo += "\n\tblt " + cuad.getArgs1() + "," + cuad.getArgs2() + " " + cuad.getResult();
 
             }
-            
-            if(cuad.getOperator().equals("if!=")){
-                codigo+="\n\tbne "+ cuad.getArgs1() +","+cuad.getArgs2()+" "+cuad.getResult();
+
+            if (cuad.getOperator().equals("If<=")) {
+                codigo += "\n\tble " + cuad.getArgs1() + "," + cuad.getArgs2() + " " + cuad.getResult();
 
             }
-            
-            if(cuad.getOperator().contains("etiq")){
-                System.err.println("Etiqueta actual: "+cuad.getOperator().replace("etiq",""));
-                codigo+="\nb "+ cuad.getOperator();
+
+            if (cuad.getOperator().equals("If!=")) {
+                codigo += "\n\tbne " + cuad.getArgs1() + "," + cuad.getArgs2() + " " + cuad.getResult();
 
             }
-            
-            if(cuad.getOperator().equals("GOTO")){
-                codigo += "\n\t\tb _" + cuad.getResult() + "\n";
+
+            if (cuad.getOperator().contains("Etiq")) {
+                System.err.println("Etiqueta actual: " + cuad.getOperator().replace("etiq", ""));
+                codigo += "\n_" + cuad.getOperator() + ":";
+
             }
-            if (cuad.getOperator().equals("param")){
-                //codigo += "\n\t\"+"test+cuad.getOperator();
+
+            if (cuad.getOperator().equals("GOTO")) {
+                codigo += "\n\tb _" + cuad.getResult() + "\n";
             }
+            if (cuad.getOperator().equals("param")) {
+                // Function temp = this.funciones.get(func_cont);
+                int indexA = this.check_free_temp(a_en_uso);
+                int indexS = this.check_free_temp(s_en_uso);
+
+                if (indexA != -1 && indexS != -1) {
+                    codigo += "\n\tmove $s" + indexS + ",$a" + indexA;
+                }
+
+                // codigo += "\n\t\"+"test+cuad.getOperator();
+            }
+            if (cuad.getOperator().equals("RET")) {
+                codigo += "\n\tli $v0, "+cuad.getResult();
+
+            }
+
+            if (cuad.getOperator().equals("FINFUN")) {
+                codigo+= "\n_fin"+cuad.getResult();
+                Function temp=null;
+
+                for (Function func : this.funciones) {
+                    if (func.getId().equals(cuad.getResult())){
+                        temp = func;
+                        break;
+                    }    
+                }
+                int sumaOffset = 8;
+
+                codigo +="\n\tmove $sp, $fp";
+                codigo += "\n\tsw $fp, -4($sp)";
+                codigo += "\n\tsw $ra, -8($sp)";
+                if(temp != null){
+                    for (int i = 0; i < temp.getParametros().size(); i++) {
+                        Variable var = temp.getParametros().get(i);
+                        int offset_var = typeOffset(var);
+                        sumaOffset += offset_var;
+                        s_en_uso[i] = true;
+                        codigo += "\n\tlw $s" + i + " -" + sumaOffset + "($sp)";
+                    }
+                }
+                codigo+= "\n\tJr $ra";
+
+
+
+
+
+
+            }
+
+            if (cuad.getOperator().equals("READ")) {
+                int current_offset = 0; //hay que buscar el offset de la variable
+                codigo += "\n\tli $v0, 5";
+                codigo += "\n\tsyscall" ;
+                codigo += "\n\tsw $v0, -"+current_offset+"($fp)";
+            }
+
+            if (cuad.getOperator().equals("WRITE")) {
+                int current_offset = 0; //hay que buscar el offset de la variable
+                codigo += "\n\tlw $a0, -"+current_offset+"($fp)";
+                codigo += "\n\tli $v0, 1";
+                codigo += "\n\tsyscall" ;
+            }
+
+            if(cuad.getOperator().equals("=")){
+                int current_offset = 0; 
+                codigo+= "\n\tli $t0, "+cuad.getArgs1();
+                codigo += "\n\tsw " + cuad.getArgs1()+", -"+current_offset+"($fp)";
+
             
+            
+            }
 
         }
 
         return codigo;
-        //return "";
+        // return "";
+    }
+
+    public int typeOffset(Variable var) {
+        switch (var.getTipo()) {
+            case "string":
+                return 1 * ((String) var.getValue()).length();
+
+            case "int":
+                return 4;
+
+            case "chr":
+                return 1;
+
+            case "bool":
+                return 1;
+
+            default:
+                break;
+        }
+        return 0;
     }
 
     public Function SearchFunc(String id, int ambito) {
@@ -2015,12 +2238,19 @@ public class main extends javax.swing.JFrame {
         return null;
 
     }
-    
-    public int check_free_temp(boolean[] temp_status){
+
+    public void clearRegistries(boolean[] array) {
+        for (int i = 0; i < array.length; i++) {
+            array[i] = false;
+        }
+
+    }
+
+    public int check_free_temp(boolean[] temp_status) {
         for (int i = 0; i < temp_status.length; i++) {
-            if(temp_status[i] ==false){
+            if (temp_status[i] == false) {
                 return i;
-            } 
+            }
         }
         return -1;
     }
@@ -2054,7 +2284,6 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JTextArea txt_result;
     // End of variables declaration//GEN-END:variables
 
-    
     private File input_file;
     Node miArbol;
     ArrayList<Variable> variables = new ArrayList();
@@ -2075,4 +2304,5 @@ public class main extends javax.swing.JFrame {
     String errors = "";
     int temporales = 0;
     int etiquetas = 0;
+    int controlBloques = 0;
 }

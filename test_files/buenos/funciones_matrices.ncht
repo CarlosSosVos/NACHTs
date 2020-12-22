@@ -1,7 +1,11 @@
 
 fnc puchaDouglas (var a:int,var b:int,var c:int):chr{
 	var h:int:=a+b;
+	if(2<7&&5<9){
+
+	}
 	rtn 'c';
+	
 }
 
 fnc alo (): main{
