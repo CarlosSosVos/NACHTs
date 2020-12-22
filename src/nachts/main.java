@@ -674,6 +674,7 @@ public class main extends javax.swing.JFrame {
             System.out.println(":'v");
             arbol.setAmbito(-1);
         }
+
         for (Node hijo : arbol.getHijos()) {
             hijo.setPadre(arbol);
             // System.out.println(hijo.getPadre().toString());
@@ -1195,6 +1196,87 @@ public class main extends javax.swing.JFrame {
             this.errors += "\nError en el ingreso de parametros | Position: " + "linea: " + line + " columna: "
                     + colummn;
         }
+    }
+
+    public String boolExpressions(String expression){
+        String variables_substring = "";
+        String symbols_substring = "";
+        int labels = 1;
+        int or_counter = 0;
+        for (int i = 0; i< expression.length(); i++){
+            char temporal_string = expression.charAt(i);
+            if (temporal_string == '&' || temporal_string == '|'){
+                if(expression.charAt(i+1) == '&' || expression.charAt(i+1) == '|'){
+                    String temp_symbol =""+temporal_string + expression.charAt(i+1) + ",";
+                    symbols_substring += temp_symbol;
+                    variables_substring += ";";
+                    if(temporal_string == '|'){
+                        or_counter += 1;
+                    }
+                }
+            }
+            else{
+                variables_substring += expression.charAt(i);
+            }
+        }
+
+        String[] list_symbols = symbols_substring.split(",");
+        String[] list_variables = variables_substring.split(";");
+        int or_positions [];
+        int or_temp = 0;
+        
+        for(int i = 0; i < list_variables.length; i++){
+
+            if (i < list_variables.length -1 ){
+                if(list_symbols[i].equals("&&")){
+                    System.out.println("Etiqueta" + labels);
+                    System.out.println("If " + list_variables[i] + " GOTO: Etiqueta" + (labels+1));
+                    labels +=1;
+                    if (or_counter > 0){
+                        if(or_temp == 0){
+                            or_temp = getNextOR(list_symbols, i);
+                        }
+                        System.out.println("GOTO Etiqueta" + or_temp);
+                        or_temp = 0;
+                    }
+                    else{
+                        System.out.println("GOTO EtiquetaSalida");
+                    }
+                }else{
+                    System.out.println("Etiqueta" + labels);
+                    System.out.println("If " + list_variables[i] + " GOTO: EtiquetaCodigo");
+                    if (or_counter > 0){
+                        if(or_temp == 0){
+                            or_temp = labels + 1;
+                        }
+                        System.out.println("GOTO Etiqueta" + or_temp);
+                        or_temp = 0;
+                    }else{
+                        System.out.println("GOTO EtiquetaSalida");
+                    }
+                    labels +=1;
+                    or_counter = or_counter - 1;
+                }
+            }else{
+                System.out.println("Etiqueta" + labels);
+                System.out.println("If " + list_variables[i] + "GOTO: EtiquetaCodigo");
+                System.out.println("GOTO EtiquetaSalida");
+            }
+
+        }
+
+        return "";
+    }
+
+    public Integer getNextOR(String [] symbols, int current_position){
+        int position = 1;
+        for (int i=current_position; i < symbols.length; i++ ){
+            if (symbols[i].equals("||")){
+                position = i + 2;
+                break;
+            }
+        }
+        return position;
     }
 
     public String relationalExpressions(String expression) {
